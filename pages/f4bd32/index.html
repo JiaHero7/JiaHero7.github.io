@@ -1,0 +1,425 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>一篇文章让你彻底掌握 Scala | 贾英雄-blog</title><meta name="keywords" content="编程,编程语言,scala"><meta name="author" content="JaHero"><meta name="copyright" content="JaHero"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一篇文章让你彻底掌握 Scala Scala 是大数据领域的热门语言，如：Akka、Kafka，所以，想要学习大数据顶级开源项目的源码，有必要具备一定的 Scala 基础。  基本语法Scala 基本语法需要注意以下几点：  区分大小写 - Scala 是大小写敏感的。 类名 - 对于所有的类名的第一个字母要大写。示例：class MyFirstScalaClass 方法名称 - 所有的方法名称的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一篇文章让你彻底掌握 Scala">
+<meta property="og:url" content="http://example.com/pages/f4bd32/index.html">
+<meta property="og:site_name" content="贾英雄-blog">
+<meta property="og:description" content="一篇文章让你彻底掌握 Scala Scala 是大数据领域的热门语言，如：Akka、Kafka，所以，想要学习大数据顶级开源项目的源码，有必要具备一定的 Scala 基础。  基本语法Scala 基本语法需要注意以下几点：  区分大小写 - Scala 是大小写敏感的。 类名 - 对于所有的类名的第一个字母要大写。示例：class MyFirstScalaClass 方法名称 - 所有的方法名称的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/post.jpg">
+<meta property="article:published_time" content="2021-04-14T07:27:00.000Z">
+<meta property="article:modified_time" content="2022-12-26T06:15:51.056Z">
+<meta property="article:author" content="JaHero">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="编程语言">
+<meta property="article:tag" content="scala">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/post.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/pages/f4bd32/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"K46KXS6BKG","apiKey":"94dab3de87ce4cc2067ec6ef569e9df7","indexName":"JiaHero","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: JaHero","link":"链接: ","source":"来源: 贾英雄-blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '一篇文章让你彻底掌握 Scala',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2022-12-26 14:15:51'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/ava.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">贾英雄-blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">一篇文章让你彻底掌握 Scala</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-04-14T07:27:00.000Z" title="发表于 2021-04-14 15:27:00">2021-04-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:51.056Z" title="更新于 2022-12-26 14:15:51">2022-12-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="一篇文章让你彻底掌握 Scala"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="一篇文章让你彻底掌握-Scala"><a href="#一篇文章让你彻底掌握-Scala" class="headerlink" title="一篇文章让你彻底掌握 Scala"></a>一篇文章让你彻底掌握 Scala</h1><blockquote>
+<p>Scala 是大数据领域的热门语言，如：Akka、Kafka，所以，想要学习大数据顶级开源项目的源码，有必要具备一定的 Scala 基础。</p>
+</blockquote>
+<h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><p>Scala 基本语法需要注意以下几点：</p>
+<ul>
+<li><strong>区分大小写</strong> - Scala 是大小写敏感的。</li>
+<li><strong>类名</strong> - 对于所有的类名的第一个字母要大写。示例：<code>class MyFirstScalaClass</code></li>
+<li><strong>方法名称</strong> - 所有的方法名称的第一个字母用小写。示例：<code>def myMethodName()</code></li>
+<li><strong>程序文件名</strong> - 程序文件的名称应该与对象名称完全匹配(新版本不需要了，但建议保留这种习惯)。示例: 假设”HelloWorld”是对象的名称。那么该文件应保存为’HelloWorld.scala”</li>
+<li><strong><code>def main(args: Array[String])</code></strong> - Scala 程序从 <code>main()</code> 方法开始处理，这是每一个 Scala 程序的强制程序入口部分。</li>
+<li>一行中只有空格或者带有注释，Scala 会认为其是空行，会忽略它。标记可以被空格或者注释来分割。</li>
+<li>Scala 是面向行的语言，语句可以用分号（;）结束或换行符。</li>
+</ul>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>Scala 类似 Java 支持单行和多行注释。</p>
+<p>【示例】单行和多行注释</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">   * 这是我的第一个 Scala 程序</span></span><br><span class="line"><span class="comment">   * 以下程序将输出&#x27;Hello World!&#x27;</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    println(<span class="string">&quot;Hello, world!&quot;</span>) <span class="comment">// 输出 Hello World</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>在 Scala 中，使用关键词 <code>var</code> 声明变量，使用关键词 <code>val</code> 声明常量。</p>
+<p>【示例】声明变量</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myVar : <span class="type">String</span> = <span class="string">&quot;Foo&quot;</span></span><br><span class="line"><span class="keyword">var</span> myVar : <span class="type">String</span> = <span class="string">&quot;Too&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>【示例】声明常量</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> myVal : <span class="type">String</span> = <span class="string">&quot;Foo&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="变量类型声明"><a href="#变量类型声明" class="headerlink" title="变量类型声明"></a>变量类型声明</h3><p>变量的类型在变量名之后等号之前声明。定义变量的类型的语法格式如下：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明变量类型</span></span><br><span class="line"><span class="keyword">var</span> <span class="type">VariableName</span> : <span class="type">DataType</span> [=  <span class="type">Initial</span> <span class="type">Value</span>]</span><br><span class="line"><span class="comment">// 声明常量类型</span></span><br><span class="line"><span class="keyword">val</span> <span class="type">VariableName</span> : <span class="type">DataType</span> [=  <span class="type">Initial</span> <span class="type">Value</span>]</span><br></pre></td></tr></table></figure>
+
+<p>在 Scala 中声明变量和常量不一定要指明数据类型，在没有指明数据类型的情况下，其数据类型是通过变量或常量的初始值推断出来的。所以，如果在没有指明数据类型的情况下声明变量或常量必须要给出其初始值，否则将会报错。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myVar = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">val</span> myVal = <span class="string">&quot;Hello, Scala!&quot;</span>;</span><br><span class="line"><span class="keyword">val</span> xmax, ymax = <span class="number">100</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>Scala 与 Java 有着相同的数据类型：</p>
+<table>
+<thead>
+<tr>
+<th align="left">数据类型</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Byte</td>
+<td align="left">8 位有符号补码整数。数值区间为 -128 到 127</td>
+</tr>
+<tr>
+<td align="left">Short</td>
+<td align="left">16 位有符号补码整数。数值区间为 -32768 到 32767</td>
+</tr>
+<tr>
+<td align="left">Int</td>
+<td align="left">32 位有符号补码整数。数值区间为 -2147483648 到 2147483647</td>
+</tr>
+<tr>
+<td align="left">Long</td>
+<td align="left">64 位有符号补码整数。数值区间为 -9223372036854775808 到 9223372036854775807</td>
+</tr>
+<tr>
+<td align="left">Float</td>
+<td align="left">32 位, IEEE 754 标准的单精度浮点数</td>
+</tr>
+<tr>
+<td align="left">Double</td>
+<td align="left">64 位 IEEE 754 标准的双精度浮点数</td>
+</tr>
+<tr>
+<td align="left">Char</td>
+<td align="left">16 位无符号 Unicode 字符, 区间值为 U+0000 到 U+FFFF</td>
+</tr>
+<tr>
+<td align="left">String</td>
+<td align="left">字符序列</td>
+</tr>
+<tr>
+<td align="left">Boolean</td>
+<td align="left">true 或 false</td>
+</tr>
+<tr>
+<td align="left">Unit</td>
+<td align="left">表示无值，和其他语言中 void 等同。用作不返回任何结果的方法的结果类型。Unit 只有一个实例值，写成()。</td>
+</tr>
+<tr>
+<td align="left">Null</td>
+<td align="left">null 或空引用</td>
+</tr>
+<tr>
+<td align="left">Nothing</td>
+<td align="left">Nothing 类型在 Scala 的类层级的最底端；它是任何其他类型的子类型。</td>
+</tr>
+<tr>
+<td align="left">Any</td>
+<td align="left">Any 是所有其他类的超类</td>
+</tr>
+<tr>
+<td align="left">AnyRef</td>
+<td align="left">AnyRef 类是 Scala 里所有引用类(reference class)的基类</td>
+</tr>
+</tbody></table>
+<p>上表中列出的数据类型都是<strong>对象</strong>，也就是说 scala 没有 java 中的原生类型。在 scala 是可以对数字等基础类型调用方法的。</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>Scala 数组声明的语法格式：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方式一</span></span><br><span class="line"><span class="keyword">var</span> z:<span class="type">Array</span>[<span class="type">String</span>] = <span class="keyword">new</span> <span class="type">Array</span>[<span class="type">String</span>](<span class="number">3</span>)</span><br><span class="line"><span class="comment">// 方式二</span></span><br><span class="line"><span class="keyword">var</span> z = <span class="keyword">new</span> <span class="type">Array</span>[<span class="type">String</span>](<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="逻辑控制语句"><a href="#逻辑控制语句" class="headerlink" title="逻辑控制语句"></a>逻辑控制语句</h2><h3 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h3><p>【示例】条件语句</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">IfDemo</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    <span class="keyword">var</span> x = <span class="number">30</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (x == <span class="number">10</span>) &#123;</span><br><span class="line">      println(<span class="string">&quot;X 的值为 10&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (x == <span class="number">20</span>) &#123;</span><br><span class="line">      println(<span class="string">&quot;X 的值为 20&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (x == <span class="number">30</span>) &#123;</span><br><span class="line">      println(<span class="string">&quot;X 的值为 30&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      println(<span class="string">&quot;无法判断 X 的值&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h3><p>和 Java 一样，Scala 支持 <code>while</code>、<code>do ... while</code>、<code>for</code> 三种循环语句。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">WhileDemo</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    <span class="comment">// 局部变量</span></span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// while 循环执行</span></span><br><span class="line">    <span class="keyword">while</span> (a &lt; <span class="number">20</span>) &#123;</span><br><span class="line">      println(<span class="string">&quot;Value of a: &quot;</span> + a);</span><br><span class="line">      a = a + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>**scala 不支持 <code>break</code> 和 <code>continue</code>**。但是，可以通过 <code>Breaks</code> 对象来进行循环控制。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scala.util.control._</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">BreakDemo</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">var</span> b = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">val</span> numList1 = <span class="type">List</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="keyword">val</span> numList2 = <span class="type">List</span>(<span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> outer = <span class="keyword">new</span> <span class="type">Breaks</span>;</span><br><span class="line">    <span class="keyword">val</span> inner = <span class="keyword">new</span> <span class="type">Breaks</span>;</span><br><span class="line"></span><br><span class="line">    outer.breakable &#123;</span><br><span class="line">      <span class="keyword">for</span> (a &lt;- numList1) &#123;</span><br><span class="line">        println(<span class="string">&quot;Value of a: &quot;</span> + a);</span><br><span class="line">        inner.breakable &#123;</span><br><span class="line">          <span class="keyword">for</span> (b &lt;- numList2) &#123;</span><br><span class="line">            println(<span class="string">&quot;Value of b: &quot;</span> + b);</span><br><span class="line">            <span class="keyword">if</span> (b == <span class="number">12</span>) &#123;</span><br><span class="line">              inner.<span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125; <span class="comment">// 内嵌循环中断</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="comment">// 外部循环中断</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="模式匹配"><a href="#模式匹配" class="headerlink" title="模式匹配"></a>模式匹配</h3><p>scala 的 <code>match</code> 对应 Java 里的 <code>switch</code>，但是写在选择器表达式之后。即： <strong>选择器 match {备选项}。</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @author peng.zhang</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">MatchDemo</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    println(matchTest(<span class="string">&quot;two&quot;</span>))</span><br><span class="line">    println(matchTest(<span class="string">&quot;test&quot;</span>))</span><br><span class="line">    println(matchTest(<span class="number">1</span>))</span><br><span class="line">    println(matchTest(<span class="number">6</span>))</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">matchTest</span></span>(x: <span class="type">Any</span>): <span class="type">Any</span> = x <span class="keyword">match</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>      =&gt; <span class="string">&quot;one&quot;</span></span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;two&quot;</span>  =&gt; <span class="number">2</span></span><br><span class="line">    <span class="keyword">case</span> y: <span class="type">Int</span> =&gt; <span class="string">&quot;scala.Int&quot;</span></span><br><span class="line">    <span class="keyword">case</span> _      =&gt; <span class="string">&quot;many&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><p>Scala 含有丰富的内置运算符，包括以下几种类型：</p>
+<ul>
+<li>算术运算符：<code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>、<code>%</code></li>
+<li>关系运算符：<code>==</code>、<code>!=</code>、<code>&gt;</code>、<code>&lt;</code>、<code>&gt;=</code>、<code>&lt;=</code></li>
+<li>逻辑运算符：<code>&amp;&amp;</code>、<code>||</code>、<code>!</code></li>
+<li>位运算符：<code>~</code>、<code>&amp;</code>、<code>|</code>、<code>^</code>、<code>&lt;&lt;</code>、<code>&gt;&gt;</code>、<code>&gt;&gt;&gt;</code> （无符号右移）</li>
+<li>赋值运算符：<code>=</code></li>
+</ul>
+<h2 id="方法与函数"><a href="#方法与函数" class="headerlink" title="方法与函数"></a>方法与函数</h2><p>Scala 有方法与函数，二者在语义上的区别很小。</p>
+<p>Scala 中的方法跟 Java 的类似，方法是组成类的一部分。</p>
+<p>Scala 中的函数则是一个完整的对象，Scala 中的函数其实就是继承了 Trait 的类的对象。</p>
+<p>Scala 中使用 <code>val</code> 语句可以定义函数，<code>def</code> 语句定义方法。</p>
+<p>【示例】</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">m</span></span>(x: <span class="type">Int</span>) = x + <span class="number">3</span></span><br><span class="line">  <span class="keyword">val</span> f = (x: <span class="type">Int</span>) =&gt; x + <span class="number">3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>闭包是一个函数，返回值依赖于声明在函数外部的一个或多个变量。</p>
+<p>闭包通常来讲可以简单的认为是可以访问一个函数里面局部变量的另外一个函数。</p>
+<p>如下面这段匿名的函数：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> multiplier = (i:<span class="type">Int</span>) =&gt; i * <span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<p>函数体内有一个变量 i，它作为函数的一个参数。如下面的另一段代码：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> multiplier = (i:<span class="type">Int</span>) =&gt; i * factor</span><br></pre></td></tr></table></figure>
+
+<p>在 multiplier 中有两个变量：i 和 factor。其中的一个 i 是函数的形式参数，在 multiplier 函数被调用时，i 被赋予一个新的值。然而，factor 不是形式参数，而是自由变量，考虑下面代码：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> factor = <span class="number">3</span></span><br><span class="line"><span class="keyword">val</span> multiplier = (i:<span class="type">Int</span>) =&gt; i * factor</span><br></pre></td></tr></table></figure>
+
+<p>这里我们引入一个自由变量 factor，这个变量定义在函数外面。</p>
+<p>这样定义的函数变量 multiplier 成为一个”闭包”，因为它引用到函数外面定义的变量，定义这个函数的过程是将这个自由变量捕获而构成一个封闭的函数。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">ClosureDemo</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    println(<span class="string">&quot;muliplier(1) value = &quot;</span> + multiplier(<span class="number">1</span>))</span><br><span class="line">    println(<span class="string">&quot;muliplier(2) value = &quot;</span> + multiplier(<span class="number">2</span>))</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> factor = <span class="number">3</span></span><br><span class="line">  <span class="keyword">val</span> multiplier = (i: <span class="type">Int</span>) =&gt; i * factor</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><p>Scala 集合支持 List、Set、Map、元祖、Option。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义整型 List</span></span><br><span class="line"><span class="keyword">val</span> x = <span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义 Set</span></span><br><span class="line"><span class="keyword">val</span> x = <span class="type">Set</span>(<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义 Map</span></span><br><span class="line"><span class="keyword">val</span> x = <span class="type">Map</span>(<span class="string">&quot;one&quot;</span> -&gt; <span class="number">1</span>, <span class="string">&quot;two&quot;</span> -&gt; <span class="number">2</span>, <span class="string">&quot;three&quot;</span> -&gt; <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建两个不同类型元素的元组</span></span><br><span class="line"><span class="keyword">val</span> x = (<span class="number">10</span>, <span class="string">&quot;Runoob&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义 Option</span></span><br><span class="line"><span class="keyword">val</span> x:<span class="type">Option</span>[<span class="type">Int</span>] = <span class="type">Some</span>(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p>迭代器 it 的两个基本操作是 <strong>next</strong> 和 <strong>hasNext</strong>。</p>
+<p>调用 <strong>it.next()</strong> 会返回迭代器的下一个元素，并且更新迭代器的状态。</p>
+<p>调用 <strong>it.hasNext()</strong> 用于检测集合中是否还有元素。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">      <span class="keyword">val</span> it = <span class="type">Iterator</span>(<span class="string">&quot;Baidu&quot;</span>, <span class="string">&quot;Google&quot;</span>, <span class="string">&quot;Runoob&quot;</span>, <span class="string">&quot;Taobao&quot;</span>)</span><br><span class="line"></span><br><span class="line">      <span class="keyword">while</span> (it.hasNext)&#123;</span><br><span class="line">         println(it.next())</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h2><p>类是对象的抽象，而对象是类的具体实例。类是抽象的，不占用内存，而对象是具体的，占用存储空间。类是用于创建对象的蓝图，它是一个定义包括在特定类型的对象中的方法和变量的软件模板。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span>(<span class="params">val xc: <span class="type">Int</span>, val yc: <span class="type">Int</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> x: <span class="type">Int</span> = xc</span><br><span class="line">  <span class="keyword">var</span> y: <span class="type">Int</span> = yc</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">move</span></span>(dx: <span class="type">Int</span>, dy: <span class="type">Int</span>) &#123;</span><br><span class="line">    x = x + dx</span><br><span class="line">    y = y + dy</span><br><span class="line">    println(<span class="string">&quot;x 的坐标点 : &quot;</span> + x);</span><br><span class="line">    println(<span class="string">&quot;y 的坐标点 : &quot;</span> + y);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Location</span>(<span class="params">override val xc: <span class="type">Int</span>, override val yc: <span class="type">Int</span>, val zc: <span class="type">Int</span></span>)</span></span><br><span class="line">    <span class="keyword">extends</span> <span class="type">Point</span>(xc, yc) &#123;</span><br><span class="line">  <span class="keyword">var</span> z: <span class="type">Int</span> = zc</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">move</span></span>(dx: <span class="type">Int</span>, dy: <span class="type">Int</span>, dz: <span class="type">Int</span>) &#123;</span><br><span class="line">    x = x + dx</span><br><span class="line">    y = y + dy</span><br><span class="line">    z = z + dz</span><br><span class="line">    println(<span class="string">&quot;x 的坐标点 : &quot;</span> + x);</span><br><span class="line">    println(<span class="string">&quot;y 的坐标点 : &quot;</span> + y);</span><br><span class="line">    println(<span class="string">&quot;z 的坐标点 : &quot;</span> + z);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    <span class="keyword">val</span> loc = <span class="keyword">new</span> <span class="type">Location</span>(<span class="number">10</span>, <span class="number">20</span>, <span class="number">15</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 移到一个新的位置</span></span><br><span class="line">    loc.move(<span class="number">10</span>, <span class="number">10</span>, <span class="number">5</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Trait"><a href="#Trait" class="headerlink" title="Trait"></a>Trait</h2><p>Scala Trait(特征) 相当于 Java 的接口，实际上它比接口还功能强大。</p>
+<p>与接口不同的是，它还可以定义属性和方法的实现。</p>
+<p>一般情况下 Scala 的类只能够继承单一父类，但是如果是 Trait(特征) 的话就可以继承多个，从结果来看就是实现了多重继承。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">Equal</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">isEqual</span></span>(x: <span class="type">Any</span>): <span class="type">Boolean</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">isNotEqual</span></span>(x: <span class="type">Any</span>): <span class="type">Boolean</span> = !isEqual(x)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span>(<span class="params">xc: <span class="type">Int</span>, yc: <span class="type">Int</span></span>) <span class="keyword">extends</span> <span class="title">Equal</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> x: <span class="type">Int</span> = xc</span><br><span class="line">  <span class="keyword">var</span> y: <span class="type">Int</span> = yc</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">isEqual</span></span>(obj: <span class="type">Any</span>) =</span><br><span class="line">    obj.isInstanceOf[<span class="type">Point</span>] &amp;&amp;</span><br><span class="line">      obj.asInstanceOf[<span class="type">Point</span>].x == x</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    <span class="keyword">val</span> p1 = <span class="keyword">new</span> <span class="type">Point</span>(<span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">    <span class="keyword">val</span> p2 = <span class="keyword">new</span> <span class="type">Point</span>(<span class="number">2</span>, <span class="number">4</span>)</span><br><span class="line">    <span class="keyword">val</span> p3 = <span class="keyword">new</span> <span class="type">Point</span>(<span class="number">3</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">    println(p1.isNotEqual(p2))</span><br><span class="line">    println(p1.isNotEqual(p3))</span><br><span class="line">    println(p1.isNotEqual(<span class="number">2</span>))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><p>Scala 抛出异常的方法和 Java 一样，使用 <code>throw</code> 关键词。</p>
+<p>【示例】抛出异常</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">IllegalArgumentException</span></span><br></pre></td></tr></table></figure>
+
+<p>【示例】捕获异常</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.&#123;<span class="type">FileNotFoundException</span>, <span class="type">FileReader</span>, <span class="type">IOException</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">val</span> f = <span class="keyword">new</span> <span class="type">FileReader</span>(<span class="string">&quot;input.txt&quot;</span>)</span><br><span class="line">    &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">      <span class="keyword">case</span> ex: <span class="type">FileNotFoundException</span> =&gt; &#123;</span><br><span class="line">        println(<span class="string">&quot;Missing file exception&quot;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">case</span> ex: <span class="type">IOException</span> =&gt; &#123;</span><br><span class="line">        println(<span class="string">&quot;IO Exception&quot;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      println(<span class="string">&quot;Exiting finally...&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h2><h3 id="读取用户输入"><a href="#读取用户输入" class="headerlink" title="读取用户输入"></a>读取用户输入</h3><p>使用 <code>scala.io.StdIn.readLine()</code> 方法读取用户输入</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">StdInDemo</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    print(<span class="string">&quot;请输入内容: &quot;</span>)</span><br><span class="line">    <span class="keyword">val</span> line = <span class="type">StdIn</span>.readLine()</span><br><span class="line"></span><br><span class="line">    println(<span class="string">&quot;你输入的是: &quot;</span> + line)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="读取文件内容"><a href="#读取文件内容" class="headerlink" title="读取文件内容"></a>读取文件内容</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">SourceDemo</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    println(<span class="string">&quot;文件内容为:&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="type">Source</span>.fromFile(<span class="string">&quot;test.txt&quot;</span>).foreach &#123;</span><br><span class="line">      print</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="包"><a href="#包" class="headerlink" title="包"></a>包</h2><h3 id="定义包"><a href="#定义包" class="headerlink" title="定义包"></a>定义包</h3><p>Scala 使用 <code>package</code> 关键字定义包，在 Scala 将代码定义到某个包中有两种方式：</p>
+<p>第一种方法和 Java 一样，在文件的头定义包名，这种方法就后续所有代码都放在该包中。 比如：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.runoob</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span></span></span><br></pre></td></tr></table></figure>
+
+<p>第二种方法有些类似 C#，如：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.runoob &#123;</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><p>Scala 使用 <code>import</code> 关键字引用包。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import java.awt.Color  // 引入Color</span><br><span class="line"></span><br><span class="line">import java.awt._  // 引入包内所有成员</span><br><span class="line"></span><br><span class="line">def handler(evt: event.ActionEvent) &#123; // java.awt.event.ActionEvent</span><br><span class="line">  ...  // 因为引入了java.awt，所以可以省去前面的部分</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>import 语句可以出现在任何地方，而不是只能在文件顶部。import 的效果从开始延伸到语句块的结束。这可以大幅减少名称冲突的可能性。</p>
+<p>如果想要引入包中的几个成员，可以使用 selector（选取器）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import java.awt.&#123;Color, Font&#125;</span><br><span class="line"></span><br><span class="line">// 重命名成员</span><br><span class="line">import java.util.&#123;HashMap =&gt; JavaHashMap&#125;</span><br><span class="line"></span><br><span class="line">// 隐藏成员</span><br><span class="line">import java.util.&#123;HashMap =&gt; _, _&#125; // 引入了util包的所有成员，但是HashMap被隐藏了</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意：</strong>默认情况下，Scala 总会引入 java.lang._ 、 scala._ 和 Predef._，这里也能解释，为什么以 scala 开头的包，在使用时都是省去 scala.的。</p>
+</blockquote>
+<h3 id="访问修饰符"><a href="#访问修饰符" class="headerlink" title="访问修饰符"></a>访问修饰符</h3><p>Scala 访问修饰符基本和 Java 的一样，分别有：private，protected，public。</p>
+<p>如果没有指定访问修饰符，默认情况下，Scala 对象的访问级别都是 public。</p>
+<p>Scala 中的 private 限定符，比 Java 更严格，在嵌套类情况下，外层类甚至不能访问被嵌套类的私有成员。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Outer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Inner</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">def</span> <span class="title">f</span></span>() &#123;</span><br><span class="line">      println(<span class="string">&quot;f&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">InnerMost</span> </span>&#123;</span><br><span class="line">      f() <span class="comment">// 正确</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  (<span class="keyword">new</span> <span class="type">Inner</span>).f() <span class="comment">//错误</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.scala-lang.org/">Scala 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/scala/scala-tutorial.html">Scala 菜鸟教程</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">JaHero</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/pages/f4bd32/">http://example.com/pages/f4bd32/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">贾英雄-blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a><a class="post-meta__tags" href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a><a class="post-meta__tags" href="/tags/scala/">scala</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/pages/ef501b/" title="一篇文章让你掌握 Python"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-06-28</div><div class="title">一篇文章让你掌握 Python</div></div></a></div><div><a href="/pages/ea6ae1/" title="一篇文章让你彻底掌握 Shell"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2017-11-17</div><div class="title">一篇文章让你彻底掌握 Shell</div></div></a></div><div><a href="/pages/f85bac/" title="编程"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-27</div><div class="title">编程</div></div></a></div><div><a href="/pages/8ea43c/" title="设计"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-27</div><div class="title">设计</div></div></a></div><div><a href="/pages/fe6d83/" title="Java 中间件"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-09</div><div class="title">Java 中间件</div></div></a></div><div><a href="/pages/1d2aa9/" title="如何学习编程语言"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-01-05</div><div class="title">如何学习编程语言</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/ava.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JaHero</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E8%AE%A9%E4%BD%A0%E5%BD%BB%E5%BA%95%E6%8E%8C%E6%8F%A1-Scala"><span class="toc-number">1.</span> <span class="toc-text">一篇文章让你彻底掌握 Scala</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="toc-number">1.1.</span> <span class="toc-text">基本语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E9%87%8A"><span class="toc-number">1.2.</span> <span class="toc-text">注释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-number">1.3.</span> <span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E"><span class="toc-number">1.3.1.</span> <span class="toc-text">变量类型声明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.4.</span> <span class="toc-text">数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-number">1.5.</span> <span class="toc-text">数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.6.</span> <span class="toc-text">逻辑控制语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.6.1.</span> <span class="toc-text">条件语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.6.2.</span> <span class="toc-text">循环语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D"><span class="toc-number">1.6.3.</span> <span class="toc-text">模式匹配</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.7.</span> <span class="toc-text">运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%8E%E5%87%BD%E6%95%B0"><span class="toc-number">1.8.</span> <span class="toc-text">方法与函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AD%E5%8C%85"><span class="toc-number">1.9.</span> <span class="toc-text">闭包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E5%90%88"><span class="toc-number">1.10.</span> <span class="toc-text">集合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-number">1.10.1.</span> <span class="toc-text">迭代器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.11.</span> <span class="toc-text">类和对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Trait"><span class="toc-number">1.12.</span> <span class="toc-text">Trait</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8"><span class="toc-number">1.13.</span> <span class="toc-text">异常</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA"><span class="toc-number">1.14.</span> <span class="toc-text">输入输出</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5"><span class="toc-number">1.14.1.</span> <span class="toc-text">读取用户输入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="toc-number">1.14.2.</span> <span class="toc-text">读取文件内容</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%85"><span class="toc-number">1.15.</span> <span class="toc-text">包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%8C%85"><span class="toc-number">1.15.1.</span> <span class="toc-text">定义包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E7%94%A8"><span class="toc-number">1.15.2.</span> <span class="toc-text">引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-number">1.15.3.</span> <span class="toc-text">访问修饰符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.16.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题">无题</a><time datetime="2022-12-31T04:24:34.153Z" title="发表于 2022-12-31 12:24:34">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/img/index/" title="gallery"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="gallery"/></a><div class="content"><a class="title" href="/2022/12/31/img/index/" title="gallery">gallery</a><time datetime="2022-12-30T18:20:45.000Z" title="发表于 2022-12-31 02:20:45">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/30/hello-world/" title="Hello World"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/12/30/hello-world/" title="Hello World">Hello World</a><time datetime="2022-12-30T09:13:14.141Z" title="发表于 2022-12-30 17:13:14">2022-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Aop注解"/></a><div class="content"><a class="title" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解">Aop注解</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flowable 工作流程引擎"/></a><div class="content"><a class="title" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎">Flowable 工作流程引擎</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By JaHero</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script src="https://fastly.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

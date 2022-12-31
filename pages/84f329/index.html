@@ -1,0 +1,393 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Java 故障诊断 | 贾英雄-blog</title><meta name="keywords" content="Java,JavaSE,JVM,故障诊断"><meta name="author" content="JaHero"><meta name="copyright" content="JaHero"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Java 故障诊断故障定位思路Java 应用出现线上故障，如何进行诊断？ 我们在定位线上问题时要有一个整体的思路，顺藤摸瓜，才能较快的找到问题原因。 一般来说，服务器故障诊断的整体思路如下：  应用故障诊断思路：  CPU 问题一、CPU 使用率过高：往往是由于程序逻辑问题导致的。常见导致 CPU 飙升的问题场景如：死循环，无限递归、频繁 GC、线程上下文切换过多。 二、CPU 始终升不上去：往往">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 故障诊断">
+<meta property="og:url" content="http://example.com/pages/84f329/index.html">
+<meta property="og:site_name" content="贾英雄-blog">
+<meta property="og:description" content="Java 故障诊断故障定位思路Java 应用出现线上故障，如何进行诊断？ 我们在定位线上问题时要有一个整体的思路，顺藤摸瓜，才能较快的找到问题原因。 一般来说，服务器故障诊断的整体思路如下：  应用故障诊断思路：  CPU 问题一、CPU 使用率过高：往往是由于程序逻辑问题导致的。常见导致 CPU 飙升的问题场景如：死循环，无限递归、频繁 GC、线程上下文切换过多。 二、CPU 始终升不上去：往往">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/post.jpg">
+<meta property="article:published_time" content="2020-07-30T09:56:33.000Z">
+<meta property="article:modified_time" content="2022-12-26T06:15:52.056Z">
+<meta property="article:author" content="JaHero">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="JavaSE">
+<meta property="article:tag" content="JVM">
+<meta property="article:tag" content="故障诊断">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/post.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/pages/84f329/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"K46KXS6BKG","apiKey":"94dab3de87ce4cc2067ec6ef569e9df7","indexName":"JiaHero","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: JaHero","link":"链接: ","source":"来源: 贾英雄-blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Java 故障诊断',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2022-12-26 14:15:52'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/ava.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">贾英雄-blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Java 故障诊断</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-07-30T09:56:33.000Z" title="发表于 2020-07-30 17:56:33">2020-07-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:52.056Z" title="更新于 2022-12-26 14:15:52">2022-12-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/JavaSE/">JavaSE</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/JavaSE/JVM/">JVM</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">5.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>18分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Java 故障诊断"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Java-故障诊断"><a href="#Java-故障诊断" class="headerlink" title="Java 故障诊断"></a>Java 故障诊断</h1><h2 id="故障定位思路"><a href="#故障定位思路" class="headerlink" title="故障定位思路"></a>故障定位思路</h2><p>Java 应用出现线上故障，如何进行诊断？</p>
+<p>我们在定位线上问题时要有一个整体的思路，顺藤摸瓜，才能较快的找到问题原因。</p>
+<p>一般来说，服务器故障诊断的整体思路如下：</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20200309181645.png" alt="img"></p>
+<p>应用故障诊断思路：</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20200309181831.png" alt="img"></p>
+<h2 id="CPU-问题"><a href="#CPU-问题" class="headerlink" title="CPU 问题"></a>CPU 问题</h2><p>一、<strong>CPU 使用率过高</strong>：往往是由于程序逻辑问题导致的。常见导致 CPU 飙升的问题场景如：死循环，无限递归、频繁 GC、线程上下文切换过多。</p>
+<p>二、<strong>CPU 始终升不上去</strong>：往往是由于程序中存在大量 IO 操作并且时间很长（数据库读写、日志等）。</p>
+<h3 id="查找-CPU-占用率较高的进程、线程"><a href="#查找-CPU-占用率较高的进程、线程" class="headerlink" title="查找 CPU 占用率较高的进程、线程"></a>查找 CPU 占用率较高的进程、线程</h3><p>线上环境的 Java 应用可能有多个进程、线程，所以，要先找到 CPU 占用率较高的进程、线程。</p>
+<p>（1）使用 <code>ps</code> 命令查看 xxx 应用的进程 ID（PID）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep xxx</span><br></pre></td></tr></table></figure>
+
+<p>也可以使用 <code>jps</code> 命令来查看。</p>
+<p>（2）如果应用有多个进程，可以用 <code>top</code> 命令查看哪个占用 CPU 较高。</p>
+<p>（3）用 <code>top -Hp pid</code> 来找到 CPU 使用率比较高的一些线程。</p>
+<p>（4）将占用 CPU 最高的 PID 转换为 16 进制，使用 <code>printf &#39;%x\n&#39; pid</code> 得到 <code>nid</code></p>
+<p>（5）使用 <code>jstack pic | grep &#39;nid&#39; -C5</code> 命令，查看堆栈信息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">jstack 7129 | grep <span class="string">&#x27;0x1c23&#x27;</span> -C5</span></span><br><span class="line">        at java.lang.Object.wait(Object.java:502)</span><br><span class="line">        at java.lang.ref.Reference.tryHandlePending(Reference.java:191)</span><br><span class="line">        - locked &lt;0x00000000b5383ff0&gt; (a java.lang.ref.Reference$Lock)</span><br><span class="line">        at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:153)</span><br><span class="line"></span><br><span class="line">&quot;main&quot; #1 prio=5 os_prio=0 tid=0x00007f4df400a800 nid=0x1c23 in Object.wait() [0x00007f4dfdec8000]</span><br><span class="line">   java.lang.Thread.State: WAITING (on object monitor)</span><br><span class="line">        at java.lang.Object.wait(Native Method)</span><br><span class="line">        - waiting on &lt;0x00000000b5384018&gt; (a org.apache.felix.framework.util.ThreadGate)</span><br><span class="line">        at org.apache.felix.framework.util.ThreadGate.await(ThreadGate.java:79)</span><br><span class="line">        - locked &lt;0x00000000b5384018&gt; (a org.apache.felix.framework.util.ThreadGate)</span><br></pre></td></tr></table></figure>
+
+<p>（6）更常见的操作是用 <code>jstack</code> 生成堆栈快照，然后基于快照文件进行分析。生成快照命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jstack -F -l pid &gt;&gt; threaddump.log</span><br></pre></td></tr></table></figure>
+
+<p>（7）分析堆栈信息</p>
+<p>一般来说，状态为 <code>WAITING</code>、<code>TIMED_WAITING</code> 、<code>BLOCKED</code> 的线程更可能出现问题。可以执行以下命令查看线程状态统计：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat threaddump.log | grep &quot;java.lang.Thread.State&quot; | sort -nr | uniq -c</span><br></pre></td></tr></table></figure>
+
+<p>如果存在大量 <code>WAITING</code>、<code>TIMED_WAITING</code> 、<code>BLOCKED</code> ，那么多半是有问题啦。</p>
+<h3 id="是否存在频繁-GC"><a href="#是否存在频繁-GC" class="headerlink" title="是否存在频繁 GC"></a>是否存在频繁 GC</h3><p>如果应用频繁 GC，也可能导致 CPU 飙升。为何频繁 GC 可以使用 <code>jstack</code> 来分析问题（分析和解决频繁 GC 问题，在后续讲解）。</p>
+<p>那么，如何判断 Java 进程 GC 是否频繁？</p>
+<p>可以使用 <code>jstat -gc pid 1000</code> 命令来观察 GC 状态。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">jstat -gc 29527 200 5</span></span><br><span class="line"> S0C    S1C    S0U    S1U      EC       EU        OC         OU       MC     MU    CCSC   CCSU   YGC     YGCT    FGC    FGCT     GCT</span><br><span class="line">22528.0 22016.0  0.0   21388.2 4106752.0 921244.7 5592576.0  2086826.5  110716.0 103441.1 12416.0 11167.7   3189   90.057  10      2.140   92.197</span><br><span class="line">22528.0 22016.0  0.0   21388.2 4106752.0 921244.7 5592576.0  2086826.5  110716.0 103441.1 12416.0 11167.7   3189   90.057  10      2.140   92.197</span><br><span class="line">22528.0 22016.0  0.0   21388.2 4106752.0 921244.7 5592576.0  2086826.5  110716.0 103441.1 12416.0 11167.7   3189   90.057  10      2.140   92.197</span><br><span class="line">22528.0 22016.0  0.0   21388.2 4106752.0 921244.7 5592576.0  2086826.5  110716.0 103441.1 12416.0 11167.7   3189   90.057  10      2.140   92.197</span><br><span class="line">22528.0 22016.0  0.0   21388.2 4106752.0 921244.7 5592576.0  2086826.5  110716.0 103441.1 12416.0 11167.7   3189   90.057  10      2.140   92.197</span><br></pre></td></tr></table></figure>
+
+<h3 id="是否存在频繁上下文切换"><a href="#是否存在频繁上下文切换" class="headerlink" title="是否存在频繁上下文切换"></a>是否存在频繁上下文切换</h3><p>针对频繁上下文切换问题，可以使用 <code>vmstat pid</code> 命令来进行查看。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">vmstat 7129</span></span><br><span class="line">procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----</span><br><span class="line"> r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st</span><br><span class="line"> 1  0   6836 737532   1588 3504956    0    0     1     4    5    3  0  0 100  0  0</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>cs</code> 一列代表了上下文切换的次数。</p>
+<p>【解决方法】</p>
+<p>如果，线程上下文切换很频繁，可以考虑在应用中针对线程进行优化，方法有：</p>
+<ul>
+<li><strong>无锁并发</strong>：多线程竞争时，会引起上下文切换，所以多线程处理数据时，可以用一些办法来避免使用锁，如将数据的 ID 按照 Hash 取模分段，不同的线程处理不同段的数据；</li>
+<li><strong>CAS 算法</strong>：Java 的 Atomic 包使用 CAS 算法来更新数据，而不需要加锁；</li>
+<li><strong>最少线程</strong>：避免创建不需要的线程，比如任务很少，但是创建了很多线程来处理，这样会造成大量线程都处于等待状态；</li>
+<li><strong>使用协程</strong>：在单线程里实现多任务的调度，并在单线程里维持多个任务间的切换；</li>
+</ul>
+<h2 id="内存问题"><a href="#内存问题" class="headerlink" title="内存问题"></a>内存问题</h2><p>内存问题诊断起来相对比 CPU 麻烦一些，场景也比较多。主要包括 OOM、GC 问题和堆外内存。一般来讲，我们会先用 <code>free</code> 命令先来检查一发内存的各种情况。</p>
+<p>诊断内存问题，一般首先会用 <code>free</code> 命令查看一下机器的物理内存使用情况。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">free</span></span><br><span class="line">              total        used        free      shared  buff/cache   available</span><br><span class="line">Mem:        8011164     3767900      735364        8804     3507900     3898568</span><br><span class="line">Swap:       5242876        6836     5236040</span><br></pre></td></tr></table></figure>
+
+<h2 id="磁盘问题"><a href="#磁盘问题" class="headerlink" title="磁盘问题"></a>磁盘问题</h2><h3 id="查看磁盘空间使用率"><a href="#查看磁盘空间使用率" class="headerlink" title="查看磁盘空间使用率"></a>查看磁盘空间使用率</h3><p>可以使用 <code>df -hl</code> 命令查看磁盘空间使用率。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ df -hl</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">devtmpfs        494M     0  494M   0% /dev</span><br><span class="line">tmpfs           504M     0  504M   0% /dev/shm</span><br><span class="line">tmpfs           504M   58M  447M  12% /run</span><br><span class="line">tmpfs           504M     0  504M   0% /sys/fs/cgroup</span><br><span class="line">/dev/sda2        20G  5.7G   13G  31% /</span><br><span class="line">/dev/sda1       380M  142M  218M  40% /boot</span><br><span class="line">tmpfs           101M     0  101M   0% /run/user/0</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看磁盘读写性能"><a href="#查看磁盘读写性能" class="headerlink" title="查看磁盘读写性能"></a>查看磁盘读写性能</h3><p>可以使用 <code>iostat</code> 命令查看磁盘读写性能。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">iostat -d -k -x</span><br><span class="line">Linux 3.10.0-327.el7.x86_64 (elk-server)        03/07/2020      _x86_64_        (4 CPU)</span><br><span class="line"></span><br><span class="line">Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util</span><br><span class="line">sda               0.00     0.14    0.01    1.63     0.42   157.56   193.02     0.00    2.52   11.43    2.48   0.60   0.10</span><br><span class="line">scd0              0.00     0.00    0.00    0.00     0.00     0.00     8.00     0.00    0.27    0.27    0.00   0.27   0.00</span><br><span class="line">dm-0              0.00     0.00    0.01    1.78     0.41   157.56   177.19     0.00    2.46   12.09    2.42   0.59   0.10</span><br><span class="line">dm-1              0.00     0.00    0.00    0.00     0.00     0.00    16.95     0.00    1.04    1.04    0.00   1.02   0.00</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看具体的文件读写情况"><a href="#查看具体的文件读写情况" class="headerlink" title="查看具体的文件读写情况"></a>查看具体的文件读写情况</h3><p>可以使用 <code>lsof -p pid</code> 命令</p>
+<h2 id="网络问题"><a href="#网络问题" class="headerlink" title="网络问题"></a>网络问题</h2><h3 id="无法连接"><a href="#无法连接" class="headerlink" title="无法连接"></a>无法连接</h3><p>可以通过 <code>ping</code> 命令，查看是否能连通。</p>
+<p>通过 <code>netstat -nlp | grep &lt;port&gt;</code> 命令，查看服务端口是否在工作。</p>
+<h3 id="网络超时"><a href="#网络超时" class="headerlink" title="网络超时"></a>网络超时</h3><p>网络超时问题大部分出在应用层面。超时大体可以分为连接超时和读写超时，某些使用连接池的客户端框架还会存在获取连接超时和空闲连接清理超时。</p>
+<ul>
+<li>读写超时。readTimeout&#x2F;writeTimeout，有些框架叫做 so_timeout 或者 socketTimeout，均指的是数据读写超时。注意这边的超时大部分是指逻辑上的超时。soa 的超时指的也是读超时。读写超时一般都只针对客户端设置。</li>
+<li>连接超时。connectionTimeout，客户端通常指与服务端建立连接的最大时间。服务端这边 connectionTimeout 就有些五花八门了，jetty 中表示空闲连接清理时间，tomcat 则表示连接维持的最大时间。</li>
+<li>其他。包括连接获取超时 connectionAcquireTimeout 和空闲连接清理超时 idleConnectionTimeout。多用于使用连接池或队列的客户端或服务端框架。</li>
+</ul>
+<p>我们在设置各种超时时间中，需要确认的是尽量保持客户端的超时小于服务端的超时，以保证连接正常结束。</p>
+<p>在实际开发中，我们关心最多的应该是接口的读写超时了。</p>
+<p>如何设置合理的接口超时是一个问题。如果接口超时设置的过长，那么有可能会过多地占用服务端的 tcp 连接。而如果接口设置的过短，那么接口超时就会非常频繁。</p>
+<p>服务端接口明明 rt 降低，但客户端仍然一直超时又是另一个问题。这个问题其实很简单，客户端到服务端的链路包括网络传输、排队以及服务处理等，每一个环节都可能是耗时的原因。</p>
+<h3 id="TCP-队列溢出"><a href="#TCP-队列溢出" class="headerlink" title="TCP 队列溢出"></a>TCP 队列溢出</h3><p>tcp 队列溢出是个相对底层的错误，它可能会造成超时、rst 等更表层的错误。因此错误也更隐蔽，所以我们单独说一说。<br><img src="https://fredal-blog.oss-cn-hangzhou.aliyuncs.com/2019-11-04-083827.jpg" alt="img"></p>
+<p>如上图所示，这里有两个队列：syns queue(半连接队列）、accept queue（全连接队列）。三次握手，在 server 收到 client 的 syn 后，把消息放到 syns queue，回复 syn+ack 给 client，server 收到 client 的 ack，如果这时 accept queue 没满，那就从 syns queue 拿出暂存的信息放入 accept queue 中，否则按 tcp_abort_on_overflow 指示的执行。</p>
+<p>tcp_abort_on_overflow 0 表示如果三次握手第三步的时候 accept queue 满了那么 server 扔掉 client 发过来的 ack。tcp_abort_on_overflow 1 则表示第三步的时候如果全连接队列满了，server 发送一个 rst 包给 client，表示废掉这个握手过程和这个连接，意味着日志里可能会有很多<code>connection reset / connection reset by peer</code>。</p>
+<p>那么在实际开发中，我们怎么能快速定位到 tcp 队列溢出呢？</p>
+<p><strong>netstat 命令，执行 netstat -s | egrep “listen|LISTEN”</strong><br><img src="https://fredal-blog.oss-cn-hangzhou.aliyuncs.com/2019-11-04-83828.jpg" alt="img"><br>如上图所示，overflowed 表示全连接队列溢出的次数，sockets dropped 表示半连接队列溢出的次数。</p>
+<p><strong>ss 命令，执行 ss -lnt</strong><br><img src="https://fredal-blog.oss-cn-hangzhou.aliyuncs.com/2019-11-04-083828.jpg" alt="img"><br>上面看到 Send-Q 表示第三列的 listen 端口上的全连接队列最大为 5，第一列 Recv-Q 为全连接队列当前使用了多少。</p>
+<p>接着我们看看怎么设置全连接、半连接队列大小吧：</p>
+<p>全连接队列的大小取决于 min(backlog, somaxconn)。backlog 是在 socket 创建的时候传入的，somaxconn 是一个 os 级别的系统参数。而半连接队列的大小取决于 max(64, &#x2F;proc&#x2F;sys&#x2F;net&#x2F;ipv4&#x2F;tcp_max_syn_backlog)。</p>
+<p>在日常开发中，我们往往使用 servlet 容器作为服务端，所以我们有时候也需要关注容器的连接队列大小。在 tomcat 中 backlog 叫做<code>acceptCount</code>，在 jetty 里面则是<code>acceptQueueSize</code>。</p>
+<h3 id="RST-异常"><a href="#RST-异常" class="headerlink" title="RST 异常"></a>RST 异常</h3><p>RST 包表示连接重置，用于关闭一些无用的连接，通常表示异常关闭，区别于四次挥手。</p>
+<p>在实际开发中，我们往往会看到<code>connection reset / connection reset by peer</code>错误，这种情况就是 RST 包导致的。</p>
+<p><strong>端口不存在</strong></p>
+<p>如果像不存在的端口发出建立连接 SYN 请求，那么服务端发现自己并没有这个端口则会直接返回一个 RST 报文，用于中断连接。</p>
+<p><strong>主动代替 FIN 终止连接</strong></p>
+<p>一般来说，正常的连接关闭都是需要通过 FIN 报文实现，然而我们也可以用 RST 报文来代替 FIN，表示直接终止连接。实际开发中，可设置 SO_LINGER 数值来控制，这种往往是故意的，来跳过 TIMED_WAIT，提供交互效率，不闲就慎用。</p>
+<p><strong>客户端或服务端有一边发生了异常，该方向对端发送 RST 以告知关闭连接</strong></p>
+<p>我们上面讲的 tcp 队列溢出发送 RST 包其实也是属于这一种。这种往往是由于某些原因，一方无法再能正常处理请求连接了(比如程序崩了，队列满了)，从而告知另一方关闭连接。</p>
+<p><strong>接收到的 TCP 报文不在已知的 TCP 连接内</strong></p>
+<p>比如，一方机器由于网络实在太差 TCP 报文失踪了，另一方关闭了该连接，然后过了许久收到了之前失踪的 TCP 报文，但由于对应的 TCP 连接已不存在，那么会直接发一个 RST 包以便开启新的连接。</p>
+<p><strong>一方长期未收到另一方的确认报文，在一定时间或重传次数后发出 RST 报文</strong></p>
+<p>这种大多也和网络环境相关了，网络环境差可能会导致更多的 RST 报文。</p>
+<p>之前说过 RST 报文多会导致程序报错，在一个已关闭的连接上读操作会报<code>connection reset</code>，而在一个已关闭的连接上写操作则会报<code>connection reset by peer</code>。通常我们可能还会看到<code>broken pipe</code>错误，这是管道层面的错误，表示对已关闭的管道进行读写，往往是在收到 RST，报出<code>connection reset</code>错后继续读写数据报的错，这个在 glibc 源码注释中也有介绍。</p>
+<p>我们在诊断故障时候怎么确定有 RST 包的存在呢？当然是使用 tcpdump 命令进行抓包，并使用 wireshark 进行简单分析了。<code>tcpdump -i en0 tcp -w xxx.cap</code>，en0 表示监听的网卡。<br><img src="https://fredal-blog.oss-cn-hangzhou.aliyuncs.com/2019-11-04-083829.jpg" alt="img"></p>
+<p>接下来我们通过 wireshark 打开抓到的包，可能就能看到如下图所示，红色的就表示 RST 包了。<br><img src="https://fredal-blog.oss-cn-hangzhou.aliyuncs.com/2019-11-04-083830.jpg" alt="img"></p>
+<h3 id="TIME-WAIT-和-CLOSE-WAIT"><a href="#TIME-WAIT-和-CLOSE-WAIT" class="headerlink" title="TIME_WAIT 和 CLOSE_WAIT"></a>TIME_WAIT 和 CLOSE_WAIT</h3><p>TIME_WAIT 和 CLOSE_WAIT 是啥意思相信大家都知道。<br>在线上时，我们可以直接用命令<code>netstat -n | awk &#39;/^tcp/ &#123;++S[$NF]&#125; END &#123;for(a in S) print a, S[a]&#125;&#39;</code>来查看 time-wait 和 close_wait 的数量</p>
+<p>用 ss 命令会更快<code>ss -ant | awk &#39;&#123;++S[$1]&#125; END &#123;for(a in S) print a, S[a]&#125;&#39;</code></p>
+<p><img src="https://fredal-blog.oss-cn-hangzhou.aliyuncs.com/2019-11-04-083830.png" alt="img"></p>
+<h4 id="TIME-WAIT"><a href="#TIME-WAIT" class="headerlink" title="TIME_WAIT"></a>TIME_WAIT</h4><p>time_wait 的存在一是为了丢失的数据包被后面连接复用，二是为了在 2MSL 的时间范围内正常关闭连接。它的存在其实会大大减少 RST 包的出现。</p>
+<p>过多的 time_wait 在短连接频繁的场景比较容易出现。这种情况可以在服务端做一些内核参数调优:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#表示开启重用。允许将TIME-WAIT sockets重新用于新的TCP连接，默认为<span class="number">0</span>，表示关闭</span><br><span class="line">net.ipv4.tcp_tw_reuse = <span class="number">1</span></span><br><span class="line">#表示开启TCP连接中TIME-WAIT sockets的快速回收，默认为<span class="number">0</span>，表示关闭</span><br><span class="line">net.ipv4.tcp_tw_recycle = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>当然我们不要忘记在 NAT 环境下因为时间戳错乱导致数据包被拒绝的坑了，另外的办法就是改小<code>tcp_max_tw_buckets</code>，超过这个数的 time_wait 都会被干掉，不过这也会导致报<code>time wait bucket table overflow</code>的错。</p>
+<h4 id="CLOSE-WAIT"><a href="#CLOSE-WAIT" class="headerlink" title="CLOSE_WAIT"></a>CLOSE_WAIT</h4><p>close_wait 往往都是因为应用程序写的有问题，没有在 ACK 后再次发起 FIN 报文。close_wait 出现的概率甚至比 time_wait 要更高，后果也更严重。往往是由于某个地方阻塞住了，没有正常关闭连接，从而渐渐地消耗完所有的线程。</p>
+<p>想要定位这类问题，最好是通过 jstack 来分析线程堆栈来诊断问题，具体可参考上述章节。这里仅举一个例子。</p>
+<p>开发同学说应用上线后 CLOSE_WAIT 就一直增多，直到挂掉为止，jstack 后找到比较可疑的堆栈是大部分线程都卡在了<code>countdownlatch.await</code>方法，找开发同学了解后得知使用了多线程但是确没有 catch 异常，修改后发现异常仅仅是最简单的升级 sdk 后常出现的<code>class not found</code>。</p>
+<h2 id="GC-问题"><a href="#GC-问题" class="headerlink" title="GC 问题"></a>GC 问题</h2><p>GC 问题除了影响 CPU 也会影响内存，诊断思路也是一致的。</p>
+<p>（1）通常，先使用 <code>jstat</code> 来查看分代变化情况，比如 <strong>minor gc</strong> 或 <strong>full gc</strong> 次数是不是太频繁、耗时太久。</p>
+<p>线程量太大，且不被及时 GC 也会引发 OOM，大部分就是之前说的 <code>unable to create new native thread</code>。除了 jstack 细细分析 dump 文件外，我们一般先会看下总体线程。</p>
+<p>可以执行以下命令中任意一个，没来查看当前进程创建的总线程数。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pstreee -p pid | wc -l</span><br><span class="line">ls -l /proc/pid/task | wc -l</span><br></pre></td></tr></table></figure>
+
+<p>堆内内存泄漏总是和 GC 异常相伴。不过 GC 问题不只是和内存问题相关，还有可能引起 CPU 负载、网络问题等系列并发症，只是相对来说和内存联系紧密些，所以我们在此单独总结一下 GC 相关问题。</p>
+<p>我们在 cpu 章介绍了使用 jstat 来获取当前 GC 分代变化信息。而更多时候，我们是通过 GC 日志来诊断问题的，在启动参数中加上<code>-verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps</code>来开启 GC 日志。<br>常见的 Minor GC、Full GC 日志含义在此就不做赘述了。</p>
+<p>针对 gc 日志，我们就能大致推断出 Minor GC 与 fullGC 是否过于频繁或者耗时过长，从而对症下药。我们下面将对 G1 垃圾收集器来做分析，这边也建议大家使用 G1<code>-XX:+UseG1GC</code>。</p>
+<h3 id="OOM"><a href="#OOM" class="headerlink" title="OOM"></a>OOM</h3><p>查看 GC 日志，如果有明显提示 OOM 问题，那就可以根据提示信息，较为快速的定位问题。</p>
+<blockquote>
+<p>OOM 定位可以参考：<a href="jvm-memory.md#%E4%B8%89OutOfMemoryError">JVM 内存管理 之 OutOfMemoryError</a></p>
+</blockquote>
+<h3 id="Minor-GC"><a href="#Minor-GC" class="headerlink" title="Minor GC"></a>Minor GC</h3><h4 id="Minor-GC-过频"><a href="#Minor-GC-过频" class="headerlink" title="Minor GC 过频"></a>Minor GC 过频</h4><p><strong>Minor GC 频繁一般是短周期的 Java 小对象较多</strong>。</p>
+<p>（1）先考虑是不是 Eden 区&#x2F;新生代设置的太小了，看能否通过调整 <code>-Xmn、-XX:SurvivorRatio</code> 等参数设置来解决问题。</p>
+<p>（2）如果参数正常，但是 Minor GC 频率还是太高，就需要使用 <code>jmap</code> 和 <code>MAT</code> 对 dump 文件进行进一步诊断了。</p>
+<h4 id="Minor-GC-耗时过长"><a href="#Minor-GC-耗时过长" class="headerlink" title="Minor GC 耗时过长"></a>Minor GC 耗时过长</h4><p>Minor GC 耗时过长问题就要看 GC 日志里耗时耗在哪一块了。</p>
+<p>以 G1 GC 日志为例，可以关注 Root Scanning、Object Copy、Ref Proc 等阶段。Ref Proc 耗时长，就要注意引用相关的对象。Root Scanning 耗时长，就要注意线程数、跨代引用。Object Copy 则需要关注对象生存周期。而且耗时分析它需要横向比较，就是和其他项目或者正常时间段的耗时比较。</p>
+<h3 id="Full-GC-过频"><a href="#Full-GC-过频" class="headerlink" title="Full GC 过频"></a>Full GC 过频</h3><p>G1 中更多的还是 mixedGC，但 mixedGC 可以和 Minor GC 思路一样去诊断。触发 fullGC 了一般都会有问题，G1 会退化使用 Serial 收集器来完成垃圾的清理工作，暂停时长达到秒级别，可以说是半跪了。</p>
+<p>fullGC 的原因可能包括以下这些，以及参数调整方面的一些思路：</p>
+<ul>
+<li>并发阶段失败：在并发标记阶段，MixGC 之前老年代就被填满了，那么这时候 G1 就会放弃标记周期。这种情况，可能就需要增加堆大小，或者调整并发标记线程数<code>-XX:ConcGCThreads</code>。</li>
+<li>晋升失败：在 GC 的时候没有足够的内存供存活&#x2F;晋升对象使用，所以触发了 Full GC。这时候可以通过<code>-XX:G1ReservePercent</code>来增加预留内存百分比，减少<code>-XX:InitiatingHeapOccupancyPercent</code>来提前启动标记，<code>-XX:ConcGCThreads</code>来增加标记线程数也是可以的。</li>
+<li>大对象分配失败：大对象找不到合适的 region 空间进行分配，就会进行 fullGC，这种情况下可以增大内存或者增大<code>-XX:G1HeapRegionSize</code>。</li>
+<li>程序主动执行 System.gc()：不要随便写就对了。</li>
+</ul>
+<p>另外，我们可以在启动参数中配置<code>-XX:HeapDumpPath=/xxx/dump.hprof</code>来 dump fullGC 相关的文件，并通过 jinfo 来进行 gc 前后的 dump</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">jinfo -flag +HeapDumpBeforeFullGC pid</span><br><span class="line">jinfo -flag +HeapDumpAfterFullGC pid</span><br></pre></td></tr></table></figure>
+
+<p>这样得到 2 份 dump 文件，对比后主要关注被 gc 掉的问题对象来定位问题。</p>
+<h2 id="常用-Linux-命令"><a href="#常用-Linux-命令" class="headerlink" title="常用 Linux 命令"></a>常用 Linux 命令</h2><p>在故障排查时，有一些 Linux 命令十分有用，建议掌握。</p>
+<h3 id="top"><a href="#top" class="headerlink" title="top"></a>top</h3><p>top 命令可以实时动态地查看系统的整体运行情况，是一个综合了多方信息监测系统性能和运行信息的实用工具。</p>
+<p>通常，会使用 <code>top -Hp pid</code> 查看具体线程使用系统资源情况。</p>
+<blockquote>
+<p>命令详情参考：<a target="_blank" rel="noopener" href="http://man.linuxde.net/top">http://man.linuxde.net/top</a></p>
+</blockquote>
+<h3 id="vmstat"><a href="#vmstat" class="headerlink" title="vmstat"></a>vmstat</h3><p>vmstat 是一款指定采样周期和次数的功能性监测工具，我们可以看到，它不仅可以统计内存的使用情况，还可以观测到 CPU 的使用率、swap 的使用情况。但 vmstat 一般很少用来查看内存的使用情况，而是经常被用来观察进程的上下文切换。</p>
+<ul>
+<li>r：等待运行的进程数；</li>
+<li>b：处于非中断睡眠状态的进程数；</li>
+<li>swpd：虚拟内存使用情况；</li>
+<li>free：空闲的内存；</li>
+<li>buff：用来作为缓冲的内存数；</li>
+<li>si：从磁盘交换到内存的交换页数量；</li>
+<li>so：从内存交换到磁盘的交换页数量；</li>
+<li>bi：发送到块设备的块数；</li>
+<li>bo：从块设备接收到的块数；</li>
+<li>in：每秒中断数；</li>
+<li>cs：每秒上下文切换次数；</li>
+<li>us：用户 CPU 使用时间；</li>
+<li>sy：内核 CPU 系统使用时间；</li>
+<li>id：空闲时间；</li>
+<li>wa：等待 I&#x2F;O 时间；</li>
+<li>st：运行虚拟机窃取的时间。</li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/100028001">《Java 性能调优实战》</a></li>
+<li><a target="_blank" rel="noopener" href="https://fredal.xin/java-error-check">JAVA 线上故障诊断全套路</a></li>
+<li><a target="_blank" rel="noopener" href="https://tech.meituan.com/2017/12/29/jvm-optimize.html">从实际案例聊聊 Java 应用的 GC 优化</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">JaHero</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/pages/84f329/">http://example.com/pages/84f329/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">贾英雄-blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/JavaSE/">JavaSE</a><a class="post-meta__tags" href="/tags/JVM/">JVM</a><a class="post-meta__tags" href="/tags/%E6%95%85%E9%9A%9C%E8%AF%8A%E6%96%AD/">故障诊断</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/12/26/JVM/Java%E6%96%B9%E6%B3%95%E7%9A%84%E8%B0%83%E7%94%A8/" title="Java方法的调用"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="title">Java方法的调用</div></div></a></div><div><a href="/2022/12/26/JVM/java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/" title="java反射机制及其应用场景"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="title">java反射机制及其应用场景</div></div></a></div><div><a href="/2022/12/26/JVM/%E5%AD%97%E8%8A%82%E7%A0%81%E8%AF%A6%E8%A7%A3/" title="JVM字节码详解"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="title">JVM字节码详解</div></div></a></div><div><a href="/pages/08f153/" title="JVM 体系结构"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-24</div><div class="title">JVM 体系结构</div></div></a></div><div><a href="/pages/db5b69/" title="Java 内存管理"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-28</div><div class="title">Java 内存管理</div></div></a></div><div><a href="/pages/c5a5b6/" title="JVM 垃圾收集"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-07</div><div class="title">JVM 垃圾收集</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/ava.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JaHero</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Java-%E6%95%85%E9%9A%9C%E8%AF%8A%E6%96%AD"><span class="toc-number">1.</span> <span class="toc-text">Java 故障诊断</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%85%E9%9A%9C%E5%AE%9A%E4%BD%8D%E6%80%9D%E8%B7%AF"><span class="toc-number">1.1.</span> <span class="toc-text">故障定位思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CPU-%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.</span> <span class="toc-text">CPU 问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE-CPU-%E5%8D%A0%E7%94%A8%E7%8E%87%E8%BE%83%E9%AB%98%E7%9A%84%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B"><span class="toc-number">1.2.1.</span> <span class="toc-text">查找 CPU 占用率较高的进程、线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E9%A2%91%E7%B9%81-GC"><span class="toc-number">1.2.2.</span> <span class="toc-text">是否存在频繁 GC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E9%A2%91%E7%B9%81%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2"><span class="toc-number">1.2.3.</span> <span class="toc-text">是否存在频繁上下文切换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.</span> <span class="toc-text">内存问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E9%97%AE%E9%A2%98"><span class="toc-number">1.4.</span> <span class="toc-text">磁盘问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E4%BD%BF%E7%94%A8%E7%8E%87"><span class="toc-number">1.4.1.</span> <span class="toc-text">查看磁盘空间使用率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%A3%81%E7%9B%98%E8%AF%BB%E5%86%99%E6%80%A7%E8%83%BD"><span class="toc-number">1.4.2.</span> <span class="toc-text">查看磁盘读写性能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%85%B7%E4%BD%93%E7%9A%84%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99%E6%83%85%E5%86%B5"><span class="toc-number">1.4.3.</span> <span class="toc-text">查看具体的文件读写情况</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98"><span class="toc-number">1.5.</span> <span class="toc-text">网络问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.5.1.</span> <span class="toc-text">无法连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E8%B6%85%E6%97%B6"><span class="toc-number">1.5.2.</span> <span class="toc-text">网络超时</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP-%E9%98%9F%E5%88%97%E6%BA%A2%E5%87%BA"><span class="toc-number">1.5.3.</span> <span class="toc-text">TCP 队列溢出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RST-%E5%BC%82%E5%B8%B8"><span class="toc-number">1.5.4.</span> <span class="toc-text">RST 异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TIME-WAIT-%E5%92%8C-CLOSE-WAIT"><span class="toc-number">1.5.5.</span> <span class="toc-text">TIME_WAIT 和 CLOSE_WAIT</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TIME-WAIT"><span class="toc-number">1.5.5.1.</span> <span class="toc-text">TIME_WAIT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CLOSE-WAIT"><span class="toc-number">1.5.5.2.</span> <span class="toc-text">CLOSE_WAIT</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GC-%E9%97%AE%E9%A2%98"><span class="toc-number">1.6.</span> <span class="toc-text">GC 问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#OOM"><span class="toc-number">1.6.1.</span> <span class="toc-text">OOM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Minor-GC"><span class="toc-number">1.6.2.</span> <span class="toc-text">Minor GC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Minor-GC-%E8%BF%87%E9%A2%91"><span class="toc-number">1.6.2.1.</span> <span class="toc-text">Minor GC 过频</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Minor-GC-%E8%80%97%E6%97%B6%E8%BF%87%E9%95%BF"><span class="toc-number">1.6.2.2.</span> <span class="toc-text">Minor GC 耗时过长</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Full-GC-%E8%BF%87%E9%A2%91"><span class="toc-number">1.6.3.</span> <span class="toc-text">Full GC 过频</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8-Linux-%E5%91%BD%E4%BB%A4"><span class="toc-number">1.7.</span> <span class="toc-text">常用 Linux 命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#top"><span class="toc-number">1.7.1.</span> <span class="toc-text">top</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vmstat"><span class="toc-number">1.7.2.</span> <span class="toc-text">vmstat</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.8.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题">无题</a><time datetime="2022-12-31T04:24:34.153Z" title="发表于 2022-12-31 12:24:34">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/img/index/" title="gallery"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="gallery"/></a><div class="content"><a class="title" href="/2022/12/31/img/index/" title="gallery">gallery</a><time datetime="2022-12-30T18:20:45.000Z" title="发表于 2022-12-31 02:20:45">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/30/hello-world/" title="Hello World"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/12/30/hello-world/" title="Hello World">Hello World</a><time datetime="2022-12-30T09:13:14.141Z" title="发表于 2022-12-30 17:13:14">2022-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Aop注解"/></a><div class="content"><a class="title" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解">Aop注解</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flowable 工作流程引擎"/></a><div class="content"><a class="title" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎">Flowable 工作流程引擎</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By JaHero</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script src="https://fastly.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

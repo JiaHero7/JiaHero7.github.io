@@ -1,0 +1,401 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>贾英雄-blog</title><meta name="author" content="JaHero"><meta name="copyright" content="JaHero"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
+<meta property="og:title" content="贾英雄-blog">
+<meta property="og:url" content="http://example.com/page/18/index.html">
+<meta property="og:site_name" content="贾英雄-blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/ava.jpg">
+<meta property="article:author" content="JaHero">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/ava.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/page/18/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"K46KXS6BKG","apiKey":"94dab3de87ce4cc2067ec6ef569e9df7","indexName":"JiaHero","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: JaHero","link":"链接: ","source":"来源: 贾英雄-blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '贾英雄-blog',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: true,
+  isToc: false,
+  postUpdate: '2022-12-31 12:27:03'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/ava.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('/img/index.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">贾英雄-blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">贾英雄-blog</h1><div id="site_social_icons"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/pages/5aee88/" title="ActiveMQ 快速入门">     <img class="post_bg" src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ActiveMQ 快速入门"></a></div><div class="recent-post-info"><a class="article-title" href="/pages/5aee88/" title="ActiveMQ 快速入门">ActiveMQ 快速入门</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-02-17T14:34:30.000Z" title="发表于 2022-02-17 22:34:30">2022-02-17</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:53.218Z" title="更新于 2022-12-26 14:15:53">2022-12-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E9%80%9A%E4%BF%A1/">分布式通信</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E9%80%9A%E4%BF%A1/MQ/">MQ</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E9%80%9A%E4%BF%A1/MQ/%E5%85%B6%E4%BB%96MQ/">其他MQ</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/MQ/">MQ</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/ActiveMQ/">ActiveMQ</a></span></div><div class="content">ActiveMQ 快速入门JMS 基本概念JMS 即 Java 消息服务（Java Message Service）API，是一个 Java 平台中关于面向消息中间件的 API。它用于在两个应用程序之间，或分布式系统中发送消息，进行异步通信。Java 消息服务是一个与具体平台无关的 API，绝大多数 MOM 提供商都对 JMS 提供支持。
+消息模型JMS 有两种消息模型：
+
+Point-to-Point(P2P)
+Publish&#x2F;Subscribe(Pub&#x2F;Sub)
+
+P2P 的特点
+在点对点的消息系统中，消息分发给一个单独的使用者。点对点消息往往与队列 javax.jms.Queue 相关联。
+每个消息只有一个消费者（Consumer）(即一旦被消费，消息就不再在消息队列中)。
+发送者和接收者之间在时间上没有依赖性，也就是说当发送者发送了消息之后，不管接收者有没有正在运行，它不会影响到消息被发送到队列。
+接收者在成功接收消息之后需向队列应答成功。
+如果你希望发送的每个消息都应该被成功处理的话，那么你需要 P2P 模式。
+Pub&#x2F;Sub 的特点
+发布&#x ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/pages/2950ba/" title="Java 基础语法特性">     <img class="post_bg" src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java 基础语法特性"></a></div><div class="recent-post-info"><a class="article-title" href="/pages/2950ba/" title="Java 基础语法特性">Java 基础语法特性</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-24T23:31:16.000Z" title="发表于 2022-01-25 07:31:16">2022-01-25</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:51.695Z" title="更新于 2022-12-26 14:15:51">2022-12-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/JavaSE/">JavaSE</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/JavaSE/%E5%9F%BA%E7%A1%80%E7%89%B9%E6%80%A7/">基础特性</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/JavaSE/">JavaSE</a></span></div><div class="content">Java 基础语法特性注释空白行，或者注释的内容，都会被 Java 编译器忽略掉。
+Java 支持多种注释方式，下面的示例展示了各种注释的使用方式：
+12345678910111213public class HelloWorld &#123;    /*     * JavaDoc 注释     */    public static void main(String[] args) &#123;        // 单行注释        /* 多行注释：           1. 注意点a           2. 注意点b         */        System.out.println(&quot;Hello World&quot;);    &#125;&#125;
+
+基本数据类型
+
+👉 扩展阅读：深入理解 Java 基本数据类型
+
+变量Java 支持的变量类型有：
+
+局部变量 - 类方法中的变量。
+实例变量（也叫成员变量） - 类方法外的变量，不过没有 static 修饰。
+类变量（也叫静态变量） - 类方法外的变量，用 static 修饰。
+
+特性对比：
+
+
+ ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/pages/2d95ce/" title="Elasticsearch 性能优化">     <img class="post_bg" src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Elasticsearch 性能优化"></a></div><div class="recent-post-info"><a class="article-title" href="/pages/2d95ce/" title="Elasticsearch 性能优化">Elasticsearch 性能优化</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-21T11:54:43.000Z" title="发表于 2022-01-21 19:54:43">2022-01-21</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:52.682Z" title="更新于 2022-12-26 14:15:52">2022-12-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/">搜索引擎数据库</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/Elasticsearch/">Elasticsearch</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E6%80%A7%E8%83%BD/">性能</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/">搜索引擎数据库</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/Elasticsearch/">Elasticsearch</a></span></div><div class="content">Elasticsearch 性能优化Elasticsearch 是当前流行的企业级搜索引擎，设计用于云计算中，能够达到实时搜索，稳定，可靠，快速，安装使用方便。作为一个开箱即用的产品，在生产环境上线之后，我们其实不一定能确保其的性能和稳定性。如何根据实际情况提高服务的性能，其实有很多技巧。这章我们分享从实战经验中总结出来的 elasticsearch 性能优化，主要从硬件配置优化、索引优化设置、查询方面优化、数据结构优化、集群架构优化等方面讲解。
+硬件配置优化升级硬件设备配置一直都是提高服务能力最快速有效的手段，在系统层面能够影响应用性能的一般包括三个因素：CPU、内存和 IO，可以从这三方面进行 ES 的性能优化工作。
+CPU 配置一般说来，CPU 繁忙的原因有以下几个：
+
+线程中有无限空循环、无阻塞、正则匹配或者单纯的计算；
+发生了频繁的 GC；
+多线程的上下文切换；
+
+大多数 Elasticsearch 部署往往对 CPU 要求不高。因此，相对其它资源，具体配置多少个（CPU）不是那么关键。你应该选择具有多个内核的现代处理器，常见的集群使用 2 到 8 个核的机器。如果你要在更快 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/pages/24baff/" title="Elasticsearch 排序">     <img class="post_bg" src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Elasticsearch 排序"></a></div><div class="recent-post-info"><a class="article-title" href="/pages/24baff/" title="Elasticsearch 排序">Elasticsearch 排序</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-19T14:49:16.000Z" title="发表于 2022-01-19 22:49:16">2022-01-19</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:52.670Z" title="更新于 2022-12-26 14:15:52">2022-12-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/">搜索引擎数据库</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/Elasticsearch/">Elasticsearch</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E6%8E%92%E5%BA%8F/">排序</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/">搜索引擎数据库</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/Elasticsearch/">Elasticsearch</a></span></div><div class="content">Elasticsearch 排序在 Elasticsearch 中，默认排序是按照相关性的评分（_score）进行降序排序，也可以按照字段的值排序、多级排序、多值字段排序、基于 geo（地理位置）排序以及自定义脚本排序，除此之外，对于相关性的评分也可以用 rescore 二次、三次打分，它可以限定重新打分的窗口大小（window size），并针对作用范围内的文档修改其得分，从而达到精细化控制结果相关性的目的。
+默认相关性排序在 Elasticsearch 中，默认情况下，文档是按照相关性得分倒序排列的，其对应的相关性得分字段用 _score 来表示，它是浮点数类型，_score 评分越高，相关性越高。评分模型的选择可以通过 similarity 参数在映射中指定。
+相似度算法可以按字段指定，只需在映射中为不同字段选定即可，如果要修改已有字段的相似度算法，只能通过为数据重新建立索引来达到目的。关于更多 es 相似度算法可以参考 深入理解 es 相似度算法（相关性得分计算）。
+TF-IDF 模型Elasticsearch 在 5.4 版本以前，text 类型的字段，默认采用基于 tf-i ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/pages/f89f66/" title="Elasticsearch 聚合">     <img class="post_bg" src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Elasticsearch 聚合"></a></div><div class="recent-post-info"><a class="article-title" href="/pages/f89f66/" title="Elasticsearch 聚合">Elasticsearch 聚合</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-19T14:49:16.000Z" title="发表于 2022-01-19 22:49:16">2022-01-19</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:52.675Z" title="更新于 2022-12-26 14:15:52">2022-12-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/">搜索引擎数据库</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/Elasticsearch/">Elasticsearch</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E8%81%9A%E5%90%88/">聚合</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/">搜索引擎数据库</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/Elasticsearch/">Elasticsearch</a></span></div><div class="content">Elasticsearch 聚合Elasticsearch 是一个分布式的全文搜索引擎，索引和搜索是 Elasticsearch 的基本功能。事实上，Elasticsearch 的聚合（Aggregations）功能也十分强大，允许在数据上做复杂的分析统计。Elasticsearch 提供的聚合分析功能主要有指标聚合(metrics aggregations)、桶聚合(bucket aggregations)、管道聚合(pipeline aggregations) 和 矩阵聚合(matrix aggregations) 四大类，管道聚合和矩阵聚合官方说明是在试验阶段，后期会完全更改或者移除，这里不再对管道聚合和矩阵聚合进行讲解。
+聚合的具体结构所有的聚合，无论它们是什么类型，都遵从以下的规则。
+
+使用查询中同样的 JSON 请求来定义它们，而且你是使用键 aggregations 或者是 aggs 来进行标记。需要给每个聚合起一个名字，指定它的类型以及和该类型相关的选项。
+它们运行在查询的结果之上。和查询不匹配的文档不会计算在内，除非你使用 global 聚集将不匹配的文档囊括其中。
+ ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/pages/83bd15/" title="Elasticsearch 查询">     <img class="post_bg" src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Elasticsearch 查询"></a></div><div class="recent-post-info"><a class="article-title" href="/pages/83bd15/" title="Elasticsearch 查询">Elasticsearch 查询</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-18T00:01:08.000Z" title="发表于 2022-01-18 08:01:08">2022-01-18</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:52.663Z" title="更新于 2022-12-26 14:15:52">2022-12-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/">搜索引擎数据库</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/Elasticsearch/">Elasticsearch</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/">搜索引擎数据库</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/Elasticsearch/">Elasticsearch</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E6%9F%A5%E8%AF%A2/">查询</a></span></div><div class="content">Elasticsearch 查询Elasticsearch 查询语句采用基于 RESTful 风格的接口封装成 JSON 格式的对象，称之为 Query DSL。Elasticsearch 查询分类大致分为全文查询、词项查询、复合查询、嵌套查询、位置查询、特殊查询。Elasticsearch 查询从机制分为两种，一种是根据用户输入的查询词，通过排序模型计算文档与查询词之间的相关度，并根据评分高低排序返回；另一种是过滤机制，只根据过滤条件对文档进行过滤，不计算评分，速度相对较快。
+全文查询ES 全文查询主要用于在全文字段上，主要考虑查询词与文档的相关性（Relevance）。
+intervals queryintervals query 根据匹配词的顺序和近似度返回文档。
+intervals query 使用匹配规则，这些规则应用于指定字段中的 term。
+示例：下面示例搜索 query 字段，搜索值是 my favorite food，没有任何间隙；然后是 my_text 字段搜索匹配 hot water、cold porridge 的 term。
+当 my_text 中的值为 my  ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/pages/68097d/" title="Spring Bean">     <img class="post_bg" src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Spring Bean"></a></div><div class="recent-post-info"><a class="article-title" href="/pages/68097d/" title="Spring Bean">Spring Bean</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-10T11:15:42.000Z" title="发表于 2021-12-10 19:15:42">2021-12-10</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:52.961Z" title="更新于 2022-12-26 14:15:52">2022-12-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/%E6%A1%86%E6%9E%B6/">框架</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/%E6%A1%86%E6%9E%B6/Spring/">Spring</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/%E6%A1%86%E6%9E%B6/Spring/Spring%E6%A0%B8%E5%BF%83/">Spring核心</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E6%A1%86%E6%9E%B6/">框架</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/Spring/">Spring</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/Bean/">Bean</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/BeanDefinition/">BeanDefinition</a></span></div><div class="content">Spring Bean在 Spring 中，构成应用程序主体由 Spring IoC 容器管理的对象称为 Bean。Bean 是由 Spring IoC 容器实例化、装配和管理的对象。 Bean 以及它们之间的依赖关系反映在容器使用的配置元数据中。
+Spring Bean 定义BeanDefinitionSpring IoC 容器本身，并不能识别配置的元数据。为此，要将这些配置信息转为 Spring 能识别的格式——BeanDefinition 对象。
+BeanDefinition 是 Spring 中定义 Bean 的配置元信息接口，它包含：
+
+Bean 类名
+Bean 行为配置元素，如：作用域、自动绑定的模式、生命周期回调等
+其他 Bean 引用，也可称为合作者（Collaborators）或依赖（Dependencies）
+配置设置，如 Bean 属性（Properties）
+
+BeanDefinition 元信息BeanDefinition 元信息如下：
+
+
+
+属性（Property）
+说明
+
+
+
+Class
+全类名，必须是具体类，不能用抽象类或接口
+
+
+Name
+Bean 的 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/pages/950e4d/" title="SpringBoot 之快速入门">     <img class="post_bg" src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SpringBoot 之快速入门"></a></div><div class="recent-post-info"><a class="article-title" href="/pages/950e4d/" title="SpringBoot 之快速入门">SpringBoot 之快速入门</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-10T10:22:26.000Z" title="发表于 2021-12-10 18:22:26">2021-12-10</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:52.987Z" title="更新于 2022-12-26 14:15:52">2022-12-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/%E6%A1%86%E6%9E%B6/">框架</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/%E6%A1%86%E6%9E%B6/Spring/">Spring</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/%E6%A1%86%E6%9E%B6/Spring/Spring%E6%A0%B8%E5%BF%83/">Spring核心</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E6%A1%86%E6%9E%B6/">框架</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/Spring/">Spring</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/SpringBoot/">SpringBoot</a></span></div><div class="content">SpringBoot 之快速入门Spring Boot 简介Spring Boot 可以让使用者非常方便的创建 Spring 应用。
+Spring Boot 的目标是：
+
+为所有 Spring 开发者提供更快且可广泛访问的入门体验。
+开箱即用
+提供一系列通用的非功能特性（例如嵌入式服务、安全、指标、健康检查和外部化配置）
+完全不需要代码生成，也不需要 XML 配置。
+
+Spring Boot 系统要求Spring Boot 的构建工具要求：
+
+
+
+Build Tool
+Version
+
+
+
+Maven
+3.5+
+
+
+Gradle
+6.8.x, 6.9.x, and 7.x
+
+
+Spring Boot 支持的 Servlet 容器：
+
+
+
+Name
+Servlet Version
+
+
+
+Tomcat 9.0
+4.0
+
+
+Jetty 9.4
+3.1
+
+
+Jetty 10.0
+4.0
+
+
+Undertow 2.0
+4.0
+
+
+部署第一个 Spring Boot 项目
+本节介绍如何开发一个小的“Hello World!” web 应用示例，来展示 Spring Boot 的一些关键功能。我们使 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/pages/286bb3/" title="分布式基础理论">     <img class="post_bg" src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="分布式基础理论"></a></div><div class="recent-post-info"><a class="article-title" href="/pages/286bb3/" title="分布式基础理论">分布式基础理论</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-08T00:15:33.000Z" title="发表于 2021-11-08 08:15:33">2021-11-08</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:51.526Z" title="更新于 2022-12-26 14:15:51">2022-12-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E7%90%86%E8%AE%BA/">分布式理论</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E7%90%86%E8%AE%BA/">理论</a></span></div><div class="content">分布式基础理论分布式特性和分类分布式特性
+性能：用于衡量一个系统处理各种任务的能力。
+吞吐量：系统在一定时间内可以处理的任务数。
+QPS，即每秒查询数
+TPS，即每秒事务数
+
+
+响应时间：系统响应一个请求或输入需要花费的时间。
+
+
+可用性：指的是系统在面对各种异常时可以正确提供服务的能力。系统的可用性可以用系统停止服务的时间与总的时间之比衡量。
+可扩展性：指的是分布式系统通过扩展集群机器规模提高系统性能 (吞吐、响应时间、 完成时间)、存储容量、计算能力的特性，是分布式系统的特有性质。
+
+分布式分类
+分布式计算：解决应用的分布式计算问题。基于分布式计算模式，包括批处理计算、离线计算、在线计算、融合计算等，根据应用类型构建高效智能的分布式计算框架。
+分布式存储：解决数据的分布式和多元化问题。包括分布式数据库、分布式文件系统、分布式缓存等，支持不同类型的数据的存储和管理。
+分布式通信：解决进程间的分布式通信问题。通过消息队列、远程调用等方式，实现简单高效的通信。
+分布式资源管理：解决资源的分布式和异构性问题。将 CPU、内存、IO 等物理资源虚拟化，新城逻辑资源池，以便统一管理。
+
+错误的 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/pages/dac0e2/" title="分布式一致性">     <img class="post_bg" src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="分布式一致性"></a></div><div class="recent-post-info"><a class="article-title" href="/pages/dac0e2/" title="分布式一致性">分布式一致性</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-08T00:15:33.000Z" title="发表于 2021-11-08 08:15:33">2021-11-08</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:51.530Z" title="更新于 2022-12-26 14:15:51">2022-12-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E7%90%86%E8%AE%BA/">分布式理论</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E7%90%86%E8%AE%BA/">理论</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E4%B8%80%E8%87%B4%E6%80%A7/">一致性</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/ACID/">ACID</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/CAP/">CAP</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/BASE/">BASE</a></span></div><div class="content">分布式一致性ACID 理论ACID 是数据库事务正确执行的四个基本要素。
+
+原子性（Atomicity）
+事务被视为不可分割的最小单元，事务中的所有操作要么全部提交成功，要么全部失败回滚。
+回滚可以用日志来实现，日志记录着事务所执行的修改操作，在回滚时反向执行这些修改操作即可。
+
+
+一致性（Consistency）
+数据库在事务执行前后都保持一致性状态。
+在一致性状态下，所有事务对一个数据的读取结果都是相同的。
+
+
+隔离性（Isolation）
+一个事务所做的修改在最终提交以前，对其它事务是不可见的。
+
+
+持久性（Durability）
+一旦事务提交，则其所做的修改将会永远保存到数据库中。即使系统发生崩溃，事务执行的结果也不能丢失。
+可以通过数据库备份和恢复来实现，在系统发生奔溃时，使用备份的数据库进行数据恢复。
+
+
+
+一个支持事务（Transaction）中的数据库系统，必需要具有这四种特性，否则在事务过程（Transaction processing）当中无法保证数据的正确性，交易过程极可能达不到交易。
+
+只有满足一致性，事务的执行结果才是正确的。
+在无并发的情况下，事务串行执行， ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/17/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/#content-inner">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/#content-inner">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/#content-inner">50</a><a class="extend next" rel="next" href="/page/19/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/ava.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JaHero</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题">无题</a><time datetime="2022-12-31T04:24:34.153Z" title="发表于 2022-12-31 12:24:34">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/img/index/" title="gallery"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="gallery"/></a><div class="content"><a class="title" href="/2022/12/31/img/index/" title="gallery">gallery</a><time datetime="2022-12-30T18:20:45.000Z" title="发表于 2022-12-31 02:20:45">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/30/hello-world/" title="Hello World"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/12/30/hello-world/" title="Hello World">Hello World</a><time datetime="2022-12-30T09:13:14.141Z" title="发表于 2022-12-30 17:13:14">2022-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Aop注解"/></a><div class="content"><a class="title" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解">Aop注解</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flowable 工作流程引擎"/></a><div class="content"><a class="title" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎">Flowable 工作流程引擎</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div></div></div><div class="card-widget" id="card-newest-comments"><div class="item-headline"><i class="fas fa-comment-dots"></i><span>最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/DevOps/"><span class="card-category-list-name">DevOps</span><span class="card-category-list-count">8</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/DevOps/%E5%B7%A5%E5%85%B7/"><span class="card-category-list-name">工具</span><span class="card-category-list-count">4</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/DevOps/%E5%B7%A5%E5%85%B7/Git/"><span class="card-category-list-name">Git</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/DevOps/%E5%B7%A5%E5%85%B7/%E5%85%B6%E4%BB%96/"><span class="card-category-list-name">其他</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/DevOps/%E7%9B%91%E6%8E%A7/"><span class="card-category-list-name">监控</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/DevOps/%E7%BB%BC%E5%90%88/"><span class="card-category-list-name">综合</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Java/"><span class="card-category-list-name">Java</span><span class="card-category-list-count">180</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Java/JavaEE/"><span class="card-category-list-name">JavaEE</span><span class="card-category-list-count">15</span></a></li></ul></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/2PC/" style="font-size: 1.1em; color: #999">2PC</a> <a href="/tags/5W2H/" style="font-size: 1.1em; color: #999">5W2H</a> <a href="/tags/ACID/" style="font-size: 1.1em; color: #999">ACID</a> <a href="/tags/AES/" style="font-size: 1.1em; color: #999">AES</a> <a href="/tags/AOP/" style="font-size: 1.1em; color: #999">AOP</a> <a href="/tags/API/" style="font-size: 1.16em; color: #999b9e">API</a> <a href="/tags/APM/" style="font-size: 1.16em; color: #999b9e">APM</a> <a href="/tags/ActiveMQ/" style="font-size: 1.1em; color: #999">ActiveMQ</a> <a href="/tags/Ant/" style="font-size: 1.1em; color: #999">Ant</a> <a href="/tags/Arthas/" style="font-size: 1.1em; color: #999">Arthas</a> <a href="/tags/B-%E6%A0%91/" style="font-size: 1.1em; color: #999">B+ 树</a> <a href="/tags/BASE/" style="font-size: 1.1em; color: #999">BASE</a> <a href="/tags/Bean/" style="font-size: 1.1em; color: #999">Bean</a> <a href="/tags/BeanDefinition/" style="font-size: 1.1em; color: #999">BeanDefinition</a> <a href="/tags/CAP/" style="font-size: 1.16em; color: #999b9e">CAP</a> <a href="/tags/CAT/" style="font-size: 1.1em; color: #999">CAT</a> <a href="/tags/CDN/" style="font-size: 1.1em; color: #999">CDN</a> <a href="/tags/Cassandra/" style="font-size: 1.1em; color: #999">Cassandra</a> <a href="/tags/Cookie/" style="font-size: 1.1em; color: #999">Cookie</a> <a href="/tags/DDD/" style="font-size: 1.16em; color: #999b9e">DDD</a> <a href="/tags/DES/" style="font-size: 1.1em; color: #999">DES</a> <a href="/tags/DNS/" style="font-size: 1.1em; color: #999">DNS</a> <a href="/tags/DataSource/" style="font-size: 1.1em; color: #999">DataSource</a> <a href="/tags/DevOps/" style="font-size: 1.39em; color: #99a4b4">DevOps</a> <a href="/tags/Dozer/" style="font-size: 1.1em; color: #999">Dozer</a> <a href="/tags/Dubbo/" style="font-size: 1.27em; color: #99a0a9">Dubbo</a> <a href="/tags/ES/" style="font-size: 1.33em; color: #99a2af">ES</a> <a href="/tags/Ehcache/" style="font-size: 1.1em; color: #999">Ehcache</a> <a href="/tags/Elastic/" style="font-size: 1.44em; color: #99a7ba">Elastic</a> <a href="/tags/Elasticsearch/" style="font-size: 1.5em; color: #99a9bf">Elasticsearch</a> <a href="/tags/FAQ/" style="font-size: 1.1em; color: #999">FAQ</a> <a href="/tags/Filebeat/" style="font-size: 1.16em; color: #999b9e">Filebeat</a> <a href="/tags/Filter/" style="font-size: 1.1em; color: #999">Filter</a> <a href="/tags/Freemark/" style="font-size: 1.1em; color: #999">Freemark</a> <a href="/tags/GC/" style="font-size: 1.1em; color: #999">GC</a> <a href="/tags/GUI/" style="font-size: 1.1em; color: #999">GUI</a> <a href="/tags/Git/" style="font-size: 1.21em; color: #999ea4">Git</a> <a href="/tags/Gossip/" style="font-size: 1.1em; color: #999">Gossip</a> <a href="/tags/H2/" style="font-size: 1.1em; color: #999">H2</a> <a href="/tags/HMAC/" style="font-size: 1.1em; color: #999">HMAC</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/12/"><span class="card-archive-list-date">十二月 2022</span><span class="card-archive-list-count">32</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/11/"><span class="card-archive-list-date">十一月 2022</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/09/"><span class="card-archive-list-date">九月 2022</span><span class="card-archive-list-count">4</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/07/"><span class="card-archive-list-date">七月 2022</span><span class="card-archive-list-count">12</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/06/"><span class="card-archive-list-date">六月 2022</span><span class="card-archive-list-count">17</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/05/"><span class="card-archive-list-date">五月 2022</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/04/"><span class="card-archive-list-date">四月 2022</span><span class="card-archive-list-count">27</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/03/"><span class="card-archive-list-date">三月 2022</span><span class="card-archive-list-count">8</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">495</div></div><div class="webinfo-item"><div class="item-name">已运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2022-12-31T04:26:47.267Z"></div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">1511k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2022-12-31T04:26:48.276Z"></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/index.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By JaHero</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script src="https://fastly.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

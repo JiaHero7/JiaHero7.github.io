@@ -1,0 +1,347 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>《高并发系统设计 40 问》笔记 | 贾英雄-blog</title><meta name="keywords" content="设计,架构,高并发"><meta name="author" content="JaHero"><meta name="copyright" content="JaHero"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="《高并发系统设计 40 问》笔记基础篇高并发系统：它的通用设计方法是什么？并发、异步、缓存 架构分层：我们为什么一定要这么做？分层架构典型代表：  MVC（Model-View-Controller） 表现层、逻辑层和数据访问层 OSI 七层网络模型  分层的好处  分层的设计可以简化系统设计，让不同的人专注做某一层次的事情。 再有，分层之后可以做到很高的复用。 分层架构可以让我们更容易做横向扩展">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《高并发系统设计 40 问》笔记">
+<meta property="og:url" content="http://example.com/pages/daf740/index.html">
+<meta property="og:site_name" content="贾英雄-blog">
+<meta property="og:description" content="《高并发系统设计 40 问》笔记基础篇高并发系统：它的通用设计方法是什么？并发、异步、缓存 架构分层：我们为什么一定要这么做？分层架构典型代表：  MVC（Model-View-Controller） 表现层、逻辑层和数据访问层 OSI 七层网络模型  分层的好处  分层的设计可以简化系统设计，让不同的人专注做某一层次的事情。 再有，分层之后可以做到很高的复用。 分层架构可以让我们更容易做横向扩展">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/post.jpg">
+<meta property="article:published_time" content="2021-08-05T15:42:00.000Z">
+<meta property="article:modified_time" content="2022-12-26T06:15:51.655Z">
+<meta property="article:author" content="JaHero">
+<meta property="article:tag" content="设计">
+<meta property="article:tag" content="架构">
+<meta property="article:tag" content="高并发">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/post.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/pages/daf740/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"K46KXS6BKG","apiKey":"94dab3de87ce4cc2067ec6ef569e9df7","indexName":"JiaHero","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: JaHero","link":"链接: ","source":"来源: 贾英雄-blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '《高并发系统设计 40 问》笔记',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2022-12-26 14:15:51'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/ava.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">贾英雄-blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">《高并发系统设计 40 问》笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-08-05T15:42:00.000Z" title="发表于 2021-08-05 23:42:00">2021-08-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:51.655Z" title="更新于 2022-12-26 14:15:51">2022-12-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/%E8%AE%BE%E8%AE%A1/">设计</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="《高并发系统设计 40 问》笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="《高并发系统设计-40-问》笔记"><a href="#《高并发系统设计-40-问》笔记" class="headerlink" title="《高并发系统设计 40 问》笔记"></a>《高并发系统设计 40 问》笔记</h1><h2 id="基础篇"><a href="#基础篇" class="headerlink" title="基础篇"></a>基础篇</h2><h3 id="高并发系统：它的通用设计方法是什么？"><a href="#高并发系统：它的通用设计方法是什么？" class="headerlink" title="高并发系统：它的通用设计方法是什么？"></a>高并发系统：它的通用设计方法是什么？</h3><p>并发、异步、缓存</p>
+<h3 id="架构分层：我们为什么一定要这么做？"><a href="#架构分层：我们为什么一定要这么做？" class="headerlink" title="架构分层：我们为什么一定要这么做？"></a>架构分层：我们为什么一定要这么做？</h3><p>分层架构典型代表：</p>
+<ul>
+<li>MVC（Model-View-Controller）</li>
+<li>表现层、逻辑层和数据访问层</li>
+<li>OSI 七层网络模型</li>
+</ul>
+<p>分层的好处</p>
+<ul>
+<li><strong>分层的设计可以简化系统设计，让不同的人专注做某一层次的事情。</strong></li>
+<li><strong>再有，分层之后可以做到很高的复用。</strong></li>
+<li><strong>分层架构可以让我们更容易做横向扩展。</strong></li>
+</ul>
+<p>分层架构的不足</p>
+<ul>
+<li>增加了代码的复杂度</li>
+</ul>
+<h3 id="系统设计目标（一）：如何提升系统性能？"><a href="#系统设计目标（一）：如何提升系统性能？" class="headerlink" title="系统设计目标（一）：如何提升系统性能？"></a>系统设计目标（一）：如何提升系统性能？</h3><p>讲述了性能指标和性能量化方式。</p>
+<h3 id="系统设计目标（二）：系统怎样做到高可用？"><a href="#系统设计目标（二）：系统怎样做到高可用？" class="headerlink" title="系统设计目标（二）：系统怎样做到高可用？"></a>系统设计目标（二）：系统怎样做到高可用？</h3><p>故障转移</p>
+<ul>
+<li>健康检查：心跳检测</li>
+<li>选举：Paxos、Raft</li>
+<li>负载均衡</li>
+</ul>
+<p>流量控制：</p>
+<ul>
+<li>超时与重试</li>
+<li>限流</li>
+<li>降级</li>
+</ul>
+<p>系统运维</p>
+<ul>
+<li>灰度发布</li>
+<li>故障演练</li>
+<li>CI&#x2F;CD</li>
+</ul>
+<p>多活架构</p>
+<h3 id="系统设计目标（三）：如何让系统易于扩展？"><a href="#系统设计目标（三）：如何让系统易于扩展？" class="headerlink" title="系统设计目标（三）：如何让系统易于扩展？"></a>系统设计目标（三）：如何让系统易于扩展？</h3><p><strong>拆分首先考虑的维度是业务维度</strong></p>
+<p>其次，当吞吐量达到单机瓶颈，针对存储做水平差费</p>
+<h2 id="数据库篇"><a href="#数据库篇" class="headerlink" title="数据库篇"></a>数据库篇</h2><h4 id="池化技术：如何减少频繁创建数据库连接的性能损耗？"><a href="#池化技术：如何减少频繁创建数据库连接的性能损耗？" class="headerlink" title="池化技术：如何减少频繁创建数据库连接的性能损耗？"></a>池化技术：如何减少频繁创建数据库连接的性能损耗？</h4><p>池化技术解决频繁创建连接、创建对象的成本</p>
+<h3 id="数据库优化方案（一）：查询请求增加时，如何做主从分离？"><a href="#数据库优化方案（一）：查询请求增加时，如何做主从分离？" class="headerlink" title="数据库优化方案（一）：查询请求增加时，如何做主从分离？"></a>数据库优化方案（一）：查询请求增加时，如何做主从分离？</h3><p>读写分离：写入时只写主库，在读数据时只读从库。通常采用一主多从架构。</p>
+<p>读写分离的问题：<strong>主从同步的延迟</strong></p>
+<p>读写分离的关键：</p>
+<ul>
+<li>主从复制</li>
+<li>读写流量分发</li>
+<li>代理：Cobar、Mycat</li>
+<li>客户端：sharding-jdbc、TDDL</li>
+</ul>
+<h3 id="数据库优化方案（二）：写入数据量增加时，如何实现分库分表？"><a href="#数据库优化方案（二）：写入数据量增加时，如何实现分库分表？" class="headerlink" title="数据库优化方案（二）：写入数据量增加时，如何实现分库分表？"></a>数据库优化方案（二）：写入数据量增加时，如何实现分库分表？</h3><p>垂直拆分：从业务维度，将表分为不同的库</p>
+<p>水平拆分：分区 key 是关键。应使用合理策略，分库分表。如：hash 取 mod 法、范围划分</p>
+<h3 id="发号器：如何保证分库分表后-ID-的全局唯一性？"><a href="#发号器：如何保证分库分表后-ID-的全局唯一性？" class="headerlink" title="发号器：如何保证分库分表后 ID 的全局唯一性？"></a>发号器：如何保证分库分表后 ID 的全局唯一性？</h3><p>分布式 ID：UUID、Snowflake 算法</p>
+<h3 id="NoSQL：在高并发场景下，数据库和-NoSQL-如何做到互补？"><a href="#NoSQL：在高并发场景下，数据库和-NoSQL-如何做到互补？" class="headerlink" title="NoSQL：在高并发场景下，数据库和 NoSQL 如何做到互补？"></a>NoSQL：在高并发场景下，数据库和 NoSQL 如何做到互补？</h3><p>LSM 树：牺牲了一定的读性能来换取写入数据的高性能，Hbase、Cassandra、LevelDB 都是用这种算法作为存储的引擎。</p>
+<p>数据首先会写入到一个叫做 MemTable 的内存结构中，在 MemTable 中数据是按照写入的 Key 来排序的。为了防止 MemTable 里面的数据因为机器掉电或者重启而丢失，一般会通过写 Write Ahead Log 的方式将数据备份在磁盘上。</p>
+<p>MemTable 在累积到一定规模时，它会被刷新生成一个新的文件，我们把这个文件叫做 SSTable（Sorted String Table）。当 SSTable 达到一定数量时，我们会将这些 SSTable 合并，减少文件的数量，因为 SSTable 都是有序的，所以合并的速度也很快。</p>
+<p>当从 LSM 树里面读数据时，我们首先从 MemTable 中查找数据，如果数据没有找到，再从 SSTable 中查找数据。因为存储的数据都是有序的，所以查找的效率是很高的，只是因为数据被拆分成多个 SSTable，所以读取的效率会低于 B+ 树索引。</p>
+<h2 id="缓存篇"><a href="#缓存篇" class="headerlink" title="缓存篇"></a>缓存篇</h2><h3 id="缓存：数据库成为瓶颈后，动态数据的查询要如何加速？"><a href="#缓存：数据库成为瓶颈后，动态数据的查询要如何加速？" class="headerlink" title="缓存：数据库成为瓶颈后，动态数据的查询要如何加速？"></a>缓存：数据库成为瓶颈后，动态数据的查询要如何加速？</h3><p>缓存分类：静态缓存、进程内缓存、分布式缓存</p>
+<h3 id="缓存的使用姿势（一）：如何选择缓存的读写策略？"><a href="#缓存的使用姿势（一）：如何选择缓存的读写策略？" class="headerlink" title="缓存的使用姿势（一）：如何选择缓存的读写策略？"></a>缓存的使用姿势（一）：如何选择缓存的读写策略？</h3><h3 id="Cache-Aside（旁路缓存）策略"><a href="#Cache-Aside（旁路缓存）策略" class="headerlink" title="Cache Aside（旁路缓存）策略"></a>Cache Aside（旁路缓存）策略</h3><p>先写表，再写缓存，可能会导致缓存和数据库数据不一致</p>
+<p>更新表，删除缓存 key；读数据时，从表中读取。</p>
+<p><strong>读策略的步骤</strong></p>
+<ul>
+<li>从缓存中读取数据；</li>
+<li>如果缓存命中，则直接返回数据；</li>
+<li>如果缓存不命中，则从数据库中查询数据；</li>
+<li>查询到数据后，将数据写入到缓存中，并且返回给用户。</li>
+</ul>
+<p><strong>写策略的步骤</strong></p>
+<ul>
+<li>更新数据库中的记录；</li>
+<li>删除缓存记录。</li>
+</ul>
+<p>Cache Aside 理论上还是有较小概率导致数据不一致。</p>
+<p>Cache Aside 存在的最大的问题是当写入比较频繁时，缓存中的数据会被频繁地清理，这样会对缓存的命中率有一些影响。</p>
+<p><strong>如果你的业务对缓存命中率有严格的要求，那么可以考虑两种解决方案：</strong></p>
+<ol>
+<li>一种做法是在更新数据时也更新缓存，只是在更新缓存前先加一个分布式锁，因为这样在同一时间只允许一个线程更新缓存，就不会产生并发问题了。当然这么做对于写入的性能会有一些影响；</li>
+<li>另一种做法同样也是在更新数据时更新缓存，只是给缓存加一个较短的过期时间，这样即使出现缓存不一致的情况，缓存的数据也会很快地过期，对业务的影响也是可以接受。</li>
+</ol>
+<h4 id="Read-x2F-Write-Through（读穿-x2F-写穿）策略"><a href="#Read-x2F-Write-Through（读穿-x2F-写穿）策略" class="headerlink" title="Read&#x2F;Write Through（读穿 &#x2F; 写穿）策略"></a>Read&#x2F;Write Through（读穿 &#x2F; 写穿）策略</h4><p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20210808210155.jpg" alt="img"></p>
+<h3 id="Write-Back（写回）策略"><a href="#Write-Back（写回）策略" class="headerlink" title="Write Back（写回）策略"></a>Write Back（写回）策略</h3><p>核心思想是在写入数据时只写入缓存，并且把缓存块儿标记为“脏”的。而脏块儿只有被再次使用时才会将其中的数据写入到后端存储中。</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20210808210420.jpg" alt="img"></p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20210808210511.jpg" alt="img"></p>
+<p>这种策略不能被应用到我们常用的数据库和缓存的场景中，它是计算机体系结构中的设计，比如我们在向磁盘中写数据时采用的就是这种策略。</p>
+<p>但因为缓存一般使用内存，而内存是非持久化的，所以一旦缓存机器掉电，就会造成原本缓存中的脏块儿数据丢失。所以你会发现系统在掉电之后，之前写入的文件会有部分丢失，就是因为 Page Cache 还没有来得及刷盘造成的。</p>
+<h3 id="缓存的使用姿势（二）：缓存如何做到高可用？"><a href="#缓存的使用姿势（二）：缓存如何做到高可用？" class="headerlink" title="缓存的使用姿势（二）：缓存如何做到高可用？"></a>缓存的使用姿势（二）：缓存如何做到高可用？</h3><p><strong>分布式缓存的高可用方案</strong></p>
+<ul>
+<li>客户端方案：在客户端配置多个缓存的节点，通过缓存写入和读取算法策略来实现分布式，从而提高缓存的可用性。</li>
+<li>代理层方案：客户端所有的写入和读取的请求都通过代理层，而代理层中会内置高可用策略，帮助提升缓存系统的高可用。</li>
+<li>服务度方案：Redis Sentinel 方案</li>
+</ul>
+<h3 id="缓存的使用姿势（三）：缓存穿透了怎么办？"><a href="#缓存的使用姿势（三）：缓存穿透了怎么办？" class="headerlink" title="缓存的使用姿势（三）：缓存穿透了怎么办？"></a>缓存的使用姿势（三）：缓存穿透了怎么办？</h3><p>缓存穿透解決方案：</p>
+<ul>
+<li>保存 null 值</li>
+<li>布隆过滤器</li>
+</ul>
+<h2 id="消息队列篇"><a href="#消息队列篇" class="headerlink" title="消息队列篇"></a>消息队列篇</h2><h3 id="消息队列：秒杀时如何处理每秒上万次的下单请求？"><a href="#消息队列：秒杀时如何处理每秒上万次的下单请求？" class="headerlink" title="消息队列：秒杀时如何处理每秒上万次的下单请求？"></a>消息队列：秒杀时如何处理每秒上万次的下单请求？</h3><p>削峰、异步处理、系统解耦</p>
+<h3 id="消息投递：如何保证消息仅仅被消费一次？"><a href="#消息投递：如何保证消息仅仅被消费一次？" class="headerlink" title="消息投递：如何保证消息仅仅被消费一次？"></a>消息投递：如何保证消息仅仅被消费一次？</h3><h3 id="系统架构：每秒-1-万次请求的系统要做服务化拆分吗？"><a href="#系统架构：每秒-1-万次请求的系统要做服务化拆分吗？" class="headerlink" title="系统架构：每秒 1 万次请求的系统要做服务化拆分吗？"></a>系统架构：每秒 1 万次请求的系统要做服务化拆分吗？</h3><p>系统中，使用的资源出现扩展性问题，尤其是数据库的连接数出现瓶颈；</p>
+<p>大团队共同维护一套代码，带来研发效率的降低，和研发成本的提升；</p>
+<p>系统部署成本越来越高。</p>
+<h3 id="微服务架构：微服务化后，系统架构要如何改造？"><a href="#微服务架构：微服务化后，系统架构要如何改造？" class="headerlink" title="微服务架构：微服务化后，系统架构要如何改造？"></a>微服务架构：微服务化后，系统架构要如何改造？</h3><p>服务拆分时要遵循哪些原则？</p>
+<p>服务的边界如何确定？服务的粒度是怎样呢？</p>
+<p>在服务化之后，会遇到哪些问题呢？我们又将如何来解决？</p>
+<h2 id="分布式服务篇"><a href="#分布式服务篇" class="headerlink" title="分布式服务篇"></a>分布式服务篇</h2><h2 id="维护篇"><a href="#维护篇" class="headerlink" title="维护篇"></a>维护篇</h2><h3 id="给系统加上眼睛：服务端监控要怎么做？"><a href="#给系统加上眼睛：服务端监控要怎么做？" class="headerlink" title="给系统加上眼睛：服务端监控要怎么做？"></a>给系统加上眼睛：服务端监控要怎么做？</h3><p>CPU、内存、磁盘、网络</p>
+<p><strong>道路千万条，监控第一条，监控不到位，领导两行泪</strong></p>
+<p>监控指标</p>
+<p>采集方式</p>
+<ul>
+<li>Agent</li>
+<li>埋点</li>
+<li>日志</li>
+</ul>
+<p>处理和展示</p>
+<h3 id="应用性能管理：用户的使用体验应该如何监控？"><a href="#应用性能管理：用户的使用体验应该如何监控？" class="headerlink" title="应用性能管理：用户的使用体验应该如何监控？"></a>应用性能管理：用户的使用体验应该如何监控？</h3><h3 id="压力测试：怎样设计全链路压力测试平台？"><a href="#压力测试：怎样设计全链路压力测试平台？" class="headerlink" title="压力测试：怎样设计全链路压力测试平台？"></a>压力测试：怎样设计全链路压力测试平台？</h3><h3 id="配置管理：成千上万的配置项要如何管理？"><a href="#配置管理：成千上万的配置项要如何管理？" class="headerlink" title="配置管理：成千上万的配置项要如何管理？"></a>配置管理：成千上万的配置项要如何管理？</h3><ul>
+<li>配置存储是分级的，有公共配置，有个性的配置，一般个性配置会覆盖公共配置，这样可以减少存储配置项的数量；</li>
+<li>配置中心可以提供配置变更通知的功能，可以实现配置的热更新；</li>
+<li>配置中心关注的性能指标中，可用性的优先级是高于性能的，一般我们会要求配置中心的可用性达到 99.999%，甚至会是 99.9999%。</li>
+</ul>
+<h2 id="实战篇"><a href="#实战篇" class="headerlink" title="实战篇"></a>实战篇</h2></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">JaHero</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/pages/daf740/">http://example.com/pages/daf740/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">贾英雄-blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AE%BE%E8%AE%A1/">设计</a><a class="post-meta__tags" href="/tags/%E6%9E%B6%E6%9E%84/">架构</a><a class="post-meta__tags" href="/tags/%E9%AB%98%E5%B9%B6%E5%8F%91/">高并发</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/pages/531ef7/" title="《从0开始学架构》笔记"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-15</div><div class="title">《从0开始学架构》笔记</div></div></a></div><div><a href="/pages/c75707/" title="《架构实战案例解析》笔记"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-26</div><div class="title">《架构实战案例解析》笔记</div></div></a></div><div><a href="/pages/74d040/" title="《左耳听风》笔记"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-15</div><div class="title">《左耳听风》笔记</div></div></a></div><div><a href="/pages/7bb3ee/" title="《从 0 开始学微服务》笔记"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-15</div><div class="title">《从 0 开始学微服务》笔记</div></div></a></div><div><a href="/pages/b4661f/" title="《微服务架构核心 20 讲》笔记"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-26</div><div class="title">《微服务架构核心 20 讲》笔记</div></div></a></div><div><a href="/pages/0a89f3/" title="如何设计系统"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-08</div><div class="title">如何设计系统</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/ava.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JaHero</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E3%80%8A%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1-40-%E9%97%AE%E3%80%8B%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">《高并发系统设计 40 问》笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%AF%87"><span class="toc-number">1.1.</span> <span class="toc-text">基础篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%EF%BC%9A%E5%AE%83%E7%9A%84%E9%80%9A%E7%94%A8%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.1.1.</span> <span class="toc-text">高并发系统：它的通用设计方法是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E5%88%86%E5%B1%82%EF%BC%9A%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%80%E5%AE%9A%E8%A6%81%E8%BF%99%E4%B9%88%E5%81%9A%EF%BC%9F"><span class="toc-number">1.1.2.</span> <span class="toc-text">架构分层：我们为什么一定要这么做？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E7%9B%AE%E6%A0%87%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E6%8F%90%E5%8D%87%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD%EF%BC%9F"><span class="toc-number">1.1.3.</span> <span class="toc-text">系统设计目标（一）：如何提升系统性能？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E7%9B%AE%E6%A0%87%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E7%B3%BB%E7%BB%9F%E6%80%8E%E6%A0%B7%E5%81%9A%E5%88%B0%E9%AB%98%E5%8F%AF%E7%94%A8%EF%BC%9F"><span class="toc-number">1.1.4.</span> <span class="toc-text">系统设计目标（二）：系统怎样做到高可用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E7%9B%AE%E6%A0%87%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AE%A9%E7%B3%BB%E7%BB%9F%E6%98%93%E4%BA%8E%E6%89%A9%E5%B1%95%EF%BC%9F"><span class="toc-number">1.1.5.</span> <span class="toc-text">系统设计目标（三）：如何让系统易于扩展？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AF%87"><span class="toc-number">1.2.</span> <span class="toc-text">数据库篇</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B1%A0%E5%8C%96%E6%8A%80%E6%9C%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E5%87%8F%E5%B0%91%E9%A2%91%E7%B9%81%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%80%A7%E8%83%BD%E6%8D%9F%E8%80%97%EF%BC%9F"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">池化技术：如何减少频繁创建数据库连接的性能损耗？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%9F%A5%E8%AF%A2%E8%AF%B7%E6%B1%82%E5%A2%9E%E5%8A%A0%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E5%81%9A%E4%B8%BB%E4%BB%8E%E5%88%86%E7%A6%BB%EF%BC%9F"><span class="toc-number">1.2.1.</span> <span class="toc-text">数据库优化方案（一）：查询请求增加时，如何做主从分离？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E9%87%8F%E5%A2%9E%E5%8A%A0%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%EF%BC%9F"><span class="toc-number">1.2.2.</span> <span class="toc-text">数据库优化方案（二）：写入数据量增加时，如何实现分库分表？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E5%8F%B7%E5%99%A8%EF%BC%9A%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E5%90%8E-ID-%E7%9A%84%E5%85%A8%E5%B1%80%E5%94%AF%E4%B8%80%E6%80%A7%EF%BC%9F"><span class="toc-number">1.2.3.</span> <span class="toc-text">发号器：如何保证分库分表后 ID 的全局唯一性？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NoSQL%EF%BC%9A%E5%9C%A8%E9%AB%98%E5%B9%B6%E5%8F%91%E5%9C%BA%E6%99%AF%E4%B8%8B%EF%BC%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C-NoSQL-%E5%A6%82%E4%BD%95%E5%81%9A%E5%88%B0%E4%BA%92%E8%A1%A5%EF%BC%9F"><span class="toc-number">1.2.4.</span> <span class="toc-text">NoSQL：在高并发场景下，数据库和 NoSQL 如何做到互补？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E7%AF%87"><span class="toc-number">1.3.</span> <span class="toc-text">缓存篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%BA%93%E6%88%90%E4%B8%BA%E7%93%B6%E9%A2%88%E5%90%8E%EF%BC%8C%E5%8A%A8%E6%80%81%E6%95%B0%E6%8D%AE%E7%9A%84%E6%9F%A5%E8%AF%A2%E8%A6%81%E5%A6%82%E4%BD%95%E5%8A%A0%E9%80%9F%EF%BC%9F"><span class="toc-number">1.3.1.</span> <span class="toc-text">缓存：数据库成为瓶颈后，动态数据的查询要如何加速？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A7%BF%E5%8A%BF%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E7%BC%93%E5%AD%98%E7%9A%84%E8%AF%BB%E5%86%99%E7%AD%96%E7%95%A5%EF%BC%9F"><span class="toc-number">1.3.2.</span> <span class="toc-text">缓存的使用姿势（一）：如何选择缓存的读写策略？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache-Aside%EF%BC%88%E6%97%81%E8%B7%AF%E7%BC%93%E5%AD%98%EF%BC%89%E7%AD%96%E7%95%A5"><span class="toc-number">1.3.3.</span> <span class="toc-text">Cache Aside（旁路缓存）策略</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Read-x2F-Write-Through%EF%BC%88%E8%AF%BB%E7%A9%BF-x2F-%E5%86%99%E7%A9%BF%EF%BC%89%E7%AD%96%E7%95%A5"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">Read&#x2F;Write Through（读穿 &#x2F; 写穿）策略</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Write-Back%EF%BC%88%E5%86%99%E5%9B%9E%EF%BC%89%E7%AD%96%E7%95%A5"><span class="toc-number">1.3.4.</span> <span class="toc-text">Write Back（写回）策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A7%BF%E5%8A%BF%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E7%BC%93%E5%AD%98%E5%A6%82%E4%BD%95%E5%81%9A%E5%88%B0%E9%AB%98%E5%8F%AF%E7%94%A8%EF%BC%9F"><span class="toc-number">1.3.5.</span> <span class="toc-text">缓存的使用姿势（二）：缓存如何做到高可用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A7%BF%E5%8A%BF%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F"><span class="toc-number">1.3.6.</span> <span class="toc-text">缓存的使用姿势（三）：缓存穿透了怎么办？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E7%AF%87"><span class="toc-number">1.4.</span> <span class="toc-text">消息队列篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%EF%BC%9A%E7%A7%92%E6%9D%80%E6%97%B6%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E6%AF%8F%E7%A7%92%E4%B8%8A%E4%B8%87%E6%AC%A1%E7%9A%84%E4%B8%8B%E5%8D%95%E8%AF%B7%E6%B1%82%EF%BC%9F"><span class="toc-number">1.4.1.</span> <span class="toc-text">消息队列：秒杀时如何处理每秒上万次的下单请求？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E6%8A%95%E9%80%92%EF%BC%9A%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E4%BB%85%E4%BB%85%E8%A2%AB%E6%B6%88%E8%B4%B9%E4%B8%80%E6%AC%A1%EF%BC%9F"><span class="toc-number">1.4.2.</span> <span class="toc-text">消息投递：如何保证消息仅仅被消费一次？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%EF%BC%9A%E6%AF%8F%E7%A7%92-1-%E4%B8%87%E6%AC%A1%E8%AF%B7%E6%B1%82%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%A6%81%E5%81%9A%E6%9C%8D%E5%8A%A1%E5%8C%96%E6%8B%86%E5%88%86%E5%90%97%EF%BC%9F"><span class="toc-number">1.4.3.</span> <span class="toc-text">系统架构：每秒 1 万次请求的系统要做服务化拆分吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%EF%BC%9A%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%8C%96%E5%90%8E%EF%BC%8C%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%A6%81%E5%A6%82%E4%BD%95%E6%94%B9%E9%80%A0%EF%BC%9F"><span class="toc-number">1.4.4.</span> <span class="toc-text">微服务架构：微服务化后，系统架构要如何改造？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E6%9C%8D%E5%8A%A1%E7%AF%87"><span class="toc-number">1.5.</span> <span class="toc-text">分布式服务篇</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%B4%E6%8A%A4%E7%AF%87"><span class="toc-number">1.6.</span> <span class="toc-text">维护篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%99%E7%B3%BB%E7%BB%9F%E5%8A%A0%E4%B8%8A%E7%9C%BC%E7%9D%9B%EF%BC%9A%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%9B%91%E6%8E%A7%E8%A6%81%E6%80%8E%E4%B9%88%E5%81%9A%EF%BC%9F"><span class="toc-number">1.6.1.</span> <span class="toc-text">给系统加上眼睛：服务端监控要怎么做？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E6%80%A7%E8%83%BD%E7%AE%A1%E7%90%86%EF%BC%9A%E7%94%A8%E6%88%B7%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7%EF%BC%9F"><span class="toc-number">1.6.2.</span> <span class="toc-text">应用性能管理：用户的使用体验应该如何监控？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%EF%BC%9A%E6%80%8E%E6%A0%B7%E8%AE%BE%E8%AE%A1%E5%85%A8%E9%93%BE%E8%B7%AF%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%B9%B3%E5%8F%B0%EF%BC%9F"><span class="toc-number">1.6.3.</span> <span class="toc-text">压力测试：怎样设计全链路压力测试平台？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86%EF%BC%9A%E6%88%90%E5%8D%83%E4%B8%8A%E4%B8%87%E7%9A%84%E9%85%8D%E7%BD%AE%E9%A1%B9%E8%A6%81%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%EF%BC%9F"><span class="toc-number">1.6.4.</span> <span class="toc-text">配置管理：成千上万的配置项要如何管理？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%E7%AF%87"><span class="toc-number">1.7.</span> <span class="toc-text">实战篇</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题">无题</a><time datetime="2022-12-31T04:24:34.153Z" title="发表于 2022-12-31 12:24:34">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/img/index/" title="gallery"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="gallery"/></a><div class="content"><a class="title" href="/2022/12/31/img/index/" title="gallery">gallery</a><time datetime="2022-12-30T18:20:45.000Z" title="发表于 2022-12-31 02:20:45">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/30/hello-world/" title="Hello World"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/12/30/hello-world/" title="Hello World">Hello World</a><time datetime="2022-12-30T09:13:14.141Z" title="发表于 2022-12-30 17:13:14">2022-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Aop注解"/></a><div class="content"><a class="title" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解">Aop注解</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flowable 工作流程引擎"/></a><div class="content"><a class="title" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎">Flowable 工作流程引擎</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By JaHero</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script src="https://fastly.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>贾英雄-blog</title><meta name="author" content="JaHero"><meta name="copyright" content="JaHero"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
+<meta property="og:title" content="贾英雄-blog">
+<meta property="og:url" content="http://example.com/page/39/index.html">
+<meta property="og:site_name" content="贾英雄-blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/ava.jpg">
+<meta property="article:author" content="JaHero">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/ava.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/page/39/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"K46KXS6BKG","apiKey":"94dab3de87ce4cc2067ec6ef569e9df7","indexName":"JiaHero","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: JaHero","link":"链接: ","source":"来源: 贾英雄-blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '贾英雄-blog',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: true,
+  isToc: false,
+  postUpdate: '2022-12-31 12:27:03'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/ava.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('/img/index.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">贾英雄-blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">贾英雄-blog</h1><div id="site_social_icons"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/pages/a6febf/" title="网络技术之 CDN">     <img class="post_bg" src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网络技术之 CDN"></a></div><div class="recent-post-info"><a class="article-title" href="/pages/a6febf/" title="网络技术之 CDN">网络技术之 CDN</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-05-29T15:19:00.000Z" title="发表于 2019-05-29 23:19:00">2019-05-29</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:51.508Z" title="更新于 2022-12-26 14:15:51">2022-12-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/">网络技术</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%BD%91%E7%BB%9C/">网络</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/">网络技术</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/CDN/">CDN</a></span></div><div class="content">网络技术之 CDN
+简介CDN 是什么CDN(Content Delivery Network)，即内容分发网络。
+CDN 是一个全球性的代理服务器分布式网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。它从靠近用户的位置提供内容。通常，HTML&#x2F;CSS&#x2F;JS，图片和视频等静态内容由 CDN 提供。CDN 的 DNS 解析会告知客户端连接哪台服务器。CDN 的关键技术主要有内容存储和分发技术。
+CDN 的优缺点
+优点
+访问加速 - 由于 CDN 就近服务，大大降低了网络传播时延，所以自然提高了访问速度。
+降低负载 - 如果 CDN 已经能获取数据，那么就不必请求源站，这自然降低了源站（服务器）的负载。
+
+
+缺点
+CDN 成本可能因流量而异，可能在权衡之后你将不会使用 CDN。
+如果在 TTL 过期之前更新内容，CDN 缓存内容可能会过时。
+CDN 需要更改静态内容的 URL 地址以指向 CDN。
+
+
+
+CDN 原理CDN 的基本原理是：
+
+广泛采用各种缓存服务器，将 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/pages/0f7153/" title="Vscode 快速入门">     <img class="post_bg" src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Vscode 快速入门"></a></div><div class="recent-post-info"><a class="article-title" href="/pages/0f7153/" title="Vscode 快速入门">Vscode 快速入门</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-05-14T06:57:33.000Z" title="发表于 2019-05-14 14:57:33">2019-05-14</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:52.125Z" title="更新于 2022-12-26 14:15:52">2022-12-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/%E8%BD%AF%E4%BB%B6/">软件</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/%E8%BD%AF%E4%BB%B6/IDE/">IDE</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/IDE/">IDE</a></span></div><div class="content">Vscode 快速入门快捷键命令面板（Command Palette）根据您当前的上下文访问所有可用命令。
+
+Mac: cmd+shift+p or f1Windows &#x2F; Linux: ctrl+shift+p or f1
+
+快速打开文件（Quick Open）
+Mac: cmd+pWindows &#x2F; Linux: ctrl+p
+
+Status Bar
+Mac: shift+cmd+mWindows &#x2F; Linux: ctrl+shift+m
+
+改变语言模式
+Mac: cmd+k mWindows &#x2F; Linux: ctrl+k m
+
+设置
+Mac: cmd+,Windows &#x2F; Linux: File &gt; Preferences &gt; Settings or ctrl+,
+
+插件
+Chinese (Simplified) Language Pack for Visual Studio Code
+Prettier - Code formatter
+IntelliJ IDEA Keybindings
+EditorConfig  ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/pages/d893c2/" title="Maven 教程之 pom.xml 详解">     <img class="post_bg" src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Maven 教程之 pom.xml 详解"></a></div><div class="recent-post-info"><a class="article-title" href="/pages/d893c2/" title="Maven 教程之 pom.xml 详解">Maven 教程之 pom.xml 详解</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-05-14T06:57:33.000Z" title="发表于 2019-05-14 14:57:33">2019-05-14</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:52.899Z" title="更新于 2022-12-26 14:15:52">2022-12-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/%E8%BD%AF%E4%BB%B6/">软件</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/%E8%BD%AF%E4%BB%B6/%E6%9E%84%E5%BB%BA/">构建</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/%E8%BD%AF%E4%BB%B6/%E6%9E%84%E5%BB%BA/Maven/">Maven</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E6%9E%84%E5%BB%BA/">构建</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/Maven/">Maven</a></span></div><div class="content">Maven 教程之 pom.xml 详解pom.xml 简介什么是 pomPOM 是 Project Object Model 的缩写，即项目对象模型。
+pom.xml 就是 maven 的配置文件，用以描述项目的各种信息。
+pom 配置一览123456789101112131415161718192021222324252627282930313233343536373839404142&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;  xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0                      http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;  &lt;modelVersion&gt;4.0.0&lt;/modelVers ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/pages/1d58f1/" title="Maven 教程之 settings.xml 详解">     <img class="post_bg" src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Maven 教程之 settings.xml 详解"></a></div><div class="recent-post-info"><a class="article-title" href="/pages/1d58f1/" title="Maven 教程之 settings.xml 详解">Maven 教程之 settings.xml 详解</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-05-14T06:57:33.000Z" title="发表于 2019-05-14 14:57:33">2019-05-14</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:52.905Z" title="更新于 2022-12-26 14:15:52">2022-12-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/%E8%BD%AF%E4%BB%B6/">软件</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/%E8%BD%AF%E4%BB%B6/%E6%9E%84%E5%BB%BA/">构建</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/%E8%BD%AF%E4%BB%B6/%E6%9E%84%E5%BB%BA/Maven/">Maven</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E6%9E%84%E5%BB%BA/">构建</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/Maven/">Maven</a></span></div><div class="content">Maven 教程之 settings.xml 详解settings.xml 简介settings.xml 有什么用从 settings.xml 的文件名就可以看出，它是用来设置 maven 参数的配置文件。settings.xml 中包含类似本地仓储位置、修改远程仓储服务器、认证信息等配置。
+
+settings.xml 是 maven 的全局配置文件。
+pom.xml 文件是本地项目配置文件。
+
+settings.xml 文件位置settings.xml 文件一般存在于两个位置：
+
+全局配置 - $&#123;maven.home&#125;/conf/settings.xml
+用户配置 - $&#123;user.home&#125;/.m2/settings.xml
+
+
+🔔 注意：用户配置优先于全局配置。$&#123;user.home&#125; 和和所有其他系统属性只能在 3.0+版本上使用。请注意 windows 和 Linux 使用变量的区别。
+
+配置优先级
+重要：局部配置优先于全局配置。
+
+配置优先级从高到低：pom.xml &gt; user settings &gt ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/pages/7bdaf9/" title="Maven 教程之发布 jar 到私服或中央仓库">     <img class="post_bg" src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Maven 教程之发布 jar 到私服或中央仓库"></a></div><div class="recent-post-info"><a class="article-title" href="/pages/7bdaf9/" title="Maven 教程之发布 jar 到私服或中央仓库">Maven 教程之发布 jar 到私服或中央仓库</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-05-14T06:57:33.000Z" title="发表于 2019-05-14 14:57:33">2019-05-14</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:52.914Z" title="更新于 2022-12-26 14:15:52">2022-12-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/%E8%BD%AF%E4%BB%B6/">软件</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/%E8%BD%AF%E4%BB%B6/%E6%9E%84%E5%BB%BA/">构建</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/%E8%BD%AF%E4%BB%B6/%E6%9E%84%E5%BB%BA/Maven/">Maven</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E6%9E%84%E5%BB%BA/">构建</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/Maven/">Maven</a></span></div><div class="content">Maven 教程之发布 jar 到私服或中央仓库发布 jar 包到中央仓库
+为了避免重复造轮子，相信每个 Java 程序员都想打造自己的脚手架或工具包（自己定制的往往才是最适合自己的）。那么如何将自己的脚手架发布到中央仓库呢？下面我们将一步步来实现。
+
+在 Sonatype 创建 Issue（1）注册 Sonatype 账号
+发布 Java 包到 Maven 中央仓库，首先需要在 Sonatype 网站创建一个工单(Issues)。
+第一次使用这个网站的时候需要注册自己的帐号（这个帐号和密码需要记住，后面会用到）。
+（2）创建 Issue
+注册账号成功后，根据你 Java 包的功能分别写上Summary、Description、Group Id、SCM url以及Project URL等必要信息，可以参见我之前创建的 Issue：OSSRH-36187。
+
+创建完之后需要等待 Sonatype 的工作人员审核处理，审核时间还是很快的，我的审核差不多等待了两小时。当 Issue 的 Status 变为RESOLVED后，就可以进行下一步操作了。
+
+说明：如果你的 Group Id 填写的 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/pages/2b2f0f/" title="深入理解 Java 序列化">     <img class="post_bg" src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入理解 Java 序列化"></a></div><div class="recent-post-info"><a class="article-title" href="/pages/2b2f0f/" title="深入理解 Java 序列化">深入理解 Java 序列化</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-05-09T11:06:05.000Z" title="发表于 2019-05-09 19:06:05">2019-05-09</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:51.928Z" title="更新于 2022-12-26 14:15:51">2022-12-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/JavaSE/">JavaSE</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/JavaSE/IO/">IO</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/JavaSE/">JavaSE</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/IO/">IO</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E5%BA%8F%E5%88%97%E5%8C%96/">序列化</a></span></div><div class="content">深入理解 Java 序列化
+关键词：Serializable、serialVersionUID、transient、Externalizable、writeObject、readObject
+
+
+序列化简介由于，网络传输的数据必须是二进制数据，但调用方请求的出入参数都是对象。对象是不能直接在网络中传输的，所以需要提前把它转成可传输的二进制，并且要求转换算法是可逆的。
+
+序列化（serialize）：序列化是将对象转换为二进制数据。
+反序列化（deserialize）：反序列化是将二进制数据转换为对象。
+
+
+序列化用途
+
+序列化可以将对象的字节序列持久化——保存在内存、文件、数据库中。
+在网络上传送对象的字节序列。
+RMI(远程方法调用)
+
+JDK 序列化JDK 中内置了一种序列化方式。
+ObjectInputStream 和 ObjectOutputStreamJava 通过对象输入输出流来实现序列化和反序列化：
+
+java.io.ObjectOutputStream 类的 writeObject() 方法可以实现序列化；
+java.io.ObjectInputStream 类的 re ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/pages/88219e/" title="SpringBoot 之集成 MyBatis">     <img class="post_bg" src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SpringBoot 之集成 MyBatis"></a></div><div class="recent-post-info"><a class="article-title" href="/pages/88219e/" title="SpringBoot 之集成 MyBatis">SpringBoot 之集成 MyBatis</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-05-09T09:09:25.000Z" title="发表于 2019-05-09 17:09:25">2019-05-09</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:53.017Z" title="更新于 2022-12-26 14:15:53">2022-12-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/%E6%A1%86%E6%9E%B6/">框架</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/%E6%A1%86%E6%9E%B6/Spring/">Spring</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/%E6%A1%86%E6%9E%B6/Spring/Spring%E6%95%B0%E6%8D%AE/">Spring数据</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E6%A1%86%E6%9E%B6/">框架</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/Spring/">Spring</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/SpringBoot/">SpringBoot</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/MyBatis/">MyBatis</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/PageHelper/">PageHelper</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/Mapper/">Mapper</a></span></div><div class="content">SpringBoot 之集成 MyBatis, 分页插件 PageHelper, 通用 Mapper
+Spring Boot 1.5.1.RELEASE
+mybatis-spring-boot-starter
+mapper-spring-boot-starter
+pagehelper-spring-boot-starter
+
+新书《MyBatis 从入门到精通》
+预售地址：京东，当当，亚马逊
+CSDN 博客：http://blog.csdn.net/isea533/article/details/73555400
+GitHub 项目：https://github.com/mybatis-book/book
+项目依赖123456789101112131415161718&lt;!--mybatis--&gt;&lt;dependency&gt;    &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;    &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&g ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/pages/6f05e2/" title="Windows 常用技巧总结">     <img class="post_bg" src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Windows 常用技巧总结"></a></div><div class="recent-post-info"><a class="article-title" href="/pages/6f05e2/" title="Windows 常用技巧总结">Windows 常用技巧总结</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-05-07T12:35:00.000Z" title="发表于 2019-05-07 20:35:00">2019-05-07</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:51.623Z" title="更新于 2022-12-26 14:15:51">2022-12-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%BA%94%E7%94%A8/">操作系统应用</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/Windows/">Windows</a></span></div><div class="content">Windows 常用技巧总结软件
+扩展阅读：
+
+Awesome Windows
+best-windows-apps
+
+
+视频音频
+Musicbee - 类似 iTunes，但比 iTunes 更好用。
+ScreenToGif - 它允许你录制屏幕的一部分区域并保存为 gif 或视频。
+PotPlayer - 多媒体播放器，具有广泛的编解码器集合，它还为用户提供大量配置选项。
+射手影音播放器 - 来自射手网，小巧开源，首创自动匹配字幕功能。
+
+压缩
+7-Zip - 用于处理压缩包的开源 Windows 实用程序。完美支持 7z，ZIP，GZIP，BZIP2 和 TAR 的全部特性，其他格式也可解压缩。
+WinRAR - 强大的归档管理器。 它可以备份您的数据并减小电子邮件附件的大小，解压缩 RAR，ZIP 和其他文件。
+
+文件管理
+Clover - 为资源管理器加上多标签功能。
+Total Commander - 老牌、功能异常强大的文件管理增强软件。
+Q-Dir - 轻量级的文件管理器，各种布局视图切换灵活，默认四个小窗口组成一个大窗口，操作快捷。软件虽小，粉丝忠诚。
+WoX - 新一 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/pages/1b79b0/" title="Mac 常用技巧总结">     <img class="post_bg" src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Mac 常用技巧总结"></a></div><div class="recent-post-info"><a class="article-title" href="/pages/1b79b0/" title="Mac 常用技巧总结">Mac 常用技巧总结</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-05-07T12:35:00.000Z" title="发表于 2019-05-07 20:35:00">2019-05-07</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:51.627Z" title="更新于 2022-12-26 14:15:51">2022-12-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%BA%94%E7%94%A8/">操作系统应用</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/Mac/">Mac</a></span></div><div class="content">基本操作软件管理dmg 格式：双击安装包，然后拖到 applications 文件夹下即可。
+浏览器更改默认搜索引擎选择「偏好设置–&gt;搜索–&gt;搜索引擎–&gt;Google」。
+导入 chrome 浏览器的书签选择「文件–&gt;导入自–&gt; Google Chrome」，然后选择要导入的项目。
+快捷键Command + R 刷新
+上方显示书签栏／收藏栏选择「显示–&gt; 显示个人收藏栏」。
+关闭软件的右上角通知在 Mac 系统中有对通知的设置，打开系统偏好设置 — 通知 找到 QQ，然后将 QQ 提示样式设置成无即可。
+复制文件&#x2F;文件夹路径
+OS X 10.11 系统，选中文件夹，「cmd +Option +c」 复制文件夹路径，cmd+v 粘贴。之前的系统，利用 Administrator 创建一个到右键菜单，然后到设置里面设置快捷键。具体操作请百度。
+
+打开来自身份不明的开发者的应用程序在应用程序文件夹，按住 control 键的同时打开应用程序。
+复制文件路径
+选择文件／文件夹按 Command+C 复制，在终端中 Command+V 粘贴即可。
+
+ ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/pages/f6b642/" title="Java并发简介">     <img class="post_bg" src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java并发简介"></a></div><div class="recent-post-info"><a class="article-title" href="/pages/f6b642/" title="Java并发简介">Java并发简介</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-05-06T07:33:13.000Z" title="发表于 2019-05-06 15:33:13">2019-05-06</time><span class="article-meta__separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:51.948Z" title="更新于 2022-12-26 14:15:51">2022-12-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/JavaSE/">JavaSE</a><i class="fas fa-angle-right"></i><a class="article-meta__categories" href="/categories/Java/JavaSE/%E5%B9%B6%E5%8F%91/">并发</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/JavaSE/">JavaSE</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tags/%E5%B9%B6%E5%8F%91/">并发</a></span></div><div class="content">Java 并发简介
+关键词：进程、线程、安全性、活跃性、性能、死锁、饥饿、上下文切换
+摘要：并发编程并非 Java 语言所独有，而是一种成熟的编程范式，Java 只是用自己的方式实现了并发工作模型。学习 Java 并发编程，应该先熟悉并发的基本概念，然后进一步了解并发的特性以及其特性所面临的问题。掌握了这些，当学习 Java 并发工具时，才会明白它们各自是为了解决什么问题，为什么要这样设计。通过这样由点到面的学习方式，更容易融会贯通，将并发知识形成体系化。
+
+
+并发概念并发编程中有很多术语概念相近，容易让人混淆。本节内容通过对比分析，力求让读者清晰理解其概念以及差异。
+并发和并行并发和并行是最容易让新手费解的概念，那么如何理解二者呢？其最关键的差异在于：是否是同时发生：
+
+并发：是指具备处理多个任务的能力，但不一定要同时。
+并行：是指具备同时处理多个任务的能力。
+
+下面是我见过最生动的说明，摘自 并发与并行的区别是什么？——知乎的高票答案：
+
+你吃饭吃到一半，电话来了，你一直到吃完了以后才去接，这就说明你不支持并发也不支持并行。
+你吃饭吃到一半，电话来了，你停了下来接了电话，接完后继续 ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/38/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/#content-inner">38</a><span class="page-number current">39</span><a class="page-number" href="/page/40/#content-inner">40</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/#content-inner">50</a><a class="extend next" rel="next" href="/page/40/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/ava.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JaHero</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题">无题</a><time datetime="2022-12-31T04:24:34.153Z" title="发表于 2022-12-31 12:24:34">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/img/index/" title="gallery"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="gallery"/></a><div class="content"><a class="title" href="/2022/12/31/img/index/" title="gallery">gallery</a><time datetime="2022-12-30T18:20:45.000Z" title="发表于 2022-12-31 02:20:45">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/30/hello-world/" title="Hello World"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/12/30/hello-world/" title="Hello World">Hello World</a><time datetime="2022-12-30T09:13:14.141Z" title="发表于 2022-12-30 17:13:14">2022-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Aop注解"/></a><div class="content"><a class="title" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解">Aop注解</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flowable 工作流程引擎"/></a><div class="content"><a class="title" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎">Flowable 工作流程引擎</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div></div></div><div class="card-widget" id="card-newest-comments"><div class="item-headline"><i class="fas fa-comment-dots"></i><span>最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/DevOps/"><span class="card-category-list-name">DevOps</span><span class="card-category-list-count">8</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/DevOps/%E5%B7%A5%E5%85%B7/"><span class="card-category-list-name">工具</span><span class="card-category-list-count">4</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/DevOps/%E5%B7%A5%E5%85%B7/Git/"><span class="card-category-list-name">Git</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/DevOps/%E5%B7%A5%E5%85%B7/%E5%85%B6%E4%BB%96/"><span class="card-category-list-name">其他</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/DevOps/%E7%9B%91%E6%8E%A7/"><span class="card-category-list-name">监控</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/DevOps/%E7%BB%BC%E5%90%88/"><span class="card-category-list-name">综合</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Java/"><span class="card-category-list-name">Java</span><span class="card-category-list-count">180</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Java/JavaEE/"><span class="card-category-list-name">JavaEE</span><span class="card-category-list-count">15</span></a></li></ul></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/2PC/" style="font-size: 1.1em; color: #999">2PC</a> <a href="/tags/5W2H/" style="font-size: 1.1em; color: #999">5W2H</a> <a href="/tags/ACID/" style="font-size: 1.1em; color: #999">ACID</a> <a href="/tags/AES/" style="font-size: 1.1em; color: #999">AES</a> <a href="/tags/AOP/" style="font-size: 1.1em; color: #999">AOP</a> <a href="/tags/API/" style="font-size: 1.16em; color: #999b9e">API</a> <a href="/tags/APM/" style="font-size: 1.16em; color: #999b9e">APM</a> <a href="/tags/ActiveMQ/" style="font-size: 1.1em; color: #999">ActiveMQ</a> <a href="/tags/Ant/" style="font-size: 1.1em; color: #999">Ant</a> <a href="/tags/Arthas/" style="font-size: 1.1em; color: #999">Arthas</a> <a href="/tags/B-%E6%A0%91/" style="font-size: 1.1em; color: #999">B+ 树</a> <a href="/tags/BASE/" style="font-size: 1.1em; color: #999">BASE</a> <a href="/tags/Bean/" style="font-size: 1.1em; color: #999">Bean</a> <a href="/tags/BeanDefinition/" style="font-size: 1.1em; color: #999">BeanDefinition</a> <a href="/tags/CAP/" style="font-size: 1.16em; color: #999b9e">CAP</a> <a href="/tags/CAT/" style="font-size: 1.1em; color: #999">CAT</a> <a href="/tags/CDN/" style="font-size: 1.1em; color: #999">CDN</a> <a href="/tags/Cassandra/" style="font-size: 1.1em; color: #999">Cassandra</a> <a href="/tags/Cookie/" style="font-size: 1.1em; color: #999">Cookie</a> <a href="/tags/DDD/" style="font-size: 1.16em; color: #999b9e">DDD</a> <a href="/tags/DES/" style="font-size: 1.1em; color: #999">DES</a> <a href="/tags/DNS/" style="font-size: 1.1em; color: #999">DNS</a> <a href="/tags/DataSource/" style="font-size: 1.1em; color: #999">DataSource</a> <a href="/tags/DevOps/" style="font-size: 1.39em; color: #99a4b4">DevOps</a> <a href="/tags/Dozer/" style="font-size: 1.1em; color: #999">Dozer</a> <a href="/tags/Dubbo/" style="font-size: 1.27em; color: #99a0a9">Dubbo</a> <a href="/tags/ES/" style="font-size: 1.33em; color: #99a2af">ES</a> <a href="/tags/Ehcache/" style="font-size: 1.1em; color: #999">Ehcache</a> <a href="/tags/Elastic/" style="font-size: 1.44em; color: #99a7ba">Elastic</a> <a href="/tags/Elasticsearch/" style="font-size: 1.5em; color: #99a9bf">Elasticsearch</a> <a href="/tags/FAQ/" style="font-size: 1.1em; color: #999">FAQ</a> <a href="/tags/Filebeat/" style="font-size: 1.16em; color: #999b9e">Filebeat</a> <a href="/tags/Filter/" style="font-size: 1.1em; color: #999">Filter</a> <a href="/tags/Freemark/" style="font-size: 1.1em; color: #999">Freemark</a> <a href="/tags/GC/" style="font-size: 1.1em; color: #999">GC</a> <a href="/tags/GUI/" style="font-size: 1.1em; color: #999">GUI</a> <a href="/tags/Git/" style="font-size: 1.21em; color: #999ea4">Git</a> <a href="/tags/Gossip/" style="font-size: 1.1em; color: #999">Gossip</a> <a href="/tags/H2/" style="font-size: 1.1em; color: #999">H2</a> <a href="/tags/HMAC/" style="font-size: 1.1em; color: #999">HMAC</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/12/"><span class="card-archive-list-date">十二月 2022</span><span class="card-archive-list-count">32</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/11/"><span class="card-archive-list-date">十一月 2022</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/09/"><span class="card-archive-list-date">九月 2022</span><span class="card-archive-list-count">4</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/07/"><span class="card-archive-list-date">七月 2022</span><span class="card-archive-list-count">12</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/06/"><span class="card-archive-list-date">六月 2022</span><span class="card-archive-list-count">17</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/05/"><span class="card-archive-list-date">五月 2022</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/04/"><span class="card-archive-list-date">四月 2022</span><span class="card-archive-list-count">27</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/03/"><span class="card-archive-list-date">三月 2022</span><span class="card-archive-list-count">8</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">495</div></div><div class="webinfo-item"><div class="item-name">已运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2022-12-31T04:26:47.267Z"></div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">1511k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2022-12-31T04:26:48.276Z"></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/index.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By JaHero</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script src="https://fastly.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

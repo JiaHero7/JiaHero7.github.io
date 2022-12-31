@@ -1,0 +1,675 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>数据库 | 贾英雄-blog</title><meta name="keywords" content="数据库"><meta name="author" content="JaHero"><meta name="copyright" content="JaHero"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="DB-TUTORIAL   💾 db-tutorial 是一个数据库教程。  🔁 项目同步维护：Github | Gitee 📖 电子书阅读：Github Pages | Gitee Pages   数据库综合分布式存储原理分布式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库">
+<meta property="og:url" content="http://example.com/pages/012488/index.html">
+<meta property="og:site_name" content="贾英雄-blog">
+<meta property="og:description" content="DB-TUTORIAL   💾 db-tutorial 是一个数据库教程。  🔁 项目同步维护：Github | Gitee 📖 电子书阅读：Github Pages | Gitee Pages   数据库综合分布式存储原理分布式">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/post.jpg">
+<meta property="article:published_time" content="2022-02-22T13:01:01.000Z">
+<meta property="article:modified_time" content="2022-12-26T06:15:50.949Z">
+<meta property="article:author" content="JaHero">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/post.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/pages/012488/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"K46KXS6BKG","apiKey":"94dab3de87ce4cc2067ec6ef569e9df7","indexName":"JiaHero","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: JaHero","link":"链接: ","source":"来源: 贾英雄-blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '数据库',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2022-12-26 14:15:50'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/ava.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">贾英雄-blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">数据库</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-02-22T13:01:01.000Z" title="发表于 2022-02-22 21:01:01">2022-02-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:50.949Z" title="更新于 2022-12-26 14:15:50">2022-12-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="数据库"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p align="center">
+    <a href="https://dunwu.github.io/db-tutorial/" target="_blank" rel="noopener noreferrer">
+        <img src="https://raw.githubusercontent.com/dunwu/images/dev/common/dunwu-logo.png" alt="logo" width="150px"/>
+    </a>
+</p>
+
+<p align="center">
+
+  <a target="_blank" rel="noopener" href="https://github.com/dunwu/db-tutorial">
+      <img alt="star" class="no-zoom" src="https://img.shields.io/github/stars/dunwu/db-tutorial?style=for-the-badge">
+  </a>
+
+  <a target="_blank" rel="noopener" href="https://github.com/dunwu/db-tutorial">
+      <img alt="fork" class="no-zoom" src="https://img.shields.io/github/forks/dunwu/db-tutorial?style=for-the-badge">
+  </a>
+
+  <a target="_blank" rel="noopener" href="https://github.com/dunwu/db-tutorial/commits/master">
+      <img alt="commit" class="no-zoom" src="https://img.shields.io/github/workflow/status/dunwu/db-tutorial/CI?style=for-the-badge">
+  </a>
+
+  <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">
+      <img alt="code style" class="no-zoom" src="https://img.shields.io/github/license/dunwu/db-tutorial?style=for-the-badge">
+  </a>
+
+</p>
+
+<h1 align="center">DB-TUTORIAL</h1>
+
+<blockquote>
+<p>💾 <strong>db-tutorial</strong> 是一个数据库教程。</p>
+<ul>
+<li>🔁 项目同步维护：<a target="_blank" rel="noopener" href="https://github.com/dunwu/db-tutorial/">Github</a> | <a target="_blank" rel="noopener" href="https://gitee.com/turnon/db-tutorial/">Gitee</a></li>
+<li>📖 电子书阅读：<a target="_blank" rel="noopener" href="https://dunwu.github.io/db-tutorial/">Github Pages</a> | <a target="_blank" rel="noopener" href="https://turnon.gitee.io/db-tutorial/">Gitee Pages</a></li>
+</ul>
+</blockquote>
+<h2 id="数据库综合"><a href="#数据库综合" class="headerlink" title="数据库综合"></a>数据库综合</h2><h3 id="分布式存储原理"><a href="#分布式存储原理" class="headerlink" title="分布式存储原理"></a>分布式存储原理</h3><h4 id="分布式理论"><a href="#分布式理论" class="headerlink" title="分布式理论"></a>分布式理论</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://dunwu.github.io/waterdrop/pages/367308/">分布式理论</a></li>
+<li><a target="_blank" rel="noopener" href="https://dunwu.github.io/waterdrop/pages/874539/">深入剖析共识性算法 Paxos</a></li>
+<li><a target="_blank" rel="noopener" href="https://dunwu.github.io/waterdrop/pages/e40812/">深入剖析共识性算法 Raft</a></li>
+<li><a target="_blank" rel="noopener" href="https://dunwu.github.io/waterdrop/pages/d15993/">分布式算法 Gossip</a></li>
+</ul>
+<h4 id="分布式关键技术"><a href="#分布式关键技术" class="headerlink" title="分布式关键技术"></a>分布式关键技术</h4><h5 id="流量调度"><a href="#流量调度" class="headerlink" title="流量调度"></a>流量调度</h5><ul>
+<li><a target="_blank" rel="noopener" href="https://dunwu.github.io/waterdrop/pages/282676/">流量控制</a></li>
+<li><a target="_blank" rel="noopener" href="https://dunwu.github.io/waterdrop/pages/b7ca44/">深入浅出负载均衡</a></li>
+<li><a target="_blank" rel="noopener" href="https://dunwu.github.io/waterdrop/pages/d04ece/">服务路由</a></li>
+<li><a target="_blank" rel="noopener" href="https://dunwu.github.io/waterdrop/pages/3e66c2/">分布式会话基本原理</a></li>
+</ul>
+<h5 id="数据调度"><a href="#数据调度" class="headerlink" title="数据调度"></a>数据调度</h5><ul>
+<li><a target="_blank" rel="noopener" href="https://dunwu.github.io/waterdrop/pages/471208/">缓存基本原理</a></li>
+<li><a target="_blank" rel="noopener" href="https://dunwu.github.io/waterdrop/pages/7da6ca/">读写分离基本原理</a></li>
+<li><a target="_blank" rel="noopener" href="https://dunwu.github.io/waterdrop/pages/103382/">分库分表基本原理</a></li>
+<li><a target="_blank" rel="noopener" href="https://dunwu.github.io/waterdrop/pages/0b2e59/">分布式 ID 基本原理</a></li>
+<li><a target="_blank" rel="noopener" href="https://dunwu.github.io/waterdrop/pages/910bad/">分布式事务基本原理</a></li>
+<li><a target="_blank" rel="noopener" href="https://dunwu.github.io/waterdrop/pages/69360c/">分布式锁基本原理</a></li>
+</ul>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul>
+<li><a href="01.%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BB%BC%E5%90%88/01.Nosql%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B.md">Nosql 技术选型</a></li>
+<li><a href="01.%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BB%BC%E5%90%88/02.%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95.md">数据结构与数据库索引</a></li>
+</ul>
+<h2 id="数据库中间件"><a href="#数据库中间件" class="headerlink" title="数据库中间件"></a>数据库中间件</h2><ul>
+<li><a href="02.%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E9%97%B4%E4%BB%B6/01.Shardingsphere/01.ShardingSphere%E7%AE%80%E4%BB%8B.md">ShardingSphere 简介</a></li>
+<li><a href="02.%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E9%97%B4%E4%BB%B6/01.Shardingsphere/02.ShardingSphereJdbc.md">ShardingSphere Jdbc</a></li>
+<li><a href="02.%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E9%97%B4%E4%BB%B6/02.Flyway.md">版本管理中间件 Flyway</a></li>
+</ul>
+<h2 id="关系型数据库"><a href="#关系型数据库" class="headerlink" title="关系型数据库"></a>关系型数据库</h2><blockquote>
+<p><a href="03.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93">关系型数据库</a> 整理主流关系型数据库知识点。</p>
+</blockquote>
+<h3 id="关系型数据库综合"><a href="#关系型数据库综合" class="headerlink" title="关系型数据库综合"></a>关系型数据库综合</h3><ul>
+<li><a href="03.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/01.%E7%BB%BC%E5%90%88/01.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9D%A2%E8%AF%95.md">关系型数据库面试总结</a> 💯</li>
+<li><a href="03.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/01.%E7%BB%BC%E5%90%88/02.SQL%E8%AF%AD%E6%B3%95%E5%9F%BA%E7%A1%80%E7%89%B9%E6%80%A7.md">SQL 语法基础特性</a></li>
+<li><a href="03.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/01.%E7%BB%BC%E5%90%88/03.SQL%E8%AF%AD%E6%B3%95%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7.md">SQL 语法高级特性</a></li>
+<li><a href="03.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/01.%E7%BB%BC%E5%90%88/03.%E6%89%A9%E5%B1%95SQL.md">扩展 SQL</a></li>
+<li><a href="03.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/01.%E7%BB%BC%E5%90%88/99.SqlCheatSheet.md">SQL Cheat Sheet</a></li>
+</ul>
+<h3 id="Mysql"><a href="#Mysql" class="headerlink" title="Mysql"></a>Mysql</h3><p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20200716103611.png" alt="img"></p>
+<ul>
+<li><a href="03.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/02.Mysql/01.Mysql%E5%BA%94%E7%94%A8%E6%8C%87%E5%8D%97.md">Mysql 应用指南</a> ⚡</li>
+<li><a href="03.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/02.Mysql/02.MySQL%E5%B7%A5%E4%BD%9C%E6%B5%81.md">Mysql 工作流</a> - 关键词：<code>连接</code>、<code>缓存</code>、<code>语法分析</code>、<code>优化</code>、<code>执行引擎</code>、<code>redo log</code>、<code>bin log</code>、<code>两阶段提交</code></li>
+<li><a href="03.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/02.Mysql/03.Mysql%E4%BA%8B%E5%8A%A1.md">Mysql 事务</a> - 关键词：<code>ACID</code>、<code>AUTOCOMMIT</code>、<code>事务隔离级别</code>、<code>死锁</code>、<code>分布式事务</code></li>
+<li><a href="03.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/02.Mysql/04.Mysql%E9%94%81.md">Mysql 锁</a> - 关键词：<code>乐观锁</code>、<code>表级锁</code>、<code>行级锁</code>、<code>意向锁</code>、<code>MVCC</code>、<code>Next-key 锁</code></li>
+<li><a href="03.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/02.Mysql/05.Mysql%E7%B4%A2%E5%BC%95.md">Mysql 索引</a> - 关键词：<code>Hash</code>、<code>B 树</code>、<code>聚簇索引</code>、<code>回表</code></li>
+<li><a href="03.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/02.Mysql/06.Mysql%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.md">Mysql 性能优化</a></li>
+<li><a href="03.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/02.Mysql/20.Mysql%E8%BF%90%E7%BB%B4.md">Mysql 运维</a> 🔨</li>
+<li><a href="03.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/02.Mysql/21.Mysql%E9%85%8D%E7%BD%AE.md">Mysql 配置</a> 🔨</li>
+<li><a href="03.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/02.Mysql/99.Mysql%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.md">Mysql 问题</a></li>
+</ul>
+<h3 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a>其他</h3><ul>
+<li><a href="03.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/99.%E5%85%B6%E4%BB%96/01.PostgreSQL.md">PostgreSQL 应用指南</a></li>
+<li><a href="03.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/99.%E5%85%B6%E4%BB%96/02.H2.md">H2 应用指南</a></li>
+<li><a href="03.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/99.%E5%85%B6%E4%BB%96/03.Sqlite.md">SqLite 应用指南</a></li>
+</ul>
+<h2 id="文档数据库"><a href="#文档数据库" class="headerlink" title="文档数据库"></a>文档数据库</h2><h3 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h3><blockquote>
+<p>MongoDB 是一个基于文档的分布式数据库，由 C++ 语言编写。旨在为 WEB 应用提供可扩展的高性能数据存储解决方案。</p>
+<p>MongoDB 是一个介于关系型数据库和非关系型数据库之间的产品。它是非关系数据库当中功能最丰富，最像关系数据库的。它支持的数据结构非常松散，是类似 json 的 bson 格式，因此可以存储比较复杂的数据类型。</p>
+<p>MongoDB 最大的特点是它支持的查询语言非常强大，其语法有点类似于面向对象的查询语言，几乎可以实现类似关系数据库单表查询的绝大部分功能，而且还支持对数据建立索引。</p>
+</blockquote>
+<ul>
+<li><a href="04.%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93/01.MongoDB/01.MongoDB%E5%BA%94%E7%94%A8%E6%8C%87%E5%8D%97.md">MongoDB 应用指南</a></li>
+<li><a href="04.%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93/01.MongoDB/02.MongoDB%E7%9A%84CRUD%E6%93%8D%E4%BD%9C.md">MongoDB 的 CRUD 操作</a></li>
+<li><a href="04.%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93/01.MongoDB/03.MongoDB%E7%9A%84%E8%81%9A%E5%90%88%E6%93%8D%E4%BD%9C.md">MongoDB 聚合操作</a></li>
+<li><a href="04.%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93/01.MongoDB/04.MongoDB%E4%BA%8B%E5%8A%A1.md">MongoDB 事务</a></li>
+<li><a href="04.%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93/01.MongoDB/05.MongoDB%E5%BB%BA%E6%A8%A1.md">MongoDB 建模</a></li>
+<li><a href="04.%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93/01.MongoDB/06.MongoDB%E5%BB%BA%E6%A8%A1%E7%A4%BA%E4%BE%8B.md">MongoDB 建模示例</a></li>
+<li><a href="04.%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93/01.MongoDB/07.MongoDB%E7%B4%A2%E5%BC%95.md">MongoDB 索引</a></li>
+<li><a href="04.%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93/01.MongoDB/08.MongoDB%E5%A4%8D%E5%88%B6.md">MongoDB 复制</a></li>
+<li><a href="04.%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93/01.MongoDB/09.MongoDB%E5%88%86%E7%89%87.md">MongoDB 分片</a></li>
+<li><a href="04.%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93/01.MongoDB/20.MongoDB%E8%BF%90%E7%BB%B4.md">MongoDB 运维</a></li>
+</ul>
+<h2 id="KV-数据库"><a href="#KV-数据库" class="headerlink" title="KV 数据库"></a>KV 数据库</h2><h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3><p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20200713105627.png" alt="img"></p>
+<ul>
+<li><a href="05.KV%E6%95%B0%E6%8D%AE%E5%BA%93/01.Redis/01.Redis%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93.md">Redis 面试总结</a> 💯</li>
+<li><a href="05.KV%E6%95%B0%E6%8D%AE%E5%BA%93/01.Redis/02.Redis%E5%BA%94%E7%94%A8%E6%8C%87%E5%8D%97.md">Redis 应用指南</a> ⚡ - 关键词：<code>内存淘汰</code>、<code>事件</code>、<code>事务</code>、<code>管道</code>、<code>发布与订阅</code></li>
+<li><a href="05.KV%E6%95%B0%E6%8D%AE%E5%BA%93/01.Redis/03.Redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BA%94%E7%94%A8.md">Redis 数据类型和应用</a> - 关键词：<code>STRING</code>、<code>HASH</code>、<code>LIST</code>、<code>SET</code>、<code>ZSET</code>、<code>BitMap</code>、<code>HyperLogLog</code>、<code>Geo</code></li>
+<li><a href="05.KV%E6%95%B0%E6%8D%AE%E5%BA%93/01.Redis/04.Redis%E6%8C%81%E4%B9%85%E5%8C%96.md">Redis 持久化</a> - 关键词：<code>RDB</code>、<code>AOF</code>、<code>SAVE</code>、<code>BGSAVE</code>、<code>appendfsync</code></li>
+<li><a href="05.KV%E6%95%B0%E6%8D%AE%E5%BA%93/01.Redis/05.Redis%E5%A4%8D%E5%88%B6.md">Redis 复制</a> - 关键词：<code>SLAVEOF</code>、<code>SYNC</code>、<code>PSYNC</code>、<code>REPLCONF ACK</code></li>
+<li><a href="05.KV%E6%95%B0%E6%8D%AE%E5%BA%93/01.Redis/06.Redis%E5%93%A8%E5%85%B5.md">Redis 哨兵</a> - 关键词：<code>Sentinel</code>、<code>PING</code>、<code>INFO</code>、<code>Raft</code></li>
+<li><a href="05.KV%E6%95%B0%E6%8D%AE%E5%BA%93/01.Redis/07.Redis%E9%9B%86%E7%BE%A4.md">Redis 集群</a> - 关键词：<code>CLUSTER MEET</code>、<code>Hash slot</code>、<code>MOVED</code>、<code>ASK</code>、<code>SLAVEOF no one</code>、<code>redis-trib</code></li>
+<li><a href="05.KV%E6%95%B0%E6%8D%AE%E5%BA%93/01.Redis/08.Redis%E5%AE%9E%E6%88%98.md">Redis 实战</a> - 关键词：<code>缓存</code>、<code>分布式锁</code>、<code>布隆过滤器</code></li>
+<li><a href="05.KV%E6%95%B0%E6%8D%AE%E5%BA%93/01.Redis/20.Redis%E8%BF%90%E7%BB%B4.md">Redis 运维</a> 🔨 - 关键词：<code>安装</code>、<code>命令</code>、<code>集群</code>、<code>客户端</code></li>
+</ul>
+<h2 id="列式数据库"><a href="#列式数据库" class="headerlink" title="列式数据库"></a>列式数据库</h2><h3 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://dunwu.github.io/bigdata-tutorial/hbase">HBase</a> 📚 因为常用于大数据项目，所以将其文档和源码整理在 <a target="_blank" rel="noopener" href="https://dunwu.github.io/bigdata-tutorial/">bigdata-tutorial</a> 项目中。</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/dunwu/bigdata-tutorial/blob/master/docs/hbase/HBase%E5%8E%9F%E7%90%86.md">HBase 原理</a> ⚡</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/dunwu/bigdata-tutorial/blob/master/docs/hbase/HBase%E5%91%BD%E4%BB%A4.md">HBase 命令</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/dunwu/bigdata-tutorial/blob/master/docs/hbase/HBase%E5%BA%94%E7%94%A8.md">HBase 应用</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/dunwu/bigdata-tutorial/blob/master/docs/hbase/HBase%E8%BF%90%E7%BB%B4.md">HBase 运维</a></li>
+</ul>
+<h2 id="搜索引擎数据库"><a href="#搜索引擎数据库" class="headerlink" title="搜索引擎数据库"></a>搜索引擎数据库</h2><h3 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h3><blockquote>
+<p>Elasticsearch 是一个基于 Lucene 的搜索和数据分析工具，它提供了一个分布式服务。Elasticsearch 是遵从 Apache 开源条款的一款开源产品，是当前主流的企业级搜索引擎。</p>
+</blockquote>
+<ul>
+<li><a href="07.%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/01.Elasticsearch/01.Elasticsearch%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93.md">Elasticsearch 面试总结</a> 💯</li>
+<li><a href="07.%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/01.Elasticsearch/02.Elasticsearch%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.md">Elasticsearch 快速入门</a></li>
+<li><a href="07.%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/01.Elasticsearch/03.Elasticsearch%E7%AE%80%E4%BB%8B.md">Elasticsearch 简介</a></li>
+<li><a href="07.%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/01.Elasticsearch/04.Elasticsearch%E7%B4%A2%E5%BC%95.md">Elasticsearch 索引</a></li>
+<li><a href="07.%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/01.Elasticsearch/05.Elasticsearch%E6%9F%A5%E8%AF%A2.md">Elasticsearch 查询</a></li>
+<li><a href="07.%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/01.Elasticsearch/06.Elasticsearch%E9%AB%98%E4%BA%AE.md">Elasticsearch 高亮</a></li>
+<li><a href="07.%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/01.Elasticsearch/07.Elasticsearch%E6%8E%92%E5%BA%8F.md">Elasticsearch 排序</a></li>
+<li><a href="07.%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/01.Elasticsearch/08.Elasticsearch%E8%81%9A%E5%90%88.md">Elasticsearch 聚合</a></li>
+<li><a href="07.%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/01.Elasticsearch/09.Elasticsearch%E5%88%86%E6%9E%90%E5%99%A8.md">Elasticsearch 分析器</a></li>
+<li><a href="07.%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/01.Elasticsearch/10.Elasticsearch%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.md">Elasticsearch 性能优化</a></li>
+<li><a href="07.%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/01.Elasticsearch/11.ElasticsearchRestApi.md">Elasticsearch Rest API</a></li>
+<li><a href="07.%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/01.Elasticsearch/12.ElasticsearchHighLevelRestJavaApi.md">ElasticSearch Java API 之 High Level REST Client</a></li>
+<li><a href="07.%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/01.Elasticsearch/13.Elasticsearch%E9%9B%86%E7%BE%A4%E5%92%8C%E5%88%86%E7%89%87.md">Elasticsearch 集群和分片</a></li>
+<li><a href="07.%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/01.Elasticsearch/20.Elasticsearch%E8%BF%90%E7%BB%B4.md">Elasticsearch 运维</a></li>
+</ul>
+<h3 id="Elastic"><a href="#Elastic" class="headerlink" title="Elastic"></a>Elastic</h3><ul>
+<li><a href="07.%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/02.Elastic/01.Elastic%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.md">Elastic 快速入门</a></li>
+<li><a href="07.%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/02.Elastic/02.Elastic%E6%8A%80%E6%9C%AF%E6%A0%88%E4%B9%8BFilebeat.md">Elastic 技术栈之 Filebeat</a></li>
+<li><a href="07.%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/02.Elastic/03.Filebeat%E8%BF%90%E7%BB%B4.md">Filebeat 运维</a></li>
+<li><a href="07.%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/02.Elastic/04.Elastic%E6%8A%80%E6%9C%AF%E6%A0%88%E4%B9%8BKibana.md">Elastic 技术栈之 Kibana</a></li>
+<li><a href="07.%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/02.Elastic/05.Kibana%E8%BF%90%E7%BB%B4.md">Kibana 运维</a></li>
+<li><a href="07.%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/02.Elastic/06.Elastic%E6%8A%80%E6%9C%AF%E6%A0%88%E4%B9%8BLogstash.md">Elastic 技术栈之 Logstash</a></li>
+<li><a href="07.%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/02.Elastic/07.Logstash%E8%BF%90%E7%BB%B4.md">Logstash 运维</a></li>
+</ul>
+<h2 id="资料-📚"><a href="#资料-📚" class="headerlink" title="资料 📚"></a>资料 📚</h2><h3 id="数据库综合资料"><a href="#数据库综合资料" class="headerlink" title="数据库综合资料"></a>数据库综合资料</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://db-engines.com/en/ranking">DB-Engines</a> - 数据库流行度排名</li>
+<li><strong>书籍</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/30329536/">《数据密集型应用系统设计》</a> - 这可能是目前最好的分布式存储书籍，强力推荐【进阶】</li>
+</ul>
+</li>
+<li><strong>教程</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/schedule.html">CMU 15445 数据库基础课程</a></li>
+<li><a target="_blank" rel="noopener" href="https://15721.courses.cs.cmu.edu/spring2020/schedule.html">CMU 15721 数据库高级课程</a></li>
+<li><a target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/100048401">检索技术核心 20 讲</a> - 极客教程【进阶】</li>
+<li><a target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/100046801">后端存储实战课</a> - 极客教程【入门】：讲解存储在电商领域的种种应用和一些基本特性</li>
+</ul>
+</li>
+<li><strong>论文</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://15721.courses.cs.cmu.edu/spring2018/papers/15-optimizer1/xu-columbia-thesis1998.pdf">Efficiency in the Columbia Database Query Optimizer</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.vldb.org/pvldb/vol9/p204-leis.pdf">How Good Are Query Optimizers, Really?</a></li>
+<li><a target="_blank" rel="noopener" href="https://dsf.berkeley.edu/papers/fntdb07-architecture.pdf">Architecture of a Database System</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cise.ufl.edu/~mschneid/Research/papers/HS05BoCh.pdf">Data Structures for Databases</a></li>
+</ul>
+</li>
+<li><strong>文章</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://people.csail.mit.edu/bradley/BenderKuszmaul-tutorial-xldb12.pdf">Data Structures and Algorithms for Big Databases</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="关系型数据库资料"><a href="#关系型数据库资料" class="headerlink" title="关系型数据库资料"></a>关系型数据库资料</h3><ul>
+<li><strong>综合资料</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/26419771/">《数据库的索引设计与优化》</a></li>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/35167240/">《SQL 必知必会》</a> - SQL 的基本概念和语法【入门】</li>
+</ul>
+</li>
+<li><strong>Oracle 资料</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/5402711/">《Oracle Database 9i&#x2F;10g&#x2F;11g 编程艺术》</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="Mysql-资料"><a href="#Mysql-资料" class="headerlink" title="Mysql 资料"></a>Mysql 资料</h4><ul>
+<li><strong>官方</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://www.mysql.com/">Mysql 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/">Mysql 官方文档</a></li>
+<li><strong>官方 PPT</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://www.mysql.com/cn/why-mysql/presentations/tune-mysql-queries-performance/">How to Analyze and Tune MySQL Queries for Better Performance</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.mysql.com/cn/why-mysql/presentations/mysql-performance-tuning101/">MySQL Performance Tuning 101</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.mysql.com/cn/why-mysql/presentations/mysql-performance-sys-schema/">MySQL Performance Schema &amp; Sys Schema</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.mysql.com/cn/why-mysql/presentations/mysql-performance-tuning-best-practices/">MySQL Performance: Demystified Tuning &amp; Best Practices</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.mysql.com/cn/why-mysql/presentations/mysql-security-best-practices/">MySQL Security Best Practices</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.mysql.com/cn/why-mysql/presentations/mysql-cluster-deployment-best-practices/">MySQL Cluster Deployment Best Practices</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.mysql.com/cn/why-mysql/presentations/mysql-high-availability-innodb-cluster/">MySQL High Availability with InnoDB Cluster</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>书籍</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/23008813/">《高性能 MySQL》</a> - 经典，适合 DBA 或作为开发者的参考手册【进阶】</li>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/24708143/">《MySQL 技术内幕：InnoDB 存储引擎》</a></li>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/3354490/">《MySQL 必知必会》</a> - Mysql 的基本概念和语法【入门】</li>
+</ul>
+</li>
+<li><strong>教程</strong><ul>
+<li><a target="_blank" rel="noopener" href="http://www.runoob.com/mysql/mysql-tutorial.html">runoob.com MySQL 教程</a> - 入门级 SQL 教程</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jaywcjlove/mysql-tutorial">mysql-tutorial</a></li>
+</ul>
+</li>
+<li><strong>文章</strong><ul>
+<li><a target="_blank" rel="noopener" href="http://blog.codinglabs.org/articles/theory-of-mysql-index.html">MySQL 索引背后的数据结构及算法原理</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@kousiknath/data-structures-database-storage-internals-1f5ed3619d43">Some study on database storage internals</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@Pinterest_Engineering/sharding-pinterest-how-we-scaled-our-mysql-fleet-3f341e96ca6f">Sharding Pinterest: How we scaled our MySQL fleet</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.mysql.com/cn/why-mysql/white-papers/mysql-guide-to-high-availability-solutions/">Guide to MySQL High Availability</a></li>
+<li><a target="_blank" rel="noopener" href="https://dzone.com/articles/choosing-mysql-high-availability-solutions">Choosing MySQL High Availability Solutions</a></li>
+<li><a target="_blank" rel="noopener" href="https://mariadb.com/sites/default/files/content/Whitepaper_High_availability_with_MariaDB-TX.pdf">High availability with MariaDB TX: The definitive guide</a></li>
+<li>Mysql 相关经验<ul>
+<li><a target="_blank" rel="noopener" href="https://www.percona.com/live/mysql-conference-2015/sessions/bookingcom-evolution-mysql-system-design">Booking.com: Evolution of MySQL System Design</a> ，Booking.com 的 MySQL 数据库使用的演化，其中有很多不错的经验分享，我相信也是很多公司会遇到的的问题。</li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/airbnb-engineering/tracking-the-money-scaling-financial-reporting-at-airbnb-6d742b80f040">Tracking the Money - Scaling Financial Reporting at Airbnb</a> ，Airbnb 的数据库扩展的经验分享。</li>
+<li><a target="_blank" rel="noopener" href="https://eng.uber.com/mysql-migration/">Why Uber Engineering Switched from Postgres to MySQL</a> ，无意比较两个数据库谁好谁不好，推荐这篇 Uber 的长文，主要是想让你从中学习到一些经验和技术细节，这是一篇很不错的文章。</li>
+</ul>
+</li>
+<li>Mysql 集群复制<ul>
+<li><a target="_blank" rel="noopener" href="https://engineering.imvu.com/2013/01/09/monitoring-delayed-replication-with-a-focus-on-mysql/">Monitoring Delayed Replication, With A Focus On MySQL</a></li>
+<li><a target="_blank" rel="noopener" href="https://githubengineering.com/mitigating-replication-lag-and-reducing-read-load-with-freno/">Mitigating replication lag and reducing read load with freno</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/booking-com-infrastructure/better-parallel-replication-for-mysql-14e2d7857813">Better Parallel Replication for MySQL</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/booking-com-infrastructure/evaluating-mysql-parallel-replication-part-2-slave-group-commit-459026a141d2">Evaluating MySQL Parallel Replication Part 2: Slave Group Commit</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/booking-com-infrastructure/evaluating-mysql-parallel-replication-part-3-benchmarks-in-production-db5811058d74">Evaluating MySQL Parallel Replication Part 3: Benchmarks in Production</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/booking-com-infrastructure/evaluating-mysql-parallel-replication-part-4-more-benchmarks-in-production-49ee255043ab">Evaluating MySQL Parallel Replication Part 4: More Benchmarks in Production</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/booking-com-infrastructure/evaluating-mysql-parallel-replication-part-4-annex-under-the-hood-eb456cf8b2fb">Evaluating MySQL Parallel Replication Part 4, Annex: Under the Hood</a></li>
+</ul>
+</li>
+<li>Mysql 数据分区<ul>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/5541421/mysql-sharding-approaches">StackOverflow: MySQL sharding approaches?</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.percona.com/blog/2009/08/06/why-you-dont-want-to-shard/">Why you don’t want to shard</a></li>
+<li>[How to Scale Big Data Applications](<a target="_blank" rel="noopener" href="https://www.percona.com/sites/default/files/presentations/How">https://www.percona.com/sites/default/files/presentations/How</a> to Scale Big Data Applications.pdf)</li>
+<li><a target="_blank" rel="noopener" href="https://www.percona.com/blog/2016/08/30/mysql-sharding-with-proxysql/">MySQL Sharding with ProxySQL</a></li>
+</ul>
+</li>
+<li>各公司的 Mysql 数据分区经验分享<ul>
+<li><a target="_blank" rel="noopener" href="https://devs.mailchimp.com/blog/using-shards-to-accommodate-millions-of-users/">MailChimp: Using Shards to Accommodate Millions of Users</a></li>
+<li><a target="_blank" rel="noopener" href="https://eng.uber.com/schemaless-rewrite/">Uber: Code Migration in Production: Rewriting the Sharding Layer of Uber’s Schemaless Datastore</a></li>
+<li><a target="_blank" rel="noopener" href="https://instagram-engineering.com/sharding-ids-at-instagram-1cf5a71e5a5c">Sharding &amp; IDs at Instagram</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/airbnb-engineering/how-we-partitioned-airbnb-s-main-database-in-two-weeks-55f7e006ff21">Airbnb: How We Partitioned Airbnb’s Main Database in Two Weeks</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>更多资源</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/jobbole/awesome-mysql-cn">awesome-mysql</a> - MySQL 的资源列表</li>
+</ul>
+</li>
+</ul>
+<h3 id="Nosql-数据库综合"><a href="#Nosql-数据库综合" class="headerlink" title="Nosql 数据库综合"></a>Nosql 数据库综合</h3><ul>
+<li>Martin Fowler 在 YouTube 上分享的 NoSQL 介绍 <a target="_blank" rel="noopener" href="https://youtu.be/qI_g07C_Q5I">Introduction To NoSQL</a>， 以及他参与编写的 <a target="_blank" rel="noopener" href="https://book.douban.com/subject/25662138/">NoSQL Distilled - NoSQL 精粹</a>，这本书才 100 多页，是本难得的关于 NoSQL 的书，很不错，非常易读。</li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/baqend-blog/nosql-databases-a-survey-and-decision-guidance-ea7823a822d#.nhzop4d23">NoSQL Databases: a Survey and Decision Guidance</a>，这篇文章可以带你自上而下地从 CAP 原理到开始了解 NoSQL 的种种技术，是一篇非常不错的文章。</li>
+<li><a target="_blank" rel="noopener" href="https://resources.sei.cmu.edu/asset_files/WhitePaper/2014_019_001_90915.pdf">Distribution, Data, Deployment: Software Architecture Convergence in Big Data Systems</a>，这是卡内基·梅隆大学的一篇讲分布式大数据系统的论文。其中主要讨论了在大数据时代下的软件工程中的一些关键点，也说到了 NoSQL 数据库。</li>
+<li><a target="_blank" rel="noopener" href="http://ianvarley.com/UT/MR/Varley_MastersReport_Full_2009-08-07.pdf">No Relation: The Mixed Blessings of Non-Relational Databases</a>，这篇论文虽然有点年代久远。但这篇论文是 HBase 的基础，你花上一点时间来读读，就可以了解到，对各种非关系型数据存储优缺点的一个很好的比较。</li>
+<li><a target="_blank" rel="noopener" href="https://highlyscalable.wordpress.com/2012/03/01/nosql-data-modeling-techniques/">NoSQL Data Modeling Techniques</a> ，NoSQL 建模技术。这篇文章我曾经翻译在了 CoolShell 上，标题为 <a target="_blank" rel="noopener" href="https://coolshell.cn/articles/7270.htm">NoSQL 数据建模技术</a>，供你参考。<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/core/data-modeling-introduction/">MongoDB - Data Modeling Introduction</a> ，虽然这是 MongoDB 的数据建模介绍，但是其很多观点可以用于其它的 NoSQL 数据库。</li>
+<li><a target="_blank" rel="noopener" href="https://firebase.google.com/docs/database/android/structure-data">Firebase - Structure Your Database</a> ，Google 的 Firebase 数据库使用 JSON 建模的一些最佳实践。</li>
+</ul>
+</li>
+<li>因为 CAP 原理，所以当你需要选择一个 NoSQL 数据库的时候，你应该看看这篇文档 <a target="_blank" rel="noopener" href="http://blog.nahurst.com/visual-guide-to-nosql-systems">Visual Guide to NoSQL Systems</a>。</li>
+</ul>
+<p>选 SQL 还是 NoSQL，这里有两篇文章，值得你看看。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.upwork.com/hiring/data/sql-vs-nosql-databases-whats-the-difference/">SQL vs. NoSQL Databases: What’s the Difference?</a></li>
+<li><a target="_blank" rel="noopener" href="https://engineering.salesforce.com/sql-or-nosql-9eaf1d92545b">Salesforce: SQL or NoSQL</a></li>
+</ul>
+<h3 id="列式数据库资料"><a href="#列式数据库资料" class="headerlink" title="列式数据库资料"></a>列式数据库资料</h3><h4 id="Cassandra-资料"><a href="#Cassandra-资料" class="headerlink" title="Cassandra 资料"></a>Cassandra 资料</h4><ul>
+<li>沃尔玛实验室有两篇文章值得一读。<ul>
+<li><a target="_blank" rel="noopener" href="https://medium.com/walmartlabs/avoid-pitfalls-in-scaling-your-cassandra-cluster-lessons-and-remedies-a71ca01f8c04">Avoid Pitfalls in Scaling Cassandra Cluster at Walmart</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/walmartlabs/building-object-store-storing-images-in-cassandra-walmart-scale-a6b9c02af593">Storing Images in Cassandra at Walmart</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://engineeringblog.yelp.com/2016/08/how-we-scaled-our-ad-analytics-with-cassandra.html">Yelp: How We Scaled Our Ad Analytics with Apache Cassandra</a> ，Yelp 的这篇博客也有一些相关的经验和教训。</li>
+<li><a target="_blank" rel="noopener" href="https://blog.discordapp.com/how-discord-stores-billions-of-messages-7fa6ec7ee4c7">Discord: How Discord Stores Billions of Messages</a> ，Discord 公司分享的一个如何存储十亿级消息的技术文章。</li>
+<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/DataStax/cassandra-at-instagram-2016">Cassandra at Instagram</a> ，Instagram 的一个 PPT，其中介绍了 Instagram 中是怎么使用 Cassandra 的。</li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/netflix-techblog/benchmarking-cassandra-scalability-on-aws-over-a-million-writes-per-second-39f45f066c9e">Netflix: Benchmarking Cassandra Scalability on AWS - Over a million writes per second</a> ，Netflix 公司在 AWS 上给 Cassandra 做的一个 Benchmark。</li>
+</ul>
+<h4 id="HBase-资料"><a href="#HBase-资料" class="headerlink" title="HBase 资料"></a>HBase 资料</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://medium.com/imgur-engineering/imgur-notifications-from-mysql-to-hbase-9dba6fc44183">Imgur Notification: From MySQL to HBASE</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@Pinterest_Engineering/improving-hbase-backup-efficiency-at-pinterest-86159da4b954">Pinterest: Improving HBase Backup Efficiency</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ibm.com/support/knowledgecenter/en/SSPT3X_2.1.2/com.ibm.swg.im.infosphere.biginsights.analyze.doc/doc/bigsql_TuneHbase.html">IBM : Tuning HBase performance</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.larsgeorge.com/2010/05/hbase-file-locality-in-hdfs.html">HBase File Locality in HDFS</a></li>
+<li><a target="_blank" rel="noopener" href="http://borthakur.com/ftp/RealtimeHadoopSigmod2011.pdf">Apache Hadoop Goes Realtime at Facebook</a></li>
+<li><a target="_blank" rel="noopener" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.294.8459&rep=rep1&type=pdf">Storage Infrastructure Behind Facebook Messages: Using HBase at Scale</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/rayokota/awesome-hbase">GitHub: Awesome HBase</a></li>
+</ul>
+<p>针对于 HBase 有两本书你可以考虑一下。</p>
+<ul>
+<li>首先，先推荐两本书，一本是偏实践的《<a target="_blank" rel="noopener" href="https://book.douban.com/subject/25706541/">HBase 实战</a>》，另一本是偏大而全的手册型的《<a target="_blank" rel="noopener" href="https://book.douban.com/subject/10748460/">HBase 权威指南</a>》。</li>
+<li>当然，你也可以看看官方的 <a target="_blank" rel="noopener" href="http://hbase.apache.org/0.94/book/book.html">The Apache HBase™ Reference Guide</a></li>
+<li>另外两个列数据库：<ul>
+<li><a target="_blank" rel="noopener" href="https://clickhouse.yandex/">ClickHouse - Open Source Distributed Column Database at Yandex</a></li>
+<li><a target="_blank" rel="noopener" href="https://engineering.giphy.com/scaling-redshift-without-scaling-costs/">Scaling Redshift without Scaling Costs at GIPHY</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="KV-数据库资料"><a href="#KV-数据库资料" class="headerlink" title="KV 数据库资料"></a>KV 数据库资料</h3><h4 id="Redis-资料"><a href="#Redis-资料" class="headerlink" title="Redis 资料"></a>Redis 资料</h4><ul>
+<li><strong>官网</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://redis.io/">Redis 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/antirez/redis">Redis github</a></li>
+<li><a target="_blank" rel="noopener" href="http://redis.cn/">Redis 官方文档中文版</a></li>
+<li><a target="_blank" rel="noopener" href="http://redisdoc.com/">Redis 命令参考</a></li>
+</ul>
+</li>
+<li><strong>书籍</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://item.jd.com/11791607.html">《Redis 实战》</a></li>
+<li><a target="_blank" rel="noopener" href="https://item.jd.com/11486101.html">《Redis 设计与实现》</a></li>
+</ul>
+</li>
+<li><strong>源码</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/josiahcarlson/redis-in-action">《Redis 实战》配套 Python 源码</a></li>
+</ul>
+</li>
+<li><strong>资源汇总</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/JamzyWang/awesome-redis">awesome-redis</a></li>
+</ul>
+</li>
+<li><strong>Redis Client</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-data/redis/docs/1.8.13.RELEASE/reference/html/">spring-data-redis 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/redisson/redisson/wiki/%E7%9B%AE%E5%BD%95">redisson 官方文档(中文,略有滞后)</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/redisson/redisson/wiki/Table-of-Content">redisson 官方文档(英文)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/82f0d5abb002">CRUG | Redisson PRO vs. Jedis: Which Is Faster? 翻译</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/everlasting_188/article/details/51073505">redis 分布锁 Redisson 性能测试</a></li>
+</ul>
+</li>
+<li><strong>文章</strong><ul>
+<li><a target="_blank" rel="noopener" href="http://tech.trivago.com/2017/01/25/learn-redis-the-hard-way-in-production/">Learn Redis the hard way (in production) at Trivago</a></li>
+<li><a target="_blank" rel="noopener" href="http://highscalability.com/blog/2014/9/8/how-twitter-uses-redis-to-scale-105tb-ram-39mm-qps-10000-ins.html">Twitter: How Twitter Uses Redis To Scale - 105TB RAM, 39MM QPS, 10,000+ Instances</a></li>
+<li><a target="_blank" rel="noopener" href="https://slack.engineering/scaling-slacks-job-queue-687222e9d100">Slack: Scaling Slack’s Job Queue - Robustly Handling Billions of Tasks in Milliseconds Using Kafka and Redis</a></li>
+<li><a target="_blank" rel="noopener" href="https://githubengineering.com/moving-persistent-data-out-of-redis/">GitHub: Moving persistent data out of Redis at GitHub</a></li>
+<li><a target="_blank" rel="noopener" href="https://engineering.instagram.com/storing-hundreds-of-millions-of-simple-key-value-pairs-in-redis-1091ae80f74c">Instagram: Storing Hundreds of Millions of Simple Key-Value Pairs in Redis</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.infoq.com/presentations/twitch-pokemon">Redis in Chat Architecture of Twitch (from 27:22)</a></li>
+<li><a target="_blank" rel="noopener" href="https://deliveroo.engineering/2016/10/07/optimising-session-key-storage.html">Deliveroo: Optimizing Session Key Storage in Redis</a></li>
+<li><a target="_blank" rel="noopener" href="https://deliveroo.engineering/2017/01/19/optimising-membership-queries.html">Deliveroo: Optimizing Redis Storage</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/JamzyWang/awesome-redis">GitHub: Awesome Redis</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="文档数据库资料"><a href="#文档数据库资料" class="headerlink" title="文档数据库资料"></a>文档数据库资料</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://engineering.linkedin.com/blog/2017/12/couchbase-ecosystem-at-linkedin">Couchbase Ecosystem at LinkedIn</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/zendesk-engineering/resurrecting-amazon-simpledb-9404034ec506">SimpleDB at Zendesk</a></li>
+<li><a target="_blank" rel="noopener" href="https://msdn.microsoft.com/en-us/magazine/hh547103.aspx">Data Points - What the Heck Are Document Databases?</a></li>
+</ul>
+<h4 id="MongoDB-资料"><a href="#MongoDB-资料" class="headerlink" title="MongoDB 资料"></a>MongoDB 资料</h4><ul>
+<li><strong>官方</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://www.mongodb.com/">MongoDB 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mongodb/mongo">MongoDB Github</a></li>
+<li><a target="_blank" rel="noopener" href="https://university.mongodb.com/">MongoDB 官方免费教程</a></li>
+</ul>
+</li>
+<li><strong>教程</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/mongodb/mongodb-tutorial.html">MongoDB 教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://time.geekbang.org/course/intro/100040001">MongoDB 高手课</a></li>
+</ul>
+</li>
+<li><strong>数据</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/ozlerhakan/mongodb-json-files">mongodb-json-files</a></li>
+</ul>
+</li>
+<li><strong>文章</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/mdirolf/introduction-to-mongodb">Introduction to MongoDB</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.mongodb.com/blog/post/ebay-building-mission-critical-multi-data-center-applications-with-mongodb">eBay: Building Mission-Critical Multi-Data Center Applications with MongoDB</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.baqend.com/parse-is-gone-a-few-secrets-about-their-infrastructure-91b3ab2fcf71">The AWS and MongoDB Infrastructure of Parse: Lessons Learned</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/build-addepar/migrating-mountains-of-mongo-data-63e530539952">Migrating Mountains of Mongo Data</a></li>
+</ul>
+</li>
+<li><strong>更多资源</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/ramnes/awesome-mongodb">Github: Awesome MongoDB</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="搜索引擎数据库资料"><a href="#搜索引擎数据库资料" class="headerlink" title="搜索引擎数据库资料"></a>搜索引擎数据库资料</h3><h4 id="ElasticSearch"><a href="#ElasticSearch" class="headerlink" title="ElasticSearch"></a>ElasticSearch</h4><ul>
+<li><strong>官方</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://www.elastic.co/cn/products/elasticsearch">Elasticsearch 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/elastic/elasticsearch">Elasticsearch Github</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html">Elasticsearch 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/guide/master/index.html">Elasticsearch: The Definitive Guide</a> - ElasticSearch 官方学习资料</li>
+</ul>
+</li>
+<li><strong>书籍</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/30380439/">《Elasticsearch 实战》</a></li>
+</ul>
+</li>
+<li><strong>教程</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/chenryn/logstash-best-practice-cn">ELK Stack 权威指南</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.knowledgedict.com/tutorial/elasticsearch-intro.html">Elasticsearch 教程</a></li>
+</ul>
+</li>
+<li><strong>文章</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xing901022/p/4704319.html">Elasticsearch+Logstash+Kibana 教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/judasn/Linux-Tutorial/blob/master/ELK-Install-And-Settings.md">ELK（Elasticsearch、Logstash、Kibana）安装和配置</a></li>
+<li><strong>性能调优相关</strong>的工程实践<ul>
+<li><a target="_blank" rel="noopener" href="https://www.ebayinc.com/stories/blogs/tech/elasticsearch-performance-tuning-practice-at-ebay/">Elasticsearch Performance Tuning Practice at eBay</a></li>
+<li><a target="_blank" rel="noopener" href="https://kickstarter.engineering/elasticsearch-at-kickstarter-db3c487887fc">Elasticsearch at Kickstarter</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.loggly.com/blog/nine-tips-configuring-elasticsearch-for-high-performance/">9 tips on ElasticSearch configuration for high performance</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@abhidrona/elasticsearch-deployment-best-practices-d6c1323b25d7">Elasticsearch In Production - Deployment Best Practices</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>更多资源</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/dzharii/awesome-elasticsearch">GitHub: Awesome ElasticSearch</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="图数据库"><a href="#图数据库" class="headerlink" title="图数据库"></a>图数据库</h3><ul>
+<li>首先是 IBM Devloperworks 上的两个简介性的 PPT。<ul>
+<li><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/library/cl-graph-database-1/cl-graph-database-1-pdf.pdf">Intro to graph databases, Part 1, Graph databases and the CRUD operations</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/library/cl-graph-database-2/cl-graph-database-2-pdf.pdf">Intro to graph databases, Part 2, Building a recommendation engine with a graph database</a></li>
+</ul>
+</li>
+<li>然后是一本免费的电子书《<a target="_blank" rel="noopener" href="http://graphdatabases.com/">Graph Database</a>》。</li>
+<li>接下来是一些图数据库的介绍文章。<ul>
+<li><a target="_blank" rel="noopener" href="https://www.infoq.com/presentations/graph-database-scalability">Handling Billions of Edges in a Graph Database</a></li>
+<li><a target="_blank" rel="noopener" href="https://neo4j.com/customers/">Neo4j case studies with Walmart, eBay, AirBnB, NASA, etc</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.twitter.com/engineering/en_us/a/2010/introducing-flockdb.html">FlockDB: Distributed Graph Database for Storing Adjacency Lists at Twitter</a></li>
+<li><a target="_blank" rel="noopener" href="https://architecht.io/google-ibm-back-new-open-source-graph-database-project-janusgraph-1d74fb78db6b">JanusGraph: Scalable Graph Database backed by Google, IBM and Hortonworks</a></li>
+<li><a target="_blank" rel="noopener" href="https://aws.amazon.com/neptune/">Amazon Neptune</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="时序数据库"><a href="#时序数据库" class="headerlink" title="时序数据库"></a>时序数据库</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.timescale.com/what-the-heck-is-time-series-data-and-why-do-i-need-a-time-series-database-dcf3b1b18563">What is Time-Series Data &amp; Why We Need a Time-Series Database</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.timescale.com/time-series-data-why-and-how-to-use-a-relational-database-instead-of-nosql-d0cd6975e87c">Time Series Data: Why and How to Use a Relational Database instead of NoSQL</a></li>
+<li><a target="_blank" rel="noopener" href="https://code.facebook.com/posts/952820474848503/beringei-a-high-performance-time-series-storage-engine/">Beringei: High-performance Time Series Storage Engine @Facebook</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/netflix-techblog/introducing-atlas-netflixs-primary-telemetry-platform-bd31f4d8ed9a">Introducing Atlas: Netflix’s Primary Telemetry Platform @Netflix</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.timescale.com/when-boring-is-awesome-building-a-scalable-time-series-database-on-postgresql-2900ea453ee2">Building a Scalable Time Series Database on PostgreSQL</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/netflix-techblog/scaling-time-series-data-storage-part-i-ec2b6d44ba39">Scaling Time Series Data Storage - Part I @Netflix</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@leventov/design-of-a-cost-efficient-time-series-store-for-big-data-88c5dc41af8e">Design of a Cost Efficient Time Series Store for Big Data</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/xephonhq/awesome-time-series-database">GitHub: Awesome Time-Series Database</a></li>
+</ul>
+<h2 id="传送-🚪"><a href="#传送-🚪" class="headerlink" title="传送 🚪"></a>传送 🚪</h2><p>◾ 💧 <a target="_blank" rel="noopener" href="https://dunwu.github.io/waterdrop/">钝悟的 IT 知识图谱</a> ◾ 🎯 <a target="_blank" rel="noopener" href="https://dunwu.github.io/blog/">钝悟的博客</a> ◾</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">JaHero</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/pages/012488/">http://example.com/pages/012488/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">贾英雄-blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/pages/0e1012/" title="Nosql技术选型"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-09</div><div class="title">Nosql技术选型</div></div></a></div><div><a href="/pages/d7cd88/" title="数据结构与数据库索引"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-27</div><div class="title">数据结构与数据库索引</div></div></a></div><div><a href="/pages/3c3c45/" title="数据库综合"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-11</div><div class="title">数据库综合</div></div></a></div><div><a href="/pages/e2648c/" title="版本管理中间件 Flyway"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-08-22</div><div class="title">版本管理中间件 Flyway</div></div></a></div><div><a href="/pages/addb05/" title="数据库中间件和代理"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-11</div><div class="title">数据库中间件和代理</div></div></a></div><div><a href="/pages/bb43eb/" title="关系型数据库"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-11</div><div class="title">关系型数据库</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/ava.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JaHero</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">DB-TUTORIAL</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BB%BC%E5%90%88"><span class="toc-number">1.1.</span> <span class="toc-text">数据库综合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.1.</span> <span class="toc-text">分布式存储原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%90%86%E8%AE%BA"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">分布式理论</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%B3%E9%94%AE%E6%8A%80%E6%9C%AF"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">分布式关键技术</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B5%81%E9%87%8F%E8%B0%83%E5%BA%A6"><span class="toc-number">1.1.1.2.1.</span> <span class="toc-text">流量调度</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%B0%83%E5%BA%A6"><span class="toc-number">1.1.1.2.2.</span> <span class="toc-text">数据调度</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">1.1.2.</span> <span class="toc-text">其他</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="toc-number">1.2.</span> <span class="toc-text">数据库中间件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.3.</span> <span class="toc-text">关系型数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BB%BC%E5%90%88"><span class="toc-number">1.3.1.</span> <span class="toc-text">关系型数据库综合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mysql"><span class="toc-number">1.3.2.</span> <span class="toc-text">Mysql</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96-1"><span class="toc-number">1.3.3.</span> <span class="toc-text">其他</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.4.</span> <span class="toc-text">文档数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MongoDB"><span class="toc-number">1.4.1.</span> <span class="toc-text">MongoDB</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KV-%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.5.</span> <span class="toc-text">KV 数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis"><span class="toc-number">1.5.1.</span> <span class="toc-text">Redis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%97%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.6.</span> <span class="toc-text">列式数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HBase"><span class="toc-number">1.6.1.</span> <span class="toc-text">HBase</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.7.</span> <span class="toc-text">搜索引擎数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Elasticsearch"><span class="toc-number">1.7.1.</span> <span class="toc-text">Elasticsearch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Elastic"><span class="toc-number">1.7.2.</span> <span class="toc-text">Elastic</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%84%E6%96%99-%F0%9F%93%9A"><span class="toc-number">1.8.</span> <span class="toc-text">资料 📚</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BB%BC%E5%90%88%E8%B5%84%E6%96%99"><span class="toc-number">1.8.1.</span> <span class="toc-text">数据库综合资料</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E8%B5%84%E6%96%99"><span class="toc-number">1.8.2.</span> <span class="toc-text">关系型数据库资料</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Mysql-%E8%B5%84%E6%96%99"><span class="toc-number">1.8.2.1.</span> <span class="toc-text">Mysql 资料</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nosql-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BB%BC%E5%90%88"><span class="toc-number">1.8.3.</span> <span class="toc-text">Nosql 数据库综合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E8%B5%84%E6%96%99"><span class="toc-number">1.8.4.</span> <span class="toc-text">列式数据库资料</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Cassandra-%E8%B5%84%E6%96%99"><span class="toc-number">1.8.4.1.</span> <span class="toc-text">Cassandra 资料</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HBase-%E8%B5%84%E6%96%99"><span class="toc-number">1.8.4.2.</span> <span class="toc-text">HBase 资料</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#KV-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%B5%84%E6%96%99"><span class="toc-number">1.8.5.</span> <span class="toc-text">KV 数据库资料</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Redis-%E8%B5%84%E6%96%99"><span class="toc-number">1.8.5.1.</span> <span class="toc-text">Redis 资料</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93%E8%B5%84%E6%96%99"><span class="toc-number">1.8.6.</span> <span class="toc-text">文档数据库资料</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MongoDB-%E8%B5%84%E6%96%99"><span class="toc-number">1.8.6.1.</span> <span class="toc-text">MongoDB 资料</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E8%B5%84%E6%96%99"><span class="toc-number">1.8.7.</span> <span class="toc-text">搜索引擎数据库资料</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ElasticSearch"><span class="toc-number">1.8.7.1.</span> <span class="toc-text">ElasticSearch</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.8.8.</span> <span class="toc-text">图数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E5%BA%8F%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.8.9.</span> <span class="toc-text">时序数据库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E9%80%81-%F0%9F%9A%AA"><span class="toc-number">1.9.</span> <span class="toc-text">传送 🚪</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题">无题</a><time datetime="2022-12-31T04:24:34.153Z" title="发表于 2022-12-31 12:24:34">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/img/index/" title="gallery"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="gallery"/></a><div class="content"><a class="title" href="/2022/12/31/img/index/" title="gallery">gallery</a><time datetime="2022-12-30T18:20:45.000Z" title="发表于 2022-12-31 02:20:45">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/30/hello-world/" title="Hello World"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/12/30/hello-world/" title="Hello World">Hello World</a><time datetime="2022-12-30T09:13:14.141Z" title="发表于 2022-12-30 17:13:14">2022-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Aop注解"/></a><div class="content"><a class="title" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解">Aop注解</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flowable 工作流程引擎"/></a><div class="content"><a class="title" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎">Flowable 工作流程引擎</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By JaHero</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script src="https://fastly.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

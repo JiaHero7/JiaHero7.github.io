@@ -1,0 +1,564 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Elastic 技术栈之 Logstash | 贾英雄-blog</title><meta name="keywords" content="数据库,搜索引擎数据库,Elastic,Logstash"><meta name="author" content="JaHero"><meta name="copyright" content="JaHero"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Elastic 技术栈之 Logstash 本文是 Elastic 技术栈（ELK）的 Logstash 应用。 如果不了解 Elastic 的安装、配置、部署，可以参考：Elastic 技术栈之快速入门  简介Logstash 可以传输和处理你的日志、事务或其他数据。 功能Logstash 是 Elasticsearch 的最佳数据管道。 Logstash 是插件式管理模式，在输入、过滤、输出以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elastic 技术栈之 Logstash">
+<meta property="og:url" content="http://example.com/pages/55ce99/index.html">
+<meta property="og:site_name" content="贾英雄-blog">
+<meta property="og:description" content="Elastic 技术栈之 Logstash 本文是 Elastic 技术栈（ELK）的 Logstash 应用。 如果不了解 Elastic 的安装、配置、部署，可以参考：Elastic 技术栈之快速入门  简介Logstash 可以传输和处理你的日志、事务或其他数据。 功能Logstash 是 Elasticsearch 的最佳数据管道。 Logstash 是插件式管理模式，在输入、过滤、输出以">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/post.jpg">
+<meta property="article:published_time" content="2020-06-15T23:10:44.000Z">
+<meta property="article:modified_time" content="2022-12-26T06:15:52.723Z">
+<meta property="article:author" content="JaHero">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="搜索引擎数据库">
+<meta property="article:tag" content="Elastic">
+<meta property="article:tag" content="Logstash">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/post.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/pages/55ce99/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"K46KXS6BKG","apiKey":"94dab3de87ce4cc2067ec6ef569e9df7","indexName":"JiaHero","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: JaHero","link":"链接: ","source":"来源: 贾英雄-blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Elastic 技术栈之 Logstash',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2022-12-26 14:15:52'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/ava.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">贾英雄-blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Elastic 技术栈之 Logstash</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-06-15T23:10:44.000Z" title="发表于 2020-06-16 07:10:44">2020-06-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:52.723Z" title="更新于 2022-12-26 14:15:52">2022-12-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/">搜索引擎数据库</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/Elastic/">Elastic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Elastic 技术栈之 Logstash"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Elastic-技术栈之-Logstash"><a href="#Elastic-技术栈之-Logstash" class="headerlink" title="Elastic 技术栈之 Logstash"></a>Elastic 技术栈之 Logstash</h1><blockquote>
+<p>本文是 Elastic 技术栈（ELK）的 Logstash 应用。</p>
+<p>如果不了解 Elastic 的安装、配置、部署，可以参考：<a target="_blank" rel="noopener" href="https://github.com/dunwu/JavaStack/blob/master/docs/javatool/elastic/elastic-quickstart.md">Elastic 技术栈之快速入门</a></p>
+</blockquote>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Logstash 可以传输和处理你的日志、事务或其他数据。</p>
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><p>Logstash 是 Elasticsearch 的最佳数据管道。</p>
+<p>Logstash 是插件式管理模式，在输入、过滤、输出以及编码过程中都可以使用插件进行定制。Logstash 社区有超过 200 种可用插件。</p>
+<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><p>Logstash 有两个必要元素：<code>input</code> 和 <code>output</code> ，一个可选元素：<code>filter</code>。</p>
+<p>这三个元素，分别代表 Logstash 事件处理的三个阶段：输入 &gt; 过滤器 &gt; 输出。</p>
+<p><img src="https://www.elastic.co/guide/en/logstash/current/static/images/basic_logstash_pipeline.png" alt="img"></p>
+<ul>
+<li>input 负责从数据源采集数据。</li>
+<li>filter 将数据修改为你指定的格式或内容。</li>
+<li>output 将数据传输到目的地。</li>
+</ul>
+<p>在实际应用场景中，通常输入、输出、过滤器不止一个。Logstash 的这三个元素都使用插件式管理方式，用户可以根据应用需要，灵活的选用各阶段需要的插件，并组合使用。</p>
+<p>后面将对插件展开讲解，暂且不表。</p>
+<h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><h3 id="设置文件"><a href="#设置文件" class="headerlink" title="设置文件"></a>设置文件</h3><ul>
+<li>**<code>logstash.yml</code>**：logstash 的默认启动配置文件</li>
+<li>**<code>jvm.options</code>**：logstash 的 JVM 配置文件。</li>
+<li><strong><code>startup.options</code></strong> (Linux)：包含系统安装脚本在 <code>/usr/share/logstash/bin</code> 中使用的选项为您的系统构建适当的启动脚本。安装 Logstash 软件包时，系统安装脚本将在安装过程结束时执行，并使用 <code>startup.options</code> 中指定的设置来设置用户，组，服务名称和服务描述等选项。</li>
+</ul>
+<h3 id="logstash-yml-设置项"><a href="#logstash-yml-设置项" class="headerlink" title="logstash.yml 设置项"></a>logstash.yml 设置项</h3><p>节选部分设置项，更多项请参考：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/logstash/current/logstash-settings-file.html">https://www.elastic.co/guide/en/logstash/current/logstash-settings-file.html</a></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>node.name</code></td>
+<td>节点名</td>
+<td>机器的主机名</td>
+</tr>
+<tr>
+<td><code>path.data</code></td>
+<td>Logstash 及其插件用于任何持久性需求的目录。</td>
+<td><code>LOGSTASH_HOME/data</code></td>
+</tr>
+<tr>
+<td><code>pipeline.workers</code></td>
+<td>同时执行管道的过滤器和输出阶段的工作任务数量。如果发现事件正在备份，或 CPU 未饱和，请考虑增加此数字以更好地利用机器处理能力。</td>
+<td>Number of the host’s CPU cores</td>
+</tr>
+<tr>
+<td><code>pipeline.batch.size</code></td>
+<td>尝试执行过滤器和输出之前，单个工作线程从输入收集的最大事件数量。较大的批量处理大小一般来说效率更高，但是以增加的内存开销为代价。您可能必须通过设置 <code>LS_HEAP_SIZE</code> 变量来有效使用该选项来增加 JVM 堆大小。</td>
+<td><code>125</code></td>
+</tr>
+<tr>
+<td><code>pipeline.batch.delay</code></td>
+<td>创建管道事件批处理时，在将一个尺寸过小的批次发送给管道工作任务之前，等待每个事件需要多长时间（毫秒）。</td>
+<td><code>5</code></td>
+</tr>
+<tr>
+<td><code>pipeline.unsafe_shutdown</code></td>
+<td>如果设置为 true，则即使在内存中仍存在 inflight 事件时，也会强制 Logstash 在关闭期间退出。默认情况下，Logstash 将拒绝退出，直到所有接收到的事件都被推送到输出。启用此选项可能会导致关机期间数据丢失。</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>path.config</code></td>
+<td>主管道的 Logstash 配置路径。如果您指定一个目录或通配符，配置文件将按字母顺序从目录中读取。</td>
+<td>Platform-specific. See [<a target="_blank" rel="noopener" href="https://github.com/elastic/logstash/blob/6.1/docs/static/settings-file.asciidoc#dir-layout">dir-layout]</a>.</td>
+</tr>
+<tr>
+<td><code>config.string</code></td>
+<td>包含用于主管道的管道配置的字符串。使用与配置文件相同的语法。</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>config.test_and_exit</code></td>
+<td>设置为 true 时，检查配置是否有效，然后退出。请注意，使用此设置不会检查 grok 模式的正确性。 Logstash 可以从目录中读取多个配置文件。如果将此设置与 log.level：debug 结合使用，则 Logstash 将记录组合的配置文件，并注掉其源文件的配置块。</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>config.reload.automatic</code></td>
+<td>设置为 true 时，定期检查配置是否已更改，并在配置更改时重新加载配置。这也可以通过 SIGHUP 信号手动触发。</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>config.reload.interval</code></td>
+<td>Logstash 检查配置文件更改的时间间隔。</td>
+<td><code>3s</code></td>
+</tr>
+<tr>
+<td><code>config.debug</code></td>
+<td>设置为 true 时，将完全编译的配置显示为调试日志消息。您还必须设置<code>log.level：debug</code>。警告：日志消息将包括任何传递给插件配置作为明文的“密码”选项，并可能导致明文密码出现在您的日志！</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>config.support_escapes</code></td>
+<td>当设置为 true 时，带引号的字符串将处理转义字符。</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>modules</code></td>
+<td>配置时，模块必须处于上表所述的嵌套 YAML 结构中。</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>http.host</code></td>
+<td>绑定地址</td>
+<td><code>&quot;127.0.0.1&quot;</code></td>
+</tr>
+<tr>
+<td><code>http.port</code></td>
+<td>绑定端口</td>
+<td><code>9600</code></td>
+</tr>
+<tr>
+<td><code>log.level</code></td>
+<td>日志级别。有效选项：fatal &gt; error &gt; warn &gt; info &gt; debug &gt; trace</td>
+<td><code>info</code></td>
+</tr>
+<tr>
+<td><code>log.format</code></td>
+<td>日志格式。json （JSON 格式）或 plain （原对象）</td>
+<td><code>plain</code></td>
+</tr>
+<tr>
+<td><code>path.logs</code></td>
+<td>Logstash 自身日志的存储路径</td>
+<td><code>LOGSTASH_HOME/logs</code></td>
+</tr>
+<tr>
+<td><code>path.plugins</code></td>
+<td>在哪里可以找到自定义的插件。您可以多次指定此设置以包含多个路径。</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><h3 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行</h3><p>通过命令行启动 logstash 的方式如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/logstash [options]</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>options</code> 是您可以指定用于控制 Logstash 执行的命令行标志。</p>
+<p>在命令行上设置的任何标志都会覆盖 Logstash 设置文件（<code>logstash.yml</code>）中的相应设置，但设置文件本身不会更改。</p>
+<blockquote>
+<p><strong>注</strong></p>
+<p>虽然可以通过指定命令行参数的方式，来控制 logstash 的运行方式，但显然这么做很麻烦。</p>
+<p>建议通过指定配置文件的方式，来控制 logstash 运行，启动命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/logstash -f logstash.conf</span><br></pre></td></tr></table></figure>
+
+<p>若想了解更多的命令行参数细节，请参考：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/logstash/current/running-logstash-command-line.html">https://www.elastic.co/guide/en/logstash/current/running-logstash-command-line.html</a></p>
+</blockquote>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>上节，我们了解到，logstash 可以执行 <code>bin/logstash -f logstash.conf</code> ，按照配置文件中的参数去覆盖默认设置文件（<code>logstash.yml</code>）中的设置。</p>
+<p>这节，我们就来学习一下这个配置文件如何配置参数。</p>
+<h4 id="配置文件结构"><a href="#配置文件结构" class="headerlink" title="配置文件结构"></a>配置文件结构</h4><p>在工作原理一节中，我们已经知道了 Logstash 主要有三个工作阶段 input 、filter、output。而 logstash 配置文件文件结构也与之相对应：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">input &#123;&#125;</span><br><span class="line"></span><br><span class="line">filter &#123;&#125;</span><br><span class="line"></span><br><span class="line">output &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>每个部分都包含一个或多个插件的配置选项。如果指定了多个过滤器，则会按照它们在配置文件中的显示顺序应用它们。</p>
+</blockquote>
+<h4 id="插件配置"><a href="#插件配置" class="headerlink" title="插件配置"></a>插件配置</h4><p>插件的配置由插件名称和插件的一个设置块组成。</p>
+<p>下面的例子中配置了两个输入文件配置：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">input &#123;</span><br><span class="line">  file &#123;</span><br><span class="line">    <span class="function"><span class="params">path</span> =&gt;</span> <span class="string">&quot;/var/log/messages&quot;</span></span><br><span class="line">    type =&gt; <span class="string">&quot;syslog&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  file &#123;</span><br><span class="line">    <span class="function"><span class="params">path</span> =&gt;</span> <span class="string">&quot;/var/log/apache/access.log&quot;</span></span><br><span class="line">    type =&gt; <span class="string">&quot;apache&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>您可以配置的设置因插件类型而异。你可以参考： <a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/logstash/current/input-plugins.html">Input Plugins</a>, <a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/logstash/current/output-plugins.html">Output Plugins</a>, <a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/logstash/current/filter-plugins.html">Filter Plugins</a>, 和 <a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/logstash/current/codec-plugins.html">Codec Plugins</a> 。</p>
+<h4 id="值类型"><a href="#值类型" class="headerlink" title="值类型"></a>值类型</h4><p>一个插件可以要求设置的值是一个特定的类型，比如布尔值，列表或哈希值。以下值类型受支持。</p>
+<ul>
+<li>Array</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">users =&gt; [ &#123;<span class="function"><span class="params">id</span> =&gt;</span> <span class="number">1</span>, <span class="function"><span class="params">name</span> =&gt;</span> bob&#125;, &#123;<span class="function"><span class="params">id</span> =&gt;</span> <span class="number">2</span>, <span class="function"><span class="params">name</span> =&gt;</span> jane&#125; ]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Lists</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">path =&gt; [<span class="string">&#x27;/var/log/messages&#x27;</span>, <span class="string">&#x27;/var/log/*.log&#x27;</span>]</span><br><span class="line">uris =&gt; [<span class="string">&#x27;http://elastic.co&#x27;</span>, <span class="string">&#x27;http://example.net&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Boolean</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssl_enable =&gt; <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Bytes</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">my_bytes =&gt; <span class="string">&quot;1113&quot;</span>   # <span class="number">1113</span> bytes</span><br><span class="line">my_bytes =&gt; <span class="string">&quot;10MiB&quot;</span>  # <span class="number">10485760</span> bytes</span><br><span class="line">my_bytes =&gt; <span class="string">&quot;100kib&quot;</span> # <span class="number">102400</span> bytes</span><br><span class="line">my_bytes =&gt; <span class="string">&quot;180 mb&quot;</span> # <span class="number">180000000</span> bytes</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Codec</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">codec =&gt; <span class="string">&#x27;json&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Hash</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">match =&gt; &#123;</span><br><span class="line">  <span class="string">&quot;field1&quot;</span> =&gt; <span class="string">&quot;value1&quot;</span></span><br><span class="line">  <span class="string">&quot;field2&quot;</span> =&gt; <span class="string">&quot;value2&quot;</span></span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Number</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">port =&gt; <span class="number">33</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Password</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">my_password =&gt; <span class="string">&#x27;password&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>URI</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">my_uri =&gt; <span class="string">&#x27;http://foo:bar@example.net&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Path</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">my_path =&gt; <span class="string">&#x27;/tmp/logstash&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>String</p>
+</li>
+<li><p>转义字符</p>
+</li>
+</ul>
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><h3 id="input"><a href="#input" class="headerlink" title="input"></a>input</h3><blockquote>
+<p>Logstash 支持各种输入选择 ，可以在同一时间从众多常用来源捕捉事件。能够以连续的流式传输方式，轻松地从您的日志、指标、Web 应用、数据存储以及各种 AWS 服务采集数据。</p>
+</blockquote>
+<h4 id="常用-input-插件"><a href="#常用-input-插件" class="headerlink" title="常用 input 插件"></a>常用 input 插件</h4><ul>
+<li><strong>file</strong>：从文件系统上的文件读取，就像 UNIX 命令 <code>tail -0F</code> 一样</li>
+<li><strong>syslog：</strong>在众所周知的端口 514 上侦听系统日志消息，并根据 RFC3164 格式进行解析</li>
+<li><strong>redis：</strong>从 redis 服务器读取，使用 redis 通道和 redis 列表。 Redis 经常用作集中式 Logstash 安装中的“代理”，它将来自远程 Logstash“托运人”的 Logstash 事件排队。</li>
+<li><strong>beats：</strong>处理由 Filebeat 发送的事件。</li>
+</ul>
+<p>更多详情请见：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/logstash/current/input-plugins.html">Input Plugins</a></p>
+<h3 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h3><blockquote>
+<p>过滤器是 Logstash 管道中的中间处理设备。如果符合特定条件，您可以将条件过滤器组合在一起，对事件执行操作。</p>
+</blockquote>
+<h4 id="常用-filter-插件"><a href="#常用-filter-插件" class="headerlink" title="常用 filter 插件"></a>常用 filter 插件</h4><ul>
+<li><strong>grok：</strong>解析和结构任意文本。 Grok 目前是 Logstash 中将非结构化日志数据解析为结构化和可查询的最佳方法。</li>
+<li><strong>mutate：</strong>对事件字段执行一般转换。您可以重命名，删除，替换和修改事件中的字段。</li>
+<li><strong>drop：</strong>完全放弃一个事件，例如调试事件。</li>
+<li><strong>clone：</strong>制作一个事件的副本，可能会添加或删除字段。</li>
+<li><strong>geoip：</strong>添加有关 IP 地址的地理位置的信息（也可以在 Kibana 中显示惊人的图表！）</li>
+</ul>
+<p>更多详情请见：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/logstash/current/filter-plugins.html">Filter Plugins</a></p>
+<h3 id="output"><a href="#output" class="headerlink" title="output"></a>output</h3><blockquote>
+<p>输出是 Logstash 管道的最后阶段。一个事件可以通过多个输出，但是一旦所有输出处理完成，事件就完成了执行。</p>
+</blockquote>
+<h4 id="常用-output-插件"><a href="#常用-output-插件" class="headerlink" title="常用 output 插件"></a>常用 output 插件</h4><ul>
+<li><strong>elasticsearch：</strong>将事件数据发送给 Elasticsearch（推荐模式）。</li>
+<li><strong>file：</strong>将事件数据写入文件或磁盘。</li>
+<li><strong>graphite：</strong>将事件数据发送给 graphite（一个流行的开源工具，存储和绘制指标。 <a target="_blank" rel="noopener" href="http://graphite.readthedocs.io/en/latest/%EF%BC%89%E3%80%82">http://graphite.readthedocs.io/en/latest/）。</a></li>
+<li><strong>statsd：</strong>将事件数据发送到 statsd （这是一种侦听统计数据的服务，如计数器和定时器，通过 UDP 发送并将聚合发送到一个或多个可插入的后端服务）。</li>
+</ul>
+<p>更多详情请见：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/logstash/current/output-plugins.html">Output Plugins</a></p>
+<h3 id="codec"><a href="#codec" class="headerlink" title="codec"></a>codec</h3><p>用于格式化对应的内容。</p>
+<h4 id="常用-codec-插件"><a href="#常用-codec-插件" class="headerlink" title="常用 codec 插件"></a>常用 codec 插件</h4><ul>
+<li><strong>json：</strong>以 JSON 格式对数据进行编码或解码。</li>
+<li><strong>multiline：</strong>将多行文本事件（如 java 异常和堆栈跟踪消息）合并为单个事件。</li>
+</ul>
+<p>更多插件请见：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/logstash/current/codec-plugins.html">Codec Plugins</a></p>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><p>前面的内容都是对 Logstash 的介绍和原理说明。接下来，我们来实战一些常见的应用场景。</p>
+<h3 id="传输控制台数据"><a href="#传输控制台数据" class="headerlink" title="传输控制台数据"></a>传输控制台数据</h3><blockquote>
+<p>stdin input 插件从标准输入读取事件。这是最简单的 input 插件，一般用于测试场景。</p>
+</blockquote>
+<p><strong>应用</strong></p>
+<p>（1）创建 <code>logstash-input-stdin.conf</code> ：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">input &#123; stdin &#123; &#125; &#125;</span><br><span class="line">output &#123;</span><br><span class="line">  elasticsearch &#123; <span class="function"><span class="params">hosts</span> =&gt;</span> [<span class="string">&quot;localhost:9200&quot;</span>] &#125;</span><br><span class="line">  stdout &#123; <span class="function"><span class="params">codec</span> =&gt;</span> rubydebug &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>更多配置项可以参考：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/logstash/current/plugins-inputs-stdin.html">https://www.elastic.co/guide/en/logstash/current/plugins-inputs-stdin.html</a></p>
+<p>（2）执行 logstash，使用 <code>-f</code> 来指定你的配置文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/logstash -f logstash-input-stdin.conf</span><br></pre></td></tr></table></figure>
+
+<h3 id="传输-logback-日志"><a href="#传输-logback-日志" class="headerlink" title="传输 logback 日志"></a>传输 logback 日志</h3><blockquote>
+<p>elk 默认使用的 Java 日志工具是 log4j2 ，并不支持 logback 和 log4j。</p>
+<p>想使用 logback + logstash ，可以使用 <a target="_blank" rel="noopener" href="https://github.com/logstash/logstash-logback-encoder">logstash-logback-encoder</a> 。<a target="_blank" rel="noopener" href="https://github.com/logstash/logstash-logback-encoder">logstash-logback-encoder</a> 提供了 UDP &#x2F; TCP &#x2F; 异步方式来传输日志数据到 logstash。</p>
+<p>如果你使用的是 log4j ，也不是不可以用这种方式，只要引入桥接 jar 包即可。如果你对 log4j 、logback ，或是桥接 jar 包不太了解，可以参考我的这篇博文：<a target="_blank" rel="noopener" href="https://github.com/dunwu/JavaStack/blob/master/docs/javalib/java-log.md">细说 Java 主流日志工具库</a> 。</p>
+</blockquote>
+<h4 id="TCP-应用"><a href="#TCP-应用" class="headerlink" title="TCP 应用"></a>TCP 应用</h4><p>logstash 配置</p>
+<p>（1）创建 <code>logstash-input-tcp.conf</code> ：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">input &#123;</span><br><span class="line">tcp &#123;</span><br><span class="line">  <span class="function"><span class="params">port</span> =&gt;</span> <span class="number">9251</span></span><br><span class="line">  codec =&gt; json_lines</span><br><span class="line">  mode =&gt; server</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">output &#123;</span><br><span class="line"> elasticsearch &#123; <span class="function"><span class="params">hosts</span> =&gt;</span> [<span class="string">&quot;localhost:9200&quot;</span>] &#125;</span><br><span class="line"> stdout &#123; <span class="function"><span class="params">codec</span> =&gt;</span> rubydebug &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>更多配置项可以参考：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/logstash/current/plugins-inputs-tcp.html">https://www.elastic.co/guide/en/logstash/current/plugins-inputs-tcp.html</a></p>
+<p>（2）执行 logstash，使用 <code>-f</code> 来指定你的配置文件：<code>bin/logstash -f logstash-input-udp.conf</code></p>
+<p>java 应用配置</p>
+<p>（1）在 Java 应用的 pom.xml 中引入 jar 包：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>net.logstash.logback<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>logstash-logback-encoder<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- logback 依赖包 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>ch.qos.logback<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>logback-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>ch.qos.logback<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>logback-classic<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>ch.qos.logback<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>logback-access<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>（2）接着，在 logback.xml 中添加 appender</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">&quot;ELK-TCP&quot;</span> <span class="attr">class</span>=<span class="string">&quot;net.logstash.logback.appender.LogstashTcpSocketAppender&quot;</span>&gt;</span></span><br><span class="line"> <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment"> destination 是 logstash 服务的 host:port，</span></span><br><span class="line"><span class="comment"> 相当于和 logstash 建立了管道，将日志数据定向传输到 logstash</span></span><br><span class="line"><span class="comment"> --&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">destination</span>&gt;</span>192.168.28.32:9251<span class="tag">&lt;/<span class="name">destination</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">encoder</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span> <span class="attr">class</span>=<span class="string">&quot;net.logstash.logback.encoder.LogstashEncoder&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">&quot;io.github.dunwu.spring&quot;</span> <span class="attr">level</span>=<span class="string">&quot;TRACE&quot;</span> <span class="attr">additivity</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;ELK-TCP&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">logger</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>（3）接下来，就是 logback 的具体使用 ，如果对此不了解，不妨参考一下我的这篇博文：<a target="_blank" rel="noopener" href="https://github.com/dunwu/JavaStack/blob/master/docs/javalib/java-log.md">细说 Java 主流日志工具库</a> 。</p>
+<p><strong>实例：</strong><a target="_blank" rel="noopener" href="https://github.com/dunwu/JavaStack/blob/master/codes/javatool/src/main/resources/logback.xml">我的 logback.xml</a></p>
+<h4 id="UDP-应用"><a href="#UDP-应用" class="headerlink" title="UDP 应用"></a>UDP 应用</h4><p>UDP 和 TCP 的使用方式大同小异。</p>
+<p>logstash 配置</p>
+<p>（1）创建 <code>logstash-input-udp.conf</code> ：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">input &#123;</span><br><span class="line">udp &#123;</span><br><span class="line">  <span class="function"><span class="params">port</span> =&gt;</span> <span class="number">9250</span></span><br><span class="line">  codec =&gt; json</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">output &#123;</span><br><span class="line"> elasticsearch &#123; <span class="function"><span class="params">hosts</span> =&gt;</span> [<span class="string">&quot;localhost:9200&quot;</span>] &#125;</span><br><span class="line"> stdout &#123; <span class="function"><span class="params">codec</span> =&gt;</span> rubydebug &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>更多配置项可以参考：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/logstash/current/plugins-inputs-udp.html">https://www.elastic.co/guide/en/logstash/current/plugins-inputs-udp.html</a></p>
+<p>（2）执行 logstash，使用 <code>-f</code> 来指定你的配置文件：<code>bin/logstash -f logstash-input-udp.conf</code></p>
+<p>java 应用配置</p>
+<p>（1）在 Java 应用的 pom.xml 中引入 jar 包：</p>
+<p>与 <strong>TCP 应用</strong> 一节中的引入依赖包完全相同。</p>
+<p>（2）接着，在 logback.xml 中添加 appender</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">&quot;ELK-UDP&quot;</span> <span class="attr">class</span>=<span class="string">&quot;net.logstash.logback.appender.LogstashSocketAppender&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">host</span>&gt;</span>192.168.28.32<span class="tag">&lt;/<span class="name">host</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">port</span>&gt;</span>9250<span class="tag">&lt;/<span class="name">port</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">&quot;io.github.dunwu.spring&quot;</span> <span class="attr">level</span>=<span class="string">&quot;TRACE&quot;</span> <span class="attr">additivity</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;ELK-UDP&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">logger</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>（3）接下来，就是 logback 的具体使用 ，如果对此不了解，不妨参考一下我的这篇博文：<a target="_blank" rel="noopener" href="https://github.com/dunwu/JavaStack/blob/master/docs/javalib/java-log.md">细说 Java 主流日志工具库</a> 。</p>
+<p><strong>实例：</strong><a target="_blank" rel="noopener" href="https://github.com/dunwu/JavaStack/blob/master/codes/javatool/src/main/resources/logback.xml">我的 logback.xml</a></p>
+<h3 id="传输文件"><a href="#传输文件" class="headerlink" title="传输文件"></a>传输文件</h3><blockquote>
+<p>在 Java Web 领域，需要用到一些重要的工具，例如 Tomcat 、Nginx 、Mysql 等。这些不属于业务应用，但是它们的日志数据对于定位问题、分析统计同样很重要。这时无法使用 logback 方式将它们的日志传输到 logstash。</p>
+<p>如何采集这些日志文件呢？别急，你可以使用 logstash 的 file input 插件。</p>
+<p>需要注意的是，传输文件这种方式，必须在日志所在的机器上部署 logstash 。</p>
+</blockquote>
+<p><strong>应用</strong></p>
+<p>logstash 配置</p>
+<p>（1）创建 <code>logstash-input-file.conf</code> ：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">input &#123;</span><br><span class="line"> file &#123;</span><br><span class="line">  <span class="function"><span class="params">path</span> =&gt;</span> [<span class="string">&quot;/var/log/nginx/access.log&quot;</span>]</span><br><span class="line">  type =&gt; <span class="string">&quot;nginx-access-log&quot;</span></span><br><span class="line">  start_position =&gt; <span class="string">&quot;beginning&quot;</span></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">output &#123;</span><br><span class="line"> <span class="keyword">if</span> [type] == <span class="string">&quot;nginx-access-log&quot;</span> &#123;</span><br><span class="line">  elasticsearch &#123;</span><br><span class="line">   <span class="function"><span class="params">hosts</span> =&gt;</span> [<span class="string">&quot;localhost:9200&quot;</span>]</span><br><span class="line">   index =&gt; <span class="string">&quot;nginx-access-log&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）执行 logstash，使用 <code>-f</code> 来指定你的配置文件：<code>bin/logstash -f logstash-input-file.conf</code></p>
+<p>更多配置项可以参考：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html">https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html</a></p>
+<h2 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h2><h3 id="启动、终止应用"><a href="#启动、终止应用" class="headerlink" title="启动、终止应用"></a>启动、终止应用</h3><p>如果你的 logstash 每次都是通过指定配置文件方式启动。不妨建立一个启动脚本。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">cd</span> xxx 进入 logstash 安装目录下的 bin 目录</span></span><br><span class="line">logstash -f logstash.conf</span><br></pre></td></tr></table></figure>
+
+<p>如果你的 logstash 运行在 linux 系统下，不妨使用 nohup 来启动一个守护进程。这样做的好处在于，即使关闭终端，应用仍会运行。</p>
+<p><strong>创建 startup.sh</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup ./logstash -f logstash.conf &gt;&gt; nohup.out 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
+<p>终止应用没有什么好方法，你只能使用 ps -ef | grep logstash ，查出进程，将其 kill 。不过，我们可以写一个脚本来干这件事：</p>
+<p><strong>创建 shutdown.sh</strong></p>
+<p>脚本不多解释，请自行领会作用。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PID=`ps -ef | grep logstash | awk &#x27;&#123; print $2&#125;&#x27; | head -n 1`</span><br><span class="line">kill -9 $&#123;PID&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/logstash/current/index.html">Logstash 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/logstash/logstash-logback-encoder">logstash-logback-encoder</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/chenryn/logstash-best-practice-cn">ELK Stack 权威指南</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/judasn/Linux-Tutorial/blob/master/ELK-Install-And-Settings.md">ELK（Elasticsearch、Logstash、Kibana）安装和配置</a></li>
+</ul>
+<h2 id="推荐阅读"><a href="#推荐阅读" class="headerlink" title="推荐阅读"></a>推荐阅读</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/dunwu/JavaStack/blob/master/docs/javatool/elastic/README.md">Elastic 技术栈</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/dunwu/JavaStack">JavaStack</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">JaHero</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/pages/55ce99/">http://example.com/pages/55ce99/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">贾英雄-blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><a class="post-meta__tags" href="/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/">搜索引擎数据库</a><a class="post-meta__tags" href="/tags/Elastic/">Elastic</a><a class="post-meta__tags" href="/tags/Logstash/">Logstash</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/pages/92df30/" title="Logstash 运维"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-16</div><div class="title">Logstash 运维</div></div></a></div><div><a href="/pages/553160/" title="Elastic 快速入门"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-16</div><div class="title">Elastic 快速入门</div></div></a></div><div><a href="/pages/7c067f/" title="Filebeat 运维"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-16</div><div class="title">Filebeat 运维</div></div></a></div><div><a href="/pages/002159/" title="Elastic 技术栈之 Kibana"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-16</div><div class="title">Elastic 技术栈之 Kibana</div></div></a></div><div><a href="/pages/fc47af/" title="Kibana 运维"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-16</div><div class="title">Kibana 运维</div></div></a></div><div><a href="/pages/7bf7f7/" title="Elastic 技术栈"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-11</div><div class="title">Elastic 技术栈</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/ava.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JaHero</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Elastic-%E6%8A%80%E6%9C%AF%E6%A0%88%E4%B9%8B-Logstash"><span class="toc-number">1.</span> <span class="toc-text">Elastic 技术栈之 Logstash</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD"><span class="toc-number">1.1.1.</span> <span class="toc-text">功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.2.</span> <span class="toc-text">工作原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE"><span class="toc-number">1.2.</span> <span class="toc-text">设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.1.</span> <span class="toc-text">设置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#logstash-yml-%E8%AE%BE%E7%BD%AE%E9%A1%B9"><span class="toc-number">1.2.2.</span> <span class="toc-text">logstash.yml 设置项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8"><span class="toc-number">1.3.</span> <span class="toc-text">启动</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C"><span class="toc-number">1.3.1.</span> <span class="toc-text">命令行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.3.2.</span> <span class="toc-text">配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">配置文件结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">插件配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%80%BC%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.3.2.3.</span> <span class="toc-text">值类型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6"><span class="toc-number">1.4.</span> <span class="toc-text">插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#input"><span class="toc-number">1.4.1.</span> <span class="toc-text">input</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8-input-%E6%8F%92%E4%BB%B6"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">常用 input 插件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filter"><span class="toc-number">1.4.2.</span> <span class="toc-text">filter</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8-filter-%E6%8F%92%E4%BB%B6"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">常用 filter 插件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#output"><span class="toc-number">1.4.3.</span> <span class="toc-text">output</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8-output-%E6%8F%92%E4%BB%B6"><span class="toc-number">1.4.3.1.</span> <span class="toc-text">常用 output 插件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#codec"><span class="toc-number">1.4.4.</span> <span class="toc-text">codec</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8-codec-%E6%8F%92%E4%BB%B6"><span class="toc-number">1.4.4.1.</span> <span class="toc-text">常用 codec 插件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%88%98"><span class="toc-number">1.5.</span> <span class="toc-text">实战</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E6%8E%A7%E5%88%B6%E5%8F%B0%E6%95%B0%E6%8D%AE"><span class="toc-number">1.5.1.</span> <span class="toc-text">传输控制台数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93-logback-%E6%97%A5%E5%BF%97"><span class="toc-number">1.5.2.</span> <span class="toc-text">传输 logback 日志</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP-%E5%BA%94%E7%94%A8"><span class="toc-number">1.5.2.1.</span> <span class="toc-text">TCP 应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#UDP-%E5%BA%94%E7%94%A8"><span class="toc-number">1.5.2.2.</span> <span class="toc-text">UDP 应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E6%96%87%E4%BB%B6"><span class="toc-number">1.5.3.</span> <span class="toc-text">传输文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="toc-number">1.6.</span> <span class="toc-text">小技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E3%80%81%E7%BB%88%E6%AD%A2%E5%BA%94%E7%94%A8"><span class="toc-number">1.6.1.</span> <span class="toc-text">启动、终止应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%84%E6%96%99"><span class="toc-number">1.7.</span> <span class="toc-text">资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB"><span class="toc-number">1.8.</span> <span class="toc-text">推荐阅读</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题">无题</a><time datetime="2022-12-31T04:24:34.153Z" title="发表于 2022-12-31 12:24:34">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/img/index/" title="gallery"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="gallery"/></a><div class="content"><a class="title" href="/2022/12/31/img/index/" title="gallery">gallery</a><time datetime="2022-12-30T18:20:45.000Z" title="发表于 2022-12-31 02:20:45">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/30/hello-world/" title="Hello World"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/12/30/hello-world/" title="Hello World">Hello World</a><time datetime="2022-12-30T09:13:14.141Z" title="发表于 2022-12-30 17:13:14">2022-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Aop注解"/></a><div class="content"><a class="title" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解">Aop注解</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flowable 工作流程引擎"/></a><div class="content"><a class="title" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎">Flowable 工作流程引擎</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By JaHero</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script src="https://fastly.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

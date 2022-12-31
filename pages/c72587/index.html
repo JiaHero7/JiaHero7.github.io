@@ -1,0 +1,473 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>短地址服务 | 贾英雄-blog</title><meta name="keywords" content="架构,解决方案"><meta name="author" content="JaHero"><meta name="copyright" content="JaHero"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="设计 Pastebin.com (或者 Bit.ly) 本文搬运自 设计 Pastebin.com (或者 Bit.ly)  注意: 为了避免重复，当前文档会直接链接到系统设计主题的相关区域，请参考链接内容以获得综合的讨论点、权衡和替代方案。 设计 Bit.ly - 是一个类似的问题，区别是 pastebin 需要存储的是 paste 的内容，而不是原始的未短化的 url。 步骤一、需求分析 收集">
+<meta property="og:type" content="article">
+<meta property="og:title" content="短地址服务">
+<meta property="og:url" content="http://example.com/pages/c72587/index.html">
+<meta property="og:site_name" content="贾英雄-blog">
+<meta property="og:description" content="设计 Pastebin.com (或者 Bit.ly) 本文搬运自 设计 Pastebin.com (或者 Bit.ly)  注意: 为了避免重复，当前文档会直接链接到系统设计主题的相关区域，请参考链接内容以获得综合的讨论点、权衡和替代方案。 设计 Bit.ly - 是一个类似的问题，区别是 pastebin 需要存储的是 paste 的内容，而不是原始的未短化的 url。 步骤一、需求分析 收集">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/post.jpg">
+<meta property="article:published_time" content="2021-11-08T00:15:33.000Z">
+<meta property="article:modified_time" content="2022-12-26T06:15:52.457Z">
+<meta property="article:author" content="JaHero">
+<meta property="article:tag" content="架构">
+<meta property="article:tag" content="解决方案">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/post.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/pages/c72587/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"K46KXS6BKG","apiKey":"94dab3de87ce4cc2067ec6ef569e9df7","indexName":"JiaHero","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: JaHero","link":"链接: ","source":"来源: 贾英雄-blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '短地址服务',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2022-12-26 14:15:52'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/ava.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">贾英雄-blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">短地址服务</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-08T00:15:33.000Z" title="发表于 2021-11-08 08:15:33">2021-11-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:52.457Z" title="更新于 2022-12-26 14:15:52">2022-12-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%BE%E8%AE%A1/">设计</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%BE%E8%AE%A1/%E6%9E%B6%E6%9E%84/">架构</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%BE%E8%AE%A1/%E6%9E%B6%E6%9E%84/%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">解决方案</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="短地址服务"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="设计-Pastebin-com-或者-Bit-ly"><a href="#设计-Pastebin-com-或者-Bit-ly" class="headerlink" title="设计 Pastebin.com (或者 Bit.ly)"></a>设计 Pastebin.com (或者 Bit.ly)</h1><blockquote>
+<p>本文搬运自 <a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/solutions/system_design/pastebin/README-zh-Hans.md">设计 Pastebin.com (或者 Bit.ly)</a></p>
+</blockquote>
+<p><strong>注意: 为了避免重复，当前文档会直接链接到<a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%B8%BB%E9%A2%98%E7%9A%84%E7%B4%A2%E5%BC%95">系统设计主题</a>的相关区域，请参考链接内容以获得综合的讨论点、权衡和替代方案。</strong></p>
+<p><strong>设计 Bit.ly</strong> - 是一个类似的问题，区别是 pastebin 需要存储的是 paste 的内容，而不是原始的未短化的 url。</p>
+<h2 id="步骤一、需求分析"><a href="#步骤一、需求分析" class="headerlink" title="步骤一、需求分析"></a>步骤一、需求分析</h2><blockquote>
+<p>收集这个问题的需求和范畴。<br>问相关问题来明确用例和约束。<br>讨论一些假设。</p>
+</blockquote>
+<h3 id="用例"><a href="#用例" class="headerlink" title="用例"></a>用例</h3><h4 id="问题范围"><a href="#问题范围" class="headerlink" title="问题范围"></a>问题范围</h4><ul>
+<li><strong>用户</strong> 输入一段文本，然后得到一个随机生成的链接<ul>
+<li>过期设置<ul>
+<li>默认的设置是不会过期的</li>
+<li>可以选择设置一个过期的时间</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>用户</strong> 输入一个 paste 的 url 后，可以看到它存储的内容</li>
+<li><strong>用户</strong> 是匿名的</li>
+<li><strong>Service</strong> 跟踪页面分析<ul>
+<li>一个月的访问统计</li>
+</ul>
+</li>
+<li><strong>Service</strong> 删除过期的 pastes</li>
+<li><strong>Service</strong> 需要高可用</li>
+</ul>
+<h4 id="超出范畴的用例"><a href="#超出范畴的用例" class="headerlink" title="超出范畴的用例"></a>超出范畴的用例</h4><ul>
+<li><strong>用户</strong> 可以注册一个账户<ul>
+<li><strong>用户</strong> 通过验证邮箱</li>
+</ul>
+</li>
+<li><strong>用户</strong> 可以用注册的账户登录<ul>
+<li><strong>用户</strong> 可以编辑文档</li>
+</ul>
+</li>
+<li><strong>用户</strong> 可以设置可见性</li>
+<li><strong>用户</strong> 可以设置短链接</li>
+</ul>
+<h3 id="约束和假设"><a href="#约束和假设" class="headerlink" title="约束和假设"></a>约束和假设</h3><h4 id="状态假设"><a href="#状态假设" class="headerlink" title="状态假设"></a>状态假设</h4><ul>
+<li>访问流量不是均匀分布的</li>
+<li>打开一个短链接应该是很快的</li>
+<li>pastes 只能是文本</li>
+<li>页面访问分析数据可以不用实时</li>
+<li>一千万的用户量</li>
+<li>每个月一千万的 paste 写入量</li>
+<li>每个月一亿的 paste 读取量</li>
+<li>读写比例在 10:1</li>
+</ul>
+<h4 id="性能估算"><a href="#性能估算" class="headerlink" title="性能估算"></a>性能估算</h4><ul>
+<li>每个 paste 的大小<ul>
+<li>每一个 paste 1 KB</li>
+<li><code>shortlink</code> - 7 bytes</li>
+<li><code>expiration_length_in_minutes</code> - 4 bytes</li>
+<li><code>created_at</code> - 5 bytes</li>
+<li><code>paste_path</code> - 255 bytes</li>
+<li>总共 &#x3D; ~1.27 KB</li>
+</ul>
+</li>
+<li>每个月新的 paste 内容在 12.7GB<ul>
+<li>(1.27 * 10000000)KB &#x2F; 月的 paste</li>
+<li>三年内将近 450GB 的新 paste 内容</li>
+<li>三年内 3.6 亿短链接</li>
+<li>假设大部分都是新的 paste，而不是需要更新已存在的 paste</li>
+</ul>
+</li>
+<li>平均 4paste&#x2F;s 的写入速度</li>
+<li>平均 40paste&#x2F;s 的读取速度</li>
+</ul>
+<p>简单的转换指南:</p>
+<ul>
+<li>2.5 百万 req&#x2F;s</li>
+<li>1 req&#x2F;s &#x3D; 2.5 百万 req&#x2F;month</li>
+<li>40 req&#x2F;s &#x3D; 1 亿 req&#x2F;month</li>
+<li>400 req&#x2F;s &#x3D; 10 亿 req&#x2F;month</li>
+</ul>
+<h2 id="步骤二、顶层设计"><a href="#步骤二、顶层设计" class="headerlink" title="步骤二、顶层设计"></a>步骤二、顶层设计</h2><blockquote>
+<p>概述一个包括所有重要的组件的高层次设计</p>
+</blockquote>
+<p><img src="http://i.imgur.com/BKsBnmG.png" alt="Imgur"></p>
+<h2 id="步骤三、核心组件设计"><a href="#步骤三、核心组件设计" class="headerlink" title="步骤三、核心组件设计"></a>步骤三、核心组件设计</h2><blockquote>
+<p>深入每一个核心组件的细节</p>
+</blockquote>
+<h3 id="用例：用户输入一段文本，然后得到一个随机生成的链接"><a href="#用例：用户输入一段文本，然后得到一个随机生成的链接" class="headerlink" title="用例：用户输入一段文本，然后得到一个随机生成的链接"></a>用例：用户输入一段文本，然后得到一个随机生成的链接</h3><p>我们可以用一个 <a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9Frdbms">关系型数据库</a>作为一个大的哈希表，用来把生成的 url 映射到一个包含 paste 文件的文件服务器和路径上。</p>
+<p>为了避免托管一个文件服务器，我们可以用一个托管的<strong>对象存储</strong>，比如 Amazon 的 S3 或者<a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E6%96%87%E6%A1%A3%E7%B1%BB%E5%9E%8B%E5%AD%98%E5%82%A8">NoSQL 文档类型存储</a>。</p>
+<p>作为一个大的哈希表的关系型数据库的替代方案，我们可以用<a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E9%94%AE-%E5%80%BC%E5%AD%98%E5%82%A8">NoSQL 键值存储</a>。我们需要讨论<a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#sql-%E8%BF%98%E6%98%AF-nosql">选择 SQL 或 NoSQL 之间的权衡</a>。下面的讨论是使用关系型数据库方法。</p>
+<ul>
+<li><strong>客户端</strong> 发送一个创建 paste 的请求到作为一个<a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86web-%E6%9C%8D%E5%8A%A1%E5%99%A8">反向代理</a>启动的 <strong>Web 服务器</strong>。</li>
+<li><strong>Web 服务器</strong> 转发请求给 <strong>写接口</strong> 服务器</li>
+<li><strong>写接口</strong> 服务器执行如下操作：<ul>
+<li>生成一个唯一的 url<ul>
+<li>检查这个 url 在 <strong>SQL 数据库</strong> 里面是否是唯一的</li>
+<li>如果这个 url 不是唯一的，生成另外一个 url</li>
+<li>如果我们支持自定义 url，我们可以使用用户提供的 url（也需要检查是否重复）</li>
+</ul>
+</li>
+<li>把生成的 url 存储到 <strong>SQL 数据库</strong> 的 <code>pastes</code> 表里面</li>
+<li>存储 paste 的内容数据到 <strong>对象存储</strong> 里面</li>
+<li>返回生成的 url</li>
+</ul>
+</li>
+</ul>
+<p><strong>向面试官阐明你需要写多少代码</strong></p>
+<p><code>pastes</code> 表可以有如下结构：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">shortlink <span class="type">char</span>(<span class="number">7</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span></span><br><span class="line">expiration_length_in_minutes <span class="type">int</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span></span><br><span class="line">created_at datetime <span class="keyword">NOT</span> <span class="keyword">NULL</span></span><br><span class="line">paste_path <span class="type">varchar</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span></span><br><span class="line"><span class="keyword">PRIMARY</span> KEY(shortlink)</span><br></pre></td></tr></table></figure>
+
+<p>我们将在 <code>shortlink</code> 字段和 <code>created_at</code> 字段上创建一个<a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E4%BD%BF%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E7%B4%A2%E5%BC%95">数据库索引</a>，用来提高查询的速度（避免因为扫描全表导致的长时间查询）并将数据保存在内存中，从内存里面顺序读取 1MB 的数据需要大概 250 微秒，而从 SSD 上读取则需要花费 4 倍的时间，从硬盘上则需要花费 80 倍的时间。<sup><a href=https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#每个程序员都应该知道的延迟数 > 1</a></sup></p>
+<p>为了生成唯一的 url，我们可以：</p>
+<ul>
+<li>使用 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/MD5"><strong>MD5</strong></a> 来哈希用户的 IP 地址 + 时间戳<ul>
+<li>MD5 是一个普遍用来生成一个 128-bit 长度的哈希值的一种哈希方法</li>
+<li>MD5 是一致分布的</li>
+<li>或者我们也可以用 MD5 哈希一个随机生成的数据</li>
+</ul>
+</li>
+<li>用 <a target="_blank" rel="noopener" href="https://www.kerstner.at/2012/07/shortening-strings-using-base-62-encoding/"><strong>Base 62</strong></a> 编码 MD5 哈希值<ul>
+<li>对于 urls，使用 Base 62 编码 <code>[a-zA-Z0-9]</code> 是比较合适的</li>
+<li>对于每一个原始输入只会有一个 hash 结果，Base 62 是确定的（不涉及随机性）</li>
+<li>Base 64 是另外一个流行的编码方案，但是对于 urls，会因为额外的 <code>+</code> 和 <code>-</code> 字符串而产生一些问题</li>
+<li>以下 <a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/742013/how-to-code-a-url-shortener">Base 62 伪代码</a> 执行的时间复杂度是 O(k)，k 是数字的数量 &#x3D; 7：</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">base_encode</span>(<span class="params">num, base=<span class="number">62</span></span>):</span><br><span class="line">    digits = []</span><br><span class="line">    <span class="keyword">while</span> num &gt; <span class="number">0</span></span><br><span class="line">      remainder = modulo(num, base)</span><br><span class="line">      digits.push(remainder)</span><br><span class="line">      num = divide(num, base)</span><br><span class="line">    digits = digits.reverse</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>取输出的前 7 个字符，结果会有 62^7 个可能的值，应该足以满足在 3 年内处理 3.6 亿个短链接的约束：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url = base_encode(md5(ip_address+timestamp))[:URL_LENGTH]</span><br></pre></td></tr></table></figure>
+
+<p>我们将会用一个公开的 <a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E8%A1%A8%E8%BF%B0%E6%80%A7%E7%8A%B6%E6%80%81%E8%BD%AC%E7%A7%BBrest"><strong>REST 风格接口</strong></a>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">curl -X POST --data <span class="string">&#x27;&#123;&quot;expiration_length_in_minutes&quot;:&quot;60&quot;, \&quot;paste_contents&quot;:&quot;Hello World!&quot;&#125;&#x27;</span> https://pastebin.com/api/v1/paste</span></span><br></pre></td></tr></table></figure>
+
+<p>Response:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;shortlink&quot;</span><span class="punctuation">:</span> <span class="string">&quot;foobar&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>用于内部通信，我们可以用 <a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E8%BF%9C%E7%A8%8B%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E5%8D%8F%E8%AE%AErpc">RPC</a>。</p>
+<h3 id="用例：用户输入一个-paste-的-url-后可以看到它存储的内容"><a href="#用例：用户输入一个-paste-的-url-后可以看到它存储的内容" class="headerlink" title="用例：用户输入一个 paste 的 url 后可以看到它存储的内容"></a>用例：用户输入一个 paste 的 url 后可以看到它存储的内容</h3><ul>
+<li><strong>客户端</strong> 发送一个获取 paste 请求到 <strong>Web Server</strong></li>
+<li><strong>Web Server</strong> 转发请求给 <strong>读取接口</strong> 服务器</li>
+<li><strong>读取接口</strong> 服务器执行如下操作：<ul>
+<li>在 <strong>SQL 数据库</strong> 检查这个生成的 url<ul>
+<li>如果这个 url 在 <strong>SQL 数据库</strong> 里面，则从 <strong>对象存储</strong> 获取这个 paste 的内容</li>
+<li>否则，返回一个错误页面给用户</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>REST API：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://pastebin.com/api/v1/paste?shortlink=foobar</span><br></pre></td></tr></table></figure>
+
+<p>Response:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;paste_contents&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Hello World&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;created_at&quot;</span><span class="punctuation">:</span> <span class="string">&quot;YYYY-MM-DD HH:MM:SS&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;expiration_length_in_minutes&quot;</span><span class="punctuation">:</span> <span class="string">&quot;60&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="用例：-服务跟踪分析页面"><a href="#用例：-服务跟踪分析页面" class="headerlink" title="用例： 服务跟踪分析页面"></a>用例： 服务跟踪分析页面</h3><p>因为实时分析不是必须的，所以我们可以简单的 <strong>MapReduce</strong> <strong>Web Server</strong> 的日志，用来生成点击次数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">HitCounts</span>(<span class="title class_ inherited__">MRJob</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">extract_url</span>(<span class="params">self, line</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;Extract the generated url from the log line.&quot;&quot;&quot;</span></span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">extract_year_month</span>(<span class="params">self, line</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;Return the year and month portions of the timestamp.&quot;&quot;&quot;</span></span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">mapper</span>(<span class="params">self, _, line</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;Parse each log line, extract and transform relevant lines.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Emit key value pairs of the form:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        (2016-01, url0), 1</span></span><br><span class="line"><span class="string">        (2016-01, url0), 1</span></span><br><span class="line"><span class="string">        (2016-01, url1), 1</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        url = self.extract_url(line)</span><br><span class="line">        period = self.extract_year_month(line)</span><br><span class="line">        <span class="keyword">yield</span> (period, url), <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">reducer</span>(<span class="params">self, key, values</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;Sum values for each key.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        (2016-01, url0), 2</span></span><br><span class="line"><span class="string">        (2016-01, url1), 1</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">yield</span> key, <span class="built_in">sum</span>(values)</span><br></pre></td></tr></table></figure>
+
+<h3 id="用例：-服务删除过期的-pastes"><a href="#用例：-服务删除过期的-pastes" class="headerlink" title="用例： 服务删除过期的 pastes"></a>用例： 服务删除过期的 pastes</h3><p>为了删除过期的 pastes，我们可以直接搜索 <strong>SQL 数据库</strong> 中所有的过期时间比当前时间更早的记录，<br>所有过期的记录将从这张表里面删除（或者将其标记为过期）。</p>
+<h2 id="步骤四、扩展设计"><a href="#步骤四、扩展设计" class="headerlink" title="步骤四、扩展设计"></a>步骤四、扩展设计</h2><blockquote>
+<p>给定约束条件，识别和解决瓶颈。</p>
+</blockquote>
+<p><img src="http://i.imgur.com/4edXG0T.png" alt="Imgur"></p>
+<p><strong>重要提示: 不要简单的从最初的设计直接跳到最终的设计</strong></p>
+<p>说明您将迭代地执行这样的操作：1)<strong>Benchmark&#x2F;Load 测试</strong>，2)<strong>Profile</strong> 出瓶颈，3)在评估替代方案和权衡时解决瓶颈，4)重复前面，可以参考<a href="../scaling_aws/README.md">在 AWS 上设计一个可以支持百万用户的系统</a>这个用来解决如何迭代地扩展初始设计的例子。</p>
+<p>重要的是讨论在初始设计中可能遇到的瓶颈，以及如何解决每个瓶颈。比如，在多个 <strong>Web 服务器</strong> 上添加 <strong>负载平衡器</strong> 可以解决哪些问题？ <strong>CDN</strong> 解决哪些问题？<strong>Master-Slave Replicas</strong> 解决哪些问题? 替代方案是什么和怎么对每一个替代方案进行权衡比较？</p>
+<p>我们将介绍一些组件来完成设计，并解决可伸缩性问题。内部的负载平衡器并不能减少杂乱。</p>
+<p><strong>为了避免重复的讨论</strong>， 参考以下<a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%B8%BB%E9%A2%98%E7%9A%84%E7%B4%A2%E5%BC%95">系统设计主题</a>获取主要讨论要点、权衡和替代方案：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E5%9F%9F%E5%90%8D%E7%B3%BB%E7%BB%9F">DNS</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E5%86%85%E5%AE%B9%E5%88%86%E5%8F%91%E7%BD%91%E7%BB%9Ccdn">CDN</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%99%A8">负载均衡器</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E6%B0%B4%E5%B9%B3%E6%89%A9%E5%B1%95">水平扩展</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86web-%E6%9C%8D%E5%8A%A1%E5%99%A8">反向代理（web 服务器）</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E5%BA%94%E7%94%A8%E5%B1%82">应用层</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E7%BC%93%E5%AD%98">缓存</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9Frdbms">关系型数据库管理系统 (RDBMS)</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E6%95%85%E9%9A%9C%E5%88%87%E6%8D%A2">SQL write master-slave failover</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6">主从复制</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E4%B8%80%E8%87%B4%E6%80%A7%E6%A8%A1%E5%BC%8F">一致性模式</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E5%8F%AF%E7%94%A8%E6%80%A7%E6%A8%A1%E5%BC%8F">可用性模式</a></li>
+</ul>
+<p><strong>分析存储数据库</strong> 可以用比如 Amazon Redshift 或者 Google BigQuery 这样的数据仓库解决方案。</p>
+<p>一个像 Amazon S3 这样的 <strong>对象存储</strong>，可以轻松处理每月 12.7 GB 的新内容约束。</p>
+<p>要处理 <em>平均</em> 每秒 40 读请求(峰值更高)，其中热点内容的流量应该由 <strong>内存缓存</strong> 处理，而不是数据库。<strong>内存缓存</strong> 对于处理分布不均匀的流量和流量峰值也很有用。只要副本没有陷入复制写的泥潭，<strong>SQL Read Replicas</strong> 应该能够处理缓存丢失。</p>
+<p>对于单个 <strong>SQL Write Master-Slave</strong>，<em>平均</em> 每秒 4paste 写入 (峰值更高) 应该是可以做到的。否则，我们需要使用额外的 SQL 扩展模式:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E8%81%94%E5%90%88">联合</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E5%88%86%E7%89%87">分片</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E9%9D%9E%E8%A7%84%E8%8C%83%E5%8C%96">非规范化</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#SQL%E8%B0%83%E4%BC%98">SQL 调优</a></li>
+</ul>
+<p>我们还应该考虑将一些数据移动到 <strong>NoSQL 数据库</strong>。</p>
+<h2 id="额外的话题"><a href="#额外的话题" class="headerlink" title="额外的话题"></a>额外的话题</h2><blockquote>
+<p>是否更深入探讨额外主题，取决于问题的范围和面试剩余的时间。</p>
+</blockquote>
+<h3 id="NoSQL"><a href="#NoSQL" class="headerlink" title="NoSQL"></a>NoSQL</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E9%94%AE-%E5%80%BC%E5%AD%98%E5%82%A8">键值存储</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E6%96%87%E6%A1%A3%E7%B1%BB%E5%9E%8B%E5%AD%98%E5%82%A8">文档存储</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E5%88%97%E5%9E%8B%E5%AD%98%E5%82%A8">列型存储</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93">图数据库</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#sql-%E8%BF%98%E6%98%AF-nosql">sql 还是 nosql</a></li>
+</ul>
+<h3 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h3><ul>
+<li>在哪缓存<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BC%93%E5%AD%98">客户端缓存</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#cdn-%E7%BC%93%E5%AD%98">CDN 缓存</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#web-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BC%93%E5%AD%98">Web 服务器缓存</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%93%E5%AD%98">数据库缓存</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E5%BA%94%E7%94%A8%E7%BC%93%E5%AD%98">应用缓存</a></li>
+</ul>
+</li>
+<li>缓存什么<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E7%BA%A7%E5%88%AB%E7%9A%84%E7%BC%93%E5%AD%98">数据库查询级别的缓存</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E5%AF%B9%E8%B1%A1%E7%BA%A7%E5%88%AB%E7%9A%84%E7%BC%93%E5%AD%98">对象级别的缓存</a></li>
+</ul>
+</li>
+<li>何时更新缓存<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E7%BC%93%E5%AD%98%E6%A8%A1%E5%BC%8F">缓存模式</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E7%9B%B4%E5%86%99%E6%A8%A1%E5%BC%8F">直写模式</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E5%9B%9E%E5%86%99%E6%A8%A1%E5%BC%8F">回写模式</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E5%88%B7%E6%96%B0">刷新</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="异步和微服务"><a href="#异步和微服务" class="headerlink" title="异步和微服务"></a>异步和微服务</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97">消息队列</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97">任务队列</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E8%83%8C%E5%8E%8B">背压</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E5%BE%AE%E6%9C%8D%E5%8A%A1">微服务</a></li>
+</ul>
+<h3 id="通信"><a href="#通信" class="headerlink" title="通信"></a>通信</h3><ul>
+<li>讨论权衡:<ul>
+<li>跟客户端之间的外部通信 - <a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E8%A1%A8%E8%BF%B0%E6%80%A7%E7%8A%B6%E6%80%81%E8%BD%AC%E7%A7%BBrest">HTTP APIs following REST</a></li>
+<li>内部通信 - <a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E8%BF%9C%E7%A8%8B%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E5%8D%8F%E8%AE%AErpc">RPC</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0">服务发现</a></li>
+</ul>
+<h3 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h3><p>参考<a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E5%AE%89%E5%85%A8">安全</a>。</p>
+<h3 id="延迟数字"><a href="#延迟数字" class="headerlink" title="延迟数字"></a>延迟数字</h3><p>见<a target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#%E6%AF%8F%E4%B8%AA%E7%A8%8B%E5%BA%8F%E5%91%98%E9%83%BD%E5%BA%94%E8%AF%A5%E7%9F%A5%E9%81%93%E7%9A%84%E5%BB%B6%E8%BF%9F%E6%95%B0">每个程序员都应该知道的延迟数</a>。</p>
+<h3 id="持续进行"><a href="#持续进行" class="headerlink" title="持续进行"></a>持续进行</h3><ul>
+<li>继续对系统进行基准测试和监控，以在瓶颈出现时解决它们</li>
+<li>扩展是一个迭代的过程</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">JaHero</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/pages/c72587/">http://example.com/pages/c72587/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">贾英雄-blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%9E%B6%E6%9E%84/">架构</a><a class="post-meta__tags" href="/tags/%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">解决方案</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/pages/3f25aa/" title="Cinchcast 的架构"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-08</div><div class="title">Cinchcast 的架构</div></div></a></div><div><a href="/pages/c38eff/" title="README"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-08</div><div class="title">README</div></div></a></div><div><a href="/pages/940342/" title="亚马逊的架构"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-08</div><div class="title">亚马逊的架构</div></div></a></div><div><a href="/pages/f90553/" title="低代码平台"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-06</div><div class="title">低代码平台</div></div></a></div><div><a href="/pages/d63886/" title="海量数据处理"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-19</div><div class="title">海量数据处理</div></div></a></div><div><a href="/pages/4ae6a4/" title="电商"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-05</div><div class="title">电商</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/ava.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JaHero</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1-Pastebin-com-%E6%88%96%E8%80%85-Bit-ly"><span class="toc-number">1.</span> <span class="toc-text">设计 Pastebin.com (或者 Bit.ly)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E4%B8%80%E3%80%81%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="toc-number">1.1.</span> <span class="toc-text">步骤一、需求分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E4%BE%8B"><span class="toc-number">1.1.1.</span> <span class="toc-text">用例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E8%8C%83%E5%9B%B4"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">问题范围</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B6%85%E5%87%BA%E8%8C%83%E7%95%B4%E7%9A%84%E7%94%A8%E4%BE%8B"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">超出范畴的用例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%A6%E6%9D%9F%E5%92%8C%E5%81%87%E8%AE%BE"><span class="toc-number">1.1.2.</span> <span class="toc-text">约束和假设</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E5%81%87%E8%AE%BE"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">状态假设</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E4%BC%B0%E7%AE%97"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">性能估算</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E4%BA%8C%E3%80%81%E9%A1%B6%E5%B1%82%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.2.</span> <span class="toc-text">步骤二、顶层设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E4%B8%89%E3%80%81%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.3.</span> <span class="toc-text">步骤三、核心组件设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E4%BE%8B%EF%BC%9A%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5%E4%B8%80%E6%AE%B5%E6%96%87%E6%9C%AC%EF%BC%8C%E7%84%B6%E5%90%8E%E5%BE%97%E5%88%B0%E4%B8%80%E4%B8%AA%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90%E7%9A%84%E9%93%BE%E6%8E%A5"><span class="toc-number">1.3.1.</span> <span class="toc-text">用例：用户输入一段文本，然后得到一个随机生成的链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E4%BE%8B%EF%BC%9A%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AA-paste-%E7%9A%84-url-%E5%90%8E%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E5%AE%83%E5%AD%98%E5%82%A8%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-number">1.3.2.</span> <span class="toc-text">用例：用户输入一个 paste 的 url 后可以看到它存储的内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E4%BE%8B%EF%BC%9A-%E6%9C%8D%E5%8A%A1%E8%B7%9F%E8%B8%AA%E5%88%86%E6%9E%90%E9%A1%B5%E9%9D%A2"><span class="toc-number">1.3.3.</span> <span class="toc-text">用例： 服务跟踪分析页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E4%BE%8B%EF%BC%9A-%E6%9C%8D%E5%8A%A1%E5%88%A0%E9%99%A4%E8%BF%87%E6%9C%9F%E7%9A%84-pastes"><span class="toc-number">1.3.4.</span> <span class="toc-text">用例： 服务删除过期的 pastes</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E5%9B%9B%E3%80%81%E6%89%A9%E5%B1%95%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.4.</span> <span class="toc-text">步骤四、扩展设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%9D%E5%A4%96%E7%9A%84%E8%AF%9D%E9%A2%98"><span class="toc-number">1.5.</span> <span class="toc-text">额外的话题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NoSQL"><span class="toc-number">1.5.1.</span> <span class="toc-text">NoSQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98"><span class="toc-number">1.5.2.</span> <span class="toc-text">缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E5%92%8C%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.5.3.</span> <span class="toc-text">异步和微服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E4%BF%A1"><span class="toc-number">1.5.4.</span> <span class="toc-text">通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8"><span class="toc-number">1.5.5.</span> <span class="toc-text">安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%B6%E8%BF%9F%E6%95%B0%E5%AD%97"><span class="toc-number">1.5.6.</span> <span class="toc-text">延迟数字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%81%E7%BB%AD%E8%BF%9B%E8%A1%8C"><span class="toc-number">1.5.7.</span> <span class="toc-text">持续进行</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题">无题</a><time datetime="2022-12-31T04:24:34.153Z" title="发表于 2022-12-31 12:24:34">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/img/index/" title="gallery"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="gallery"/></a><div class="content"><a class="title" href="/2022/12/31/img/index/" title="gallery">gallery</a><time datetime="2022-12-30T18:20:45.000Z" title="发表于 2022-12-31 02:20:45">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/30/hello-world/" title="Hello World"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/12/30/hello-world/" title="Hello World">Hello World</a><time datetime="2022-12-30T09:13:14.141Z" title="发表于 2022-12-30 17:13:14">2022-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Aop注解"/></a><div class="content"><a class="title" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解">Aop注解</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flowable 工作流程引擎"/></a><div class="content"><a class="title" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎">Flowable 工作流程引擎</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By JaHero</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script src="https://fastly.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

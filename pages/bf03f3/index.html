@@ -1,0 +1,302 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>设计模式之建造者模式 | 贾英雄-blog</title><meta name="keywords" content="设计模式,设计"><meta name="author" content="JaHero"><meta name="copyright" content="JaHero"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="设计模式之建造者模式意图建造者模式（Builder）是一种创建型设计模式， 使你能够分步骤创建复杂对象。 该模式允许你使用相同的创建代码生成不同类型和形式的对象。 使用建造者模式，用户就只需要指定需要建造的类型，具体的建造过程和细节并不需要知道。 建造者模式允许修改一个产品的内部表示。 它将构造和表示两块代码隔离开来。 它很好的控制了构建过程。  建造者模式流程说明：  客户端创建 Directo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式之建造者模式">
+<meta property="og:url" content="http://example.com/pages/bf03f3/index.html">
+<meta property="og:site_name" content="贾英雄-blog">
+<meta property="og:description" content="设计模式之建造者模式意图建造者模式（Builder）是一种创建型设计模式， 使你能够分步骤创建复杂对象。 该模式允许你使用相同的创建代码生成不同类型和形式的对象。 使用建造者模式，用户就只需要指定需要建造的类型，具体的建造过程和细节并不需要知道。 建造者模式允许修改一个产品的内部表示。 它将构造和表示两块代码隔离开来。 它很好的控制了构建过程。  建造者模式流程说明：  客户端创建 Directo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/post.jpg">
+<meta property="article:published_time" content="2015-06-03T02:32:00.000Z">
+<meta property="article:modified_time" content="2022-12-26T06:15:51.082Z">
+<meta property="article:author" content="JaHero">
+<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="设计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/post.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/pages/bf03f3/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"K46KXS6BKG","apiKey":"94dab3de87ce4cc2067ec6ef569e9df7","indexName":"JiaHero","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: JaHero","link":"链接: ","source":"来源: 贾英雄-blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '设计模式之建造者模式',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2022-12-26 14:15:51'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/ava.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">贾英雄-blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">设计模式之建造者模式</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2015-06-03T02:32:00.000Z" title="发表于 2015-06-03 10:32:00">2015-06-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:51.082Z" title="更新于 2022-12-26 14:15:51">2022-12-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%BE%E8%AE%A1/">设计</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="设计模式之建造者模式"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="设计模式之建造者模式"><a href="#设计模式之建造者模式" class="headerlink" title="设计模式之建造者模式"></a>设计模式之建造者模式</h1><h2 id="意图"><a href="#意图" class="headerlink" title="意图"></a>意图</h2><p><strong>建造者模式</strong>（Builder）是一种创建型设计模式， 使你能够分步骤创建复杂对象。 该模式允许你使用相同的创建代码生成不同类型和形式的对象。</p>
+<p>使用建造者模式，用户就只需要指定需要建造的类型，具体的建造过程和细节并不需要知道。</p>
+<p>建造者模式允许修改一个产品的内部表示。</p>
+<p>它将构造和表示两块代码隔离开来。</p>
+<p>它很好的控制了构建过程。</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20200724105836.png" alt="img"></p>
+<p>建造者模式流程说明：</p>
+<ol>
+<li>客户端创建 Director 对象并配置它所需要的 Builder 对象。</li>
+<li>Director 负责通知 builder 何时建造 product 的部件。</li>
+<li>Builder 处理 director 的请求并添加 product 的部件。</li>
+<li>客户端从 builder 处获得 product。</li>
+</ol>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><ul>
+<li>使用建造者模式可避免 “重叠构造函数 （telescopic constructor）” 的出现。</li>
+<li>当你希望使用代码创建不同形式的产品时， 可使用建造者模式。</li>
+<li>使用建造者构造<a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns/composite">组合</a>树或其他复杂对象。</li>
+</ul>
+<h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20210506090518.png" alt="img"></p>
+<ol>
+<li><strong>建造者</strong> （Builder） 接口声明在所有类型建造者中通用的产品构造步骤。</li>
+<li><strong>具体建造者</strong> （Concrete Builders） 提供构造过程的不同实现。 具体建造者也可以构造不遵循通用接口的产品。</li>
+<li><strong>产品</strong> （Products） 是最终生成的对象。 由不同建造者构造的产品无需属于同一类层次结构或接口。</li>
+<li><strong>主管</strong> （Director） 类定义调用构造步骤的顺序， 这样你就可以创建和复用特定的产品配置。</li>
+<li><strong>客户端</strong> （Client） 必须将某个建造者对象与主管类关联。 一般情况下， 你只需通过主管类构造函数的参数进行一次性关联即可。 此后主管类就能使用建造者对象完成后续所有的构造任务。 但在客户端将建造者对象传递给主管类制造方法时还有另一种方式。 在这种情况下， 你在使用主管类生产产品时每次都可以使用不同的建造者。</li>
+</ol>
+<p>【Product】产品类，由多个部件构成。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Product</span> &#123;</span><br><span class="line">    List&lt;String&gt; parts = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">AddPart</span><span class="params">(String part)</span> &#123;</span><br><span class="line">        parts.add(part);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">show</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;============== 产品创建 ==============&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (String part : parts) &#123;</span><br><span class="line">            System.out.println(part);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【Builder】</p>
+<p>抽象建造者，确定产品由 ABC 三个部件构成，并声明一个得到产品建造后结果的方法 getResult。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Builder</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">buildPartA</span><span class="params">()</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">buildPartB</span><span class="params">()</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">buildPartC</span><span class="params">()</span>;</span><br><span class="line">    <span class="keyword">public</span> Product <span class="title function_">getResult</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【ConcreteBuilder】</p>
+<p>实现 Builder 接口中的具体方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ConcreteBuilder</span> <span class="keyword">implements</span> <span class="title class_">Builder</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Product</span> <span class="variable">product</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Product</span>();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">buildPartA</span><span class="params">()</span> &#123;</span><br><span class="line">        product.AddPart(<span class="string">&quot;部件A&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">buildPartB</span><span class="params">()</span> &#123;</span><br><span class="line">        product.AddPart(<span class="string">&quot;部件B&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">buildPartC</span><span class="params">()</span> &#123;</span><br><span class="line">        product.AddPart(<span class="string">&quot;部件C&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Product <span class="title function_">getResult</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> product;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【Director】</p>
+<p>指挥者类，指挥建造 Product 的过程（控制构建各部分组件的顺序）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Director</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">construct</span><span class="params">(Builder builder)</span> &#123;</span><br><span class="line">        builder.buildPartC();</span><br><span class="line">        builder.buildPartA();</span><br><span class="line">        builder.buildPartB();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【客户端】</p>
+<p>用户并不需要知道具体的建造过程，只需指定建造 Product 具体类型。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BuilderPattern</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Director</span> <span class="variable">director</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Director</span>();</span><br><span class="line">        <span class="type">Builder</span> <span class="variable">builder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ConcreteBuilder</span>();</span><br><span class="line"></span><br><span class="line">        director.construct(builder);</span><br><span class="line">        <span class="type">Product</span> <span class="variable">product</span> <span class="operator">=</span> builder.getResult();</span><br><span class="line">        product.show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【输出】</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">============== 产品创建 ==============</span><br><span class="line">部件C</span><br><span class="line">部件A</span><br><span class="line">部件B</span><br></pre></td></tr></table></figure>
+
+<h2 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h2><p>下面关于<strong>建造者</strong>模式的例子演示了你可以如何复用相同的对象构造代码来生成不同类型的产品——例如汽车 （Car）——及其相应的使用手册 （Manual）。</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20210506090759.png" alt="img"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 只有当产品较为复杂且需要详细配置时，使用建造者模式才有意义。下面的两个</span></span><br><span class="line"><span class="comment">// 产品尽管没有同样的接口，但却相互关联。</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Car</span> is</span><br><span class="line">    <span class="comment">// 一辆汽车可能配备有 GPS 设备、行车电脑和几个座位。不同型号的汽车（</span></span><br><span class="line">    <span class="comment">// 运动型轿车、SUV 和敞篷车）可能会安装或启用不同的功能。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Manual</span> is</span><br><span class="line">    <span class="comment">// 用户使用手册应该根据汽车配置进行编制，并介绍汽车的所有功能。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 建造者接口声明了创建产品对象不同部件的方法。</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Builder</span> is</span><br><span class="line">    method <span class="title function_">reset</span><span class="params">()</span></span><br><span class="line">    method <span class="title function_">setSeats</span><span class="params">(...)</span></span><br><span class="line">    method <span class="title function_">setEngine</span><span class="params">(...)</span></span><br><span class="line">    method <span class="title function_">setTripComputer</span><span class="params">(...)</span></span><br><span class="line">    method <span class="title function_">setGPS</span><span class="params">(...)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体建造者类将遵循建造者接口并提供生成步骤的具体实现。你的程序中可能会</span></span><br><span class="line"><span class="comment">// 有多个以不同方式实现的建造者变体。</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CarBuilder</span> <span class="keyword">implements</span> <span class="title class_">Builder</span> is</span><br><span class="line">    <span class="keyword">private</span> field car:Car</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 一个新的建造者实例必须包含一个在后续组装过程中使用的空产品对象。</span></span><br><span class="line">    constructor <span class="title function_">CarBuilder</span><span class="params">()</span> is</span><br><span class="line">        <span class="built_in">this</span>.reset()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// reset（重置）方法可清除正在生成的对象。</span></span><br><span class="line">    method <span class="title function_">reset</span><span class="params">()</span> is</span><br><span class="line">        <span class="built_in">this</span>.car = <span class="keyword">new</span> <span class="title class_">Car</span>()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 所有生成步骤都会与同一个产品实例进行交互。</span></span><br><span class="line">    method <span class="title function_">setSeats</span><span class="params">(...)</span> is</span><br><span class="line">        <span class="comment">// 设置汽车座位的数量。</span></span><br><span class="line"></span><br><span class="line">    method <span class="title function_">setEngine</span><span class="params">(...)</span> is</span><br><span class="line">        <span class="comment">// 安装指定的引擎。</span></span><br><span class="line"></span><br><span class="line">    method <span class="title function_">setTripComputer</span><span class="params">(...)</span> is</span><br><span class="line">        <span class="comment">// 安装行车电脑。</span></span><br><span class="line"></span><br><span class="line">    method <span class="title function_">setGPS</span><span class="params">(...)</span> is</span><br><span class="line">        <span class="comment">// 安装全球定位系统。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 具体建造者需要自行提供获取结果的方法。这是因为不同类型的建造者可能</span></span><br><span class="line">    <span class="comment">// 会创建不遵循相同接口的、完全不同的产品。所以也就无法在建造者接口中</span></span><br><span class="line">    <span class="comment">// 声明这些方法（至少在静态类型的编程语言中是这样的）。</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="comment">// 通常在建造者实例将结果返回给客户端后，它们应该做好生成另一个产品的</span></span><br><span class="line">    <span class="comment">// 准备。因此建造者实例通常会在 `getProduct（获取产品）`方法主体末尾</span></span><br><span class="line">    <span class="comment">// 调用重置方法。但是该行为并不是必需的，你也可让建造者等待客户端明确</span></span><br><span class="line">    <span class="comment">// 调用重置方法后再去处理之前的结果。</span></span><br><span class="line">    method <span class="title function_">getProduct</span><span class="params">()</span>:Car <span class="type">is</span></span><br><span class="line">        <span class="variable">product</span> <span class="operator">=</span> <span class="built_in">this</span>.car</span><br><span class="line">        <span class="built_in">this</span>.reset()</span><br><span class="line">        <span class="keyword">return</span> product</span><br><span class="line"></span><br><span class="line"><span class="comment">// 建造者与其他创建型模式的不同之处在于：它让你能创建不遵循相同接口的产品。</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CarManualBuilder</span> <span class="keyword">implements</span> <span class="title class_">Builder</span> is</span><br><span class="line">    <span class="keyword">private</span> field manual:Manual</span><br><span class="line"></span><br><span class="line">    constructor <span class="title function_">CarManualBuilder</span><span class="params">()</span> is</span><br><span class="line">        <span class="built_in">this</span>.reset()</span><br><span class="line"></span><br><span class="line">    method <span class="title function_">reset</span><span class="params">()</span> is</span><br><span class="line">        <span class="built_in">this</span>.manual = <span class="keyword">new</span> <span class="title class_">Manual</span>()</span><br><span class="line"></span><br><span class="line">    method <span class="title function_">setSeats</span><span class="params">(...)</span> is</span><br><span class="line">        <span class="comment">// 添加关于汽车座椅功能的文档。</span></span><br><span class="line"></span><br><span class="line">    method <span class="title function_">setEngine</span><span class="params">(...)</span> is</span><br><span class="line">        <span class="comment">// 添加关于引擎的介绍。</span></span><br><span class="line"></span><br><span class="line">    method <span class="title function_">setTripComputer</span><span class="params">(...)</span> is</span><br><span class="line">        <span class="comment">// 添加关于行车电脑的介绍。</span></span><br><span class="line"></span><br><span class="line">    method <span class="title function_">setGPS</span><span class="params">(...)</span> is</span><br><span class="line">        <span class="comment">// 添加关于 GPS 的介绍。</span></span><br><span class="line"></span><br><span class="line">    method <span class="title function_">getProduct</span><span class="params">()</span>:Manual is</span><br><span class="line">        <span class="comment">// 返回使用手册并重置建造者。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 主管只负责按照特定顺序执行生成步骤。其在根据特定步骤或配置来生成产品时</span></span><br><span class="line"><span class="comment">// 会很有帮助。由于客户端可以直接控制建造者，所以严格意义上来说，主管类并</span></span><br><span class="line"><span class="comment">// 不是必需的。</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Director</span> is</span><br><span class="line">    <span class="keyword">private</span> field builder:Builder</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 主管可同由客户端代码传递给自身的任何建造者实例进行交互。客户端可通</span></span><br><span class="line">    <span class="comment">// 过这种方式改变最新组装完毕的产品的最终类型。</span></span><br><span class="line">    method <span class="title function_">setBuilder</span><span class="params">(builder:Builder)</span></span><br><span class="line">        <span class="built_in">this</span>.builder = builder</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 主管可使用同样的生成步骤创建多个产品变体。</span></span><br><span class="line">    method <span class="title function_">constructSportsCar</span><span class="params">(builder: Builder)</span> is</span><br><span class="line">        builder.reset()</span><br><span class="line">        builder.setSeats(<span class="number">2</span>)</span><br><span class="line">        builder.setEngine(<span class="keyword">new</span> <span class="title class_">SportEngine</span>())</span><br><span class="line">        builder.setTripComputer(<span class="literal">true</span>)</span><br><span class="line">        builder.setGPS(<span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line">    method <span class="title function_">constructSUV</span><span class="params">(builder: Builder)</span> is</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 客户端代码会创建建造者对象并将其传递给主管，然后执行构造过程。最终结果</span></span><br><span class="line"><span class="comment">// 将需要从建造者对象中获取。</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Application</span> is</span><br><span class="line"></span><br><span class="line">    method <span class="title function_">makeCar</span><span class="params">()</span> <span class="type">is</span></span><br><span class="line">        <span class="variable">director</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Director</span>()</span><br><span class="line"></span><br><span class="line">        <span class="type">CarBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CarBuilder</span>()</span><br><span class="line">        director.constructSportsCar(builder)</span><br><span class="line">        <span class="type">Car</span> <span class="variable">car</span> <span class="operator">=</span> builder.getProduct()</span><br><span class="line"></span><br><span class="line">        <span class="type">CarManualBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CarManualBuilder</span>()</span><br><span class="line">        director.constructSportsCar(builder)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 最终产品通常需要从建造者对象中获取，因为主管不知晓具体建造者和</span></span><br><span class="line">        <span class="comment">// 产品的存在，也不会对其产生依赖。</span></span><br><span class="line">        <span class="type">Manual</span> <span class="variable">manual</span> <span class="operator">=</span> builder.getProduct()</span><br></pre></td></tr></table></figure>
+
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><p><strong>使用示例：</strong> 建造者模式是 Java 世界中的一个著名模式。 当你需要创建一个可能有许多配置选项的对象时， 该模式会特别有用。</p>
+<p>建造者在 Java 核心程序库中得到了广泛的应用：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://docs.oracle.com/javase/8/docs/api/java/lang/StringBuilder.html#append-boolean-"><code>java.lang.StringBuilder#append()</code></a> （ <code>非同步</code> ）</li>
+<li><a target="_blank" rel="noopener" href="http://docs.oracle.com/javase/8/docs/api/java/lang/StringBuffer.html#append-boolean-"><code>java.lang.StringBuffer#append()</code></a> （ <code>同步</code> ）</li>
+<li><a target="_blank" rel="noopener" href="http://docs.oracle.com/javase/8/docs/api/java/nio/ByteBuffer.html#put-byte-"><code>java.nio.ByteBuffer#put()</code></a> （还有 <a target="_blank" rel="noopener" href="http://docs.oracle.com/javase/8/docs/api/java/nio/CharBuffer.html#put-char-"><code>Char­Buffer</code></a>、 <a target="_blank" rel="noopener" href="http://docs.oracle.com/javase/8/docs/api/java/nio/ShortBuffer.html#put-short-"><code>Short­Buffer</code></a>、 <a target="_blank" rel="noopener" href="http://docs.oracle.com/javase/8/docs/api/java/nio/IntBuffer.html#put-int-"><code>Int­Buffer</code></a>、 <a target="_blank" rel="noopener" href="http://docs.oracle.com/javase/8/docs/api/java/nio/LongBuffer.html#put-long-"><code>Long­Buffer</code></a>、 <a target="_blank" rel="noopener" href="http://docs.oracle.com/javase/8/docs/api/java/nio/FloatBuffer.html#put-float-"><code>Float­Buffer</code></a> 和 <a target="_blank" rel="noopener" href="http://docs.oracle.com/javase/8/docs/api/java/nio/DoubleBuffer.html#put-double-"><code>Double­Buffer</code></a>）</li>
+<li><a target="_blank" rel="noopener" href="http://docs.oracle.com/javase/8/docs/api/java/lang/Appendable.html"><code>java.lang.Appendable</code></a>的所有实现</li>
+</ul>
+<p><strong>识别方法</strong>： 建造者模式可以通过类来识别， 它拥有一个构建方法和多个配置结果对象的方法。 建造者方法通常支持方法链 （例如 <code>someBuilder-&gt;setValueA(1)-&gt;setValueB(2)-&gt;create()</code> ）</p>
+<h2 id="与其他模式的关系"><a href="#与其他模式的关系" class="headerlink" title="与其他模式的关系"></a>与其他模式的关系</h2><ul>
+<li>在许多设计工作的初期都会使用<a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns/factory-method">工厂方法模式</a> （较为简单， 而且可以更方便地通过子类进行定制）， 随后演化为使用<a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns/abstract-factory">抽象工厂模式</a>、 <a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns/prototype">原型模式</a>或<a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns/builder">建造者模式</a> （更灵活但更加复杂）。</li>
+<li><a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns/builder">建造者</a>重点关注如何分步生成复杂对象。 <a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns/abstract-factory">抽象工厂</a>专门用于生产一系列相关对象。 <em>抽象工厂</em>会马上返回产品， <em>建造者</em>则允许你在获取产品前执行一些额外构造步骤。</li>
+<li>你可以在创建复杂<a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns/composite">组合模式</a>树时使用<a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns/builder">建造者</a>， 因为这可使其构造步骤以递归的方式运行。</li>
+<li>你可以结合使用<a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns/builder">建造者</a>和<a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns/bridge">桥接模式</a>： <em>主管</em>类负责抽象工作， 各种不同的<em>建造者</em>负责<em>实现</em>工作。</li>
+<li><a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns/abstract-factory">抽象工厂</a>、 <a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns/builder">建造者</a>和<a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns/prototype">原型</a>都可以用<a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns/singleton">单例模式</a>来实现。</li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/2243615/">《Head First 设计模式》</a></li>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/2334288/">《大话设计模式》</a></li>
+<li><a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns/catalog">设计模式教程</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">JaHero</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/pages/bf03f3/">http://example.com/pages/bf03f3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">贾英雄-blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a><a class="post-meta__tags" href="/tags/%E8%AE%BE%E8%AE%A1/">设计</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/pages/9a2452/" title="设计模式概述"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2015-01-27</div><div class="title">设计模式概述</div></div></a></div><div><a href="/pages/ff930b/" title="设计模式之简单工厂模式"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2015-06-03</div><div class="title">设计模式之简单工厂模式</div></div></a></div><div><a href="/pages/65724c/" title="设计模式之工厂方法模式"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2015-06-03</div><div class="title">设计模式之工厂方法模式</div></div></a></div><div><a href="/pages/340aa0/" title="设计模式之抽象工厂模式"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2015-06-03</div><div class="title">设计模式之抽象工厂模式</div></div></a></div><div><a href="/pages/1af8ee/" title="设计模式之原型模式"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2015-06-03</div><div class="title">设计模式之原型模式</div></div></a></div><div><a href="/pages/cf046f/" title="设计模式之单例模式"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2015-06-03</div><div class="title">设计模式之单例模式</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/ava.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JaHero</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">设计模式之建造者模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%84%8F%E5%9B%BE"><span class="toc-number">1.1.</span> <span class="toc-text">意图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.2.</span> <span class="toc-text">适用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84"><span class="toc-number">1.3.</span> <span class="toc-text">结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%AA%E4%BB%A3%E7%A0%81"><span class="toc-number">1.4.</span> <span class="toc-text">伪代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B"><span class="toc-number">1.5.</span> <span class="toc-text">案例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E5%85%B6%E4%BB%96%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">1.6.</span> <span class="toc-text">与其他模式的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.7.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题">无题</a><time datetime="2022-12-31T04:24:34.153Z" title="发表于 2022-12-31 12:24:34">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/img/index/" title="gallery"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="gallery"/></a><div class="content"><a class="title" href="/2022/12/31/img/index/" title="gallery">gallery</a><time datetime="2022-12-30T18:20:45.000Z" title="发表于 2022-12-31 02:20:45">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/30/hello-world/" title="Hello World"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/12/30/hello-world/" title="Hello World">Hello World</a><time datetime="2022-12-30T09:13:14.141Z" title="发表于 2022-12-30 17:13:14">2022-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Aop注解"/></a><div class="content"><a class="title" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解">Aop注解</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flowable 工作流程引擎"/></a><div class="content"><a class="title" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎">Flowable 工作流程引擎</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By JaHero</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script src="https://fastly.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

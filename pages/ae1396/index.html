@@ -1,0 +1,314 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>UML 快速入门 | 贾英雄-blog</title><meta name="keywords" content="设计,UML"><meta name="author" content="JaHero"><meta name="copyright" content="JaHero"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="UML 快速入门UML 简介UML 图类型UML 图类型如下图所示：   结构式建模图 结构式建模图（Structure diagrams）强调的是系统式的建模。结构图定义了一个模型的静态架构。它们通常被用来对那些构成模型的‘要素’建模，诸如：类，对象，接口和物理组件。另外，它们也被用来对元素间关联和依赖关系进行建模。   类图 对象图 包图 组件图 部署图 复合结构图  行为式建模图 行为式建模">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UML 快速入门">
+<meta property="og:url" content="http://example.com/pages/ae1396/index.html">
+<meta property="og:site_name" content="贾英雄-blog">
+<meta property="og:description" content="UML 快速入门UML 简介UML 图类型UML 图类型如下图所示：   结构式建模图 结构式建模图（Structure diagrams）强调的是系统式的建模。结构图定义了一个模型的静态架构。它们通常被用来对那些构成模型的‘要素’建模，诸如：类，对象，接口和物理组件。另外，它们也被用来对元素间关联和依赖关系进行建模。   类图 对象图 包图 组件图 部署图 复合结构图  行为式建模图 行为式建模">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/post.jpg">
+<meta property="article:published_time" content="2019-03-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-12-26T06:15:51.300Z">
+<meta property="article:author" content="JaHero">
+<meta property="article:tag" content="设计">
+<meta property="article:tag" content="UML">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/post.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/pages/ae1396/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"K46KXS6BKG","apiKey":"94dab3de87ce4cc2067ec6ef569e9df7","indexName":"JiaHero","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: JaHero","link":"链接: ","source":"来源: 贾英雄-blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'UML 快速入门',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2022-12-26 14:15:51'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/ava.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">贾英雄-blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">UML 快速入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-03-05T16:00:00.000Z" title="发表于 2019-03-06 00:00:00">2019-03-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:51.300Z" title="更新于 2022-12-26 14:15:51">2022-12-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%BE%E8%AE%A1/">设计</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%BE%E8%AE%A1/UML/">UML</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">620</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="UML 快速入门"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="UML-快速入门"><a href="#UML-快速入门" class="headerlink" title="UML 快速入门"></a>UML 快速入门</h1><h2 id="UML-简介"><a href="#UML-简介" class="headerlink" title="UML 简介"></a>UML 简介</h2><h3 id="UML-图类型"><a href="#UML-图类型" class="headerlink" title="UML 图类型"></a>UML 图类型</h3><p>UML 图类型如下图所示：</p>
+<div align="center"><img src="https://raw.githubusercontent.com/dunwu/images/dev/cs/design/uml/uml-diagrams.png"/></div>
+
+<h4 id="结构式建模图"><a href="#结构式建模图" class="headerlink" title="结构式建模图"></a><a href="02.UML%E7%BB%93%E6%9E%84%E5%BB%BA%E6%A8%A1%E5%9B%BE.md">结构式建模图</a></h4><blockquote>
+<p>结构式建模图（Structure diagrams）强调的是系统式的建模。结构图定义了一个模型的静态架构。它们通常被用来对那些构成模型的‘要素’建模，诸如：类，对象，接口和物理组件。另外，它们也被用来对元素间关联和依赖关系进行建模。</p>
+</blockquote>
+<ul>
+<li><a href="#%E7%B1%BB%E5%9B%BE">类图</a></li>
+<li><a href="#%E5%AF%B9%E8%B1%A1%E5%9B%BE">对象图</a></li>
+<li><a href="#%E5%8C%85%E5%9B%BE">包图</a></li>
+<li><a href="#%E7%BB%84%E4%BB%B6%E5%9B%BE">组件图</a></li>
+<li><a href="#%E9%83%A8%E7%BD%B2%E5%9B%BE">部署图</a></li>
+<li><a href="#%E5%A4%8D%E5%90%88%E7%BB%93%E6%9E%84%E5%9B%BE">复合结构图</a></li>
+</ul>
+<h4 id="行为式建模图"><a href="#行为式建模图" class="headerlink" title="行为式建模图"></a><a href="03.UML%E8%A1%8C%E4%B8%BA%E5%BB%BA%E6%A8%A1%E5%9B%BE.md">行为式建模图</a></h4><blockquote>
+<p>行为式建模图（Behavior diagrams）强调系统模型中触发的事。行为图用来记录在一个模型内部，随时间的变化，模型执行的交互变化和瞬间的状态；并跟踪系统在真实环境下如何表现，以及观察系统对一个操作或事件的反应，以及它的结果。</p>
+</blockquote>
+<ul>
+<li><a href="#%E6%B4%BB%E5%8A%A8%E5%9B%BE">活动图</a></li>
+<li><a href="#%E7%8A%B6%E6%80%81%E5%9B%BE">状态图</a></li>
+<li><a href="#%E7%94%A8%E4%BE%8B%E5%9B%BE">用例图</a></li>
+<li><a href="#%E9%80%9A%E4%BF%A1%E5%9B%BE">通信图</a></li>
+<li><a href="#%E4%BA%A4%E4%BA%92%E6%A6%82%E8%BF%B0%E5%9B%BE">交互概述图</a></li>
+<li><a href="#%E6%97%B6%E5%BA%8F%E5%9B%BE">时序图</a></li>
+<li><a href="#%E6%97%B6%E9%97%B4%E5%9B%BE">时间图</a></li>
+</ul>
+<h3 id="UML-概念"><a href="#UML-概念" class="headerlink" title="UML 概念"></a>UML 概念</h3><p>UML 从来源中使用相当多的概念。我们将之定义于统一建模语言术语汇表。下面仅列代表性的概念。</p>
+<ul>
+<li>对于结构而言 - 执行者，属性，类，元件，接口，对象，包。</li>
+<li>对于行为而言 - 活动（UML），事件（UML），消息（UML），方法（UML），操作（UML），状态（UML），用例（UML）。</li>
+<li>对于关系而言 - 聚合，关联，组合，相依，广义化（or 继承）。</li>
+<li>其他概念<ul>
+<li>构造型—这规范符号应用到的模型</li>
+<li>多重性—多重性标记法与资料库建模基数对应，例如：<code>1, 0..1, 1..*</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="UML-工具"><a href="#UML-工具" class="headerlink" title="UML 工具"></a>UML 工具</h2><p>UML 工具非常多，到底哪种工具好，真的是仁者见仁智者见智。这里列举一些我接触过的 UML 工具：</p>
+<h3 id="亿图"><a href="#亿图" class="headerlink" title="亿图"></a>亿图</h3><blockquote>
+<p>国内开发的、收费的绘图工具。图形模板、素材非常全面，样式也很精美，可以导出为 word、pdf、图片。</p>
+<p><a target="_blank" rel="noopener" href="http://www.edrawsoft.cn/">亿图官网</a></p>
+</blockquote>
+<div align="center"><img src="http://www.edrawsoft.cn/images/software/createsoftware.png"/></div>
+
+<h3 id="Visio"><a href="#Visio" class="headerlink" title="Visio"></a>Visio</h3><blockquote>
+<p>Office 的绘图工具，特点是简单、清晰。</p>
+<p><a target="_blank" rel="noopener" href="https://products.office.com/zh-cn/visio/flowchart-software">Visio 官网</a></p>
+</blockquote>
+<div align="center"><img src="https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE2jMC4?ver=5361&q=90&h=675&w=830&b=%23FFFFFFFF&aim=true"/></div>
+
+<h3 id="StarUML"><a href="#StarUML" class="headerlink" title="StarUML"></a>StarUML</h3><blockquote>
+<p>样式精美，功能全面的 UML 工具。</p>
+<p><a target="_blank" rel="noopener" href="http://staruml.io/">StarUML 官网</a></p>
+</blockquote>
+<div align="center"><img src="http://staruml.io/image/screenshot_jumbotron.png"/></div>
+
+<h3 id="Astah"><a href="#Astah" class="headerlink" title="Astah"></a>Astah</h3><blockquote>
+<p>样式不错，功能全面的绘图工具。</p>
+<p><a target="_blank" rel="noopener" href="http://astah.net/">Astah 官网</a></p>
+</blockquote>
+<div align="center"><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539757904141&di=7e4f71d0a00ffcd87e0e5aa62f0ed168&imgtype=jpg&src=http%3A%2F%2Fimg4.imgtn.bdimg.com%2Fit%2Fu%3D3525476819%2C2924170461%26fm%3D214%26gp%3D0.jpg"/></div>
+
+<h3 id="ArgoUML"><a href="#ArgoUML" class="headerlink" title="ArgoUML"></a>ArgoUML</h3><blockquote>
+<p>UML 工具。</p>
+<p><a target="_blank" rel="noopener" href="https://argouml.en.softonic.com/?ex=CAT-759.2">ArgoUML 官网</a></p>
+</blockquote>
+<div align="center"><img src="https://gss0.bdstatic.com/-4o3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=f4e8a7c6923df8dcb23087c3ac7819ee/8b13632762d0f70315a83ced05fa513d2697c5ed.jpg"/></div>
+
+<h3 id="ProcessOn"><a href="#ProcessOn" class="headerlink" title="ProcessOn"></a>ProcessOn</h3><blockquote>
+<p>在线绘图工具，特点是简洁、清晰。</p>
+<p><a target="_blank" rel="noopener" href="https://www.processon.com/">ProcessOn 官网</a></p>
+</blockquote>
+<h3 id="drawio"><a href="#drawio" class="headerlink" title="drawio"></a>drawio</h3><blockquote>
+<p>开源的在线绘图工具，特点是简洁、清晰。</p>
+<p><a target="_blank" rel="noopener" href="https://www.draw.io/">drawio 官网</a></p>
+</blockquote>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1%E8%AF%AD%E8%A8%80">Wiki-UML</a></li>
+<li><a target="_blank" rel="noopener" href="https://sparxsystems.cn/resources/uml2_tutorial/index.html">Sparx UML 教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.omg.org/spec/UML">OMG UML</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tutorialspoint.com/uml/index.htm">UML Tutorial</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.w3cschool.cn/uml_tutorial/">W3Cschool UML 教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/soft_zzti/article/details/79811923">UML 学习入门就这一篇文章</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.cnblogs.com/ywqu/category/223486.html">http://www.cnblogs.com/ywqu/category/223486.html</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">JaHero</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/pages/ae1396/">http://example.com/pages/ae1396/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">贾英雄-blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AE%BE%E8%AE%A1/">设计</a><a class="post-meta__tags" href="/tags/UML/">UML</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/pages/dd5922/" title="UML 结构建模图"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-10-26</div><div class="title">UML 结构建模图</div></div></a></div><div><a href="/pages/13ccb0/" title="UML"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">UML</div></div></a></div><div><a href="/pages/0b8e4b/" title="UML 行为建模图"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-10-17</div><div class="title">UML 行为建模图</div></div></a></div><div><a href="/pages/e51064/" title="错误处理"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-13</div><div class="title">错误处理</div></div></a></div><div><a href="/pages/34f6f0/" title="编程范式"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-29</div><div class="title">编程范式</div></div></a></div><div><a href="/pages/9a2452/" title="设计模式概述"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2015-01-27</div><div class="title">设计模式概述</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/ava.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JaHero</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#UML-%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="toc-number">1.</span> <span class="toc-text">UML 快速入门</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#UML-%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">UML 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#UML-%E5%9B%BE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.1.</span> <span class="toc-text">UML 图类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E5%BC%8F%E5%BB%BA%E6%A8%A1%E5%9B%BE"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">结构式建模图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%8C%E4%B8%BA%E5%BC%8F%E5%BB%BA%E6%A8%A1%E5%9B%BE"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">行为式建模图</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UML-%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.2.</span> <span class="toc-text">UML 概念</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UML-%E5%B7%A5%E5%85%B7"><span class="toc-number">1.2.</span> <span class="toc-text">UML 工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%BF%E5%9B%BE"><span class="toc-number">1.2.1.</span> <span class="toc-text">亿图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Visio"><span class="toc-number">1.2.2.</span> <span class="toc-text">Visio</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#StarUML"><span class="toc-number">1.2.3.</span> <span class="toc-text">StarUML</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Astah"><span class="toc-number">1.2.4.</span> <span class="toc-text">Astah</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ArgoUML"><span class="toc-number">1.2.5.</span> <span class="toc-text">ArgoUML</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ProcessOn"><span class="toc-number">1.2.6.</span> <span class="toc-text">ProcessOn</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#drawio"><span class="toc-number">1.2.7.</span> <span class="toc-text">drawio</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.3.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题">无题</a><time datetime="2022-12-31T04:24:34.153Z" title="发表于 2022-12-31 12:24:34">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/img/index/" title="gallery"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="gallery"/></a><div class="content"><a class="title" href="/2022/12/31/img/index/" title="gallery">gallery</a><time datetime="2022-12-30T18:20:45.000Z" title="发表于 2022-12-31 02:20:45">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/30/hello-world/" title="Hello World"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/12/30/hello-world/" title="Hello World">Hello World</a><time datetime="2022-12-30T09:13:14.141Z" title="发表于 2022-12-30 17:13:14">2022-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Aop注解"/></a><div class="content"><a class="title" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解">Aop注解</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flowable 工作流程引擎"/></a><div class="content"><a class="title" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎">Flowable 工作流程引擎</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By JaHero</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script src="https://fastly.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

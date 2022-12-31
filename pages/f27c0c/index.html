@@ -1,0 +1,414 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>H2 应用指南 | 贾英雄-blog</title><meta name="keywords" content="数据库,关系型数据库,H2"><meta name="author" content="JaHero"><meta name="copyright" content="JaHero"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="H2 应用指南概述H2 是一个开源的嵌入式数据库引擎，采用 java 语言编写，不受平台的限制。同时 H2 提供了一个十分方便的 web 控制台用于操作和管理数据库内容。H2 还提供兼容模式，可以兼容一些主流的数据库，因此采用 H2 作为开发期的数据库非常方便。 使用说明H2 控制台应用H2 允许用户通过浏览器接口方式访问 SQL 数据库。  进入官方下载地址，选择合适版本，下载并安装到本地。 启">
+<meta property="og:type" content="article">
+<meta property="og:title" content="H2 应用指南">
+<meta property="og:url" content="http://example.com/pages/f27c0c/index.html">
+<meta property="og:site_name" content="贾英雄-blog">
+<meta property="og:description" content="H2 应用指南概述H2 是一个开源的嵌入式数据库引擎，采用 java 语言编写，不受平台的限制。同时 H2 提供了一个十分方便的 web 控制台用于操作和管理数据库内容。H2 还提供兼容模式，可以兼容一些主流的数据库，因此采用 H2 作为开发期的数据库非常方便。 使用说明H2 控制台应用H2 允许用户通过浏览器接口方式访问 SQL 数据库。  进入官方下载地址，选择合适版本，下载并安装到本地。 启">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/post.jpg">
+<meta property="article:published_time" content="2019-08-22T01:02:39.000Z">
+<meta property="article:modified_time" content="2022-12-26T06:15:52.553Z">
+<meta property="article:author" content="JaHero">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="关系型数据库">
+<meta property="article:tag" content="H2">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/post.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/pages/f27c0c/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"K46KXS6BKG","apiKey":"94dab3de87ce4cc2067ec6ef569e9df7","indexName":"JiaHero","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: JaHero","link":"链接: ","source":"来源: 贾英雄-blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'H2 应用指南',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2022-12-26 14:15:52'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/ava.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">贾英雄-blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">H2 应用指南</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-08-22T01:02:39.000Z" title="发表于 2019-08-22 09:02:39">2019-08-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:52.553Z" title="更新于 2022-12-26 14:15:52">2022-12-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/">关系型数据库</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%85%B6%E4%BB%96/">其他</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="H2 应用指南"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="H2-应用指南"><a href="#H2-应用指南" class="headerlink" title="H2 应用指南"></a>H2 应用指南</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>H2 是一个开源的嵌入式数据库引擎，采用 java 语言编写，不受平台的限制。同时 H2 提供了一个十分方便的 web 控制台用于操作和管理数据库内容。H2 还提供兼容模式，可以兼容一些主流的数据库，因此采用 H2 作为开发期的数据库非常方便。</p>
+<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><h3 id="H2-控制台应用"><a href="#H2-控制台应用" class="headerlink" title="H2 控制台应用"></a>H2 控制台应用</h3><p>H2 允许用户通过浏览器接口方式访问 SQL 数据库。</p>
+<ol>
+<li>进入<a target="_blank" rel="noopener" href="http://www.h2database.com/html/download.html">官方下载地址</a>，选择合适版本，下载并安装到本地。</li>
+<li>启动方式：在 bin 目录下，双击 jar 包；执行 <code>java -jar h2*.jar</code>；执行脚本：<code>h2.bat</code> 或 <code>h2.sh</code>。</li>
+<li>在浏览器中访问：<code>http://localhost:8082</code>，应该可以看到下图中的页面：</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/cs/database/h2/h2-console.png" alt="img"></p>
+<p>点击 <strong>Connect</strong> ，可以进入操作界面：</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/cs/database/h2/h2-console-02.png" alt="img"></p>
+<p>操作界面十分简单，不一一细说。</p>
+<h3 id="嵌入式应用"><a href="#嵌入式应用" class="headerlink" title="嵌入式应用"></a>嵌入式应用</h3><h4 id="JDBC-API"><a href="#JDBC-API" class="headerlink" title="JDBC API"></a>JDBC API</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> DriverManager.</span><br><span class="line">    getConnection(<span class="string">&quot;jdbc:h2:~/test&quot;</span>);</span><br><span class="line">conn.close();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>详见：<a target="_blank" rel="noopener" href="http://www.h2database.com/html/tutorial.html#connecting_using_jdbc">Using the JDBC API</a></p>
+</blockquote>
+<h4 id="连接池"><a href="#连接池" class="headerlink" title="连接池"></a>连接池</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.h2.jdbcx.JdbcConnectionPool;</span><br><span class="line"><span class="type">JdbcConnectionPool</span> <span class="variable">cp</span> <span class="operator">=</span> JdbcConnectionPool.</span><br><span class="line">create(<span class="string">&quot;jdbc:h2:~/test&quot;</span>, <span class="string">&quot;sa&quot;</span>, <span class="string">&quot;sa&quot;</span>);</span><br><span class="line"><span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> cp.getConnection();</span><br><span class="line">conn.close(); cp.dispose();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>详见：<a target="_blank" rel="noopener" href="http://www.h2database.com/html/tutorial.html#connection_pool">Connection Pool</a></p>
+</blockquote>
+<h4 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.h2database<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>h2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4.197<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>详见：<a target="_blank" rel="noopener" href="http://www.h2database.com/html/build.html#maven2">Maven 2</a></p>
+</blockquote>
+<h4 id="Hibernate"><a href="#Hibernate" class="headerlink" title="Hibernate"></a>Hibernate</h4><p>hibernate.cfg.xml (or use the HSQLDialect):</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;dialect&quot;</span>&gt;</span></span><br><span class="line">    org.hibernate.dialect.H2Dialect</span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>详见：<a target="_blank" rel="noopener" href="http://www.h2database.com/html/tutorial.html#using_hibernate">Hibernate</a></p>
+</blockquote>
+<h4 id="TopLink-和-Glassfish"><a href="#TopLink-和-Glassfish" class="headerlink" title="TopLink 和 Glassfish"></a>TopLink 和 Glassfish</h4><p>Datasource class: <code>org.h2.jdbcx.JdbcDataSource</code><br><code>oracle.toplink.essentials.platform.database.H2Platform</code></p>
+<blockquote>
+<p>详见：<a target="_blank" rel="noopener" href="http://www.h2database.com/html/tutorial.html#using_toplink">TopLink and Glassfish</a></p>
+</blockquote>
+<h3 id="运行方式"><a href="#运行方式" class="headerlink" title="运行方式"></a>运行方式</h3><h4 id="嵌入式"><a href="#嵌入式" class="headerlink" title="嵌入式"></a>嵌入式</h4><p>数据库持久化存储为单个文件。</p>
+<p>连接字符串：<code>\~/.h2/DBName</code> 表示数据库文件的存储位置，如果第一次连接则会自动创建数据库。</p>
+<ul>
+<li><code>jdbc:h2:\~/test</code> - ‘test’ 在用户根目录下</li>
+<li><code>jdbc:h2:/data/test</code> - ‘test’ 在 &#x2F;data 目录下</li>
+<li><code>jdbc:h2:test</code> - ‘test’ 在当前工作目录</li>
+</ul>
+<h4 id="内存式"><a href="#内存式" class="headerlink" title="内存式"></a>内存式</h4><p>数据库只在内存中运行，关闭连接后数据库将被清空，适合测试环境</p>
+<p>连接字符串：<code>jdbc:h2:mem:DBName;DB_CLOSE_DELAY=-1</code></p>
+<p>如果不指定 DBName，则以私有方式启动，只允许一个连接。</p>
+<ul>
+<li><code>jdbc:h2:mem:test</code> - 一个进程中有多个连接</li>
+<li><code>jdbc:h2:mem:</code> - 未命名的私有库，一个连接</li>
+</ul>
+<h4 id="服务模式"><a href="#服务模式" class="headerlink" title="服务模式"></a>服务模式</h4><p>H2 支持三种服务模式：</p>
+<ul>
+<li>web server：此种运行方式支持使用浏览器访问 H2 Console</li>
+<li>TCP server：支持客户端&#x2F;服务器端的连接方式</li>
+<li>PG server：支持 PostgreSQL 客户端</li>
+</ul>
+<p>启动 tcp 服务连接字符串示例：</p>
+<ul>
+<li><code>jdbc:h2:tcp://localhost/\~/test</code> - 用户根目录</li>
+<li><code>jdbc:h2:tcp://localhost//data/test</code> - 绝对路径</li>
+</ul>
+<h4 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h4><p>执行 <code>java -cp *.jar org.h2.tools.Server</code></p>
+<p>执行如下命令，获取选项列表及默认值</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp h2*.jar org.h2.tools.Server -?</span><br></pre></td></tr></table></figure>
+
+<p>常见的选项如下：</p>
+<ul>
+<li>-web：启动支持 H2 Console 的服务</li>
+<li>-webPort <code>&lt;port&gt;</code>：服务启动端口，默认为 8082</li>
+<li>-browser：启动 H2 Console web 管理页面</li>
+<li>-tcp：使用 TCP server 模式启动</li>
+<li>-pg：使用 PG server 模式启动</li>
+</ul>
+<h4 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h4><ul>
+<li><code>jdbc:h2:..;MODE=MySQL</code> 兼容模式（或 HSQLDB 等）</li>
+<li><code>jdbc:h2:..;TRACE_LEVEL_FILE=3</code> 记录到 <code>*.trace.db</code></li>
+</ul>
+<h4 id="连接字符串参数"><a href="#连接字符串参数" class="headerlink" title="连接字符串参数"></a>连接字符串参数</h4><ul>
+<li><code>DB_CLOSE_DELAY</code> - 要求最后一个正在连接的连接断开后，不要关闭数据库</li>
+<li><code>MODE=MySQL</code> - 兼容模式，H2 兼容多种数据库，该值可以为：DB2、Derby、HSQLDB、MSSQLServer、MySQL、Oracle、PostgreSQL</li>
+<li><code>AUTO_RECONNECT=TRUE</code> - 连接丢失后自动重新连接</li>
+<li><code>AUTO_SERVER=TRUE</code> - 启动自动混合模式，允许开启多个连接，该参数不支持在内存中运行模式</li>
+<li><code>TRACE_LEVEL_SYSTEM_OUT</code>、<code>TRACE_LEVEL_FILE</code> - 输出跟踪日志到控制台或文件， 取值 0 为 OFF，1 为 ERROR（默认值），2 为 INFO，3 为 DEBUG</li>
+<li><code>SET TRACE_MAX_FILE_SIZE mb</code> - 设置跟踪日志文件的大小，默认为 16M</li>
+</ul>
+<h4 id="maven-方式"><a href="#maven-方式" class="headerlink" title="maven 方式"></a>maven 方式</h4><p>此外，使用 maven 也可以启动 H2 服务。添加以下插件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.codehaus.mojo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>exec-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>java<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mainClass</span>&gt;</span>org.h2.tools.Server<span class="tag">&lt;/<span class="name">mainClass</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">arguments</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">argument</span>&gt;</span>-web<span class="tag">&lt;/<span class="name">argument</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">argument</span>&gt;</span>-webPort<span class="tag">&lt;/<span class="name">argument</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">argument</span>&gt;</span>8090<span class="tag">&lt;/<span class="name">argument</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">argument</span>&gt;</span>-browser<span class="tag">&lt;/<span class="name">argument</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">arguments</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在命令行中执行如下命令启动 H2 Console</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn exec:java</span><br></pre></td></tr></table></figure>
+
+<p>或者建立一个 bat 文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">call mvn exec:java</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+
+<p>此操作相当于执行了如下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar h2-1.3.168.jar -web -webPort 8090 -browser</span><br></pre></td></tr></table></figure>
+
+<h2 id="Spring-整合-H2"><a href="#Spring-整合-H2" class="headerlink" title="Spring 整合 H2"></a>Spring 整合 H2</h2><p>（1）添加依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.h2database<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>h2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4.194<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>（2）spring 配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:jdbc</span>=<span class="string">&quot;http://www.springframework.org/schema/jdbc&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="string"><span class="tag">            http://www.springframework.org/schema/beans/spring-beans-3.2.xsd</span></span></span><br><span class="line"><span class="string"><span class="tag">            http://www.springframework.org/schema/jdbc</span></span></span><br><span class="line"><span class="string"><span class="tag">            http://www.springframework.org/schema/jdbc/spring-jdbc.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!--配置数据源--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.h2.jdbcx.JdbcConnectionPool&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">destroy-method</span>=<span class="string">&quot;dispose&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">constructor-arg</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.h2.jdbcx.JdbcDataSource&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 内存模式 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;URL&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jdbc:h2:mem:test&quot;</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 文件模式 --&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- &lt;property name=&quot;URL&quot; value=&quot;jdbc:h2:testRestDB&quot; /&gt; --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;user&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- JDBC模板 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;jdbcTemplate&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.jdbc.core.JdbcTemplate&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">ref</span>=<span class="string">&quot;dataSource&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;myJdbcTemplate&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.zp.notes.spring.jdbc.MyJdbcTemplate&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;jdbcTemplate&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;jdbcTemplate&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- 初始化数据表结构 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">jdbc:initialize-database</span> <span class="attr">data-source</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">ignore-failures</span>=<span class="string">&quot;ALL&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jdbc:script</span> <span class="attr">location</span>=<span class="string">&quot;classpath:sql/h2/create_table_student.sql&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">jdbc:initialize-database</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="H2-SQL"><a href="#H2-SQL" class="headerlink" title="H2 SQL"></a>H2 SQL</h2><h3 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h3><p><img src="http://upload-images.jianshu.io/upload_images/3101171-a3f90c0d1f1f3437.png" alt="img"></p>
+<h3 id="INSERT"><a href="#INSERT" class="headerlink" title="INSERT"></a>INSERT</h3><p><img src="http://upload-images.jianshu.io/upload_images/3101171-6a92ae4362c3468a.png" alt="img"></p>
+<h3 id="UPDATE"><a href="#UPDATE" class="headerlink" title="UPDATE"></a>UPDATE</h3><p><img src="http://upload-images.jianshu.io/upload_images/3101171-dddf0e26995d46c3.png" alt="img"></p>
+<h3 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h3><p><img src="http://upload-images.jianshu.io/upload_images/3101171-96e72023445a6fd6.png" alt="img"></p>
+<h3 id="BACKUP"><a href="#BACKUP" class="headerlink" title="BACKUP"></a>BACKUP</h3><p><img src="http://upload-images.jianshu.io/upload_images/3101171-6267894d24fab47f.png" alt="img"></p>
+<h3 id="EXPLAIN"><a href="#EXPLAIN" class="headerlink" title="EXPLAIN"></a>EXPLAIN</h3><p><img src="http://upload-images.jianshu.io/upload_images/3101171-bbed6bb69f998b7a.png" alt="img"></p>
+<p>7、MERGE<br><img src="http://upload-images.jianshu.io/upload_images/3101171-bd021648431d12a7.png" alt="img"></p>
+<h3 id="RUNSCRIPT"><a href="#RUNSCRIPT" class="headerlink" title="RUNSCRIPT"></a>RUNSCRIPT</h3><p>运行 sql 脚本文件</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3101171-d6fe03eff0037e14.png" alt="img"></p>
+<h3 id="SCRIPT"><a href="#SCRIPT" class="headerlink" title="SCRIPT"></a>SCRIPT</h3><p>根据数据库创建 sql 脚本</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3101171-9ba7547ab8bcaeab.png" alt="img"></p>
+<h3 id="SHOW"><a href="#SHOW" class="headerlink" title="SHOW"></a>SHOW</h3><p><img src="http://upload-images.jianshu.io/upload_images/3101171-67449c6cc5cbb8c1.png" alt="img"></p>
+<h3 id="ALTER"><a href="#ALTER" class="headerlink" title="ALTER"></a>ALTER</h3><h4 id="ALTER-INDEX-RENAME"><a href="#ALTER-INDEX-RENAME" class="headerlink" title="ALTER INDEX RENAME"></a>ALTER INDEX RENAME</h4><p><img src="http://upload-images.jianshu.io/upload_images/3101171-230bd3f97e185d2f.png" alt="img"></p>
+<h4 id="ALTER-SCHEMA-RENAME"><a href="#ALTER-SCHEMA-RENAME" class="headerlink" title="ALTER SCHEMA RENAME"></a>ALTER SCHEMA RENAME</h4><p><img src="http://upload-images.jianshu.io/upload_images/3101171-797a028938e46ba3.png" alt="img"></p>
+<h4 id="ALTER-SEQUENCE"><a href="#ALTER-SEQUENCE" class="headerlink" title="ALTER SEQUENCE"></a>ALTER SEQUENCE</h4><p><img src="http://upload-images.jianshu.io/upload_images/3101171-46f343da1b6c6a29.png" alt="img"></p>
+<h4 id="ALTER-TABLE"><a href="#ALTER-TABLE" class="headerlink" title="ALTER TABLE"></a>ALTER TABLE</h4><p><img src="http://upload-images.jianshu.io/upload_images/3101171-7e146a4010f2f357.png" alt="img"></p>
+<h5 id="增加约束"><a href="#增加约束" class="headerlink" title="增加约束"></a>增加约束</h5><p><img src="http://upload-images.jianshu.io/upload_images/3101171-4e5605a9c87a79cb.png" alt="img"></p>
+<h5 id="修改列"><a href="#修改列" class="headerlink" title="修改列"></a>修改列</h5><p><img src="http://upload-images.jianshu.io/upload_images/3101171-fbc1358c553e6614.png" alt="img"></p>
+<h5 id="删除列"><a href="#删除列" class="headerlink" title="删除列"></a>删除列</h5><p><img src="http://upload-images.jianshu.io/upload_images/3101171-dc3b897413700981.png" alt="img"></p>
+<h5 id="删除序列"><a href="#删除序列" class="headerlink" title="删除序列"></a>删除序列</h5><p><img src="http://upload-images.jianshu.io/upload_images/3101171-ec83899cb8724966.png" alt="img"></p>
+<h4 id="ALTER-USER"><a href="#ALTER-USER" class="headerlink" title="ALTER USER"></a>ALTER USER</h4><h5 id="修改用户名"><a href="#修改用户名" class="headerlink" title="修改用户名"></a>修改用户名</h5><p><img src="http://upload-images.jianshu.io/upload_images/3101171-a1e429c0d8ece66c.png" alt="img"></p>
+<h5 id="修改用户密码"><a href="#修改用户密码" class="headerlink" title="修改用户密码"></a>修改用户密码</h5><p><img src="http://upload-images.jianshu.io/upload_images/3101171-5b86f98796606e54.png" alt="img"></p>
+<h4 id="ALTER-VIEW"><a href="#ALTER-VIEW" class="headerlink" title="ALTER VIEW"></a>ALTER VIEW</h4><p><img src="http://upload-images.jianshu.io/upload_images/3101171-8832ecbc2db63a13.png" alt="img"></p>
+<h3 id="COMMENT"><a href="#COMMENT" class="headerlink" title="COMMENT"></a>COMMENT</h3><p><img src="http://upload-images.jianshu.io/upload_images/3101171-467ce031883f0020.png" alt="img"></p>
+<h3 id="CREATE-CONSTANT"><a href="#CREATE-CONSTANT" class="headerlink" title="CREATE CONSTANT"></a>CREATE CONSTANT</h3><p><img src="http://upload-images.jianshu.io/upload_images/3101171-1231c83563bfec9c.png" alt="img"></p>
+<h3 id="CREATE-INDEX"><a href="#CREATE-INDEX" class="headerlink" title="CREATE INDEX"></a>CREATE INDEX</h3><p><img src="http://upload-images.jianshu.io/upload_images/3101171-d66d59bd7803d5c1.png" alt="img"></p>
+<h3 id="CREATE-ROLE"><a href="#CREATE-ROLE" class="headerlink" title="CREATE ROLE"></a>CREATE ROLE</h3><p><img src="http://upload-images.jianshu.io/upload_images/3101171-7df1dee098e1127b.png" alt="img"></p>
+<h3 id="CREATE-SCHEMA"><a href="#CREATE-SCHEMA" class="headerlink" title="CREATE SCHEMA"></a>CREATE SCHEMA</h3><p><img src="http://upload-images.jianshu.io/upload_images/3101171-c485123c62c0866e.png" alt="img"></p>
+<h3 id="CREATE-SEQUENCE"><a href="#CREATE-SEQUENCE" class="headerlink" title="CREATE SEQUENCE"></a>CREATE SEQUENCE</h3><p><img src="http://upload-images.jianshu.io/upload_images/3101171-cc25860776d361ae.png" alt="img"></p>
+<h3 id="CREATE-TABLE"><a href="#CREATE-TABLE" class="headerlink" title="CREATE TABLE"></a>CREATE TABLE</h3><p><img src="http://upload-images.jianshu.io/upload_images/3101171-36ffc66327df8b5b.png" alt="img"></p>
+<h3 id="CREATE-TRIGGER"><a href="#CREATE-TRIGGER" class="headerlink" title="CREATE TRIGGER"></a>CREATE TRIGGER</h3><p><img src="http://upload-images.jianshu.io/upload_images/3101171-9a7bfa4425281213.png" alt="img"></p>
+<h3 id="CREATE-USER"><a href="#CREATE-USER" class="headerlink" title="CREATE USER"></a>CREATE USER</h3><p><img src="http://upload-images.jianshu.io/upload_images/3101171-a1e45e308be6dac3.png" alt="img"></p>
+<h3 id="CREATE-VIEW"><a href="#CREATE-VIEW" class="headerlink" title="CREATE VIEW"></a>CREATE VIEW</h3><p><img src="http://upload-images.jianshu.io/upload_images/3101171-45c4cd516fd36611.png" alt="img"></p>
+<h3 id="DROP"><a href="#DROP" class="headerlink" title="DROP"></a>DROP</h3><p><img src="http://upload-images.jianshu.io/upload_images/3101171-52a3562d76411811.jpg" alt="img"></p>
+<h3 id="GRANT-RIGHT"><a href="#GRANT-RIGHT" class="headerlink" title="GRANT RIGHT"></a>GRANT RIGHT</h3><p>给 schema 授权授权</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3101171-750e96ceff00c4ee.png" alt="img"></p>
+<p>给 schema 授权给 schema 授权</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3101171-22cfd65c2ff1eea5.png" alt="img"></p>
+<h4 id="复制角色的权限"><a href="#复制角色的权限" class="headerlink" title="复制角色的权限"></a>复制角色的权限</h4><p><img src="http://upload-images.jianshu.io/upload_images/3101171-6cba2f1585fd913b.png" alt="img"></p>
+<h3 id="REVOKE-RIGHT"><a href="#REVOKE-RIGHT" class="headerlink" title="REVOKE RIGHT"></a>REVOKE RIGHT</h3><h4 id="移除授权"><a href="#移除授权" class="headerlink" title="移除授权"></a>移除授权</h4><p><img src="http://upload-images.jianshu.io/upload_images/3101171-3f905669cbb331b7.png" alt="img"></p>
+<h4 id="移除角色具有的权限"><a href="#移除角色具有的权限" class="headerlink" title="移除角色具有的权限"></a>移除角色具有的权限</h4><p><img src="http://upload-images.jianshu.io/upload_images/3101171-af77f495222f1b30.png" alt="img"></p>
+<h3 id="ROLLBACK"><a href="#ROLLBACK" class="headerlink" title="ROLLBACK"></a>ROLLBACK</h3><h4 id="从某个还原点（savepoint）回滚"><a href="#从某个还原点（savepoint）回滚" class="headerlink" title="从某个还原点（savepoint）回滚"></a>从某个还原点（savepoint）回滚</h4><p><img src="http://upload-images.jianshu.io/upload_images/3101171-c71a226ac4fff913.png" alt="img"></p>
+<h4 id="回滚事务"><a href="#回滚事务" class="headerlink" title="回滚事务"></a>回滚事务</h4><p><img src="http://upload-images.jianshu.io/upload_images/3101171-efb65c504c7d69c2.png" alt="img"></p>
+<h4 id="创建-savepoint"><a href="#创建-savepoint" class="headerlink" title="创建 savepoint"></a>创建 savepoint</h4><p><img src="http://upload-images.jianshu.io/upload_images/3101171-feefdc236d4b211d.png" alt="img"></p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p><img src="http://upload-images.jianshu.io/upload_images/3101171-52296dd53249cdae.png" alt="img"></p>
+<h3 id="INT-Type"><a href="#INT-Type" class="headerlink" title="INT Type"></a>INT Type</h3><p><img src="http://upload-images.jianshu.io/upload_images/3101171-fe62e3d07eb93d11.png" alt="img"></p>
+<h2 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h2><p>H2 支持两台服务器运行两个数据库成为集群，两个数据库互为备份，如果一个服务器失效，另一个服务器仍然可以工作。另外只有服务模式支持集群配置。</p>
+<p>H2 可以通过 CreateCluster 工具创建集群，示例步骤如下（在在一台服务器上模拟两个数据库组成集群）：</p>
+<ul>
+<li>创建目录<ul>
+<li>创建两个服务器工作的目录</li>
+</ul>
+</li>
+<li>启动 tcp 服务<ul>
+<li>执行如下命令分别在 9101、9102 端口启动两个使用 tcp 服务模式的数据库</li>
+</ul>
+</li>
+<li>使用 CreateCluster 工具创建集群<ul>
+<li>如果两个数据库不存在，该命令将会自动创建数据库。如果一个数据库失效，可以先删除坏的数据库文件，重新启动数据库，然后重新运行 CreateCluster 工具</li>
+</ul>
+</li>
+<li>连接数据库现在可以使用如下连接字符串连接集群数据库<ul>
+<li>监控集群<strong>运行状态</strong></li>
+<li>可以使用如下命令查看配置的集群服务器是否都在运行</li>
+</ul>
+</li>
+<li>限制<ul>
+<li>H2 的集群并不支持针对事务的负载均衡，所以很多操作会使两个数据库产生不一致的结果</li>
+</ul>
+</li>
+<li>执行如下操作时请小心：<ul>
+<li>自动增长列和标识列不支持集群，当插入数据时，序列值需要手动创建不支持 SET AUTOCOMMIT FALSE 语句；</li>
+<li>如果需要设置成为不自动提交，可以执行方法 Connection.setAutoCommit(false)</li>
+</ul>
+</li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://www.h2database.com/html/main.html">h2database 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xdp-gacl/p/4171024.html">Java 嵌入式数据库 H2 学习总结(一)——H2 数据库入门</a></li>
+</ul>
+<h2 id="door-传送门"><a href="#door-传送门" class="headerlink" title=":door: 传送门"></a>:door: 传送门</h2><p>| <a target="_blank" rel="noopener" href="https://dunwu.github.io/blog/">钝悟的博客</a> | <a target="_blank" rel="noopener" href="https://github.com/dunwu/db-tutorial">db-tutorial 首页</a> |</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">JaHero</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/pages/f27c0c/">http://example.com/pages/f27c0c/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">贾英雄-blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><a class="post-meta__tags" href="/tags/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/">关系型数据库</a><a class="post-meta__tags" href="/tags/H2/">H2</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/pages/bb43eb/" title="关系型数据库"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-11</div><div class="title">关系型数据库</div></div></a></div><div><a href="/pages/9bb28f/" title="关系型数据库面试"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-15</div><div class="title">关系型数据库面试</div></div></a></div><div><a href="/pages/b71c9e/" title="SQL 语法基础特性"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-06-15</div><div class="title">SQL 语法基础特性</div></div></a></div><div><a href="/pages/55e9a7/" title="扩展 SQL"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-10</div><div class="title">扩展 SQL</div></div></a></div><div><a href="/pages/1ae1ca/" title="SQL 语法高级特性"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-27</div><div class="title">SQL 语法高级特性</div></div></a></div><div><a href="/pages/e438a7/" title="SQL Cheat Sheet"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-16</div><div class="title">SQL Cheat Sheet</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/ava.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JaHero</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#H2-%E5%BA%94%E7%94%A8%E6%8C%87%E5%8D%97"><span class="toc-number">1.</span> <span class="toc-text">H2 应用指南</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="toc-number">1.2.</span> <span class="toc-text">使用说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#H2-%E6%8E%A7%E5%88%B6%E5%8F%B0%E5%BA%94%E7%94%A8"><span class="toc-number">1.2.1.</span> <span class="toc-text">H2 控制台应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BA%94%E7%94%A8"><span class="toc-number">1.2.2.</span> <span class="toc-text">嵌入式应用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JDBC-API"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">JDBC API</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E6%B1%A0"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">连接池</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Maven"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">Maven</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hibernate"><span class="toc-number">1.2.2.4.</span> <span class="toc-text">Hibernate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TopLink-%E5%92%8C-Glassfish"><span class="toc-number">1.2.2.5.</span> <span class="toc-text">TopLink 和 Glassfish</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%96%B9%E5%BC%8F"><span class="toc-number">1.2.3.</span> <span class="toc-text">运行方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B5%8C%E5%85%A5%E5%BC%8F"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">嵌入式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%BC%8F"><span class="toc-number">1.2.3.2.</span> <span class="toc-text">内存式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.2.3.3.</span> <span class="toc-text">服务模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.2.3.4.</span> <span class="toc-text">启动服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE"><span class="toc-number">1.2.3.5.</span> <span class="toc-text">设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%82%E6%95%B0"><span class="toc-number">1.2.3.6.</span> <span class="toc-text">连接字符串参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#maven-%E6%96%B9%E5%BC%8F"><span class="toc-number">1.2.3.7.</span> <span class="toc-text">maven 方式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-%E6%95%B4%E5%90%88-H2"><span class="toc-number">1.3.</span> <span class="toc-text">Spring 整合 H2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#H2-SQL"><span class="toc-number">1.4.</span> <span class="toc-text">H2 SQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SELECT"><span class="toc-number">1.4.1.</span> <span class="toc-text">SELECT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#INSERT"><span class="toc-number">1.4.2.</span> <span class="toc-text">INSERT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UPDATE"><span class="toc-number">1.4.3.</span> <span class="toc-text">UPDATE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DELETE"><span class="toc-number">1.4.4.</span> <span class="toc-text">DELETE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BACKUP"><span class="toc-number">1.4.5.</span> <span class="toc-text">BACKUP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EXPLAIN"><span class="toc-number">1.4.6.</span> <span class="toc-text">EXPLAIN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RUNSCRIPT"><span class="toc-number">1.4.7.</span> <span class="toc-text">RUNSCRIPT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SCRIPT"><span class="toc-number">1.4.8.</span> <span class="toc-text">SCRIPT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SHOW"><span class="toc-number">1.4.9.</span> <span class="toc-text">SHOW</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ALTER"><span class="toc-number">1.4.10.</span> <span class="toc-text">ALTER</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ALTER-INDEX-RENAME"><span class="toc-number">1.4.10.1.</span> <span class="toc-text">ALTER INDEX RENAME</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ALTER-SCHEMA-RENAME"><span class="toc-number">1.4.10.2.</span> <span class="toc-text">ALTER SCHEMA RENAME</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ALTER-SEQUENCE"><span class="toc-number">1.4.10.3.</span> <span class="toc-text">ALTER SEQUENCE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ALTER-TABLE"><span class="toc-number">1.4.10.4.</span> <span class="toc-text">ALTER TABLE</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0%E7%BA%A6%E6%9D%9F"><span class="toc-number">1.4.10.4.1.</span> <span class="toc-text">增加约束</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%88%97"><span class="toc-number">1.4.10.4.2.</span> <span class="toc-text">修改列</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%88%97"><span class="toc-number">1.4.10.4.3.</span> <span class="toc-text">删除列</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%BA%8F%E5%88%97"><span class="toc-number">1.4.10.4.4.</span> <span class="toc-text">删除序列</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ALTER-USER"><span class="toc-number">1.4.10.5.</span> <span class="toc-text">ALTER USER</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E5%90%8D"><span class="toc-number">1.4.10.5.1.</span> <span class="toc-text">修改用户名</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81"><span class="toc-number">1.4.10.5.2.</span> <span class="toc-text">修改用户密码</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ALTER-VIEW"><span class="toc-number">1.4.10.6.</span> <span class="toc-text">ALTER VIEW</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#COMMENT"><span class="toc-number">1.4.11.</span> <span class="toc-text">COMMENT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CREATE-CONSTANT"><span class="toc-number">1.4.12.</span> <span class="toc-text">CREATE CONSTANT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CREATE-INDEX"><span class="toc-number">1.4.13.</span> <span class="toc-text">CREATE INDEX</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CREATE-ROLE"><span class="toc-number">1.4.14.</span> <span class="toc-text">CREATE ROLE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CREATE-SCHEMA"><span class="toc-number">1.4.15.</span> <span class="toc-text">CREATE SCHEMA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CREATE-SEQUENCE"><span class="toc-number">1.4.16.</span> <span class="toc-text">CREATE SEQUENCE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CREATE-TABLE"><span class="toc-number">1.4.17.</span> <span class="toc-text">CREATE TABLE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CREATE-TRIGGER"><span class="toc-number">1.4.18.</span> <span class="toc-text">CREATE TRIGGER</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CREATE-USER"><span class="toc-number">1.4.19.</span> <span class="toc-text">CREATE USER</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CREATE-VIEW"><span class="toc-number">1.4.20.</span> <span class="toc-text">CREATE VIEW</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DROP"><span class="toc-number">1.4.21.</span> <span class="toc-text">DROP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GRANT-RIGHT"><span class="toc-number">1.4.22.</span> <span class="toc-text">GRANT RIGHT</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%8D%E5%88%B6%E8%A7%92%E8%89%B2%E7%9A%84%E6%9D%83%E9%99%90"><span class="toc-number">1.4.22.1.</span> <span class="toc-text">复制角色的权限</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#REVOKE-RIGHT"><span class="toc-number">1.4.23.</span> <span class="toc-text">REVOKE RIGHT</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%BB%E9%99%A4%E6%8E%88%E6%9D%83"><span class="toc-number">1.4.23.1.</span> <span class="toc-text">移除授权</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%BB%E9%99%A4%E8%A7%92%E8%89%B2%E5%85%B7%E6%9C%89%E7%9A%84%E6%9D%83%E9%99%90"><span class="toc-number">1.4.23.2.</span> <span class="toc-text">移除角色具有的权限</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ROLLBACK"><span class="toc-number">1.4.24.</span> <span class="toc-text">ROLLBACK</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%8E%E6%9F%90%E4%B8%AA%E8%BF%98%E5%8E%9F%E7%82%B9%EF%BC%88savepoint%EF%BC%89%E5%9B%9E%E6%BB%9A"><span class="toc-number">1.4.24.1.</span> <span class="toc-text">从某个还原点（savepoint）回滚</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E6%BB%9A%E4%BA%8B%E5%8A%A1"><span class="toc-number">1.4.24.2.</span> <span class="toc-text">回滚事务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-savepoint"><span class="toc-number">1.4.24.3.</span> <span class="toc-text">创建 savepoint</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.5.</span> <span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#INT-Type"><span class="toc-number">1.5.1.</span> <span class="toc-text">INT Type</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4"><span class="toc-number">1.6.</span> <span class="toc-text">集群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.7.</span> <span class="toc-text">参考资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#door-%E4%BC%A0%E9%80%81%E9%97%A8"><span class="toc-number">1.8.</span> <span class="toc-text">:door: 传送门</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题">无题</a><time datetime="2022-12-31T04:24:34.153Z" title="发表于 2022-12-31 12:24:34">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/img/index/" title="gallery"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="gallery"/></a><div class="content"><a class="title" href="/2022/12/31/img/index/" title="gallery">gallery</a><time datetime="2022-12-30T18:20:45.000Z" title="发表于 2022-12-31 02:20:45">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/30/hello-world/" title="Hello World"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/12/30/hello-world/" title="Hello World">Hello World</a><time datetime="2022-12-30T09:13:14.141Z" title="发表于 2022-12-30 17:13:14">2022-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Aop注解"/></a><div class="content"><a class="title" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解">Aop注解</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flowable 工作流程引擎"/></a><div class="content"><a class="title" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎">Flowable 工作流程引擎</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By JaHero</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script src="https://fastly.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

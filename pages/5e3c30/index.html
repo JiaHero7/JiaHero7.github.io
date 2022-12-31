@@ -1,0 +1,379 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MongoDB 运维 | 贾英雄-blog</title><meta name="keywords" content="数据库,运维,文档数据库,MongoDB"><meta name="author" content="JaHero"><meta name="copyright" content="JaHero"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="MongoDB 运维MongoDB 安装Windows（1）下载并解压到本地 进入官网下载地址：官方下载地址 ，选择合适的版本下载。 （2）创建数据目录 MongoDB 将数据目录存储在 db 目录下。但是这个数据目录不会主动创建，我们在安装完成后需要创建它。 例如：D:\Tools\Server\mongodb\mongodb-4.4.0\data\db （3）运行 MongoDB 服务 1mo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB 运维">
+<meta property="og:url" content="http://example.com/pages/5e3c30/index.html">
+<meta property="og:site_name" content="贾英雄-blog">
+<meta property="og:description" content="MongoDB 运维MongoDB 安装Windows（1）下载并解压到本地 进入官网下载地址：官方下载地址 ，选择合适的版本下载。 （2）创建数据目录 MongoDB 将数据目录存储在 db 目录下。但是这个数据目录不会主动创建，我们在安装完成后需要创建它。 例如：D:\Tools\Server\mongodb\mongodb-4.4.0\data\db （3）运行 MongoDB 服务 1mo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/post.jpg">
+<meta property="article:published_time" content="2020-09-09T12:47:14.000Z">
+<meta property="article:modified_time" content="2022-12-26T06:15:52.600Z">
+<meta property="article:author" content="JaHero">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="运维">
+<meta property="article:tag" content="文档数据库">
+<meta property="article:tag" content="MongoDB">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/post.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/pages/5e3c30/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"K46KXS6BKG","apiKey":"94dab3de87ce4cc2067ec6ef569e9df7","indexName":"JiaHero","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: JaHero","link":"链接: ","source":"来源: 贾英雄-blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MongoDB 运维',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2022-12-26 14:15:52'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/ava.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">贾英雄-blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">MongoDB 运维</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-09-09T12:47:14.000Z" title="发表于 2020-09-09 20:47:14">2020-09-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:52.600Z" title="更新于 2022-12-26 14:15:52">2022-12-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93/">文档数据库</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/">MongoDB</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MongoDB 运维"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="MongoDB-运维"><a href="#MongoDB-运维" class="headerlink" title="MongoDB 运维"></a>MongoDB 运维</h1><h2 id="MongoDB-安装"><a href="#MongoDB-安装" class="headerlink" title="MongoDB 安装"></a>MongoDB 安装</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>（1）下载并解压到本地</p>
+<p>进入官网下载地址：<a target="_blank" rel="noopener" href="https://www.mongodb.com/try/download/community"><strong>官方下载地址</strong></a> ，选择合适的版本下载。</p>
+<p>（2）创建数据目录</p>
+<p>MongoDB 将数据目录存储在 db 目录下。但是这个数据目录不会主动创建，我们在安装完成后需要创建它。</p>
+<p>例如：<code>D:\Tools\Server\mongodb\mongodb-4.4.0\data\db</code></p>
+<p>（3）运行 MongoDB 服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod --dbpath D:\Tools\Server\mongodb\mongodb-4.4.0\data\db</span><br></pre></td></tr></table></figure>
+
+<p>（4）客户端连接 MongoDB</p>
+<p>可以在命令窗口中运行 mongo.exe 命令即可连接上 MongoDB</p>
+<p>（5）配置 MongoDB 服务</p>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p>（1）使用安装包安装</p>
+<p>安装前我们需要安装各个 Linux 平台依赖包。</p>
+<p><strong>Red Hat&#x2F;CentOS：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install libcurl openssl</span><br></pre></td></tr></table></figure>
+
+<p><strong>Ubuntu 18.04 LTS (“Bionic”)&#x2F;Debian 10 “Buster”：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libcurl4 openssl</span><br></pre></td></tr></table></figure>
+
+<p><strong>Ubuntu 16.04 LTS (“Xenial”)&#x2F;Debian 9 “Stretch”：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libcurl3 openssl</span><br></pre></td></tr></table></figure>
+
+<p>（2）创建数据目录</p>
+<p>默认情况下 MongoDB 启动后会初始化以下两个目录：</p>
+<ul>
+<li>数据存储目录：&#x2F;var&#x2F;lib&#x2F;mongodb</li>
+<li>日志文件目录：&#x2F;var&#x2F;log&#x2F;mongodb</li>
+</ul>
+<p>我们在启动前可以先创建这两个目录并设置当前用户有读写权限：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /var/lib/mongo</span><br><span class="line">sudo mkdir -p /var/log/mongodb</span><br><span class="line">sudo chown `whoami` /var/lib/mongo     # 设置权限</span><br><span class="line">sudo chown `whoami` /var/log/mongodb   # 设置权限</span><br></pre></td></tr></table></figure>
+
+<p>（3）运行 MongoDB 服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod --dbpath /var/lib/mongo --logpath /var/log/mongodb/mongod.log --fork</span><br></pre></td></tr></table></figure>
+
+<p>打开 &#x2F;var&#x2F;log&#x2F;mongodb&#x2F;mongod.log 文件看到以下信息，说明启动成功。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">tail</span> -10f /var/log/mongodb/mongod.log</span></span><br><span class="line">2020-07-09T12:20:17.391+0800 I  NETWORK  [listener] Listening on /tmp/mongodb-27017.sock</span><br><span class="line">2020-07-09T12:20:17.392+0800 I  NETWORK  [listener] Listening on 127.0.0.1</span><br><span class="line">2020-07-09T12:20:17.392+0800 I  NETWORK  [listener] waiting for connections on port 27017</span><br></pre></td></tr></table></figure>
+
+<p>（4）客户端连接 MongoDB</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/mongodb4/bin</span><br><span class="line">./mongo</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/dunwu/linux-tutorial/tree/master/codes/linux/soft">Linux 安装脚本</a></p>
+</blockquote>
+<h3 id="设置用户名、密码"><a href="#设置用户名、密码" class="headerlink" title="设置用户名、密码"></a>设置用户名、密码</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">use admin</span></span><br><span class="line">switched to db admin</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">db.createUser(&#123;<span class="string">&quot;user&quot;</span>:<span class="string">&quot;root&quot;</span>,<span class="string">&quot;pwd&quot;</span>:<span class="string">&quot;root&quot;</span>,<span class="string">&quot;roles&quot;</span>:[&#123;<span class="string">&quot;role&quot;</span>:<span class="string">&quot;userAdminAnyDatabase&quot;</span>,<span class="string">&quot;db&quot;</span>:<span class="string">&quot;admin&quot;</span>&#125;]&#125;)</span></span><br><span class="line">Successfully added user: &#123;</span><br><span class="line">        &quot;user&quot; : &quot;root&quot;,</span><br><span class="line">        &quot;roles&quot; : [</span><br><span class="line">                &#123;</span><br><span class="line">                        &quot;role&quot; : &quot;userAdminAnyDatabase&quot;,</span><br><span class="line">                        &quot;db&quot; : &quot;admin&quot;</span><br><span class="line">                &#125;</span><br><span class="line">        ]</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_">&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="备份和恢复"><a href="#备份和恢复" class="headerlink" title="备份和恢复"></a>备份和恢复</h2><h3 id="数据备份"><a href="#数据备份" class="headerlink" title="数据备份"></a>数据备份</h3><p>在 Mongodb 中，使用 <code>mongodump</code> 命令来备份 MongoDB 数据。该命令可以导出所有数据到指定目录中。</p>
+<p><code>mongodump</code> 命令可以通过参数指定导出的数据量级转存的服务器。</p>
+<p>mongodump 命令语法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongodump -h dbhost -d dbname -o dbdirectory</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>-h：MongDB 所在服务器地址，例如：127.0.0.1，当然也可以指定端口号：127.0.0.1:27017</p>
+</li>
+<li><p>-d：需要备份的数据库实例，例如：test</p>
+</li>
+<li><p>-o：备份的数据存放位置，例如：c:\data\dump，当然该目录需要提前建立，在备份完成后，系统自动在 dump 目录下建立一个 test 目录，这个目录里面存放该数据库实例的备份数据。</p>
+</li>
+</ul>
+<p><code>mongodump</code> 命令可选参数列表如下所示：</p>
+<table>
+<thead>
+<tr>
+<th align="left">语法</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mongodump –host HOST_NAME –port PORT_NUMBER</td>
+<td align="left">该命令将备份所有 MongoDB 数据</td>
+<td align="left">mongodump –host runoob.com –port 27017</td>
+</tr>
+<tr>
+<td align="left">mongodump –dbpath DB_PATH –out BACKUP_DIRECTORY</td>
+<td align="left"></td>
+<td align="left">mongodump –dbpath &#x2F;data&#x2F;db&#x2F; –out &#x2F;data&#x2F;backup&#x2F;</td>
+</tr>
+<tr>
+<td align="left">mongodump –collection COLLECTION –db DB_NAME</td>
+<td align="left">该命令将备份指定数据库的集合。</td>
+<td align="left">mongodump –collection mycol –db test</td>
+</tr>
+</tbody></table>
+<p>【示例】备份全量数据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">mongodump -h 127.0.0.1 --port 27017 -o test2</span></span><br><span class="line">...</span><br><span class="line">2020-09-11T11:55:58.086+0800    done dumping test.company (18801 documents)</span><br><span class="line">2020-09-11T11:56:00.725+0800    [#############...........]  test.people  559101/1000000  (55.9%)</span><br><span class="line">2020-09-11T11:56:03.725+0800    [###################.....]  test.people  829496/1000000  (82.9%)</span><br><span class="line">2020-09-11T11:56:06.725+0800    [#####################...]  test.people  884614/1000000  (88.5%)</span><br><span class="line">2020-09-11T11:56:08.088+0800    [########################]  test.people  1000000/1000000  (100.0%)</span><br><span class="line">2020-09-11T11:56:08.350+0800    done dumping test.people (1000000 documents)</span><br></pre></td></tr></table></figure>
+
+<p>【示例】备份指定数据库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongodump -h 127.0.0.1 --port 27017 -d admin -o test3</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据恢复"><a href="#数据恢复" class="headerlink" title="数据恢复"></a>数据恢复</h3><p>mongodb 使用 <code>mongorestore</code> 命令来恢复备份的数据。</p>
+<p><code>mongorestore</code> 命令语法如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">mongorestore -h &lt;hostname&gt;&lt;:port&gt; -d dbname &lt;path&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>--host &lt;:port&gt;</code>, <code>-h &lt;:port&gt;</code>：MongoDB 所在服务器地址，默认为： localhost:27017</p>
+</li>
+<li><p><code>--db</code> , <code>-d</code> ：需要恢复的数据库实例，例如：test，当然这个名称也可以和备份时候的不一样，比如 test2</p>
+</li>
+<li><p><code>--drop</code>：恢复的时候，先删除当前数据，然后恢复备份的数据。就是说，恢复后，备份后添加修改的数据都会被删除，慎用哦！</p>
+</li>
+<li><p><code>&lt;path&gt;</code>：mongorestore 最后的一个参数，设置备份数据所在位置，例如：c:\data\dump\test。你不能同时指定 <code>&lt;path&gt;</code> 和 <code>--dir</code> 选项，<code>--dir</code> 也可以设置备份目录。</p>
+</li>
+<li><p><code>--dir</code>：指定备份的目录。你不能同时指定 <code>&lt;path&gt;</code> 和 <code>--dir</code> 选项。</p>
+</li>
+</ul>
+<p>【示例】</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">mongorestore -h 127.0.0.1 --port 27017 -d <span class="built_in">test</span> --<span class="built_in">dir</span> <span class="built_in">test</span> --drop</span></span><br><span class="line">...</span><br><span class="line">2020-09-11T11:46:16.053+0800    finished restoring test.tweets (966 documents, 0 failures)</span><br><span class="line">2020-09-11T11:46:18.256+0800    [###.....................]  test.people  164MB/1.03GB  (15.6%)</span><br><span class="line">2020-09-11T11:46:21.255+0800    [########................]  test.people  364MB/1.03GB  (34.6%)</span><br><span class="line">2020-09-11T11:46:24.256+0800    [############............]  test.people  558MB/1.03GB  (53.0%)</span><br><span class="line">2020-09-11T11:46:27.255+0800    [###############.........]  test.people  700MB/1.03GB  (66.5%)</span><br><span class="line">2020-09-11T11:46:30.257+0800    [###################.....]  test.people  846MB/1.03GB  (80.3%)</span><br><span class="line">2020-09-11T11:46:33.255+0800    [######################..]  test.people  990MB/1.03GB  (94.0%)</span><br><span class="line">2020-09-11T11:46:34.542+0800    [########################]  test.people  1.03GB/1.03GB  (100.0%)</span><br><span class="line">2020-09-11T11:46:34.543+0800    no indexes to restore</span><br><span class="line">2020-09-11T11:46:34.543+0800    finished restoring test.people (1000000 documents, 0 failures)</span><br><span class="line">2020-09-11T11:46:34.544+0800    1000966 document(s) restored successfully. 0 document(s) failed to restore.</span><br></pre></td></tr></table></figure>
+
+<h2 id="导入导出"><a href="#导入导出" class="headerlink" title="导入导出"></a>导入导出</h2><p><code>mongoimport</code> 和 <code>mongoexport</code> 并不能可靠地保存所有的富文本 BSON 数据类型，因为 JSON 仅能代表一种 BSON 支持的子集类型。因此，数据用这些工具导出导入或许会丢失一些精确程度。</p>
+<h3 id="导入操作"><a href="#导入操作" class="headerlink" title="导入操作"></a>导入操作</h3><p>在 MongoDB 中，使用 <code>mongoimport</code> 来导入数据。 默认情况下，<code>mongoimport</code> 会将数据导入到本地主机端口 27017 上的 MongoDB 实例中。要将数据导入在其他主机或端口上运行的 MongoDB 实例中，请通过包含 <code>--host</code> 和 <code>--port</code> 选项来指定主机名或端口。 使用 <code>--drop</code> 选项删除集合（如果已经存在）。 这样可以确保该集合仅包含您要导入的数据。</p>
+<p>语法格式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongoimport -h IP --port 端口 -u 用户名 -p 密码 -d 数据库 -c 表名 --<span class="built_in">type</span> 类型 --headerline --upsert --drop 文件名</span><br></pre></td></tr></table></figure>
+
+<p>【示例】导入表数据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">mongoimport -h 127.0.0.1 --port 27017 -d <span class="built_in">test</span> -c book --drop <span class="built_in">test</span>/book.dat</span></span><br><span class="line">2020-09-11T10:53:56.359+0800    connected to: mongodb://127.0.0.1:27017/</span><br><span class="line">2020-09-11T10:53:56.372+0800    dropping: test.book</span><br><span class="line">2020-09-11T10:53:56.628+0800    431 document(s) imported successfully. 0 document(s) failed to import.</span><br></pre></td></tr></table></figure>
+
+<p>【示例】从 json 文件中导入表数据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">mongoimport -h 127.0.0.1 --port 27017 -d <span class="built_in">test</span> -c student --upsert <span class="built_in">test</span>/student.json</span></span><br><span class="line">2020-09-11T11:02:55.907+0800    connected to: mongodb://127.0.0.1:27017/</span><br><span class="line">2020-09-11T11:02:56.068+0800    200 document(s) imported successfully. 0 document(s) failed to import.</span><br></pre></td></tr></table></figure>
+
+<p>【示例】从 csv 文件中导入表数据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">mongoimport -h 127.0.0.1 --port 27017 -d <span class="built_in">test</span> -c product --<span class="built_in">type</span> csv --headerline <span class="built_in">test</span>/product.csv</span></span><br><span class="line">2020-09-11T11:07:49.788+0800    connected to: mongodb://127.0.0.1:27017/</span><br><span class="line">2020-09-11T11:07:51.051+0800    11 document(s) imported successfully. 0 document(s) failed to import.</span><br></pre></td></tr></table></figure>
+
+<p>【示例】导入部分表字段数据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">mongoimport -h 127.0.0.1 --port 27017 -d <span class="built_in">test</span> -c product --<span class="built_in">type</span> json --upsertFields name,price <span class="built_in">test</span>/product.json</span></span><br><span class="line">2020-09-11T11:14:05.410+0800    connected to: mongodb://127.0.0.1:27017/</span><br><span class="line">2020-09-11T11:14:05.612+0800    11 document(s) imported successfully. 0 document(s) failed to import.</span><br></pre></td></tr></table></figure>
+
+<h3 id="导出操作"><a href="#导出操作" class="headerlink" title="导出操作"></a>导出操作</h3><p>语法格式：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongoexport -h &lt;IP&gt; --port &lt;端口&gt; -u &lt;用户名&gt; -p &lt;密码&gt; -d &lt;数据库&gt; -c &lt;表名&gt; -f &lt;字段&gt; -q &lt;条件导出&gt; --csv -o &lt;文件名&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-f</code>：导出指字段，以逗号分割，<code>-f name,email,age</code> 导出 name,email,age 这三个字段</li>
+<li><code>-q</code>：可以根查询条件导出，<code>-q &#39;&#123; &quot;uid&quot; : &quot;100&quot; &#125;&#39;</code> 导出 uid 为 100 的数据</li>
+<li><code>--csv</code>：表示导出的文件格式为 csv 的，这个比较有用，因为大部分的关系型数据库都是支持 csv，在这里有共同点</li>
+</ul>
+<p>【示例】导出整张表</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">mongoexport -h 127.0.0.1 --port 27017 -d <span class="built_in">test</span> -c product -o <span class="built_in">test</span>/product.dat</span></span><br><span class="line">2020-09-11T10:44:23.161+0800    connected to: mongodb://127.0.0.1:27017/</span><br><span class="line">2020-09-11T10:44:23.177+0800    exported 11 records</span><br></pre></td></tr></table></figure>
+
+<p>【示例】导出表到 json 文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">mongoexport -h 127.0.0.1 --port 27017 -d <span class="built_in">test</span> -c product --<span class="built_in">type</span> json -o <span class="built_in">test</span>/product.json</span></span><br><span class="line">2020-09-11T10:49:52.735+0800    connected to: mongodb://127.0.0.1:27017/</span><br><span class="line">2020-09-11T10:49:52.750+0800    exported 11 records</span><br></pre></td></tr></table></figure>
+
+<p>【示例】导出表中部分字段到 csv 文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">mongoexport -h 127.0.0.1 --port 27017 -d <span class="built_in">test</span> -c product --<span class="built_in">type</span> csv -f name,price -o <span class="built_in">test</span>/product.csv</span></span><br><span class="line">2020-09-11T10:47:33.160+0800    connected to: mongodb://127.0.0.1:27017/</span><br><span class="line">2020-09-11T10:47:33.176+0800    exported 11 records</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.mongodb.com/">MongoDB 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mongodb/mongo">MongoDB Github</a></li>
+<li><a target="_blank" rel="noopener" href="https://university.mongodb.com/">MongoDB 官方免费教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/mongodb/mongodb-tutorial.html">MongoDB 教程</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">JaHero</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/pages/5e3c30/">http://example.com/pages/5e3c30/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">贾英雄-blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><a class="post-meta__tags" href="/tags/%E8%BF%90%E7%BB%B4/">运维</a><a class="post-meta__tags" href="/tags/%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93/">文档数据库</a><a class="post-meta__tags" href="/tags/MongoDB/">MongoDB</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/pages/3288f3/" title="MongoDB 应用指南"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-07</div><div class="title">MongoDB 应用指南</div></div></a></div><div><a href="/pages/7efbac/" title="MongoDB 的 CRUD 操作"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-25</div><div class="title">MongoDB 的 CRUD 操作</div></div></a></div><div><a href="/pages/75daa5/" title="MongoDB 的聚合操作"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-21</div><div class="title">MongoDB 的聚合操作</div></div></a></div><div><a href="/pages/4574fe/" title="MongoDB 事务"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-20</div><div class="title">MongoDB 事务</div></div></a></div><div><a href="/pages/562f99/" title="MongoDB 建模"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-09</div><div class="title">MongoDB 建模</div></div></a></div><div><a href="/pages/88c7d3/" title="MongoDB 建模示例"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-12</div><div class="title">MongoDB 建模示例</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/ava.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JaHero</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MongoDB-%E8%BF%90%E7%BB%B4"><span class="toc-number">1.</span> <span class="toc-text">MongoDB 运维</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#MongoDB-%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.</span> <span class="toc-text">MongoDB 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows"><span class="toc-number">1.1.1.</span> <span class="toc-text">Windows</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux"><span class="toc-number">1.1.2.</span> <span class="toc-text">Linux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E7%94%A8%E6%88%B7%E5%90%8D%E3%80%81%E5%AF%86%E7%A0%81"><span class="toc-number">1.1.3.</span> <span class="toc-text">设置用户名、密码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D"><span class="toc-number">1.2.</span> <span class="toc-text">备份和恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%A4%87%E4%BB%BD"><span class="toc-number">1.2.1.</span> <span class="toc-text">数据备份</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%81%A2%E5%A4%8D"><span class="toc-number">1.2.2.</span> <span class="toc-text">数据恢复</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA"><span class="toc-number">1.3.</span> <span class="toc-text">导入导出</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E6%93%8D%E4%BD%9C"><span class="toc-number">1.3.1.</span> <span class="toc-text">导入操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%87%BA%E6%93%8D%E4%BD%9C"><span class="toc-number">1.3.2.</span> <span class="toc-text">导出操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.4.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题">无题</a><time datetime="2022-12-31T04:24:34.153Z" title="发表于 2022-12-31 12:24:34">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/img/index/" title="gallery"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="gallery"/></a><div class="content"><a class="title" href="/2022/12/31/img/index/" title="gallery">gallery</a><time datetime="2022-12-30T18:20:45.000Z" title="发表于 2022-12-31 02:20:45">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/30/hello-world/" title="Hello World"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/12/30/hello-world/" title="Hello World">Hello World</a><time datetime="2022-12-30T09:13:14.141Z" title="发表于 2022-12-30 17:13:14">2022-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Aop注解"/></a><div class="content"><a class="title" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解">Aop注解</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flowable 工作流程引擎"/></a><div class="content"><a class="title" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎">Flowable 工作流程引擎</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By JaHero</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script src="https://fastly.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

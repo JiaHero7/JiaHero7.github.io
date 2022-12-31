@@ -1,0 +1,421 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Redis 复制 | 贾英雄-blog</title><meta name="keywords" content="数据库,复制,KV数据库,Redis"><meta name="author" content="JaHero"><meta name="copyright" content="JaHero"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Redis 复制 在 Redis 中，可以通过执行 SLAVEOF 命令或设置 slaveof 选项，让一个服务器去复制（replicate）另一个服务器，其中，后者叫主服务器（master），前者叫从服务器（slave）。 Redis 2.8 以前的复制不能高效处理断线后重复制的情况，而 Redis 2.8 新添的部分重同步可以解决这个问题。   一、复制简介Redis 通过 slaveof h">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis 复制">
+<meta property="og:url" content="http://example.com/pages/379cd8/index.html">
+<meta property="og:site_name" content="贾英雄-blog">
+<meta property="og:description" content="Redis 复制 在 Redis 中，可以通过执行 SLAVEOF 命令或设置 slaveof 选项，让一个服务器去复制（replicate）另一个服务器，其中，后者叫主服务器（master），前者叫从服务器（slave）。 Redis 2.8 以前的复制不能高效处理断线后重复制的情况，而 Redis 2.8 新添的部分重同步可以解决这个问题。   一、复制简介Redis 通过 slaveof h">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/post.jpg">
+<meta property="article:published_time" content="2020-06-24T02:45:38.000Z">
+<meta property="article:modified_time" content="2022-12-26T06:15:52.621Z">
+<meta property="article:author" content="JaHero">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="复制">
+<meta property="article:tag" content="KV数据库">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/post.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/pages/379cd8/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"K46KXS6BKG","apiKey":"94dab3de87ce4cc2067ec6ef569e9df7","indexName":"JiaHero","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: JaHero","link":"链接: ","source":"来源: 贾英雄-blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Redis 复制',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2022-12-26 14:15:52'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/ava.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">贾英雄-blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Redis 复制</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-06-24T02:45:38.000Z" title="发表于 2020-06-24 10:45:38">2020-06-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:52.621Z" title="更新于 2022-12-26 14:15:52">2022-12-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/KV%E6%95%B0%E6%8D%AE%E5%BA%93/">KV数据库</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/KV%E6%95%B0%E6%8D%AE%E5%BA%93/Redis/">Redis</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Redis 复制"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Redis-复制"><a href="#Redis-复制" class="headerlink" title="Redis 复制"></a>Redis 复制</h1><blockquote>
+<p>在 Redis 中，<strong>可以通过执行 <code>SLAVEOF</code> 命令或设置 <code>slaveof</code> 选项，让一个服务器去复制（replicate）另一个服务器</strong>，其中，后者叫主服务器（master），前者叫从服务器（slave）。</p>
+<p>Redis 2.8 以前的复制不能高效处理断线后重复制的情况，而 Redis 2.8 新添的部分重同步可以解决这个问题。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20200712182603.png" alt="img"></p>
+<h2 id="一、复制简介"><a href="#一、复制简介" class="headerlink" title="一、复制简介"></a>一、复制简介</h2><p>Redis 通过 <code>slaveof host port</code> 命令来让一个服务器成为另一个服务器的从服务器。</p>
+<p><strong>一个主服务器可以有多个从服务器</strong>。不仅主服务器可以有从服务器，从服务器也可以有自己的从服务器， 多个从服务器之间可以构成一个主从链。</p>
+<p><strong>一个从服务器只能有一个主服务器，并且不支持主主复制</strong>。</p>
+<p>可以通过复制功能来让主服务器免于执行持久化操作： 只要关闭主服务器的持久化功能， 然后由从服务器去执行持久化操作即可。</p>
+<p>在使用 Redis 复制功能时的设置中，强烈建议在 master 和在 slave 中启用持久化。当不启用时，例如由于非常慢的磁盘性能而导致的延迟问题，<strong>应该配置实例来避免重置后自动重启</strong>。</p>
+<p>从 Redis 2.6 开始， 从服务器支持只读模式， 并且该模式为从服务器的默认模式。</p>
+<ul>
+<li>只读模式由 <code>redis.conf</code> 文件中的 <code>slave-read-only</code> 选项控制， 也可以通过 <a target="_blank" rel="noopener" href="http://redisdoc.com/configure/config_set.html#config-set">CONFIG SET parameter value</a> 命令来开启或关闭这个模式。</li>
+<li>只读从服务器会拒绝执行任何写命令， 所以不会出现因为操作失误而将数据不小心写入到了从服务器的情况。</li>
+</ul>
+<h2 id="二、旧版复制"><a href="#二、旧版复制" class="headerlink" title="二、旧版复制"></a>二、旧版复制</h2><blockquote>
+<p>Redis 2.8 版本以前实现方式：<code>SYNC</code> 命令</p>
+</blockquote>
+<p>Redis 的复制功能分为同步（sync）和命令传播（command propagate）两个操作：</p>
+<ul>
+<li><strong><code>同步（sync）</code></strong> - 用于将从服务器的数据库状态更新至主服务器当前的数据库状态。</li>
+<li><strong><code>命令传播（command propagate）</code></strong> - 当主服务器的数据库状态被修改，导致主从数据库状态不一致时，让主从服务器的数据库重新回到一致状态。</li>
+</ul>
+<h3 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h3><p><code>SYNC</code> 命令的执行步骤：</p>
+<ol>
+<li>从服务器向主服务器发送 <code>SYNC</code> 命令。</li>
+<li>收到 <code>SYNC</code> 命令的主服务器执行 <code>BGSAVE</code> 命令，在后台生成一个 RDB 文件，并使用一个缓冲区记录从现在开始执行的所有写命令。</li>
+<li>主服务器执行 <code>BGSAVE</code> 完毕后，主服务器会将生成的 RDB 文件发送给从服务器。从服务器接收并载入 RDB 文件，更新自己的数据库状态。</li>
+<li>主服务器将记录在缓冲区中的所有写命令发送给从服务器，从服务器执行这些写命令，更新自己的数据库状态。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20200224220353.png" alt="img"></p>
+<h3 id="命令传播"><a href="#命令传播" class="headerlink" title="命令传播"></a>命令传播</h3><p>同步操作完成后，主从数据库的数据库状态将达到一致。每当主服务器执行客户端发送的写命令时，主从数据库状态不再一致。需要将写命令发送给从服务器执行，使得二者的数据库状态重新达到一致。</p>
+<h3 id="旧版复制的缺陷"><a href="#旧版复制的缺陷" class="headerlink" title="旧版复制的缺陷"></a>旧版复制的缺陷</h3><p>从服务器对主服务器的复制存在两种情况：</p>
+<ul>
+<li><strong>初次复制</strong> - 从服务器以前没有复制过将要复制的主服务器。</li>
+<li><strong>断线后重复制</strong> - 处于命令传播阶段的主从服务器因为网络原因而中断了复制，当从服务器通过自动重连重新连上了主服务器后，继续复制主服务器。</li>
+</ul>
+<p>对于初次复制，旧版复制功能可用很好完成任务；但是<strong>对于断线后重复制，由于每次任然需要生成 RDB 并传输，效率很低</strong>。</p>
+<blockquote>
+<p>:bell: 注意：<strong>SYNC 命令是一个非常耗费资源的操作。</strong></p>
+<ul>
+<li>主服务器执行 <code>BGSAVE</code> 命令生成 RDB 文件，这个操作会耗费主服务器大量的 CPU、内存和磁盘 I&#x2F;O 资源。</li>
+<li>主服务器传输 RDB 文件给从服务器，这个操作会耗费主从服务器大量的网络资源，并对主服务器响应时延产生影响。</li>
+<li>从服务器载入 RDB 文件期间，会阻塞其他命令请求。</li>
+</ul>
+</blockquote>
+<h2 id="三、新版复制"><a href="#三、新版复制" class="headerlink" title="三、新版复制"></a>三、新版复制</h2><blockquote>
+<p>Redis 2.8 版本以后的新实现方式：使用 <code>PSYNC</code> 命令替代 <code>SYNC</code> 命令。</p>
+</blockquote>
+<p><code>PSYNC</code> 命令具有完整重同步和部分重同步两种模式：</p>
+<ul>
+<li><strong><code>完整重同步（full resychronization）</code></strong> - 用于初次复制。执行步骤与 <code>SYNC</code> 命令基本一致。</li>
+<li><strong><code>部分重同步（partial resychronization）</code></strong> - 用于断线后重复制。<strong>如果条件允许，主服务器可以将主从服务器连接断开期间执行的写命令发送给从服务器</strong>，从服务器只需接收并执行这些写命令，即可将主从服务器的数据库状态保持一致。</li>
+</ul>
+<h3 id="部分重同步"><a href="#部分重同步" class="headerlink" title="部分重同步"></a>部分重同步</h3><p>部分重同步功能实现由三个部分构成：</p>
+<ul>
+<li>主从服务器的<strong>复制偏移量（replication offset）</strong></li>
+<li>主服务器的<strong>复制积压缓冲区（replication backlog）</strong></li>
+<li><strong>服务器的运行 ID</strong></li>
+</ul>
+<h4 id="复制偏移量"><a href="#复制偏移量" class="headerlink" title="复制偏移量"></a>复制偏移量</h4><p>主服务器和从服务器会分别维护一个复制偏移量。</p>
+<ul>
+<li>如果主从服务器的复制偏移量相同，则说明二者的数据库状态一致；</li>
+<li>反之，则说明二者的数据库状态不一致。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/cs/database/redis/redis-replication-offset.png" alt="img"></p>
+<h4 id="复制积压缓冲区"><a href="#复制积压缓冲区" class="headerlink" title="复制积压缓冲区"></a>复制积压缓冲区</h4><p><strong>复制积压缓冲区是主服务器维护的一个固定长度的先进先出（FIFO）队列</strong>，默认大小为 <code>1MB</code>。</p>
+<p>复制积压缓冲区会保存一部分最近传播的写命令，并且复制积压缓冲区会为队列中的每个字节记录相应的复制偏移量。</p>
+<p>当从服务器断线重连主服务时，从服务器会通过 <code>PSYNC</code> 命令将自己的复制偏移量 offset 发送给主服务器，主服务器会根据这个复制偏移量来决定对从服务器执行何种同步操作。</p>
+<ul>
+<li>如果 offset 之后的数据仍然在复制积压缓冲区，则主服务器对从服务器执行部分重同步操作。</li>
+<li>反之，则主服务器对从服务器执行完整重同步操作。</li>
+</ul>
+<blockquote>
+<p>🔔 注意：<strong>合理调整复制积压缓冲区的大小</strong></p>
+<ul>
+<li><p>Redis 复制积压缓冲区默认大小为 <code>1MB</code>。</p>
+</li>
+<li><p>复制积压缓冲区的最小大小可以根据公式 <code>second * write_size_per_second</code> 估算。</p>
+</li>
+</ul>
+</blockquote>
+<h4 id="服务器的运行-ID"><a href="#服务器的运行-ID" class="headerlink" title="服务器的运行 ID"></a>服务器的运行 ID</h4><ul>
+<li>每个 Redis 服务器，都有运行 ID，用于唯一识别身份。</li>
+<li>运行 ID 在服务器启动时自动生成，由 40 个随机的十六进制字符组成。例如：132e358005e29741f8d7b0a42d666aace286edda</li>
+</ul>
+<p>从服务器对主服务器进行初次复制时，主服务器会将自己的运行 ID 传送给从服务器，从服务器会将这个运行 ID 保存下来。</p>
+<p>当从服务器断线重连一个主服务器时，从服务器会发送之前保存的运行 ID：</p>
+<ul>
+<li>如果保存的运行 ID 和当前主服务器的运行 ID 一致，则说明从服务器断线之前连接的就是这个主服务器，主服务器可以继续尝试执行部分重同步操作；</li>
+<li>反之，若运行 ID 不一致，则说明从服务器断线之前连接的不是这个主服务器，主服务器将对从服务器执行完整重同步操作。</li>
+</ul>
+<h3 id="PSYNC-命令"><a href="#PSYNC-命令" class="headerlink" title="PSYNC 命令"></a>PSYNC 命令</h3><p>了解了部分重同步的实现，PSYNC 的实现就很容易理解了，它的基本工作原理大致如下：</p>
+<p>当从服务接收到 <code>SLAVEOF</code> 命令时，先判断从服务器以前是否执行过复制操作。</p>
+<ul>
+<li>如果没有复制过任何主服务器，向要复制的主服务器<strong>发送 <code>PSYNC ? -1</code> 命令，主动请求进行完整重同步</strong>。</li>
+<li>反之，向要复制的主服务器发送 <code>PSYNC &lt;runid&gt; &lt;offset&gt;</code> 命令。<ul>
+<li><code>runid</code> 是上一次复制的主服务器的运行 ID。</li>
+<li><code>offset</code> 是复制偏移量。</li>
+</ul>
+</li>
+</ul>
+<p>接收到 <code>PSYNC &lt;runid&gt; &lt;offset&gt;</code> 命令的主服务会进行分析：</p>
+<ul>
+<li>假如主从服务器的 <strong>master run id 相同</strong>，并且<strong>指定的偏移量（offset）在内存缓冲区中还有效</strong>，复制就会从上次中断的点开始继续。</li>
+<li>如果其中一个条件不满足，就会进行完全重新同步（在 2.8 版本之前就是直接进行完全重新同步）。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/cs/database/redis/redis-psync-workflow.png" alt="img"></p>
+<h2 id="四、心跳检测"><a href="#四、心跳检测" class="headerlink" title="四、心跳检测"></a>四、心跳检测</h2><p>在<strong>命令传播</strong>阶段，从服务器默认会以<strong>每秒一次</strong>的频率，向主服务器发送命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REPLCONF ACK &lt;replication_offset&gt;</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>replication_offset</code> 是从服务器当前的复制偏移量。</p>
+<p>发送 <code>REPLCONF ACK</code> 命令对于主从服务器有三个作用：</p>
+<ul>
+<li>检测主从服务器的网络连接状态。</li>
+<li>辅助实现 min-slaves 选项。</li>
+<li>检测命令丢失。</li>
+</ul>
+<h3 id="检测主从连接状态"><a href="#检测主从连接状态" class="headerlink" title="检测主从连接状态"></a>检测主从连接状态</h3><p><strong>可以通过发送和接收 <code>REPLCONF ACK</code> 命令来检查主从服务器之间的网络连接</strong>是否正常：如果主服务器超过一秒没有收到从服务器发来的 <code>REPLCONF ACK</code> 命令，那么主服务器就知道主从服务器之间的连接出现问题了。</p>
+<p>可以通过向主服务器发送 <code>INFO replication</code> 命令，在列出的从服务器列表的 lag 一栏中，可以看到从服务器向主服务器发送 <code>REPLCONF ACK</code> 命令已经过去多少秒。</p>
+<h3 id="辅助实现-min-slaves-选项"><a href="#辅助实现-min-slaves-选项" class="headerlink" title="辅助实现 min-slaves 选项"></a>辅助实现 min-slaves 选项</h3><p>Redis 的 <strong><code>min-slaves-to-write</code> 和 <code>min-slaves-max-lag</code> 两个选项可以防止主服务器在不安全的情况下执行写命令</strong>。</p>
+<p>【示例】min-slaves 配置项</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">min-slaves-to-write 3</span><br><span class="line">min-slaves-max-lag 10</span><br></pre></td></tr></table></figure>
+
+<p>以上配置表示：从服务器小于 3 个，或三个从服务器的延迟（lag）都大于等于 10 秒时，主服务器将拒绝执行写命令。</p>
+<h3 id="检测命令丢失"><a href="#检测命令丢失" class="headerlink" title="检测命令丢失"></a>检测命令丢失</h3><p>如果因为网络故障，主服务传播给从服务器的写命令丢失，那么从服务器定时向主服务器发送 <code>REPLCONF ACK</code> 命令时，主服务器将发觉从服务器的复制偏移量少于自己的。然后，主服务器就会根据从服务器提交的复制偏移量，在复制积压缓冲区中找到从服务器缺少的数据，并将这些数据重新发送给从服务器。</p>
+<h2 id="五、复制的流程"><a href="#五、复制的流程" class="headerlink" title="五、复制的流程"></a>五、复制的流程</h2><p>通过向从服务器发送如下 SLAVEOF 命令，可以让一个从服务器去复制一个主服务器。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SLAVEOF &lt;master_ip&gt; &lt;master_port&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-1-设置主从服务器"><a href="#步骤-1-设置主从服务器" class="headerlink" title="步骤 1. 设置主从服务器"></a>步骤 1. 设置主从服务器</h3><p>配置一个从服务器非常简单， 只要在配置文件中增加以下的这一行就可以了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slaveof 127.0.0.1 6379</span><br></pre></td></tr></table></figure>
+
+<p>当然， 你需要将代码中的 <code>127.0.0.1</code> 和 <code>6379</code> 替换成你的主服务器的 IP 和端口号。</p>
+<p>另外一种方法是调用 <a target="_blank" rel="noopener" href="http://redisdoc.com/replication/slaveof.html#slaveof">SLAVEOF host port</a> 命令， 输入主服务器的 IP 和端口， 然后同步就会开始：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SLAVEOF 127.0.0.1 10086</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-2-主从服务器建立-TCP-连接。"><a href="#步骤-2-主从服务器建立-TCP-连接。" class="headerlink" title="步骤 2. 主从服务器建立 TCP 连接。"></a>步骤 2. 主从服务器建立 TCP 连接。</h3><h3 id="步骤-3-发送-PING-检查通信状态。"><a href="#步骤-3-发送-PING-检查通信状态。" class="headerlink" title="步骤 3. 发送 PING 检查通信状态。"></a>步骤 3. 发送 PING 检查通信状态。</h3><h3 id="步骤-4-身份验证。"><a href="#步骤-4-身份验证。" class="headerlink" title="步骤 4. 身份验证。"></a>步骤 4. 身份验证。</h3><p>如果主服务器没有设置 <code>requirepass</code> ，从服务器没有设置 <code>masterauth</code>，则不进行身份验证；反之，则需要进行身份验证。如果身份验证失败，则放弃执行复制工作。</p>
+<p>如果主服务器通过 <code>requirepass</code> 选项设置了密码， 那么为了让从服务器的同步操作可以顺利进行， 我们也必须为从服务器进行相应的身份验证设置。</p>
+<p>对于一个正在运行的服务器， 可以使用客户端输入以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config set masterauth &lt;password&gt;</span><br></pre></td></tr></table></figure>
+
+<p>要永久地设置这个密码， 那么可以将它加入到配置文件中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">masterauth &lt;password&gt;</span><br></pre></td></tr></table></figure>
+
+<p>另外还有几个选项， 它们和主服务器执行部分重同步时所使用的复制流缓冲区有关， 详细的信息可以参考 Redis 源码中附带的 <code>redis.conf</code> 示例文件。</p>
+<h3 id="步骤-5-发送端口信息。"><a href="#步骤-5-发送端口信息。" class="headerlink" title="步骤 5. 发送端口信息。"></a>步骤 5. 发送端口信息。</h3><p>从服务器执行 <code>REPLCONF listening-port &lt;port-number&gt;</code> ，向主服务器发送从服务器的监听端口号。</p>
+<h3 id="步骤-6-同步。"><a href="#步骤-6-同步。" class="headerlink" title="步骤 6. 同步。"></a>步骤 6. 同步。</h3><p>前文已介绍，此处不赘述。</p>
+<h3 id="步骤-7-命令传播。"><a href="#步骤-7-命令传播。" class="headerlink" title="步骤 7. 命令传播。"></a>步骤 7. 命令传播。</h3><p>在命令传播阶段，从服务器默认会以每秒一次的频率，向主服务发送命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REPLCONF ACK &lt;replication_coffset&gt;</span><br></pre></td></tr></table></figure>
+
+<p>命令的作用：</p>
+<ul>
+<li>检测主从服务器的网络连接状态。</li>
+<li>辅助实现 min-slave 选项。</li>
+<li>检测命令丢失。</li>
+</ul>
+<h2 id="六、复制的配置项"><a href="#六、复制的配置项" class="headerlink" title="六、复制的配置项"></a>六、复制的配置项</h2><p>从 Redis 2.8 开始， 为了保证数据的安全性， 可以通过配置， 让主服务器只在有至少 N 个当前已连接从服务器的情况下， 才执行写命令。</p>
+<p>不过， 因为 Redis 使用异步复制， 所以主服务器发送的写数据并不一定会被从服务器接收到， 因此， 数据丢失的可能性仍然是存在的。</p>
+<p>以下是这个特性的运作原理：</p>
+<ul>
+<li>从服务器以每秒一次的频率 PING 主服务器一次， 并报告复制流的处理情况。</li>
+<li>主服务器会记录各个从服务器最后一次向它发送 PING 的时间。</li>
+<li>用户可以通过配置， 指定网络延迟的最大值 <code>min-slaves-max-lag</code> ， 以及执行写操作所需的至少从服务器数量 <code>min-slaves-to-write</code> 。</li>
+</ul>
+<p>如果至少有 <code>min-slaves-to-write</code> 个从服务器， 并且这些服务器的延迟值都少于 <code>min-slaves-max-lag</code>秒， 那么主服务器就会执行客户端请求的写操作。</p>
+<p>你可以将这个特性看作 CAP 理论中的 C 的条件放宽版本： 尽管不能保证写操作的持久性， 但起码丢失数据的窗口会被严格限制在指定的秒数中。</p>
+<p>另一方面， 如果条件达不到 <code>min-slaves-to-write</code> 和 <code>min-slaves-max-lag</code> 所指定的条件， 那么写操作就不会被执行， 主服务器会向请求执行写操作的客户端返回一个错误。</p>
+<p>以下是这个特性的两个选项和它们所需的参数：</p>
+<ul>
+<li><code>min-slaves-to-write &lt;number of slaves&gt;</code></li>
+<li><code>min-slaves-max-lag &lt;number of seconds&gt;</code></li>
+</ul>
+<p>详细的信息可以参考 Redis 源码中附带的 <code>redis.conf</code> 示例文件。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><strong>官网</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://redis.io/">Redis 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/antirez/redis">Redis github</a></li>
+<li><a target="_blank" rel="noopener" href="http://redis.cn/">Redis 官方文档中文版</a></li>
+</ul>
+</li>
+<li><strong>书籍</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://item.jd.com/11791607.html">《Redis 实战》</a></li>
+<li><a target="_blank" rel="noopener" href="https://item.jd.com/11486101.html">《Redis 设计与实现》</a></li>
+</ul>
+</li>
+<li><strong>教程</strong><ul>
+<li><a target="_blank" rel="noopener" href="http://redisdoc.com/">Redis 命令参考</a></li>
+</ul>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">JaHero</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/pages/379cd8/">http://example.com/pages/379cd8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">贾英雄-blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><a class="post-meta__tags" href="/tags/%E5%A4%8D%E5%88%B6/">复制</a><a class="post-meta__tags" href="/tags/KV%E6%95%B0%E6%8D%AE%E5%BA%93/">KV数据库</a><a class="post-meta__tags" href="/tags/Redis/">Redis</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/pages/451b73/" title="Redis 面试总结"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-13</div><div class="title">Redis 面试总结</div></div></a></div><div><a href="/pages/94e9d6/" title="Redis 应用指南"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-30</div><div class="title">Redis 应用指南</div></div></a></div><div><a href="/pages/ed757c/" title="Redis 数据类型和应用"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-24</div><div class="title">Redis 数据类型和应用</div></div></a></div><div><a href="/pages/4de901/" title="Redis 持久化"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-24</div><div class="title">Redis 持久化</div></div></a></div><div><a href="/pages/615afe/" title="Redis 哨兵"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-24</div><div class="title">Redis 哨兵</div></div></a></div><div><a href="/pages/77dfbe/" title="Redis 集群"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-24</div><div class="title">Redis 集群</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/ava.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JaHero</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis-%E5%A4%8D%E5%88%B6"><span class="toc-number">1.</span> <span class="toc-text">Redis 复制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%A4%8D%E5%88%B6%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">一、复制简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%97%A7%E7%89%88%E5%A4%8D%E5%88%B6"><span class="toc-number">1.2.</span> <span class="toc-text">二、旧版复制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5"><span class="toc-number">1.2.1.</span> <span class="toc-text">同步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E4%BC%A0%E6%92%AD"><span class="toc-number">1.2.2.</span> <span class="toc-text">命令传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A7%E7%89%88%E5%A4%8D%E5%88%B6%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="toc-number">1.2.3.</span> <span class="toc-text">旧版复制的缺陷</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%96%B0%E7%89%88%E5%A4%8D%E5%88%B6"><span class="toc-number">1.3.</span> <span class="toc-text">三、新版复制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E5%88%86%E9%87%8D%E5%90%8C%E6%AD%A5"><span class="toc-number">1.3.1.</span> <span class="toc-text">部分重同步</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%8D%E5%88%B6%E5%81%8F%E7%A7%BB%E9%87%8F"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">复制偏移量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%8D%E5%88%B6%E7%A7%AF%E5%8E%8B%E7%BC%93%E5%86%B2%E5%8C%BA"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">复制积压缓冲区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E8%BF%90%E8%A1%8C-ID"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">服务器的运行 ID</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PSYNC-%E5%91%BD%E4%BB%A4"><span class="toc-number">1.3.2.</span> <span class="toc-text">PSYNC 命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%BF%83%E8%B7%B3%E6%A3%80%E6%B5%8B"><span class="toc-number">1.4.</span> <span class="toc-text">四、心跳检测</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E4%B8%BB%E4%BB%8E%E8%BF%9E%E6%8E%A5%E7%8A%B6%E6%80%81"><span class="toc-number">1.4.1.</span> <span class="toc-text">检测主从连接状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%E5%AE%9E%E7%8E%B0-min-slaves-%E9%80%89%E9%A1%B9"><span class="toc-number">1.4.2.</span> <span class="toc-text">辅助实现 min-slaves 选项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E5%91%BD%E4%BB%A4%E4%B8%A2%E5%A4%B1"><span class="toc-number">1.4.3.</span> <span class="toc-text">检测命令丢失</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%A4%8D%E5%88%B6%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="toc-number">1.5.</span> <span class="toc-text">五、复制的流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-1-%E8%AE%BE%E7%BD%AE%E4%B8%BB%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">1.5.1.</span> <span class="toc-text">步骤 1. 设置主从服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-2-%E4%B8%BB%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%BB%BA%E7%AB%8B-TCP-%E8%BF%9E%E6%8E%A5%E3%80%82"><span class="toc-number">1.5.2.</span> <span class="toc-text">步骤 2. 主从服务器建立 TCP 连接。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-3-%E5%8F%91%E9%80%81-PING-%E6%A3%80%E6%9F%A5%E9%80%9A%E4%BF%A1%E7%8A%B6%E6%80%81%E3%80%82"><span class="toc-number">1.5.3.</span> <span class="toc-text">步骤 3. 发送 PING 检查通信状态。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-4-%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E3%80%82"><span class="toc-number">1.5.4.</span> <span class="toc-text">步骤 4. 身份验证。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-5-%E5%8F%91%E9%80%81%E7%AB%AF%E5%8F%A3%E4%BF%A1%E6%81%AF%E3%80%82"><span class="toc-number">1.5.5.</span> <span class="toc-text">步骤 5. 发送端口信息。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-6-%E5%90%8C%E6%AD%A5%E3%80%82"><span class="toc-number">1.5.6.</span> <span class="toc-text">步骤 6. 同步。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-7-%E5%91%BD%E4%BB%A4%E4%BC%A0%E6%92%AD%E3%80%82"><span class="toc-number">1.5.7.</span> <span class="toc-text">步骤 7. 命令传播。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%A4%8D%E5%88%B6%E7%9A%84%E9%85%8D%E7%BD%AE%E9%A1%B9"><span class="toc-number">1.6.</span> <span class="toc-text">六、复制的配置项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.7.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题">无题</a><time datetime="2022-12-31T04:24:34.153Z" title="发表于 2022-12-31 12:24:34">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/img/index/" title="gallery"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="gallery"/></a><div class="content"><a class="title" href="/2022/12/31/img/index/" title="gallery">gallery</a><time datetime="2022-12-30T18:20:45.000Z" title="发表于 2022-12-31 02:20:45">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/30/hello-world/" title="Hello World"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/12/30/hello-world/" title="Hello World">Hello World</a><time datetime="2022-12-30T09:13:14.141Z" title="发表于 2022-12-30 17:13:14">2022-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Aop注解"/></a><div class="content"><a class="title" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解">Aop注解</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flowable 工作流程引擎"/></a><div class="content"><a class="title" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎">Flowable 工作流程引擎</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By JaHero</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script src="https://fastly.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

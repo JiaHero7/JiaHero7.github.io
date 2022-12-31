@@ -1,0 +1,349 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Filebeat 运维 | 贾英雄-blog</title><meta name="keywords" content="数据库,搜索引擎数据库,Elastic,Filebeat"><meta name="author" content="JaHero"><meta name="copyright" content="JaHero"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Filebeat 运维 Beats 平台集合了多种单一用途数据采集器。它们从成百上千或成千上万台机器和系统向 Logstash 或 Elasticsearch 发送数据。 因为我只接触过 Filebeat，所有本文仅介绍 Filebeat 的日常运维。  1. Filebeat 安装1.1. 环境要求 版本：Elastic Stack 7.4  1.2. 安装步骤Unix &#x2F; Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Filebeat 运维">
+<meta property="og:url" content="http://example.com/pages/7c067f/index.html">
+<meta property="og:site_name" content="贾英雄-blog">
+<meta property="og:description" content="Filebeat 运维 Beats 平台集合了多种单一用途数据采集器。它们从成百上千或成千上万台机器和系统向 Logstash 或 Elasticsearch 发送数据。 因为我只接触过 Filebeat，所有本文仅介绍 Filebeat 的日常运维。  1. Filebeat 安装1.1. 环境要求 版本：Elastic Stack 7.4  1.2. 安装步骤Unix &#x2F; Linux">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/post.jpg">
+<meta property="article:published_time" content="2020-06-15T23:10:44.000Z">
+<meta property="article:modified_time" content="2022-12-26T06:15:52.712Z">
+<meta property="article:author" content="JaHero">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="搜索引擎数据库">
+<meta property="article:tag" content="Elastic">
+<meta property="article:tag" content="Filebeat">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/post.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/pages/7c067f/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"K46KXS6BKG","apiKey":"94dab3de87ce4cc2067ec6ef569e9df7","indexName":"JiaHero","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: JaHero","link":"链接: ","source":"来源: 贾英雄-blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Filebeat 运维',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2022-12-26 14:15:52'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/ava.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">贾英雄-blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Filebeat 运维</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-06-15T23:10:44.000Z" title="发表于 2020-06-16 07:10:44">2020-06-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:52.712Z" title="更新于 2022-12-26 14:15:52">2022-12-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/">搜索引擎数据库</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/Elastic/">Elastic</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Filebeat 运维"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Filebeat-运维"><a href="#Filebeat-运维" class="headerlink" title="Filebeat 运维"></a>Filebeat 运维</h1><blockquote>
+<p>Beats 平台集合了多种单一用途数据采集器。它们从成百上千或成千上万台机器和系统向 Logstash 或 Elasticsearch 发送数据。</p>
+<p>因为我只接触过 Filebeat，所有本文仅介绍 Filebeat 的日常运维。</p>
+</blockquote>
+<h2 id="1-Filebeat-安装"><a href="#1-Filebeat-安装" class="headerlink" title="1. Filebeat 安装"></a>1. Filebeat 安装</h2><h3 id="1-1-环境要求"><a href="#1-1-环境要求" class="headerlink" title="1.1. 环境要求"></a>1.1. 环境要求</h3><blockquote>
+<p>版本：Elastic Stack 7.4</p>
+</blockquote>
+<h3 id="1-2-安装步骤"><a href="#1-2-安装步骤" class="headerlink" title="1.2. 安装步骤"></a>1.2. 安装步骤</h3><p>Unix &#x2F; Linux 系统建议使用下面方式安装，因为比较通用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-6.1.1-linux-x86_64.tar.gz</span><br><span class="line">tar -zxf filebeat-6.1.1-linux-x86_64.tar.gz</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>更多内容可以参考：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation.html">filebeat-installation</a></p>
+</blockquote>
+<h2 id="2-Filebeat-配置"><a href="#2-Filebeat-配置" class="headerlink" title="2. Filebeat 配置"></a>2. Filebeat 配置</h2><blockquote>
+<p>首先，必须要知道的是：<code>filebeat.yml</code> 是 filebeat 的配置文件。其路径会因为你安装方式而有所不同。</p>
+<p>Beat 所有系列产品的配置文件都基于 <a target="_blank" rel="noopener" href="http://www.yaml.org/">YAML</a> 格式，FileBeat 当然也不例外。</p>
+<p>更多 filebeat 配置内容可以参考：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html">配置 filebeat</a></p>
+<p>更多 filebeat.yml 文件格式内容可以参考：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/libbeat/6.1/config-file-format.html">filebeat.yml 文件格式</a></p>
+</blockquote>
+<p>filebeat.yml 部分配置示例：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">filebeat:</span></span><br><span class="line">  <span class="attr">prospectors:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">type:</span> <span class="string">log</span></span><br><span class="line">      <span class="attr">paths:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">/var/log/*.log</span></span><br><span class="line">      <span class="attr">multiline:</span></span><br><span class="line">        <span class="attr">pattern:</span> <span class="string">&#x27;^[&#x27;</span></span><br><span class="line">        <span class="attr">match:</span> <span class="string">after</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-重要配置项"><a href="#2-1-重要配置项" class="headerlink" title="2.1. 重要配置项"></a>2.1. 重要配置项</h3><blockquote>
+<p>下面我将列举 Filebeat 的较为重要的配置项。</p>
+<p>如果想了解更多配置信息，可以参考：</p>
+<p>更多 filebeat 配置内容可以参考：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html">配置 filebeat</a></p>
+<p>更多 filebeat.yml 文件格式内容可以参考：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/libbeat/6.1/config-file-format.html">filebeat.yml 文件格式</a></p>
+</blockquote>
+<h4 id="2-1-1-filebeat-prospectors"><a href="#2-1-1-filebeat-prospectors" class="headerlink" title="2.1.1. filebeat.prospectors"></a>2.1.1. filebeat.prospectors</h4><p>（文件监视器）用于指定需要关注的文件。</p>
+<p><strong>示例</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">filebeat.prospectors:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">type:</span> <span class="string">log</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">paths:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/var/log/*.log</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-1-2-output-elasticsearch"><a href="#2-1-2-output-elasticsearch" class="headerlink" title="2.1.2. output.elasticsearch"></a>2.1.2. output.elasticsearch</h4><p>如果你希望使用 filebeat 直接向 elasticsearch 输出数据，需要配置 output.elasticsearch 。</p>
+<p><strong>示例</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">output.elasticsearch:</span></span><br><span class="line">  <span class="attr">hosts:</span> [<span class="string">&#x27;192.168.1.42:9200&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-1-3-output-logstash"><a href="#2-1-3-output-logstash" class="headerlink" title="2.1.3. output.logstash"></a>2.1.3. output.logstash</h4><p>如果你希望使用 filebeat 向 logstash 输出数据，然后由 logstash 再向 elasticsearch 输出数据，需要配置 output.logstash。</p>
+<blockquote>
+<p><strong>注意</strong></p>
+<p>相比于向 elasticsearch 输出数据，个人更推荐向 logstash 输出数据。</p>
+<p>因为 logstash 和 filebeat 一起工作时，如果 logstash 忙于处理数据，会通知 FileBeat 放慢读取速度。一旦拥塞得到解决，FileBeat 将恢复到原来的速度并继续传播。这样，可以减少管道超负荷的情况。</p>
+</blockquote>
+<p><strong>示例</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">output.logstash:</span></span><br><span class="line">  <span class="attr">hosts:</span> [<span class="string">&#x27;127.0.0.1:5044&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>此外，还需要在 logstash 的配置文件（如 logstash.conf）中指定 beats input 插件：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">input</span> &#123;</span><br><span class="line">  <span class="string">beats</span> &#123;</span><br><span class="line">    <span class="string">port</span> <span class="string">=&gt;</span> <span class="number">5044</span> <span class="comment"># 此端口需要与 filebeat.yml 中的端口相同</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># The filter part of this file is commented out to indicate that it is</span></span><br><span class="line"><span class="comment"># optional.</span></span><br><span class="line"><span class="comment"># filter &#123;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="string">output</span> &#123;</span><br><span class="line">  <span class="string">elasticsearch</span> &#123;</span><br><span class="line">    <span class="string">hosts</span> <span class="string">=&gt;</span> <span class="string">&quot;localhost:9200&quot;</span></span><br><span class="line">    <span class="string">manage_template</span> <span class="string">=&gt;</span> <span class="literal">false</span></span><br><span class="line">    <span class="string">index</span> <span class="string">=&gt;</span> <span class="string">&quot;<span class="template-variable">%&#123;[@metadata][beat]&#125;</span>-<span class="template-variable">%&#123;[@metadata][version]&#125;</span>-<span class="template-variable">%&#123;+YYYY.MM.dd&#125;</span>&quot;</span></span><br><span class="line">    <span class="string">document_type</span> <span class="string">=&gt;</span> <span class="string">&quot;<span class="template-variable">%&#123;[@metadata][type]&#125;</span>&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-1-4-setup-kibana"><a href="#2-1-4-setup-kibana" class="headerlink" title="2.1.4. setup.kibana"></a>2.1.4. setup.kibana</h4><p>如果打算使用 Filebeat 提供的 Kibana 仪表板，需要配置 setup.kibana 。</p>
+<p><strong>示例</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">setup.kibana:</span></span><br><span class="line">  <span class="attr">host:</span> <span class="string">&#x27;localhost:5601&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-1-5-setup-template-settings"><a href="#2-1-5-setup-template-settings" class="headerlink" title="2.1.5. setup.template.settings"></a>2.1.5. setup.template.settings</h4><p>在 Elasticsearch 中，<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/6.1/indices-templates.html">索引模板</a>用于定义设置和映射，以确定如何分析字段。</p>
+<p>在 Filebeat 中，setup.template.settings 用于配置索引模板。</p>
+<p>Filebeat 推荐的索引模板文件由 Filebeat 软件包安装。如果您接受 filebeat.yml 配置文件中的默认配置，Filebeat 在成功连接到 Elasticsearch 后自动加载模板。</p>
+<p>您可以通过在 Filebeat 配置文件中配置模板加载选项来禁用自动模板加载，或加载自己的模板。您还可以设置选项来更改索引和索引模板的名称。</p>
+<blockquote>
+<p><strong>参考</strong></p>
+<p>更多内容可以参考：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-template.html">filebeat-template</a></p>
+<p><strong>说明</strong></p>
+<p>如无必要，使用 Filebeat 配置文件中的默认索引模板即可。</p>
+</blockquote>
+<h4 id="2-1-6-setup-dashboards"><a href="#2-1-6-setup-dashboards" class="headerlink" title="2.1.6. setup.dashboards"></a>2.1.6. setup.dashboards</h4><p>Filebeat 附带了示例 Kibana 仪表板。在使用仪表板之前，您需要创建索引模式 <code>filebeat- *</code>，并将仪表板加载到 Kibana 中。为此，您可以运行 <code>setup</code> 命令或在 <code>filebeat.yml</code> 配置文件中配置仪表板加载。</p>
+<p>为了在 Kibana 中加载 Filebeat 的仪表盘，需要在 <code>filebeat.yml</code> 配置中启动开关：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setup.dashboards.enabled: true</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>参考</strong></p>
+<p>更多内容可以参考：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/filebeat/current/configuration-dashboards.html">configuration-dashboards</a></p>
+</blockquote>
+<h2 id="3-Filebeat-命令"><a href="#3-Filebeat-命令" class="headerlink" title="3. Filebeat 命令"></a>3. Filebeat 命令</h2><p>filebeat 提供了一系列命令来完成各种功能。</p>
+<p>执行命令方式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./filebeat COMMAND</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>参考</strong></p>
+<p>更多内容可以参考：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/filebeat/current/command-line-options.html">command-line-options</a></p>
+<p><strong>说明</strong></p>
+<p>个人认为命令行没有必要一一掌握，因为绝大部分功能都可以通过配置来完成。且通过命令行指定功能这种方式要求每次输入同样参数，不利于固化启动方式。</p>
+<p>最重要的当然是启动命令 run 了。</p>
+<p><strong>示例</strong> 指定配置文件启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./filebeat run -e -c filebeat.yml -d <span class="string">&quot;publish&quot;</span></span><br><span class="line">./filebeat -e -c filebeat.yml -d <span class="string">&quot;publish&quot;</span> <span class="comment"># run 可以省略</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="4-Filebeat-模块"><a href="#4-Filebeat-模块" class="headerlink" title="4. Filebeat 模块"></a>4. Filebeat 模块</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.elastic.co/cn/products/beats/filebeat">Filebeat</a> 和 <a target="_blank" rel="noopener" href="https://www.elastic.co/cn/products/beats/metricbeat">Metricbeat</a> 内部集成了一系列模块，用以简化常见日志格式（例如 NGINX、Apache 或诸如 Redis 或 Docker 等系统指标）的收集、解析和可视化过程。</p>
+</blockquote>
+<ul>
+<li>配置 elasticsearch 和 kibana</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">output.elasticsearch:</span><br><span class="line">  hosts: [&quot;myEShost:9200&quot;]</span><br><span class="line">  username: &quot;elastic&quot;</span><br><span class="line">  password: &quot;elastic&quot;</span><br><span class="line">setup.kibana:</span><br><span class="line">  host: &quot;mykibanahost:5601&quot;</span><br><span class="line">  username: &quot;elastic&quot;</span><br><span class="line">  password: &quot;elastic</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>username 和 password 是可选的，如果不需要认证则不填。</p>
+</blockquote>
+<ul>
+<li>初始化环境</li>
+</ul>
+<p>执行下面命令，filebeat 会加载推荐索引模板。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./filebeat setup -e</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>指定模块</li>
+</ul>
+<p>执行下面命令，指定希望加载的模块。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./filebeat -e --modules system,nginx,mysql</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>更多内容可以参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-modules.html">配置 filebeat 模块</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-modules.html">filebeat 支持模块</a></li>
+</ul>
+</blockquote>
+<h2 id="5-参考资料"><a href="#5-参考资料" class="headerlink" title="5. 参考资料"></a>5. 参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.elastic.co/cn/products/beats">Beats 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/elastic/beats">Beats Github</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/libbeat/current/index.html">Beats 官方文档</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">JaHero</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/pages/7c067f/">http://example.com/pages/7c067f/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">贾英雄-blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><a class="post-meta__tags" href="/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/">搜索引擎数据库</a><a class="post-meta__tags" href="/tags/Elastic/">Elastic</a><a class="post-meta__tags" href="/tags/Filebeat/">Filebeat</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/pages/b7f079/" title="Elastic 技术栈之 Filebeat"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-16</div><div class="title">Elastic 技术栈之 Filebeat</div></div></a></div><div><a href="/pages/553160/" title="Elastic 快速入门"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-16</div><div class="title">Elastic 快速入门</div></div></a></div><div><a href="/pages/002159/" title="Elastic 技术栈之 Kibana"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-16</div><div class="title">Elastic 技术栈之 Kibana</div></div></a></div><div><a href="/pages/fc47af/" title="Kibana 运维"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-16</div><div class="title">Kibana 运维</div></div></a></div><div><a href="/pages/55ce99/" title="Elastic 技术栈之 Logstash"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-16</div><div class="title">Elastic 技术栈之 Logstash</div></div></a></div><div><a href="/pages/92df30/" title="Logstash 运维"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-16</div><div class="title">Logstash 运维</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/ava.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JaHero</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Filebeat-%E8%BF%90%E7%BB%B4"><span class="toc-number">1.</span> <span class="toc-text">Filebeat 运维</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Filebeat-%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.</span> <span class="toc-text">1. Filebeat 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E7%8E%AF%E5%A2%83%E8%A6%81%E6%B1%82"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1. 环境要求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2. 安装步骤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Filebeat-%E9%85%8D%E7%BD%AE"><span class="toc-number">1.2.</span> <span class="toc-text">2. Filebeat 配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E9%87%8D%E8%A6%81%E9%85%8D%E7%BD%AE%E9%A1%B9"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1. 重要配置项</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-filebeat-prospectors"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">2.1.1. filebeat.prospectors</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-output-elasticsearch"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">2.1.2. output.elasticsearch</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-3-output-logstash"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">2.1.3. output.logstash</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-4-setup-kibana"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">2.1.4. setup.kibana</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-5-setup-template-settings"><span class="toc-number">1.2.1.5.</span> <span class="toc-text">2.1.5. setup.template.settings</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-6-setup-dashboards"><span class="toc-number">1.2.1.6.</span> <span class="toc-text">2.1.6. setup.dashboards</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Filebeat-%E5%91%BD%E4%BB%A4"><span class="toc-number">1.3.</span> <span class="toc-text">3. Filebeat 命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Filebeat-%E6%A8%A1%E5%9D%97"><span class="toc-number">1.4.</span> <span class="toc-text">4. Filebeat 模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.5.</span> <span class="toc-text">5. 参考资料</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题">无题</a><time datetime="2022-12-31T04:24:34.153Z" title="发表于 2022-12-31 12:24:34">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/img/index/" title="gallery"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="gallery"/></a><div class="content"><a class="title" href="/2022/12/31/img/index/" title="gallery">gallery</a><time datetime="2022-12-30T18:20:45.000Z" title="发表于 2022-12-31 02:20:45">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/30/hello-world/" title="Hello World"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/12/30/hello-world/" title="Hello World">Hello World</a><time datetime="2022-12-30T09:13:14.141Z" title="发表于 2022-12-30 17:13:14">2022-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Aop注解"/></a><div class="content"><a class="title" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解">Aop注解</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flowable 工作流程引擎"/></a><div class="content"><a class="title" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎">Flowable 工作流程引擎</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By JaHero</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script src="https://fastly.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,531 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Java 教程 | 贾英雄-blog</title><meta name="keywords" content="Java"><meta name="author" content="JaHero"><meta name="copyright" content="JaHero"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="JavaTutorial   ☕ java-tutorial 是一个 Java 教程，汇集一个老司机在 Java 领域的十年积累。  🔁 项目同步维护：Github | Gitee 📖 电子书阅读：Github Pages | Gi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 教程">
+<meta property="og:url" content="http://example.com/pages/0d2474/index.html">
+<meta property="og:site_name" content="贾英雄-blog">
+<meta property="og:description" content="JavaTutorial   ☕ java-tutorial 是一个 Java 教程，汇集一个老司机在 Java 领域的十年积累。  🔁 项目同步维护：Github | Gitee 📖 电子书阅读：Github Pages | Gi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/post.jpg">
+<meta property="article:published_time" content="2022-04-27T10:23:47.000Z">
+<meta property="article:modified_time" content="2022-12-26T06:15:50.915Z">
+<meta property="article:author" content="JaHero">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/post.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/pages/0d2474/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"K46KXS6BKG","apiKey":"94dab3de87ce4cc2067ec6ef569e9df7","indexName":"JiaHero","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: JaHero","link":"链接: ","source":"来源: 贾英雄-blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Java 教程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2022-12-26 14:15:50'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/ava.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">贾英雄-blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Java 教程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-04-27T10:23:47.000Z" title="发表于 2022-04-27 18:23:47">2022-04-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:50.915Z" title="更新于 2022-12-26 14:15:50">2022-12-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Java 教程"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p align="center">
+    <a href="https://dunwu.github.io/java-tutorial/" target="_blank" rel="noopener noreferrer">
+        <img src="https://raw.githubusercontent.com/dunwu/images/dev/common/dunwu-logo.png" alt="logo" width="150px"/>
+    </a>
+</p>
+
+<p align="center">
+
+  <a target="_blank" rel="noopener" href="https://github.com/dunwu/java-tutorial">
+      <img alt="star" class="no-zoom" src="https://img.shields.io/github/stars/dunwu/java-tutorial?style=for-the-badge">
+  </a>
+
+  <a target="_blank" rel="noopener" href="https://github.com/dunwu/java-tutorial">
+      <img alt="fork" class="no-zoom" src="https://img.shields.io/github/forks/dunwu/java-tutorial?style=for-the-badge">
+  </a>
+
+  <a target="_blank" rel="noopener" href="https://github.com/dunwu/java-tutorial/commits/master">
+      <img alt="commit" class="no-zoom" src="https://img.shields.io/github/workflow/status/dunwu/java-tutorial/CI?style=for-the-badge">
+  </a>
+
+  <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">
+      <img alt="code style" class="no-zoom" src="https://img.shields.io/github/license/dunwu/java-tutorial?style=for-the-badge">
+  </a>
+
+</p>
+
+<h1 align="center">JavaTutorial</h1>
+
+<blockquote>
+<p>☕ <strong>java-tutorial</strong> 是一个 Java 教程，汇集一个老司机在 Java 领域的十年积累。</p>
+<ul>
+<li>🔁 项目同步维护：<a target="_blank" rel="noopener" href="https://github.com/dunwu/java-tutorial/">Github</a> | <a target="_blank" rel="noopener" href="https://gitee.com/turnon/java-tutorial/">Gitee</a></li>
+<li>📖 电子书阅读：<a target="_blank" rel="noopener" href="https://dunwu.github.io/java-tutorial/">Github Pages</a> | <a target="_blank" rel="noopener" href="https://turnon.gitee.io/java-tutorial/">Gitee Pages</a></li>
+</ul>
+<p>说明：</p>
+<ul>
+<li>下面的内容清单中，凡是有 📚 标记的技术，都已整理成详细的教程。</li>
+<li>部分技术因为可以应用于不同领域，所以可能会同时出现在不同的类别下。</li>
+</ul>
+</blockquote>
+<h2 id="📖-内容"><a href="#📖-内容" class="headerlink" title="📖 内容"></a>📖 内容</h2><h3 id="JavaSE"><a href="#JavaSE" class="headerlink" title="JavaSE"></a>JavaSE</h3><h4 id="Java-基础特性"><a href="#Java-基础特性" class="headerlink" title="Java 基础特性"></a><a href="01.JavaSE/01.%E5%9F%BA%E7%A1%80%E7%89%B9%E6%80%A7">Java 基础特性</a></h4><ul>
+<li><a href="01.JavaSE/01.%E5%9F%BA%E7%A1%80%E7%89%B9%E6%80%A7/00.Java%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.md">Java 开发环境</a></li>
+<li><a href="01.JavaSE/01.%E5%9F%BA%E7%A1%80%E7%89%B9%E6%80%A7/01.Java%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95.md">Java 基础语法特性</a></li>
+<li><a href="01.JavaSE/01.%E5%9F%BA%E7%A1%80%E7%89%B9%E6%80%A7/02.Java%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.md">Java 基本数据类型</a></li>
+<li><a href="01.JavaSE/01.%E5%9F%BA%E7%A1%80%E7%89%B9%E6%80%A7/03.Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md">Java 面向对象</a></li>
+<li><a href="01.JavaSE/01.%E5%9F%BA%E7%A1%80%E7%89%B9%E6%80%A7/04.Java%E6%96%B9%E6%B3%95.md">Java 方法</a></li>
+<li><a href="01.JavaSE/01.%E5%9F%BA%E7%A1%80%E7%89%B9%E6%80%A7/05.Java%E6%95%B0%E7%BB%84.md">Java 数组</a></li>
+<li><a href="01.JavaSE/01.%E5%9F%BA%E7%A1%80%E7%89%B9%E6%80%A7/06.Java%E6%9E%9A%E4%B8%BE.md">Java 枚举</a></li>
+<li><a href="01.JavaSE/01.%E5%9F%BA%E7%A1%80%E7%89%B9%E6%80%A7/07.Java%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5.md">Java 控制语句</a></li>
+<li><a href="01.JavaSE/01.%E5%9F%BA%E7%A1%80%E7%89%B9%E6%80%A7/08.Java%E5%BC%82%E5%B8%B8.md">Java 异常</a></li>
+<li><a href="01.JavaSE/01.%E5%9F%BA%E7%A1%80%E7%89%B9%E6%80%A7/09.Java%E6%B3%9B%E5%9E%8B.md">Java 泛型</a></li>
+<li><a href="01.JavaSE/01.%E5%9F%BA%E7%A1%80%E7%89%B9%E6%80%A7/10.Java%E5%8F%8D%E5%B0%84.md">Java 反射</a></li>
+<li><a href="01.JavaSE/01.%E5%9F%BA%E7%A1%80%E7%89%B9%E6%80%A7/11.Java%E6%B3%A8%E8%A7%A3.md">Java 注解</a></li>
+<li><a href="01.JavaSE/01.%E5%9F%BA%E7%A1%80%E7%89%B9%E6%80%A7/42.JavaString%E7%B1%BB%E5%9E%8B.md">Java String 类型</a></li>
+</ul>
+<h4 id="Java-高级特性"><a href="#Java-高级特性" class="headerlink" title="Java 高级特性"></a><a href="01.JavaSE/02.%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7">Java 高级特性</a></h4><ul>
+<li><a href="01.JavaSE/02.%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/01.Java%E6%AD%A3%E5%88%99.md">Java 正则从入门到精通</a> - 关键词：<code>Pattern</code>、<code>Matcher</code>、<code>捕获与非捕获</code>、<code>反向引用</code>、<code>零宽断言</code>、<code>贪婪与懒惰</code>、<code>元字符</code>、<code>DFA</code>、<code>NFA</code></li>
+<li><a href="01.JavaSE/02.%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/02.Java%E7%BC%96%E7%A0%81%E5%92%8C%E5%8A%A0%E5%AF%86.md">Java 编码和加密</a> - 关键词：<code>Base64</code>、<code>消息摘要</code>、<code>数字签名</code>、<code>对称加密</code>、<code>非对称加密</code>、<code>MD5</code>、<code>SHA</code>、<code>HMAC</code>、<code>AES</code>、<code>DES</code>、<code>DESede</code>、<code>RSA</code></li>
+<li><a href="01.JavaSE/02.%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/03.Java%E5%9B%BD%E9%99%85%E5%8C%96.md">Java 国际化</a> - 关键词：<code>Locale</code>、<code>ResourceBundle</code>、<code>NumberFormat</code>、<code>DateFormat</code>、<code>MessageFormat</code></li>
+<li><a href="01.JavaSE/02.%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/04.JDK8.md">Java JDK8</a> - 关键词：<code>Stream</code>、<code>lambda</code>、<code>Optional</code>、<code>@FunctionalInterface</code></li>
+<li><a href="01.JavaSE/02.%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/05.JavaSPI.md">Java SPI</a> - 关键词：<code>SPI</code>、<code>ClassLoader</code></li>
+</ul>
+<h4 id="Java-容器"><a href="#Java-容器" class="headerlink" title="Java 容器"></a><a href="01.JavaSE/03.%E5%AE%B9%E5%99%A8">Java 容器</a></h4><p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20200221175550.png" alt="img"></p>
+<ul>
+<li><a href="01.JavaSE/03.%E5%AE%B9%E5%99%A8/01.Java%E5%AE%B9%E5%99%A8%E7%AE%80%E4%BB%8B.md">Java 容器简介</a> - 关键词：<code>Collection</code>、<code>泛型</code>、<code>Iterable</code>、<code>Iterator</code>、<code>Comparable</code>、<code>Comparator</code>、<code>Cloneable</code>、<code>fail-fast</code></li>
+<li><a href="01.JavaSE/03.%E5%AE%B9%E5%99%A8/02.Java%E5%AE%B9%E5%99%A8%E4%B9%8BList.md">Java 容器之 List</a> - 关键词：<code>List</code>、<code>ArrayList</code>、<code>LinkedList</code></li>
+<li><a href="01.JavaSE/03.%E5%AE%B9%E5%99%A8/03.Java%E5%AE%B9%E5%99%A8%E4%B9%8BMap.md">Java 容器之 Map</a> - 关键词：<code>Map</code>、<code>HashMap</code>、<code>TreeMap</code>、<code>LinkedHashMap</code>、<code>WeakHashMap</code></li>
+<li><a href="01.JavaSE/03.%E5%AE%B9%E5%99%A8/04.Java%E5%AE%B9%E5%99%A8%E4%B9%8BSet.md">Java 容器之 Set</a> - 关键词：<code>Set</code>、<code>HashSet</code>、<code>TreeSet</code>、<code>LinkedHashSet</code>、<code>EmumSet</code></li>
+<li><a href="01.JavaSE/03.%E5%AE%B9%E5%99%A8/05.Java%E5%AE%B9%E5%99%A8%E4%B9%8BQueue.md">Java 容器之 Queue</a> - 关键词：<code>Queue</code>、<code>Deque</code>、<code>ArrayDeque</code>、<code>LinkedList</code>、<code>PriorityQueue</code></li>
+<li><a href="01.JavaSE/03.%E5%AE%B9%E5%99%A8/06.Java%E5%AE%B9%E5%99%A8%E4%B9%8BStream.md">Java 容器之 Stream</a></li>
+</ul>
+<h4 id="Java-IO"><a href="#Java-IO" class="headerlink" title="Java IO"></a><a href="01.JavaSE/04.IO">Java IO</a></h4><p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20200630205329.png" alt="img"></p>
+<ul>
+<li><a href="01.JavaSE/04.IO/01.JavaIO%E6%A8%A1%E5%9E%8B.md">Java IO 模型</a> - 关键词：<code>InputStream</code>、<code>OutputStream</code>、<code>Reader</code>、<code>Writer</code>、<code>阻塞</code></li>
+<li><a href="01.JavaSE/04.IO/02.JavaNIO.md">Java NIO</a> - 关键词：<code>Channel</code>、<code>Buffer</code>、<code>Selector</code>、<code>非阻塞</code>、<code>多路复用</code></li>
+<li><a href="01.JavaSE/04.IO/03.Java%E5%BA%8F%E5%88%97%E5%8C%96.md">Java 序列化</a> - 关键词：<code>Serializable</code>、<code>serialVersionUID</code>、<code>transient</code>、<code>Externalizable</code>、<code>writeObject</code>、<code>readObject</code></li>
+<li><a href="01.JavaSE/04.IO/04.Java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B.md">Java 网络编程</a> - 关键词：<code>Socket</code>、<code>ServerSocket</code>、<code>DatagramPacket</code>、<code>DatagramSocket</code></li>
+<li><a href="01.JavaSE/04.IO/05.JavaIO%E5%B7%A5%E5%85%B7%E7%B1%BB.md">Java IO 工具类</a> - 关键词：<code>File</code>、<code>RandomAccessFile</code>、<code>System</code>、<code>Scanner</code></li>
+</ul>
+<h4 id="Java-并发"><a href="#Java-并发" class="headerlink" title="Java 并发"></a><a href="01.JavaSE/05.%E5%B9%B6%E5%8F%91">Java 并发</a></h4><p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20200221175827.png" alt="img"></p>
+<ul>
+<li><a href="01.JavaSE/05.%E5%B9%B6%E5%8F%91/01.Java%E5%B9%B6%E5%8F%91%E7%AE%80%E4%BB%8B.md">Java 并发简介</a> - 关键词：<code>进程</code>、<code>线程</code>、<code>安全性</code>、<code>活跃性</code>、<code>性能</code>、<code>死锁</code>、<code>饥饿</code>、<code>上下文切换</code></li>
+<li><a href="01.JavaSE/05.%E5%B9%B6%E5%8F%91/02.Java%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80.md">Java 线程基础</a> - 关键词：<code>Thread</code>、<code>Runnable</code>、<code>Callable</code>、<code>Future</code>、<code>wait</code>、<code>notify</code>、<code>notifyAll</code>、<code>join</code>、<code>sleep</code>、<code>yeild</code>、<code>线程状态</code>、<code>线程通信</code></li>
+<li><a href="01.JavaSE/05.%E5%B9%B6%E5%8F%91/03.Java%E5%B9%B6%E5%8F%91%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6.md">Java 并发核心机制</a> - 关键词：<code>synchronized</code>、<code>volatile</code>、<code>CAS</code>、<code>ThreadLocal</code></li>
+<li><a href="01.JavaSE/05.%E5%B9%B6%E5%8F%91/04.Java%E9%94%81.md">Java 并发锁</a> - 关键词：<code>AQS</code>、<code>ReentrantLock</code>、<code>ReentrantReadWriteLock</code>、<code>Condition</code></li>
+<li><a href="01.JavaSE/05.%E5%B9%B6%E5%8F%91/05.Java%E5%8E%9F%E5%AD%90%E7%B1%BB.md">Java 原子类</a> - 关键词：<code>CAS</code>、<code>Atomic</code></li>
+<li><a href="01.JavaSE/05.%E5%B9%B6%E5%8F%91/06.Java%E5%B9%B6%E5%8F%91%E5%92%8C%E5%AE%B9%E5%99%A8.md">Java 并发容器</a> - 关键词：<code>ConcurrentHashMap</code>、<code>CopyOnWriteArrayList</code></li>
+<li><a href="01.JavaSE/05.%E5%B9%B6%E5%8F%91/07.Java%E7%BA%BF%E7%A8%8B%E6%B1%A0.md">Java 线程池</a> - 关键词：<code>Executor</code>、<code>ExecutorService</code>、<code>ThreadPoolExecutor</code>、<code>Executors</code></li>
+<li><a href="01.JavaSE/05.%E5%B9%B6%E5%8F%91/08.Java%E5%B9%B6%E5%8F%91%E5%B7%A5%E5%85%B7%E7%B1%BB.md">Java 并发工具类</a> - 关键词：<code>CountDownLatch</code>、<code>CyclicBarrier</code>、<code>Semaphore</code></li>
+<li><a href="01.JavaSE/05.%E5%B9%B6%E5%8F%91/09.Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.md">Java 内存模型</a> - 关键词：<code>JMM</code>、<code>volatile</code>、<code>synchronized</code>、<code>final</code>、<code>Happens-Before</code>、<code>内存屏障</code></li>
+<li><a href="01.JavaSE/05.%E5%B9%B6%E5%8F%91/10.ForkJoin%E6%A1%86%E6%9E%B6.md">ForkJoin 框架</a></li>
+</ul>
+<h4 id="Java-虚拟机"><a href="#Java-虚拟机" class="headerlink" title="Java 虚拟机"></a><a href="01.JavaSE/06.JVM">Java 虚拟机</a></h4><p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20200628154803.png" alt="img"></p>
+<ul>
+<li><a href="01.JavaSE/06.JVM/01.JVM%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.md">JVM 体系结构</a></li>
+<li><a href="01.JavaSE/06.JVM/02.JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F.md">JVM 内存区域</a> - 关键词：<code>程序计数器</code>、<code>虚拟机栈</code>、<code>本地方法栈</code>、<code>堆</code>、<code>方法区</code>、<code>运行时常量池</code>、<code>直接内存</code>、<code>OutOfMemoryError</code>、<code>StackOverflowError</code></li>
+<li><a href="01.JavaSE/06.JVM/03.JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86.md">JVM 垃圾收集</a> - 关键词：<code>GC Roots</code>、<code>Serial</code>、<code>Parallel</code>、<code>CMS</code>、<code>G1</code>、<code>Minor GC</code>、<code>Full GC</code></li>
+<li><a href="01.JavaSE/06.JVM/04.JVM%E5%AD%97%E8%8A%82%E7%A0%81.md">JVM 字节码</a> - 关键词：<code>bytecode</code>、<code>asm</code>、<code>javassist</code></li>
+<li><a href="01.JavaSE/06.JVM/05.JVM%E7%B1%BB%E5%8A%A0%E8%BD%BD.md">JVM 类加载</a> - 关键词：<code>ClassLoader</code>、<code>双亲委派</code></li>
+<li><a href="01.JavaSE/06.JVM/11.JVM%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7.md">JVM 命令行工具</a> - 关键词：<code>jps</code>、<code>jstat</code>、<code>jmap</code> 、<code>jstack</code>、<code>jhat</code>、<code>jinfo</code></li>
+<li><a href="01.JavaSE/06.JVM/12.JVM_GUI%E5%B7%A5%E5%85%B7.md">JVM GUI 工具</a> - 关键词：<code>jconsole</code>、<code>jvisualvm</code>、<code>MAT</code>、<code>JProfile</code>、<code>Arthas</code></li>
+<li><a href="01.JavaSE/06.JVM/21.JVM%E5%AE%9E%E6%88%98.md">JVM 实战</a> - 关键词：<code>配置</code>、<code>调优</code></li>
+<li><a href="01.JavaSE/06.JVM/22.Java%E6%95%85%E9%9A%9C%E8%AF%8A%E6%96%AD.md">Java 故障诊断</a> - 关键词：<code>CPU</code>、<code>内存</code>、<code>磁盘</code>、<code>网络</code>、<code>GC</code></li>
+</ul>
+<h3 id="JavaEE"><a href="#JavaEE" class="headerlink" title="JavaEE"></a>JavaEE</h3><h4 id="JavaWeb"><a href="#JavaWeb" class="headerlink" title="JavaWeb"></a>JavaWeb</h4><ul>
+<li><a href="02.JavaEE/01.JavaWeb/99.JavaWeb%E9%9D%A2%E7%BB%8F.md">JavaWeb 面经</a></li>
+<li><a href="02.JavaEE/01.JavaWeb/01.JavaWeb%E4%B9%8BServlet%E6%8C%87%E5%8D%97.md">JavaWeb 之 Servlet 指南</a></li>
+<li><a href="02.JavaEE/01.JavaWeb/02.JavaWeb%E4%B9%8BJsp%E6%8C%87%E5%8D%97.md">JavaWeb 之 Jsp 指南</a></li>
+<li><a href="02.JavaEE/01.JavaWeb/03.JavaWeb%E4%B9%8BFilter%E5%92%8CListener.md">JavaWeb 之 Filter 和 Listener</a></li>
+<li><a href="02.JavaEE/01.JavaWeb/04.JavaWeb%E4%B9%8BCookie%E5%92%8CSession.md">JavaWeb 之 Cookie 和 Session</a></li>
+</ul>
+<h4 id="Java-服务器"><a href="#Java-服务器" class="headerlink" title="Java 服务器"></a>Java 服务器</h4><blockquote>
+<p>Tomcat 和 Jetty 都是 Java 比较流行的轻量级服务器。</p>
+<p>Nginx 是目前最流行的反向代理服务器，也常用于负载均衡。</p>
+</blockquote>
+<ul>
+<li><a href="02.JavaEE/02.%E6%9C%8D%E5%8A%A1%E5%99%A8/01.Tomcat/01.Tomcat%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.md">Tomcat 快速入门</a></li>
+<li><a href="02.JavaEE/02.%E6%9C%8D%E5%8A%A1%E5%99%A8/01.Tomcat/02.Tomcat%E8%BF%9E%E6%8E%A5%E5%99%A8.md">Tomcat 连接器</a></li>
+<li><a href="02.JavaEE/02.%E6%9C%8D%E5%8A%A1%E5%99%A8/01.Tomcat/03.Tomcat%E5%AE%B9%E5%99%A8.md">Tomcat 容器</a></li>
+<li><a href="02.JavaEE/02.%E6%9C%8D%E5%8A%A1%E5%99%A8/01.Tomcat/04.Tomcat%E4%BC%98%E5%8C%96.md">Tomcat 优化</a></li>
+<li><a href="02.JavaEE/02.%E6%9C%8D%E5%8A%A1%E5%99%A8/01.Tomcat/05.Tomcat%E5%92%8CJetty.md">Tomcat 和 Jetty</a></li>
+<li><a href="02.JavaEE/02.%E6%9C%8D%E5%8A%A1%E5%99%A8/02.Jetty.md">Jetty</a></li>
+</ul>
+<h3 id="Java-软件"><a href="#Java-软件" class="headerlink" title="Java 软件"></a>Java 软件</h3><h4 id="Java-构建"><a href="#Java-构建" class="headerlink" title="Java 构建"></a>Java 构建</h4><blockquote>
+<p>Java 项目需要通过 <a href="11.%E8%BD%AF%E4%BB%B6/01.%E6%9E%84%E5%BB%BA"><strong>构建工具</strong></a> 来管理项目依赖，完成编译、打包、发布、生成 JavaDoc 等任务。</p>
+<ul>
+<li>目前最主流的构建工具是 Maven，它的功能非常强大。</li>
+<li>Gradle 号称是要替代 Maven 等构件工具，它的版本管理确实简洁，但是需要学习 Groovy，学习成本比 Maven 高。</li>
+<li>Ant 功能比 Maven 和 Gradle 要弱，现代 Java 项目基本不用了，但也有一些传统的 Java 项目还在使用。</li>
+</ul>
+</blockquote>
+<ul>
+<li><a href="11.%E8%BD%AF%E4%BB%B6/01.%E6%9E%84%E5%BB%BA/01.Maven">Maven</a> 📚<ul>
+<li><a href="11.%E8%BD%AF%E4%BB%B6/01.%E6%9E%84%E5%BB%BA/01.Maven/01.Maven%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.md">Maven 快速入门</a></li>
+<li><a href="11.%E8%BD%AF%E4%BB%B6/01.%E6%9E%84%E5%BB%BA/01.Maven/02.Maven%E6%95%99%E7%A8%8B%E4%B9%8Bpom.xml%E8%AF%A6%E8%A7%A3.md">Maven 教程之 pom.xml 详解</a></li>
+<li><a href="11.%E8%BD%AF%E4%BB%B6/01.%E6%9E%84%E5%BB%BA/01.Maven/03.Maven%E6%95%99%E7%A8%8B%E4%B9%8Bsettings.xml%E8%AF%A6%E8%A7%A3.md">Maven 教程之 settings.xml 详解</a></li>
+<li><a href="11.%E8%BD%AF%E4%BB%B6/01.%E6%9E%84%E5%BB%BA/01.Maven/04.Maven%E5%AE%9E%E6%88%98%E9%97%AE%E9%A2%98%E5%92%8C%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.md">Maven 实战问题和最佳实践</a></li>
+<li><a href="11.%E8%BD%AF%E4%BB%B6/01.%E6%9E%84%E5%BB%BA/01.Maven/05.Maven%E6%95%99%E7%A8%8B%E4%B9%8B%E5%8F%91%E5%B8%83jar%E5%88%B0%E7%A7%81%E6%9C%8D%E6%88%96%E4%B8%AD%E5%A4%AE%E4%BB%93%E5%BA%93.md">Maven 教程之发布 jar 到私服或中央仓库</a></li>
+<li><a href="11.%E8%BD%AF%E4%BB%B6/01.%E6%9E%84%E5%BB%BA/01.Maven/06.Maven%E6%8F%92%E4%BB%B6%E4%B9%8B%E4%BB%A3%E7%A0%81%E6%A3%80%E6%9F%A5.md">Maven 插件之代码检查</a></li>
+</ul>
+</li>
+<li><a href="11.%E8%BD%AF%E4%BB%B6/01.%E6%9E%84%E5%BB%BA/02.Ant.md">Ant 简易教程</a></li>
+</ul>
+<h4 id="Java-IDE"><a href="#Java-IDE" class="headerlink" title="Java IDE"></a>Java IDE</h4><blockquote>
+<p>自从有了 <a href="11.%E8%BD%AF%E4%BB%B6/02.IDE"><strong>IDE</strong></a>，写代码从此就告别了刀耕火种的蛮荒时代。</p>
+<ul>
+<li><a href="11.%E8%BD%AF%E4%BB%B6/02.IDE/02.Eclipse.md">Eclipse</a> 是久负盛名的开源 Java IDE，我的学生时代一直使用它写 Java。</li>
+<li>曾经抗拒从转 <a href="11.%E8%BD%AF%E4%BB%B6/02.IDE/01.Intellij.md">Intellij Idea</a> ，但后来发现真香，不得不说，确实是目前最优秀的 Java IDE。</li>
+<li>你可以在 <a href="11.%E8%BD%AF%E4%BB%B6/02.IDE/03.VsCode.md">vscode</a> 中写各种语言，只要安装相应插件即可。如果你的项目中使用了很多种编程语言，又懒得在多个 IDE 之间切换，那么就用 vscode 来一网打尽吧。</li>
+</ul>
+</blockquote>
+<ul>
+<li><a href="11.%E8%BD%AF%E4%BB%B6/02.IDE/01.Intellij.md">Intellij Idea</a></li>
+<li><a href="11.%E8%BD%AF%E4%BB%B6/02.IDE/02.Eclipse.md">Eclipse</a></li>
+<li><a href="11.%E8%BD%AF%E4%BB%B6/02.IDE/03.VsCode.md">vscode</a></li>
+</ul>
+<h4 id="Java-监控诊断"><a href="#Java-监控诊断" class="headerlink" title="Java 监控诊断"></a>Java 监控诊断</h4><blockquote>
+<p><a href="11.%E8%BD%AF%E4%BB%B6/03.%E7%9B%91%E6%8E%A7%E8%AF%8A%E6%96%AD">监控&#x2F;诊断</a> 工具主要用于 Java 应用的运维。通过采集、分析、存储、可视化应用的有效数据，帮助开发者、使用者快速定位问题，找到性能瓶颈。</p>
+</blockquote>
+<ul>
+<li><a href="11.%E8%BD%AF%E4%BB%B6/03.%E7%9B%91%E6%8E%A7%E8%AF%8A%E6%96%AD/01.%E7%9B%91%E6%8E%A7%E5%B7%A5%E5%85%B7%E5%AF%B9%E6%AF%94.md">监控工具对比</a></li>
+<li><a href="11.%E8%BD%AF%E4%BB%B6/03.%E7%9B%91%E6%8E%A7%E8%AF%8A%E6%96%AD/02.CAT.md">CAT</a></li>
+<li><a href="11.%E8%BD%AF%E4%BB%B6/03.%E7%9B%91%E6%8E%A7%E8%AF%8A%E6%96%AD/03.Zipkin.md">Zipkin</a></li>
+<li><a href="11.%E8%BD%AF%E4%BB%B6/03.%E7%9B%91%E6%8E%A7%E8%AF%8A%E6%96%AD/04.Skywalking.md">SkyWalking</a></li>
+<li><a href="11.%E8%BD%AF%E4%BB%B6/03.%E7%9B%91%E6%8E%A7%E8%AF%8A%E6%96%AD/05.Arthas.md">Arthas</a></li>
+</ul>
+<h3 id="Java-工具"><a href="#Java-工具" class="headerlink" title="Java 工具"></a>Java 工具</h3><h4 id="Java-IO-1"><a href="#Java-IO-1" class="headerlink" title="Java IO"></a>Java IO</h4><ul>
+<li><a href="12.%E5%B7%A5%E5%85%B7/01.IO/01.JSON%E5%BA%8F%E5%88%97%E5%8C%96.md">JSON 序列化</a> - <a target="_blank" rel="noopener" href="https://github.com/alibaba/fastjson">fastjson</a>、<a target="_blank" rel="noopener" href="https://github.com/FasterXML/jackson">Jackson</a>、<a target="_blank" rel="noopener" href="https://github.com/google/gson">Gson</a></li>
+<li><a href="12.%E5%B7%A5%E5%85%B7/01.IO/02.%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%BA%8F%E5%88%97%E5%8C%96.md">二进制序列化</a> - <a target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers">Protobuf</a>、<a target="_blank" rel="noopener" href="https://thrift.apache.org/">Thrift</a>、<a target="_blank" rel="noopener" href="http://hessian.caucho.com/">Hessian</a>、<a target="_blank" rel="noopener" href="https://github.com/EsotericSoftware/kryo">Kryo</a>、<a target="_blank" rel="noopener" href="https://github.com/RuedigerMoeller/fast-serialization">FST</a></li>
+</ul>
+<h4 id="JavaBean-工具"><a href="#JavaBean-工具" class="headerlink" title="JavaBean 工具"></a>JavaBean 工具</h4><ul>
+<li><a href="12.%E5%B7%A5%E5%85%B7/02.JavaBean/01.Lombok.md">Lombok</a></li>
+<li><a href="12.%E5%B7%A5%E5%85%B7/02.JavaBean/02.Dozer.md">Dozer</a></li>
+</ul>
+<h4 id="Java-模板引擎"><a href="#Java-模板引擎" class="headerlink" title="Java 模板引擎"></a>Java 模板引擎</h4><ul>
+<li><a href="12.%E5%B7%A5%E5%85%B7/03.%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/01.Freemark.md">Freemark</a></li>
+<li><a href="12.%E5%B7%A5%E5%85%B7/03.%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/02.Thymeleaf.md">Velocity</a></li>
+<li><a href="12.%E5%B7%A5%E5%85%B7/03.%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/03.Velocity.md">Thymeleaf</a></li>
+</ul>
+<h4 id="Java-测试工具"><a href="#Java-测试工具" class="headerlink" title="Java 测试工具"></a>Java 测试工具</h4><ul>
+<li><a href="12.%E5%B7%A5%E5%85%B7/04.%E6%B5%8B%E8%AF%95/01.Junit.md">Junit</a></li>
+<li><a href="12.%E5%B7%A5%E5%85%B7/04.%E6%B5%8B%E8%AF%95/02.Mockito.md">Mockito</a></li>
+<li><a href="12.%E5%B7%A5%E5%85%B7/04.%E6%B5%8B%E8%AF%95/03.Jmeter.md">Jmeter</a></li>
+<li><a href="12.%E5%B7%A5%E5%85%B7/04.%E6%B5%8B%E8%AF%95/04.JMH.md">JMH</a></li>
+</ul>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><ul>
+<li><a href="12.%E5%B7%A5%E5%85%B7/99.%E5%85%B6%E4%BB%96/01.Java%E6%97%A5%E5%BF%97.md">Java 日志</a></li>
+<li><a href="12.%E5%B7%A5%E5%85%B7/99.%E5%85%B6%E4%BB%96/02.Java%E5%B7%A5%E5%85%B7%E5%8C%85.md">Java 工具包</a></li>
+<li><a href="12.%E5%B7%A5%E5%85%B7/99.%E5%85%B6%E4%BB%96/03.Reflections.md">Reflections</a></li>
+<li><a href="12.%E5%B7%A5%E5%85%B7/99.%E5%85%B6%E4%BB%96/04.JavaMail.md">JavaMail</a></li>
+<li><a href="12.%E5%B7%A5%E5%85%B7/99.%E5%85%B6%E4%BB%96/05.Jsoup.md">Jsoup</a></li>
+<li><a href="12.%E5%B7%A5%E5%85%B7/99.%E5%85%B6%E4%BB%96/06.Thumbnailator.md">Thumbnailator</a></li>
+<li><a href="12.%E5%B7%A5%E5%85%B7/99.%E5%85%B6%E4%BB%96/07.Zxing.md">Zxing</a></li>
+</ul>
+<h3 id="Java-框架"><a href="#Java-框架" class="headerlink" title="Java 框架"></a>Java 框架</h3><h4 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h4><h5 id="综合"><a href="#综合" class="headerlink" title="综合"></a>综合</h5><ul>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/00.Spring%E7%BB%BC%E5%90%88/01.Spring%E6%A6%82%E8%BF%B0.md">Spring 概述</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/00.Spring%E7%BB%BC%E5%90%88/21.SpringBoot%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1.md">SpringBoot 知识图谱</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/00.Spring%E7%BB%BC%E5%90%88/22.SpringBoot%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86.md">SpringBoot 基本原理</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/00.Spring%E7%BB%BC%E5%90%88/99.Spring%E9%9D%A2%E8%AF%95.md">Spring 面试</a></li>
+</ul>
+<h5 id="核心"><a href="#核心" class="headerlink" title="核心"></a>核心</h5><ul>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/01.Spring%E6%A0%B8%E5%BF%83/01.SpringBean.md">Spring Bean</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/01.Spring%E6%A0%B8%E5%BF%83/02.SpringIoC.md">Spring IoC</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/01.Spring%E6%A0%B8%E5%BF%83/03.Spring%E4%BE%9D%E8%B5%96%E6%9F%A5%E6%89%BE.md">Spring 依赖查找</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/01.Spring%E6%A0%B8%E5%BF%83/04.Spring%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5.md">Spring 依赖注入</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/01.Spring%E6%A0%B8%E5%BF%83/10.SpringAop.md">Spring AOP</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/01.Spring%E6%A0%B8%E5%BF%83/11.Spring%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86.md">Spring 资源管理</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/01.Spring%E6%A0%B8%E5%BF%83/21.SpringBoot%E4%B9%8B%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.md">SpringBoot 教程之快速入门</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/01.Spring%E6%A0%B8%E5%BF%83/22.SpringBoot%E4%B9%8B%E5%B1%9E%E6%80%A7%E5%8A%A0%E8%BD%BD.md">SpringBoot 之属性加载</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/01.Spring%E6%A0%B8%E5%BF%83/23.SpringBoot%E4%B9%8BProfile.md">SpringBoot 之 Profile</a></li>
+</ul>
+<h5 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h5><ul>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/02.Spring%E6%95%B0%E6%8D%AE/01.Spring%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E6%BA%90.md">Spring 连接数据源</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/02.Spring%E6%95%B0%E6%8D%AE/02.Spring%E4%B9%8BJDBC.md">Spring 之 JDBC</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/02.Spring%E6%95%B0%E6%8D%AE/03.Spring%E4%B9%8B%E4%BA%8B%E5%8A%A1.md">Spring 之事务</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/02.Spring%E6%95%B0%E6%8D%AE/22.SpringBoot%E4%B9%8BMybatis.md">SpringBoot 之 Mybatis</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/02.Spring%E6%95%B0%E6%8D%AE/23.SpringBoot%E4%B9%8BMongoDB.md">SpringBoot 之 MongoDB</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/02.Spring%E6%95%B0%E6%8D%AE/24.SpringBoot%E4%B9%8BElasticsearch.md">SpringBoot 之 Elasticsearch</a></li>
+</ul>
+<h5 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h5><ul>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/03.SpringWeb/01.SpringWebMvc.md">Spring WebMvc</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/03.SpringWeb/21.SpringBoot%E4%B9%8B%E5%BA%94%E7%94%A8EasyUI.md">SpringBoot 之应用 EasyUI</a></li>
+</ul>
+<h5 id="IO"><a href="#IO" class="headerlink" title="IO"></a>IO</h5><ul>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/04.SpringIO/01.SpringBoot%E4%B9%8B%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82.md">SpringBoot 之异步请求</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/04.SpringIO/02.SpringBoot%E4%B9%8BJson.md">SpringBoot 之 Json</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/04.SpringIO/03.SpringBoot%E4%B9%8B%E9%82%AE%E4%BB%B6.md">SpringBoot 之邮件</a></li>
+</ul>
+<h5 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h5><ul>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/05.Spring%E9%9B%86%E6%88%90/01.Spring%E9%9B%86%E6%88%90%E7%BC%93%E5%AD%98.md">Spring 集成缓存中间件</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/05.Spring%E9%9B%86%E6%88%90/02.Spring%E9%9B%86%E6%88%90%E8%B0%83%E5%BA%A6%E5%99%A8.md">Spring 集成定时任务中间件</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/05.Spring%E9%9B%86%E6%88%90/03.Spring%E9%9B%86%E6%88%90Dubbo.md">Spring 集成 Dubbo</a></li>
+</ul>
+<h5 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a>其他</h5><ul>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/99.Spring%E5%85%B6%E4%BB%96/01.Spring4%E5%8D%87%E7%BA%A7.md">Spring4 升级</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/99.Spring%E5%85%B6%E4%BB%96/21.SpringBoot%E4%B9%8Bbanner.md">SpringBoot 之 banner</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/01.Spring/99.Spring%E5%85%B6%E4%BB%96/22.SpringBoot%E4%B9%8BActuator.md">SpringBoot 之 Actuator</a></li>
+</ul>
+<h4 id="ORM"><a href="#ORM" class="headerlink" title="ORM"></a>ORM</h4><ul>
+<li><a href="13.%E6%A1%86%E6%9E%B6/11.ORM/01.Mybatis%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.md">Mybatis 快速入门</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/11.ORM/02.Mybatis%E5%8E%9F%E7%90%86.md">Mybatis 原理</a></li>
+</ul>
+<h4 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h4><blockquote>
+<p>Java 领域比较流行的安全框架就是 shiro 和 spring-security。</p>
+<p>shiro 更为简单、轻便，容易理解，能满足大多数基本安全场景下的需要。</p>
+<p>spring-security 功能更丰富，也比 shiro 更复杂。值得一提的是由于 spring-security 是 spring 团队开发，所以集成 spring 和 spring-boot 框架更容易。</p>
+</blockquote>
+<ul>
+<li><a href="13.%E6%A1%86%E6%9E%B6/12.%E5%AE%89%E5%85%A8/01.Shiro.md">Shiro</a></li>
+<li><a href="13.%E6%A1%86%E6%9E%B6/12.%E5%AE%89%E5%85%A8/02.SpringSecurity.md">SpringSecurity</a></li>
+</ul>
+<h4 id="IO-1"><a href="#IO-1" class="headerlink" title="IO"></a>IO</h4><ul>
+<li><a href="13.%E6%A1%86%E6%9E%B6/13.IO/01.Netty.md">Shiro</a></li>
+</ul>
+<h3 id="Java-中间件"><a href="#Java-中间件" class="headerlink" title="Java 中间件"></a>Java 中间件</h3><h4 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h4><blockquote>
+<p>缓存可以说是优化系统性能的第一手段，在各种技术中都会有缓存的应用。</p>
+<p>如果想深入学习缓存，建议先了解一下 <a target="_blank" rel="noopener" href="https://dunwu.github.io/design/distributed/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98.html">缓存基本原理</a>，有助于理解缓存的特性、原理，使用缓存常见的问题及解决方案。</p>
+</blockquote>
+<ul>
+<li><a href="14.%E4%B8%AD%E9%97%B4%E4%BB%B6/02.%E7%BC%93%E5%AD%98/01.%E7%BC%93%E5%AD%98%E9%9D%A2%E8%AF%95%E9%A2%98.md">缓存面试题</a></li>
+<li><a href="14.%E4%B8%AD%E9%97%B4%E4%BB%B6/02.%E7%BC%93%E5%AD%98/02.Java%E7%BC%93%E5%AD%98%E4%B8%AD%E9%97%B4%E4%BB%B6.md">Java 缓存中间件</a></li>
+<li><a href="14.%E4%B8%AD%E9%97%B4%E4%BB%B6/02.%E7%BC%93%E5%AD%98/03.Memcached.md">Memcached 快速入门</a></li>
+<li><a href="14.%E4%B8%AD%E9%97%B4%E4%BB%B6/02.%E7%BC%93%E5%AD%98/04.Ehcache.md">Ehcache 快速入门</a></li>
+<li><a href="14.%E4%B8%AD%E9%97%B4%E4%BB%B6/02.%E7%BC%93%E5%AD%98/05.Java%E8%BF%9B%E7%A8%8B%E5%86%85%E7%BC%93%E5%AD%98.md">Java 进程内缓存</a></li>
+<li><a href="14.%E4%B8%AD%E9%97%B4%E4%BB%B6/02.%E7%BC%93%E5%AD%98/06.Http%E7%BC%93%E5%AD%98.md">Http 缓存</a></li>
+</ul>
+<h4 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h4><ul>
+<li><a href="14.%E4%B8%AD%E9%97%B4%E4%BB%B6/03.%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/01.Hystrix.md">Hystrix</a></li>
+</ul>
+<h3 id="大数据"><a href="#大数据" class="headerlink" title="大数据"></a><a target="_blank" rel="noopener" href="https://dunwu.github.io/bigdata-tutorial">大数据</a></h3><blockquote>
+<p>大数据技术点以归档在：<a target="_blank" rel="noopener" href="https://dunwu.github.io/bigdata-tutorial">bigdata-tutorial</a></p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://dunwu.github.io/bigdata-tutorial/hdfs">Hdfs</a> 📚</li>
+<li><a target="_blank" rel="noopener" href="https://dunwu.github.io/bigdata-tutorial/hbase">Hbase</a> 📚</li>
+<li><a target="_blank" rel="noopener" href="https://dunwu.github.io/bigdata-tutorial/hive">Hive</a> 📚</li>
+<li><a target="_blank" rel="noopener" href="https://dunwu.github.io/bigdata-tutorial/mapreduce">MapReduce</a></li>
+<li><a target="_blank" rel="noopener" href="https://dunwu.github.io/bigdata-tutorial/yarn">Yarn</a></li>
+<li><a target="_blank" rel="noopener" href="https://dunwu.github.io/bigdata-tutorial/zookeeper">ZooKeeper</a> 📚</li>
+<li><a target="_blank" rel="noopener" href="https://dunwu.github.io/bigdata-tutorial/kafka">Kafka</a> 📚</li>
+<li>Spark</li>
+<li>Storm</li>
+<li><a target="_blank" rel="noopener" href="https://dunwu.github.io/bigdata-tutorial/tree/master/docs/flink">Flink</a></li>
+</ul>
+<h2 id="📚-资料"><a href="#📚-资料" class="headerlink" title="📚 资料"></a>📚 资料</h2><ul>
+<li>Java 经典书籍<ul>
+<li><a target="_blank" rel="noopener" href="https://item.jd.com/12507084.html">《Effective Java 中文版》</a> - 本书介绍了在 Java 编程中 78 条极具实用价值的经验规则，这些经验规则涵盖了大多数开发人员每天所面临的问题的解决方案。同推荐《重构 : 改善既有代码的设计》、《代码整洁之道》、《代码大全》，有一定的内容重叠。</li>
+<li><a target="_blank" rel="noopener" href="https://item.jd.com/10922250.html">《Java 并发编程实战》</a> - 本书深入浅出地介绍了 Java 线程和并发，是一本完美的 Java 并发参考手册。</li>
+<li><a target="_blank" rel="noopener" href="https://item.jd.com/11252778.html">《深入理解 Java 虚拟机》</a> - 不去了解 JVM 的工程师，和咸鱼有什么区</li>
+<li><a target="_blank" rel="noopener" href="https://item.jd.com/10476794.html">《Maven 实战》</a> - 国内最权威的 Maven 专家的力作，唯一一本哦！</li>
+</ul>
+</li>
+<li>其他领域书籍<ul>
+<li><a target="_blank" rel="noopener" href="https://item.jd.com/11486101.html">《Redis 设计与实现》</a> - 系统而全面地描述了 Redis 内部运行机制。图示丰富，描述清晰，并给出大量参考信息，是 NoSQL 数据库开发人员案头必备。</li>
+<li><a target="_blank" rel="noopener" href="https://item.jd.com/12443890.html">《鸟哥的 Linux 私房菜 （基础学习篇）》</a> - 本书是最具知名度的 Linux 入门书《鸟哥的 Linux 私房菜基础学习篇》的最新版，全面而详细地介绍了 Linux 操作系统。内容非常全面，建议挑选和自己实际工作相关度较高的，其他部分有需要再阅读。</li>
+<li><a target="_blank" rel="noopener" href="https://item.jd.com/10100236.html">《Head First 设计模式》</a> - 《Head First 设计模式》(中文版)共有 14 章，每章都介绍了几个设计模式，完整地涵盖了四人组版本全部 23 个设计模式。</li>
+<li><a target="_blank" rel="noopener" href="https://item.jd.com/11056556.html">《HTTP 权威指南》</a> - 本书尝试着将 HTTP 中一些互相关联且常被误解的规则梳理清楚，并编写了一系列基于各种主题的章节，对 HTTP 各方面的特性进行了介绍。纵观全书，对 HTTP“为什么”这样做进行了详细的解释，而不仅仅停留在它是“怎么做”的。</li>
+<li><a target="_blank" rel="noopener" href="https://item.jd.com/11966296.html">《TCP&#x2F;IP 详解 系列》</a> - 完整而详细的 TCP&#x2F;IP 协议指南。针对任何希望理解 TCP&#x2F;IP 协议是如何实现的读者设计。</li>
+<li><a target="_blank" rel="noopener" href="https://item.jd.com/12163054.html">《剑指 Offer：名企面试官精讲典型编程题》</a> - 剖析了 80 个典型的编程面试题，系统整理基础知识、代码质量、解题思路、优化效率和综合能力这 5 个面试要点。</li>
+</ul>
+</li>
+</ul>
+<h2 id="🚪-传送"><a href="#🚪-传送" class="headerlink" title="🚪 传送"></a>🚪 传送</h2><p>◾ 💧 <a target="_blank" rel="noopener" href="https://dunwu.github.io/waterdrop/">钝悟的 IT 知识图谱</a> ◾ 🎯 <a target="_blank" rel="noopener" href="https://dunwu.github.io/blog/">钝悟的博客</a> ◾</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">JaHero</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/pages/0d2474/">http://example.com/pages/0d2474/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">贾英雄-blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/12/26/JVM/Java%E6%96%B9%E6%B3%95%E7%9A%84%E8%B0%83%E7%94%A8/" title="Java方法的调用"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="title">Java方法的调用</div></div></a></div><div><a href="/2022/12/26/JVM/java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/" title="java反射机制及其应用场景"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="title">java反射机制及其应用场景</div></div></a></div><div><a href="/2022/12/26/JVM/%E5%AD%97%E8%8A%82%E7%A0%81%E8%AF%A6%E8%A7%A3/" title="JVM字节码详解"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="title">JVM字节码详解</div></div></a></div><div><a href="/pages/69d2f8/" title="JavaSE"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-06</div><div class="title">JavaSE</div></div></a></div><div><a href="/pages/5f886e/" title="Java 面试总结"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-04</div><div class="title">Java 面试总结</div></div></a></div><div><a href="/pages/80a822/" title="JavaEE"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-18</div><div class="title">JavaEE</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/ava.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JaHero</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">JavaTutorial</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%96-%E5%86%85%E5%AE%B9"><span class="toc-number">1.1.</span> <span class="toc-text">📖 内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JavaSE"><span class="toc-number">1.1.1.</span> <span class="toc-text">JavaSE</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-%E5%9F%BA%E7%A1%80%E7%89%B9%E6%80%A7"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">Java 基础特性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">Java 高级特性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-%E5%AE%B9%E5%99%A8"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">Java 容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-IO"><span class="toc-number">1.1.1.4.</span> <span class="toc-text">Java IO</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-%E5%B9%B6%E5%8F%91"><span class="toc-number">1.1.1.5.</span> <span class="toc-text">Java 并发</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-number">1.1.1.6.</span> <span class="toc-text">Java 虚拟机</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JavaEE"><span class="toc-number">1.1.2.</span> <span class="toc-text">JavaEE</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JavaWeb"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">JavaWeb</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">Java 服务器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java-%E8%BD%AF%E4%BB%B6"><span class="toc-number">1.1.3.</span> <span class="toc-text">Java 软件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-%E6%9E%84%E5%BB%BA"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">Java 构建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-IDE"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">Java IDE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-%E7%9B%91%E6%8E%A7%E8%AF%8A%E6%96%AD"><span class="toc-number">1.1.3.3.</span> <span class="toc-text">Java 监控诊断</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java-%E5%B7%A5%E5%85%B7"><span class="toc-number">1.1.4.</span> <span class="toc-text">Java 工具</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-IO-1"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">Java IO</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JavaBean-%E5%B7%A5%E5%85%B7"><span class="toc-number">1.1.4.2.</span> <span class="toc-text">JavaBean 工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E"><span class="toc-number">1.1.4.3.</span> <span class="toc-text">Java 模板引擎</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7"><span class="toc-number">1.1.4.4.</span> <span class="toc-text">Java 测试工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">1.1.4.5.</span> <span class="toc-text">其他</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java-%E6%A1%86%E6%9E%B6"><span class="toc-number">1.1.5.</span> <span class="toc-text">Java 框架</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Spring"><span class="toc-number">1.1.5.1.</span> <span class="toc-text">Spring</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%BC%E5%90%88"><span class="toc-number">1.1.5.1.1.</span> <span class="toc-text">综合</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83"><span class="toc-number">1.1.5.1.2.</span> <span class="toc-text">核心</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE"><span class="toc-number">1.1.5.1.3.</span> <span class="toc-text">数据</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Web"><span class="toc-number">1.1.5.1.4.</span> <span class="toc-text">Web</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#IO"><span class="toc-number">1.1.5.1.5.</span> <span class="toc-text">IO</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9B%86%E6%88%90"><span class="toc-number">1.1.5.1.6.</span> <span class="toc-text">集成</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%B6%E4%BB%96-1"><span class="toc-number">1.1.5.1.7.</span> <span class="toc-text">其他</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ORM"><span class="toc-number">1.1.5.2.</span> <span class="toc-text">ORM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E5%85%A8"><span class="toc-number">1.1.5.3.</span> <span class="toc-text">安全</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IO-1"><span class="toc-number">1.1.5.4.</span> <span class="toc-text">IO</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java-%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="toc-number">1.1.6.</span> <span class="toc-text">Java 中间件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%93%E5%AD%98"><span class="toc-number">1.1.6.1.</span> <span class="toc-text">缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="toc-number">1.1.6.2.</span> <span class="toc-text">流量控制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%A7%E6%95%B0%E6%8D%AE"><span class="toc-number">1.1.7.</span> <span class="toc-text">大数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9A-%E8%B5%84%E6%96%99"><span class="toc-number">1.2.</span> <span class="toc-text">📚 资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%AA-%E4%BC%A0%E9%80%81"><span class="toc-number">1.3.</span> <span class="toc-text">🚪 传送</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题">无题</a><time datetime="2022-12-31T04:24:34.153Z" title="发表于 2022-12-31 12:24:34">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/img/index/" title="gallery"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="gallery"/></a><div class="content"><a class="title" href="/2022/12/31/img/index/" title="gallery">gallery</a><time datetime="2022-12-30T18:20:45.000Z" title="发表于 2022-12-31 02:20:45">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/30/hello-world/" title="Hello World"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/12/30/hello-world/" title="Hello World">Hello World</a><time datetime="2022-12-30T09:13:14.141Z" title="发表于 2022-12-30 17:13:14">2022-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Aop注解"/></a><div class="content"><a class="title" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解">Aop注解</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flowable 工作流程引擎"/></a><div class="content"><a class="title" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎">Flowable 工作流程引擎</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By JaHero</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script src="https://fastly.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

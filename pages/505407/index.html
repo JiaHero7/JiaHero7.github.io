@@ -1,0 +1,279 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MongoDB 复制 | 贾英雄-blog</title><meta name="keywords" content="数据库,文档数据库,MongoDB,复制"><meta name="author" content="JaHero"><meta name="copyright" content="JaHero"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="MongoDB 复制副本和可用性副本可以提供冗余并提高数据可用性。在不同数据库服务器上使用多个数据副本，可以提供一定程度的容错能力，以防止单个数据库服务器宕机时，数据丢失。 在某些情况下，副本还可以提供更大的读取吞吐量。因为客户端可以将读取操作发送到不同的服务器。在不同数据中心中维护数据副本可以提高数据本地性和分布式应用程序的可用性。您还可以维护其他副本以用于专用目的：例如灾难恢复，报告或备份。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB 复制">
+<meta property="og:url" content="http://example.com/pages/505407/index.html">
+<meta property="og:site_name" content="贾英雄-blog">
+<meta property="og:description" content="MongoDB 复制副本和可用性副本可以提供冗余并提高数据可用性。在不同数据库服务器上使用多个数据副本，可以提供一定程度的容错能力，以防止单个数据库服务器宕机时，数据丢失。 在某些情况下，副本还可以提供更大的读取吞吐量。因为客户端可以将读取操作发送到不同的服务器。在不同数据中心中维护数据副本可以提高数据本地性和分布式应用程序的可用性。您还可以维护其他副本以用于专用目的：例如灾难恢复，报告或备份。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/post.jpg">
+<meta property="article:published_time" content="2020-09-20T15:12:17.000Z">
+<meta property="article:modified_time" content="2022-12-26T06:15:52.593Z">
+<meta property="article:author" content="JaHero">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="文档数据库">
+<meta property="article:tag" content="MongoDB">
+<meta property="article:tag" content="复制">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/post.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/pages/505407/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"K46KXS6BKG","apiKey":"94dab3de87ce4cc2067ec6ef569e9df7","indexName":"JiaHero","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: JaHero","link":"链接: ","source":"来源: 贾英雄-blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MongoDB 复制',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2022-12-26 14:15:52'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/ava.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">贾英雄-blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">MongoDB 复制</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-09-20T15:12:17.000Z" title="发表于 2020-09-20 23:12:17">2020-09-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:52.593Z" title="更新于 2022-12-26 14:15:52">2022-12-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93/">文档数据库</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/">MongoDB</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MongoDB 复制"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="MongoDB-复制"><a href="#MongoDB-复制" class="headerlink" title="MongoDB 复制"></a>MongoDB 复制</h1><h2 id="副本和可用性"><a href="#副本和可用性" class="headerlink" title="副本和可用性"></a>副本和可用性</h2><p>副本可以<strong>提供冗余并提高数据可用性</strong>。在不同数据库服务器上使用多个数据副本，可以提供一定程度的容错能力，以防止单个数据库服务器宕机时，数据丢失。</p>
+<p>在某些情况下，副本还可以<strong>提供更大的读取吞吐量</strong>。因为客户端可以将读取操作发送到不同的服务器。在不同数据中心中维护数据副本可以提高数据本地性和分布式应用程序的可用性。您还可以维护其他副本以用于专用目的：例如灾难恢复，报告或备份。</p>
+<h2 id="MongoDB-副本"><a href="#MongoDB-副本" class="headerlink" title="MongoDB 副本"></a>MongoDB 副本</h2><p>MongoDB 中的副本集是一组维护相同数据集的 mongod 进程。一个副本集包含多个数据承载节点和一个仲裁器节点（可选）。在数据承载节点中，只有一个成员被视为主要节点，而其他节点则被视为次要节点。</p>
+<p><strong>主节点负责接收所有写操作</strong>。副本集只能有一个主副本，能够以 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/write-concern/#writeconcern.%22majority%22"><code>&#123; w: &quot;majority&quot; &#125;</code></a> 来确认集群中节点的写操作成功情况；尽管在某些情况下，另一个 MongoDB 实例可能会暂时认为自己也是主要的。主节点在其操作日志（即 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/core/replica-set-oplog/">oplog</a>）中记录了对其数据集的所有更改。</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20200920165054.svg" alt="img"></p>
+<p><strong>从节点复制主节点的操作日志，并将操作应用于其数据集</strong>，以便同步主节点的数据。如果主节点不可用，则符合条件的从节点将选举新的主节点。</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20200920165055.svg" alt="img"></p>
+<p>在某些情况下（例如，有一个主节点和一个从节点，但由于成本限制，禁止添加另一个从节点），您可以选择将 mongod 实例作为仲裁节点添加到副本集。仲裁节点参加选举但不保存数据（即不提供数据冗余）。</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20200920165053.svg" alt="img"></p>
+<p>仲裁节点将永远是仲裁节点。在选举期间，主节点可能会降级成为次节点，而次节点可能会升级成为主节点。</p>
+<h2 id="异步复制"><a href="#异步复制" class="headerlink" title="异步复制"></a>异步复制</h2><h3 id="慢操作"><a href="#慢操作" class="headerlink" title="慢操作"></a>慢操作</h3><p>从节点复制主节点的操作日志，并将操作异步应用于其数据集。通过从节点同步主节点的数据集，即使一个或多个成员失败，副本集（MongoDB 集群）也可以继续运行。</p>
+<p>从 4.2 版本开始，副本集的从节点记录慢操作（操作时间比设置的阈值长）的日志条目。这些慢操作在 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/log-messages/#REPL"><code>REPL</code></a> 组件下的 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/program/mongod/#cmdoption-mongod-logpath">诊断日志</a> 中记录了日志消息，并使用了文本 <code>op: &lt;oplog entry&gt;</code> 花费了 <code>&lt;num&gt;ms</code>。这些慢操作日志条目仅取决于慢操作阈值，而不取决于日志级别（在系统级别或组件级别），配置级别或运行缓慢的采样率。探查器不会捕获缓慢的操作日志条目。</p>
+<h3 id="复制延迟和流控"><a href="#复制延迟和流控" class="headerlink" title="复制延迟和流控"></a>复制延迟和流控</h3><p>复制延迟（<a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/glossary/#term-replication-lag">Replication lag</a>）是指将主节点上的写操作复制到从节点上所花费的时间。较短的延迟时间是可以接受的，但是随着复制延迟的增加，可能会出现严重的问题：比如在主节点上的缓存压力。</p>
+<p>从 MongoDB 4.2 开始，管理员可以限制主节点的写入速率，使得大多数延迟时间保持在可配置的最大值 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/parameters/#param.flowControlTargetLagSeconds"><code>flowControlTargetLagSeconds</code></a> 以下。</p>
+<p>默认情况下，流控是开启的。</p>
+<p>启用流控后，随着延迟时间越来越接近 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/parameters/#param.flowControlTargetLagSeconds"><code>flowControlTargetLagSeconds</code></a>，主对象上的写操作必须先获得令牌，然后才能进行锁定并执行写操作。通过限制每秒发出的令牌数量，流控机制尝试将延迟保持在目标以下。</p>
+<h2 id="故障转移"><a href="#故障转移" class="headerlink" title="故障转移"></a>故障转移</h2><p>当主节点与集群中的其他成员通信的时间超过配置的 <code>electionTimeoutMillis</code>（默认为 10 秒）时，符合选举要求的从节点将要求选举，并提名自己为新的主节点。集群尝试完成选举新主节点并恢复正常工作。</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20200920175429.svg" alt="img"></p>
+<p>选举完成前，副本集无法处理写入操作。如果将副本集配置为：在主节点处于脱机状态时，在次节点上运行，则副本集可以继续提供读取查询。</p>
+<p>假设<a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/replica-configuration/#rsconf.settings">副本配置</a>采用默认配置，则集群选择新节点的时间通常不应超过 12 秒，这包括：将主节点标记为不可用并完成选举所需的时间。可以通过修改 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/replica-configuration/#rsconf.settings.electionTimeoutMillis"><code>settings.electionTimeoutMillis</code></a> 配置选项来调整此时间。网络延迟等因素可能会延长完成选举所需的时间，进而影响集群在没有主节点的情况下可以运行的时间。这些因素取决于集群实际的情况。</p>
+<p>将默认为 10 秒的 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/replica-configuration/#rsconf.settings.electionTimeoutMillis"><code>electionTimeoutMillis</code></a> 选项数值缩小，可以更快地检测到主要故障。但是，由于网络延迟等因素，集群可能会更频繁地进行选举，即使该主节点实际上处于健康状态。这可能导致 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/write-concern/#wc-w">w : 1</a> 写操作的回滚次数增加。</p>
+<p>应用程序的连接逻辑应包括对自动故障转移和后续选举的容错处理。从 MongoDB 3.6 开始，MongoDB 驱动程序可以检测到主节点的失联，并可以自动重试一次某些写入操作。</p>
+<p>从 MongoDB4.4 开始，MongoDB 提供镜像读取：将可选举的从节点的最近访问的数据，预热为缓存。预热从节点的缓存可以帮助在选举后更快地恢复。</p>
+<h2 id="读操作"><a href="#读操作" class="headerlink" title="读操作"></a>读操作</h2><h3 id="读优先"><a href="#读优先" class="headerlink" title="读优先"></a>读优先</h3><p>默认情况下，客户端从主节点读取数据；但是，客户端可以指定读取首选项，以将读取操作发送到从节点。</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20200920204024.svg" alt="img"></p>
+<p>异步复制到从节点意味着向从节点读取数据可能会返回与主节点不一致的数据。</p>
+<p>包含读取操作的多文档事务必须使用读取主节点优先。给定事务中的所有操作必须路由到同一成员。</p>
+<h3 id="数据可见性"><a href="#数据可见性" class="headerlink" title="数据可见性"></a>数据可见性</h3><p>根据读取的关注点，客户端可以在持久化写入前查看写入结果：</p>
+<ul>
+<li>不管写的 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/write-concern/">write concern</a> 如何设置，其他使用 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/read-concern-local/#readconcern.%22local%22"><code>&quot;local&quot;</code></a> 或 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/read-concern-available/#readconcern.%22available%22"><code>&quot;available&quot;</code></a> 的读配置的客户端都可以向发布客户端确认写操作之前看到写操作的结果。</li>
+<li>使用 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/read-concern-local/#readconcern.%22local%22"><code>&quot;local&quot;</code></a> 或 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/read-concern-available/#readconcern.%22available%22"><code>&quot;available&quot;</code></a> 读取配置的客户端可以读取数据，这些数据随后可能会在副本集故障转移期间回滚。</li>
+</ul>
+<p>对于多文档事务中的操作，当事务提交时，在事务中进行的所有数据更改都将保存，并在事务外部可见。也就是说，事务在回滚其他事务时将不会提交其某些更改。在提交事务前，事务外部看不到在事务中进行的数据更改。</p>
+<p>但是，当事务写入多个分片时，并非所有外部读操作都需要等待已提交事务的结果在所有分片上可见。例如，如果提交了一个事务，并且在分片 A 上可以看到写 1，但是在分片 B 上还看不到写 2，则在 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/read-concern-local/#readconcern.%22local%22"><code>&quot;local&quot;</code></a> 读配置级别，外部读取可以读取写 1 的结果而看不到写 2。</p>
+<h3 id="镜像读取"><a href="#镜像读取" class="headerlink" title="镜像读取"></a>镜像读取</h3><p>从 MongoDB 4.4 开始，MongoDB 提供镜像读取以预热可选从节点（即优先级大于 0 的成员）的缓存。使用镜像读取（默认情况下已启用），主节点可以镜像它接收到的一部分操作，并将其发送给可选择的从节点的子集。子集的大小是可配置的。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><strong>官方</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://www.mongodb.com/">MongoDB 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mongodb/mongo">MongoDB Github</a></li>
+<li><a target="_blank" rel="noopener" href="https://university.mongodb.com/">MongoDB 官方免费教程</a></li>
+</ul>
+</li>
+<li><strong>教程</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/mongodb/mongodb-tutorial.html">MongoDB 教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://time.geekbang.org/course/intro/100040001">MongoDB 高手课</a></li>
+</ul>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">JaHero</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/pages/505407/">http://example.com/pages/505407/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">贾英雄-blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><a class="post-meta__tags" href="/tags/%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93/">文档数据库</a><a class="post-meta__tags" href="/tags/MongoDB/">MongoDB</a><a class="post-meta__tags" href="/tags/%E5%A4%8D%E5%88%B6/">复制</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/pages/3288f3/" title="MongoDB 应用指南"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-07</div><div class="title">MongoDB 应用指南</div></div></a></div><div><a href="/pages/7efbac/" title="MongoDB 的 CRUD 操作"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-25</div><div class="title">MongoDB 的 CRUD 操作</div></div></a></div><div><a href="/pages/75daa5/" title="MongoDB 的聚合操作"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-21</div><div class="title">MongoDB 的聚合操作</div></div></a></div><div><a href="/pages/4574fe/" title="MongoDB 事务"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-20</div><div class="title">MongoDB 事务</div></div></a></div><div><a href="/pages/562f99/" title="MongoDB 建模"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-09</div><div class="title">MongoDB 建模</div></div></a></div><div><a href="/pages/88c7d3/" title="MongoDB 建模示例"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-12</div><div class="title">MongoDB 建模示例</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/ava.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JaHero</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MongoDB-%E5%A4%8D%E5%88%B6"><span class="toc-number">1.</span> <span class="toc-text">MongoDB 复制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%AF%E6%9C%AC%E5%92%8C%E5%8F%AF%E7%94%A8%E6%80%A7"><span class="toc-number">1.1.</span> <span class="toc-text">副本和可用性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MongoDB-%E5%89%AF%E6%9C%AC"><span class="toc-number">1.2.</span> <span class="toc-text">MongoDB 副本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-number">1.3.</span> <span class="toc-text">异步复制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%85%A2%E6%93%8D%E4%BD%9C"><span class="toc-number">1.3.1.</span> <span class="toc-text">慢操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E5%88%B6%E5%BB%B6%E8%BF%9F%E5%92%8C%E6%B5%81%E6%8E%A7"><span class="toc-number">1.3.2.</span> <span class="toc-text">复制延迟和流控</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB"><span class="toc-number">1.4.</span> <span class="toc-text">故障转移</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BB%E6%93%8D%E4%BD%9C"><span class="toc-number">1.5.</span> <span class="toc-text">读操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E4%BC%98%E5%85%88"><span class="toc-number">1.5.1.</span> <span class="toc-text">读优先</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%81%E6%80%A7"><span class="toc-number">1.5.2.</span> <span class="toc-text">数据可见性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%95%9C%E5%83%8F%E8%AF%BB%E5%8F%96"><span class="toc-number">1.5.3.</span> <span class="toc-text">镜像读取</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.6.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题">无题</a><time datetime="2022-12-31T04:24:34.153Z" title="发表于 2022-12-31 12:24:34">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/img/index/" title="gallery"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="gallery"/></a><div class="content"><a class="title" href="/2022/12/31/img/index/" title="gallery">gallery</a><time datetime="2022-12-30T18:20:45.000Z" title="发表于 2022-12-31 02:20:45">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/30/hello-world/" title="Hello World"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/12/30/hello-world/" title="Hello World">Hello World</a><time datetime="2022-12-30T09:13:14.141Z" title="发表于 2022-12-30 17:13:14">2022-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Aop注解"/></a><div class="content"><a class="title" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解">Aop注解</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flowable 工作流程引擎"/></a><div class="content"><a class="title" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎">Flowable 工作流程引擎</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By JaHero</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script src="https://fastly.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

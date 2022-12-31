@@ -1,0 +1,335 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>《后端存储实战课》笔记 | 贾英雄-blog</title><meta name="keywords" content="数据库,架构"><meta name="author" content="JaHero"><meta name="copyright" content="JaHero"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="《后端存储实战课》笔记课前加餐丨电商系统是如何设计的？ 创建和更新订单时，如何保证数据准确无误？ 流量大、数据多的商品详情页系统该如何设计？ 复杂而又重要的购物车系统，应该如何设计？ 事务：账户余额总是对不上账，怎么办？ 分布式事务：如何保证多个系统间的数据是一致的？分布式事务常见解决方案：  2PC 3PC TCC Saga 本地消息表   个人以前总结：分布式事务  如何用 Elasticse">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《后端存储实战课》笔记">
+<meta property="og:url" content="http://example.com/pages/a16273/index.html">
+<meta property="og:site_name" content="贾英雄-blog">
+<meta property="og:description" content="《后端存储实战课》笔记课前加餐丨电商系统是如何设计的？ 创建和更新订单时，如何保证数据准确无误？ 流量大、数据多的商品详情页系统该如何设计？ 复杂而又重要的购物车系统，应该如何设计？ 事务：账户余额总是对不上账，怎么办？ 分布式事务：如何保证多个系统间的数据是一致的？分布式事务常见解决方案：  2PC 3PC TCC Saga 本地消息表   个人以前总结：分布式事务  如何用 Elasticse">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/post.jpg">
+<meta property="article:published_time" content="2022-04-08T09:00:00.000Z">
+<meta property="article:modified_time" content="2022-12-26T06:15:51.663Z">
+<meta property="article:author" content="JaHero">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="架构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/post.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/pages/a16273/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"K46KXS6BKG","apiKey":"94dab3de87ce4cc2067ec6ef569e9df7","indexName":"JiaHero","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: JaHero","link":"链接: ","source":"来源: 贾英雄-blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '《后端存储实战课》笔记',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2022-12-26 14:15:51'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/ava.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">贾英雄-blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">《后端存储实战课》笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-04-08T09:00:00.000Z" title="发表于 2022-04-08 17:00:00">2022-04-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:51.663Z" title="更新于 2022-12-26 14:15:51">2022-12-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="《后端存储实战课》笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="《后端存储实战课》笔记"><a href="#《后端存储实战课》笔记" class="headerlink" title="《后端存储实战课》笔记"></a>《后端存储实战课》笔记</h1><h2 id="课前加餐丨电商系统是如何设计的？"><a href="#课前加餐丨电商系统是如何设计的？" class="headerlink" title="课前加餐丨电商系统是如何设计的？"></a>课前加餐丨电商系统是如何设计的？</h2><p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20220407152237.png"></p>
+<h2 id="创建和更新订单时，如何保证数据准确无误？"><a href="#创建和更新订单时，如何保证数据准确无误？" class="headerlink" title="创建和更新订单时，如何保证数据准确无误？"></a>创建和更新订单时，如何保证数据准确无误？</h2><p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20220407162459.png"></p>
+<h2 id="流量大、数据多的商品详情页系统该如何设计？"><a href="#流量大、数据多的商品详情页系统该如何设计？" class="headerlink" title="流量大、数据多的商品详情页系统该如何设计？"></a>流量大、数据多的商品详情页系统该如何设计？</h2><p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20220407164745.png"></p>
+<h2 id="复杂而又重要的购物车系统，应该如何设计？"><a href="#复杂而又重要的购物车系统，应该如何设计？" class="headerlink" title="复杂而又重要的购物车系统，应该如何设计？"></a>复杂而又重要的购物车系统，应该如何设计？</h2><p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20220408142059.png"></p>
+<h2 id="事务：账户余额总是对不上账，怎么办？"><a href="#事务：账户余额总是对不上账，怎么办？" class="headerlink" title="事务：账户余额总是对不上账，怎么办？"></a>事务：账户余额总是对不上账，怎么办？</h2><p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20220408152524.png"></p>
+<h2 id="分布式事务：如何保证多个系统间的数据是一致的？"><a href="#分布式事务：如何保证多个系统间的数据是一致的？" class="headerlink" title="分布式事务：如何保证多个系统间的数据是一致的？"></a>分布式事务：如何保证多个系统间的数据是一致的？</h2><p>分布式事务常见解决方案：</p>
+<ul>
+<li>2PC</li>
+<li>3PC</li>
+<li>TCC</li>
+<li>Saga</li>
+<li>本地消息表</li>
+</ul>
+<blockquote>
+<p>个人以前总结：<a target="_blank" rel="noopener" href="https://dunwu.github.io/design/distributed/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.html">分布式事务</a></p>
+</blockquote>
+<h2 id="如何用-Elasticsearch-构建商品搜索系统？"><a href="#如何用-Elasticsearch-构建商品搜索系统？" class="headerlink" title="如何用 Elasticsearch 构建商品搜索系统？"></a>如何用 Elasticsearch 构建商品搜索系统？</h2><p>搜索领域的核心问题是进行全文匹配。一般的关系型数据库，如 Mysql 的索引（InnoDB 为 B 树索引）不适用于全文检索，导致查询时只能全表扫描，性能很差。</p>
+<p>搜索引擎（典型代表：Elasticsearch）通过倒排索引技术，很好的支持了全文检索。但是，倒排索引的写入和更新性能相较于 B 树索引较差，因此不适用于更新频繁的数据。</p>
+<h2 id="MySQL-HA：如何将“删库跑路”的损失降到最低？"><a href="#MySQL-HA：如何将“删库跑路”的损失降到最低？" class="headerlink" title="MySQL HA：如何将“删库跑路”的损失降到最低？"></a>MySQL HA：如何将“删库跑路”的损失降到最低？</h2><p>Mysql 复制（略）</p>
+<h2 id="一个几乎每个系统必踩的坑儿：访问数据库超时"><a href="#一个几乎每个系统必踩的坑儿：访问数据库超时" class="headerlink" title="一个几乎每个系统必踩的坑儿：访问数据库超时"></a>一个几乎每个系统必踩的坑儿：访问数据库超时</h2><p>数据库超时分析经验：</p>
+<ul>
+<li>根据故障时段在系统忙时，推断出故障是跟支持用户访问的功能有关。</li>
+<li>根据系统能在流量峰值过后自动恢复这一现象，排除后台服务被大量请求打死的可能性。</li>
+<li>根据 CPU 利用率的变化曲线，如果满足一定的周期性波动，可推断出大概率和定时任务有关。这些定时任务负责刷新数据缓存。如果确实是因为刷新缓存定时任务导致的，需要针对性优化。</li>
+<li>如果 Mysql CPU 过高，大概率是慢 SQL 导致的，优先排查慢 SQL 日志，找出查询特别慢的表。看看该表是不是需要加缓存。</li>
+</ul>
+<p>避免访问数据库超时的注意点：</p>
+<ul>
+<li>开发时，考虑 SQL 相关表的数据规模，查询性能，是否匹配索引等等，避免出现慢 SQL</li>
+<li>设计上，考虑减少查询次数，如使用缓存</li>
+<li>系统支持自动杀慢 SQL</li>
+<li>支持熔断、降级，减少故障影响范围</li>
+</ul>
+<h2 id="怎么能避免写出慢-SQL？"><a href="#怎么能避免写出慢-SQL？" class="headerlink" title="怎么能避免写出慢 SQL？"></a>怎么能避免写出慢 SQL？</h2><p>数据表不宜过大，一般不要超过千万条数据。</p>
+<p>根据实际情况，尽量设计好索引，以提高查询、排序效率。</p>
+<p>如果出现慢 SQL，需要改造索引时，可以通过执行计划进行分析。</p>
+<blockquote>
+<p>个人过往总结：<a target="_blank" rel="noopener" href="https://dunwu.github.io/db-tutorial/sql/mysql/mysql-optimization.html">Mysql 性能优化</a></p>
+</blockquote>
+<h2 id="走进黑盒：SQL-是如何在数据库中执行的？"><a href="#走进黑盒：SQL-是如何在数据库中执行的？" class="headerlink" title="走进黑盒：SQL 是如何在数据库中执行的？"></a>走进黑盒：SQL 是如何在数据库中执行的？</h2><blockquote>
+<p>个人过往总结：<a target="_blank" rel="noopener" href="https://github.com/dunwu/db-tutorial/blob/master/docs/sql/mysql/mysql-workflow.md">Mysql 工作流</a></p>
+</blockquote>
+<h2 id="MySQL-如何应对高并发（一）：使用缓存保护-MySQL"><a href="#MySQL-如何应对高并发（一）：使用缓存保护-MySQL" class="headerlink" title="MySQL 如何应对高并发（一）：使用缓存保护 MySQL"></a>MySQL 如何应对高并发（一）：使用缓存保护 MySQL</h2><p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20220413101029.png"></p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20220413101039.png"></p>
+<h2 id="MySQL-如何应对高并发（二）：读写分离"><a href="#MySQL-如何应对高并发（二）：读写分离" class="headerlink" title="MySQL 如何应对高并发（二）：读写分离"></a>MySQL 如何应对高并发（二）：读写分离</h2><p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20220413160150.png"></p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/cs/database/mysql/master-slave-proxy.png" alt="img"></p>
+<h2 id="MySQL-主从数据库同步是如何实现的？"><a href="#MySQL-主从数据库同步是如何实现的？" class="headerlink" title="MySQL 主从数据库同步是如何实现的？"></a>MySQL 主从数据库同步是如何实现的？</h2><p>基于 binlog 进行数据同步</p>
+<h2 id="订单数据越来越多，数据库越来越慢该怎么办？"><a href="#订单数据越来越多，数据库越来越慢该怎么办？" class="headerlink" title="订单数据越来越多，数据库越来越慢该怎么办？"></a>订单数据越来越多，数据库越来越慢该怎么办？</h2><p>针对大表，为了优化其查询性能，可以将历史数据归档。一般可以考虑归档到列式数据库，如：Hive</p>
+<h2 id="MySQL-存储海量数据的最后一招：分库分表"><a href="#MySQL-存储海量数据的最后一招：分库分表" class="headerlink" title="MySQL 存储海量数据的最后一招：分库分表"></a>MySQL 存储海量数据的最后一招：分库分表</h2><p>分库分表</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20220413174922.png"></p>
+<h2 id="用-Redis-构建缓存集群的最佳实践有哪些"><a href="#用-Redis-构建缓存集群的最佳实践有哪些" class="headerlink" title="用 Redis 构建缓存集群的最佳实践有哪些"></a>用 Redis 构建缓存集群的最佳实践有哪些</h2><p>Redis 3.0 后，官方提供 Redis Cluster 来解决数据量大、高可用和高并发问题。</p>
+<blockquote>
+<p>相关文章：<a target="_blank" rel="noopener" href="https://dunwu.github.io/blog/%E6%95%B0%E6%8D%AE%E5%BA%93/05.KV%E6%95%B0%E6%8D%AE%E5%BA%93/01.Redis/07.Redis%E9%9B%86%E7%BE%A4/">Redis 集群</a></p>
+</blockquote>
+<h2 id="大厂都是怎么做-MySQL-to-Redis-同步的"><a href="#大厂都是怎么做-MySQL-to-Redis-同步的" class="headerlink" title="大厂都是怎么做 MySQL to Redis 同步的?"></a>大厂都是怎么做 MySQL to Redis 同步的?</h2><p>缓存穿透：把全量数据都放在 Redis 集群，服务通过接受 MQ 消息，去触发更新缓存数据。</p>
+<p>使用 Binlog 实时更新 Redis 缓存，如 <a target="_blank" rel="noopener" href="https://github.com/alibaba/canal">Canal</a></p>
+<h2 id="分布式存储：你知道对象存储是如何保存图片文件的吗？"><a href="#分布式存储：你知道对象存储是如何保存图片文件的吗？" class="headerlink" title="分布式存储：你知道对象存储是如何保存图片文件的吗？"></a>分布式存储：你知道对象存储是如何保存图片文件的吗？</h2><p>保存图片、音频、视频这种相对较大的文件，一般使用对象存储。如：HDFS 等。</p>
+<p>元数据管理：ZooKeeper、etcd、Nacos</p>
+<p>对象如何拆分和保存：将大文件分块（block），提升 IO 效率并方便维护。</p>
+<h2 id="跨系统实时同步数据，分布式事务是唯一的解决方案吗？"><a href="#跨系统实时同步数据，分布式事务是唯一的解决方案吗？" class="headerlink" title="跨系统实时同步数据，分布式事务是唯一的解决方案吗？"></a>跨系统实时同步数据，分布式事务是唯一的解决方案吗？</h2><p>跨系统实时同步数据：</p>
+<ul>
+<li>早期方案：使用 ETL 定时同步数据，在 T+1 时刻去同步上一周期的数据，然后进行计算和分析。</li>
+<li>使用 Binlog 和 MQ 构建实时数据同步系统</li>
+</ul>
+<p>如何保证数据同步的实时性</p>
+<ul>
+<li>为了能够支撑众多下游数据库实时同步的需求，可以通过 MQ 解耦上下游，Binlog 先发送到 MQ 中，下游各业务方可以消费 MQ 中的消息再写入各自的数据库。</li>
+<li>如果下游处理能力不能满足要求，可以增加 MQ 中的分区数量实现并发同步，但需要结合同步的业务数据特点，把具有因果关系的数据哈希到相同分区上，才能避免因为并发乱序而出现数据同步错误的问题。</li>
+</ul>
+<h2 id="如何在不停机的情况下，安全地更换数据库？"><a href="#如何在不停机的情况下，安全地更换数据库？" class="headerlink" title="如何在不停机的情况下，安全地更换数据库？"></a>如何在不停机的情况下，安全地更换数据库？</h2><ul>
+<li><strong>停机迁移&#x2F;扩容</strong><ul>
+<li>优点：简单粗暴；没有数据一致性问题</li>
+<li>缺点：需要停机</li>
+</ul>
+</li>
+<li><strong>双写迁移</strong><ul>
+<li>优点：不需要停机</li>
+<li>缺点：方案较复杂</li>
+</ul>
+</li>
+<li><strong>主从升级</strong><ul>
+<li>优点：不需要停机；无需数据迁移</li>
+<li>缺点：需要冗余的从库</li>
+</ul>
+</li>
+</ul>
+<h2 id="类似“点击流”这样的海量数据应该如何存储？"><a href="#类似“点击流”这样的海量数据应该如何存储？" class="headerlink" title="类似“点击流”这样的海量数据应该如何存储？"></a>类似“点击流”这样的海量数据应该如何存储？</h2><p>使用 Kafka 暂存海量原始数据，然后再使用大数据计算框架（Spark、Flink）进行计算。</p>
+<p>其他方案：</p>
+<p>分布式流数据存储，如：Pravega、Pulsar 的存储引擎 BookKeeper</p>
+<p>时序数据库，如：InfluxDB、OpenTSDB 等。</p>
+<h2 id="面对海量数据，如何才能查得更快"><a href="#面对海量数据，如何才能查得更快" class="headerlink" title="面对海量数据，如何才能查得更快"></a>面对海量数据，如何才能查得更快</h2><p>实时计算：Flink、Storm</p>
+<p>批处理计算：Map-Reduce、Spark</p>
+<p>海量数据存储：</p>
+<ul>
+<li>列式数据库（在正确使用的前提下，10GB 量级的数据查询基本上可以做到秒级返回）：HBase、Cassandra</li>
+<li>搜索引擎（对于 TB 量级以下的数据，如果可以接受相对比较贵的硬件成本）：Elasticsearch</li>
+</ul>
+<h2 id="MySQL-经常遇到的高可用、分片问题，NewSQL-是如何解决的？"><a href="#MySQL-经常遇到的高可用、分片问题，NewSQL-是如何解决的？" class="headerlink" title="MySQL 经常遇到的高可用、分片问题，NewSQL 是如何解决的？"></a>MySQL 经常遇到的高可用、分片问题，NewSQL 是如何解决的？</h2><p>安利 CockroachDB、RocksDB、OceanBase</p>
+<h2 id="RocksDB：不丢数据的高性能-KV-存储、"><a href="#RocksDB：不丢数据的高性能-KV-存储、" class="headerlink" title="RocksDB：不丢数据的高性能 KV 存储、"></a>RocksDB：不丢数据的高性能 KV 存储、</h2><p>越来越多的新生代数据库，都选择 RocksDB 作为它们的存储引擎。</p>
+<p>Redis 是一个内存数据库，所以它很快。</p>
+<p>RocksDB 是一个持久化的 KV 存储，它需要保证每条数据都要安全地写到磁盘上。磁盘的读写性能和内<br>存读写性能差着一两个数量级，读写磁盘的 RocksDB，能和读写内存的 Redis 做到相近的性能，这就是 RocksDB 的价值所在了。</p>
+<p>RocksDB 性能好，是由于使用了 LSM 树结构。</p>
+<p>LSM-Tree 的全称是：The Log-Structured Merge-Tree，是一种非常复杂的复合数据结构，它包含了 WAL（Write Ahead Log）、跳表（SkipList）和一个分层的有序表（SSTable，Sorted String Table）。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/100046801">后端存储实战课</a> - 极客教程【入门】：讲解存储在电商领域的种种应用和一些基本特性</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">JaHero</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/pages/a16273/">http://example.com/pages/a16273/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">贾英雄-blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><a class="post-meta__tags" href="/tags/%E6%9E%B6%E6%9E%84/">架构</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/pages/34699b/" title="《SQL 必知必会》笔记"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-16</div><div class="title">《SQL 必知必会》笔记</div></div></a></div><div><a href="/pages/012488/" title="数据库"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-22</div><div class="title">数据库</div></div></a></div><div><a href="/pages/0e1012/" title="Nosql技术选型"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-09</div><div class="title">Nosql技术选型</div></div></a></div><div><a href="/pages/d7cd88/" title="数据结构与数据库索引"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-27</div><div class="title">数据结构与数据库索引</div></div></a></div><div><a href="/pages/3c3c45/" title="数据库综合"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-11</div><div class="title">数据库综合</div></div></a></div><div><a href="/pages/e2648c/" title="版本管理中间件 Flyway"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-08-22</div><div class="title">版本管理中间件 Flyway</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/ava.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JaHero</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E3%80%8A%E5%90%8E%E7%AB%AF%E5%AD%98%E5%82%A8%E5%AE%9E%E6%88%98%E8%AF%BE%E3%80%8B%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">《后端存储实战课》笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BE%E5%89%8D%E5%8A%A0%E9%A4%90%E4%B8%A8%E7%94%B5%E5%95%86%E7%B3%BB%E7%BB%9F%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%9A%84%EF%BC%9F"><span class="toc-number">1.1.</span> <span class="toc-text">课前加餐丨电商系统是如何设计的？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%92%8C%E6%9B%B4%E6%96%B0%E8%AE%A2%E5%8D%95%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E5%87%86%E7%A1%AE%E6%97%A0%E8%AF%AF%EF%BC%9F"><span class="toc-number">1.2.</span> <span class="toc-text">创建和更新订单时，如何保证数据准确无误？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E9%87%8F%E5%A4%A7%E3%80%81%E6%95%B0%E6%8D%AE%E5%A4%9A%E7%9A%84%E5%95%86%E5%93%81%E8%AF%A6%E6%83%85%E9%A1%B5%E7%B3%BB%E7%BB%9F%E8%AF%A5%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%EF%BC%9F"><span class="toc-number">1.3.</span> <span class="toc-text">流量大、数据多的商品详情页系统该如何设计？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E8%80%8C%E5%8F%88%E9%87%8D%E8%A6%81%E7%9A%84%E8%B4%AD%E7%89%A9%E8%BD%A6%E7%B3%BB%E7%BB%9F%EF%BC%8C%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%EF%BC%9F"><span class="toc-number">1.4.</span> <span class="toc-text">复杂而又重要的购物车系统，应该如何设计？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%EF%BC%9A%E8%B4%A6%E6%88%B7%E4%BD%99%E9%A2%9D%E6%80%BB%E6%98%AF%E5%AF%B9%E4%B8%8D%E4%B8%8A%E8%B4%A6%EF%BC%8C%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F"><span class="toc-number">1.5.</span> <span class="toc-text">事务：账户余额总是对不上账，怎么办？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%EF%BC%9A%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E5%A4%9A%E4%B8%AA%E7%B3%BB%E7%BB%9F%E9%97%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E6%98%AF%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F"><span class="toc-number">1.6.</span> <span class="toc-text">分布式事务：如何保证多个系统间的数据是一致的？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%94%A8-Elasticsearch-%E6%9E%84%E5%BB%BA%E5%95%86%E5%93%81%E6%90%9C%E7%B4%A2%E7%B3%BB%E7%BB%9F%EF%BC%9F"><span class="toc-number">1.7.</span> <span class="toc-text">如何用 Elasticsearch 构建商品搜索系统？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-HA%EF%BC%9A%E5%A6%82%E4%BD%95%E5%B0%86%E2%80%9C%E5%88%A0%E5%BA%93%E8%B7%91%E8%B7%AF%E2%80%9D%E7%9A%84%E6%8D%9F%E5%A4%B1%E9%99%8D%E5%88%B0%E6%9C%80%E4%BD%8E%EF%BC%9F"><span class="toc-number">1.8.</span> <span class="toc-text">MySQL HA：如何将“删库跑路”的损失降到最低？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E5%87%A0%E4%B9%8E%E6%AF%8F%E4%B8%AA%E7%B3%BB%E7%BB%9F%E5%BF%85%E8%B8%A9%E7%9A%84%E5%9D%91%E5%84%BF%EF%BC%9A%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%B6%85%E6%97%B6"><span class="toc-number">1.9.</span> <span class="toc-text">一个几乎每个系统必踩的坑儿：访问数据库超时</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E8%83%BD%E9%81%BF%E5%85%8D%E5%86%99%E5%87%BA%E6%85%A2-SQL%EF%BC%9F"><span class="toc-number">1.10.</span> <span class="toc-text">怎么能避免写出慢 SQL？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%B0%E8%BF%9B%E9%BB%91%E7%9B%92%EF%BC%9ASQL-%E6%98%AF%E5%A6%82%E4%BD%95%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E6%89%A7%E8%A1%8C%E7%9A%84%EF%BC%9F"><span class="toc-number">1.11.</span> <span class="toc-text">走进黑盒：SQL 是如何在数据库中执行的？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-%E5%A6%82%E4%BD%95%E5%BA%94%E5%AF%B9%E9%AB%98%E5%B9%B6%E5%8F%91%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E4%BD%BF%E7%94%A8%E7%BC%93%E5%AD%98%E4%BF%9D%E6%8A%A4-MySQL"><span class="toc-number">1.12.</span> <span class="toc-text">MySQL 如何应对高并发（一）：使用缓存保护 MySQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-%E5%A6%82%E4%BD%95%E5%BA%94%E5%AF%B9%E9%AB%98%E5%B9%B6%E5%8F%91%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB"><span class="toc-number">1.13.</span> <span class="toc-text">MySQL 如何应对高并发（二）：读写分离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-%E4%B8%BB%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8C%E6%AD%A5%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84%EF%BC%9F"><span class="toc-number">1.14.</span> <span class="toc-text">MySQL 主从数据库同步是如何实现的？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A2%E5%8D%95%E6%95%B0%E6%8D%AE%E8%B6%8A%E6%9D%A5%E8%B6%8A%E5%A4%9A%EF%BC%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E8%B6%8A%E6%9D%A5%E8%B6%8A%E6%85%A2%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F"><span class="toc-number">1.15.</span> <span class="toc-text">订单数据越来越多，数据库越来越慢该怎么办？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-%E5%AD%98%E5%82%A8%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E6%8B%9B%EF%BC%9A%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8"><span class="toc-number">1.16.</span> <span class="toc-text">MySQL 存储海量数据的最后一招：分库分表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8-Redis-%E6%9E%84%E5%BB%BA%E7%BC%93%E5%AD%98%E9%9B%86%E7%BE%A4%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E6%9C%89%E5%93%AA%E4%BA%9B"><span class="toc-number">1.17.</span> <span class="toc-text">用 Redis 构建缓存集群的最佳实践有哪些</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E5%8E%82%E9%83%BD%E6%98%AF%E6%80%8E%E4%B9%88%E5%81%9A-MySQL-to-Redis-%E5%90%8C%E6%AD%A5%E7%9A%84"><span class="toc-number">1.18.</span> <span class="toc-text">大厂都是怎么做 MySQL to Redis 同步的?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%EF%BC%9A%E4%BD%A0%E7%9F%A5%E9%81%93%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8%E6%98%AF%E5%A6%82%E4%BD%95%E4%BF%9D%E5%AD%98%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E7%9A%84%E5%90%97%EF%BC%9F"><span class="toc-number">1.19.</span> <span class="toc-text">分布式存储：你知道对象存储是如何保存图片文件的吗？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%A8%E7%B3%BB%E7%BB%9F%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E6%98%AF%E5%94%AF%E4%B8%80%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E5%90%97%EF%BC%9F"><span class="toc-number">1.20.</span> <span class="toc-text">跨系统实时同步数据，分布式事务是唯一的解决方案吗？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8%E4%B8%8D%E5%81%9C%E6%9C%BA%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%EF%BC%8C%E5%AE%89%E5%85%A8%E5%9C%B0%E6%9B%B4%E6%8D%A2%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F"><span class="toc-number">1.21.</span> <span class="toc-text">如何在不停机的情况下，安全地更换数据库？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E4%BC%BC%E2%80%9C%E7%82%B9%E5%87%BB%E6%B5%81%E2%80%9D%E8%BF%99%E6%A0%B7%E7%9A%84%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E5%AD%98%E5%82%A8%EF%BC%9F"><span class="toc-number">1.22.</span> <span class="toc-text">类似“点击流”这样的海量数据应该如何存储？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E5%AF%B9%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%A6%82%E4%BD%95%E6%89%8D%E8%83%BD%E6%9F%A5%E5%BE%97%E6%9B%B4%E5%BF%AB"><span class="toc-number">1.23.</span> <span class="toc-text">面对海量数据，如何才能查得更快</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-%E7%BB%8F%E5%B8%B8%E9%81%87%E5%88%B0%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8%E3%80%81%E5%88%86%E7%89%87%E9%97%AE%E9%A2%98%EF%BC%8CNewSQL-%E6%98%AF%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E7%9A%84%EF%BC%9F"><span class="toc-number">1.24.</span> <span class="toc-text">MySQL 经常遇到的高可用、分片问题，NewSQL 是如何解决的？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RocksDB%EF%BC%9A%E4%B8%8D%E4%B8%A2%E6%95%B0%E6%8D%AE%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BD-KV-%E5%AD%98%E5%82%A8%E3%80%81"><span class="toc-number">1.25.</span> <span class="toc-text">RocksDB：不丢数据的高性能 KV 存储、</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.26.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题">无题</a><time datetime="2022-12-31T04:24:34.153Z" title="发表于 2022-12-31 12:24:34">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/img/index/" title="gallery"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="gallery"/></a><div class="content"><a class="title" href="/2022/12/31/img/index/" title="gallery">gallery</a><time datetime="2022-12-30T18:20:45.000Z" title="发表于 2022-12-31 02:20:45">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/30/hello-world/" title="Hello World"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/12/30/hello-world/" title="Hello World">Hello World</a><time datetime="2022-12-30T09:13:14.141Z" title="发表于 2022-12-30 17:13:14">2022-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Aop注解"/></a><div class="content"><a class="title" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解">Aop注解</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flowable 工作流程引擎"/></a><div class="content"><a class="title" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎">Flowable 工作流程引擎</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By JaHero</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script src="https://fastly.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

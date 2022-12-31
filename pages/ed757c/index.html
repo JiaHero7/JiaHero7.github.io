@@ -1,0 +1,737 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Redis 数据类型和应用 | 贾英雄-blog</title><meta name="keywords" content="数据库,数据类型,KV数据库,Redis"><meta name="author" content="JaHero"><meta name="copyright" content="JaHero"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Redis 数据类型和应用 Redis 提供了多种数据类型，每种数据类型有丰富的命令支持。 使用 Redis ，不仅要了解其数据类型的特性，还需要根据业务场景，灵活的、高效的使用其数据类型来建模。  一、Redis 基本数据类型    数据类型 可以存储的值 操作    STRING 字符串、整数或者浮点数 对整个字符串或者字符串的其中一部分执行操作 对整数和浮点数执行自增或者自减操作   LIS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis 数据类型和应用">
+<meta property="og:url" content="http://example.com/pages/ed757c/index.html">
+<meta property="og:site_name" content="贾英雄-blog">
+<meta property="og:description" content="Redis 数据类型和应用 Redis 提供了多种数据类型，每种数据类型有丰富的命令支持。 使用 Redis ，不仅要了解其数据类型的特性，还需要根据业务场景，灵活的、高效的使用其数据类型来建模。  一、Redis 基本数据类型    数据类型 可以存储的值 操作    STRING 字符串、整数或者浮点数 对整个字符串或者字符串的其中一部分执行操作 对整数和浮点数执行自增或者自减操作   LIS">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/post.jpg">
+<meta property="article:published_time" content="2020-06-24T02:45:38.000Z">
+<meta property="article:modified_time" content="2022-12-26T06:15:52.614Z">
+<meta property="article:author" content="JaHero">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="数据类型">
+<meta property="article:tag" content="KV数据库">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/post.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/pages/ed757c/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"K46KXS6BKG","apiKey":"94dab3de87ce4cc2067ec6ef569e9df7","indexName":"JiaHero","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: JaHero","link":"链接: ","source":"来源: 贾英雄-blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Redis 数据类型和应用',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2022-12-26 14:15:52'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/ava.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">贾英雄-blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Redis 数据类型和应用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-06-24T02:45:38.000Z" title="发表于 2020-06-24 10:45:38">2020-06-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:52.614Z" title="更新于 2022-12-26 14:15:52">2022-12-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/KV%E6%95%B0%E6%8D%AE%E5%BA%93/">KV数据库</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/KV%E6%95%B0%E6%8D%AE%E5%BA%93/Redis/">Redis</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">7.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>32分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Redis 数据类型和应用"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Redis-数据类型和应用"><a href="#Redis-数据类型和应用" class="headerlink" title="Redis 数据类型和应用"></a>Redis 数据类型和应用</h1><blockquote>
+<p>Redis 提供了多种数据类型，每种数据类型有丰富的命令支持。</p>
+<p>使用 Redis ，不仅要了解其数据类型的特性，还需要根据业务场景，灵活的、高效的使用其数据类型来建模。</p>
+</blockquote>
+<h2 id="一、Redis-基本数据类型"><a href="#一、Redis-基本数据类型" class="headerlink" title="一、Redis 基本数据类型"></a>一、Redis 基本数据类型</h2><p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20200226113813.png" alt="Redis 数据类型"></p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>可以存储的值</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>STRING</td>
+<td>字符串、整数或者浮点数</td>
+<td>对整个字符串或者字符串的其中一部分执行操作</br> 对整数和浮点数执行自增或者自减操作</td>
+</tr>
+<tr>
+<td>LIST</td>
+<td>列表</td>
+<td>从两端压入或者弹出元素</br> 读取单个或者多个元素</br> 进行修剪，只保留一个范围内的元素</td>
+</tr>
+<tr>
+<td>SET</td>
+<td>无序集合</td>
+<td>添加、获取、移除单个元素</br> 检查一个元素是否存在于集合中</br> 计算交集、并集、差集</br> 从集合里面随机获取元素</td>
+</tr>
+<tr>
+<td>HASH</td>
+<td>包含键值对的无序散列表</td>
+<td>添加、获取、移除单个键值对</br> 获取所有键值对</br> 检查某个键是否存在</td>
+</tr>
+<tr>
+<td>ZSET</td>
+<td>有序集合</td>
+<td>添加、获取、删除元素</br> 根据分值范围或者成员来获取元素</br> 计算一个键的排名</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://redislabs.com/ebook/part-1-getting-started/chapter-1-getting-to-know-redis/1-2-what-redis-data-structures-look-like/">What Redis data structures look like</a></p>
+</blockquote>
+<h3 id="STRING"><a href="#STRING" class="headerlink" title="STRING"></a>STRING</h3><div align="center">
+<img src="https://raw.githubusercontent.com/dunwu/images/dev/cs/database/redis/redis-datatype-string.png" width="400"/>
+</div>
+**适用场景：缓存、计数器、共享 Session**
+
+<p>命令：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>GET</code></td>
+<td>获取存储在给定键中的值。</td>
+</tr>
+<tr>
+<td><code>SET</code></td>
+<td>设置存储在给定键中的值。</td>
+</tr>
+<tr>
+<td><code>DEL</code></td>
+<td>删除存储在给定键中的值（这个命令可以用于所有类型）。</td>
+</tr>
+<tr>
+<td><code>INCR</code></td>
+<td>为键 <code>key</code> 储存的数字值加一</td>
+</tr>
+<tr>
+<td><code>DECR</code></td>
+<td>为键 <code>key</code> 储存的数字值减一</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>更多命令请参考：<a target="_blank" rel="noopener" href="https://redis.io/commands#string">Redis String 类型命令</a></p>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; set hello world</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get hello</span><br><span class="line">&quot;world&quot;</span><br><span class="line">127.0.0.1:6379&gt; del hello</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; get hello</span><br><span class="line">(nil)</span><br></pre></td></tr></table></figure>
+
+<h3 id="HASH"><a href="#HASH" class="headerlink" title="HASH"></a>HASH</h3><div align="center">
+<img src="https://raw.githubusercontent.com/dunwu/images/dev/cs/database/redis/redis-datatype-hash.png" width="400"/>
+</div>
+**适用场景：存储结构化数据**，如一个对象：用户信息、产品信息等。
+
+<p>命令：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>HSET</code></td>
+<td>在散列里面关联起给定的键值对。</td>
+</tr>
+<tr>
+<td><code>HGET</code></td>
+<td>获取指定散列键的值。</td>
+</tr>
+<tr>
+<td><code>HGETALL</code></td>
+<td>获取散列包含的所有键值对。</td>
+</tr>
+<tr>
+<td><code>HDEL</code></td>
+<td>如果给定键存在于散列里面，那么移除这个键。</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>更多命令请参考：<a target="_blank" rel="noopener" href="https://redis.io/commands#hash">Redis Hash 类型命令</a></p>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hset hash-key sub-key1 value1</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; hset hash-key sub-key2 value2</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; hset hash-key sub-key1 value1</span><br><span class="line">(integer) 0</span><br><span class="line">127.0.0.1:6379&gt; hset hash-key sub-key3 value2</span><br><span class="line">(integer) 0</span><br><span class="line">127.0.0.1:6379&gt; hgetall hash-key</span><br><span class="line">1) &quot;sub-key1&quot;</span><br><span class="line">2) &quot;value1&quot;</span><br><span class="line">3) &quot;sub-key2&quot;</span><br><span class="line">4) &quot;value2&quot;</span><br><span class="line">127.0.0.1:6379&gt; hdel hash-key sub-key2</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; hdel hash-key sub-key2</span><br><span class="line">(integer) 0</span><br><span class="line">127.0.0.1:6379&gt; hget hash-key sub-key1</span><br><span class="line">&quot;value1&quot;</span><br><span class="line">127.0.0.1:6379&gt; hgetall hash-key</span><br><span class="line">1) &quot;sub-key1&quot;</span><br><span class="line">2) &quot;value1&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="LIST"><a href="#LIST" class="headerlink" title="LIST"></a>LIST</h3><div align="center">
+<img src="https://raw.githubusercontent.com/dunwu/images/dev/cs/database/redis/redis-datatype-list.png" width="400"/>
+</div>
+**适用场景：用于存储列表型数据**。如：粉丝列表、商品列表等。
+
+<p>命令：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>LPUSH</code></td>
+<td>将给定值推入列表的右端。</td>
+</tr>
+<tr>
+<td><code>RPUSH</code></td>
+<td>将给定值推入列表的右端。</td>
+</tr>
+<tr>
+<td><code>LPOP</code></td>
+<td>从列表的左端弹出一个值，并返回被弹出的值。</td>
+</tr>
+<tr>
+<td><code>RPOP</code></td>
+<td>从列表的右端弹出一个值，并返回被弹出的值。</td>
+</tr>
+<tr>
+<td><code>LRANGE</code></td>
+<td>获取列表在给定范围上的所有值。</td>
+</tr>
+<tr>
+<td><code>LINDEX</code></td>
+<td>获取列表在给定位置上的单个元素。</td>
+</tr>
+<tr>
+<td><code>LREM</code></td>
+<td>从列表的左端弹出一个值，并返回被弹出的值。</td>
+</tr>
+<tr>
+<td><code>LTRIM</code></td>
+<td>只保留指定区间内的元素，删除其他元素。</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>更多命令请参考：<a target="_blank" rel="noopener" href="https://redis.io/commands#list">Redis List 类型命令</a></p>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; rpush list-key item</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; rpush list-key item2</span><br><span class="line">(integer) 2</span><br><span class="line">127.0.0.1:6379&gt; rpush list-key item</span><br><span class="line">(integer) 3</span><br><span class="line">127.0.0.1:6379&gt; lrange list-key 0 -1</span><br><span class="line">1) &quot;item&quot;</span><br><span class="line">2) &quot;item2&quot;</span><br><span class="line">3) &quot;item&quot;</span><br><span class="line">127.0.0.1:6379&gt; lindex list-key 1</span><br><span class="line">&quot;item2&quot;</span><br><span class="line">127.0.0.1:6379&gt; lpop list-key</span><br><span class="line">&quot;item&quot;</span><br><span class="line">127.0.0.1:6379&gt; lrange list-key 0 -1</span><br><span class="line">1) &quot;item2&quot;</span><br><span class="line">2) &quot;item&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="SET"><a href="#SET" class="headerlink" title="SET"></a>SET</h3><div align="center">
+<img src="https://raw.githubusercontent.com/dunwu/images/dev/cs/database/redis/redis-datatype-set.png" width="400"/>
+</div>
+**适用场景：用于存储去重的列表型数据**。
+
+<p>命令：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>SADD</code></td>
+<td>将给定元素添加到集合。</td>
+</tr>
+<tr>
+<td><code>SMEMBERS</code></td>
+<td>返回集合包含的所有元素。</td>
+</tr>
+<tr>
+<td><code>SISMEMBER</code></td>
+<td>检查给定元素是否存在于集合中。</td>
+</tr>
+<tr>
+<td><code>SREM</code></td>
+<td>如果给定的元素存在于集合中，那么移除这个元素。</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>更多命令请参考：<a target="_blank" rel="noopener" href="https://redis.io/commands#set">Redis Set 类型命令</a></p>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; sadd set-key item</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; sadd set-key item2</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; sadd set-key item3</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; sadd set-key item</span><br><span class="line">(integer) 0</span><br><span class="line">127.0.0.1:6379&gt; smembers set-key</span><br><span class="line">1) &quot;item&quot;</span><br><span class="line">2) &quot;item2&quot;</span><br><span class="line">3) &quot;item3&quot;</span><br><span class="line">127.0.0.1:6379&gt; sismember set-key item4</span><br><span class="line">(integer) 0</span><br><span class="line">127.0.0.1:6379&gt; sismember set-key item</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; srem set-key item2</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; srem set-key item2</span><br><span class="line">(integer) 0</span><br><span class="line">127.0.0.1:6379&gt; smembers set-key</span><br><span class="line">1) &quot;item&quot;</span><br><span class="line">2) &quot;item3&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ZSET"><a href="#ZSET" class="headerlink" title="ZSET"></a>ZSET</h3><div align="center">
+<img src="https://raw.githubusercontent.com/dunwu/images/dev/cs/database/redis/redis-datatype-zset.png" width="400"/>
+</div>
+
+<p>适用场景：由于可以设置 score，且不重复。<strong>适合用于存储各种排行数据</strong>，如：按评分排序的有序商品集合、按时间排序的有序文章集合。</p>
+<p>命令：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ZADD</code></td>
+<td>将一个带有给定分值的成员添加到有序集合里面。</td>
+</tr>
+<tr>
+<td><code>ZRANGE</code></td>
+<td>根据元素在有序排列中所处的位置，从有序集合里面获取多个元素。</td>
+</tr>
+<tr>
+<td><code>ZRANGEBYSCORE</code></td>
+<td>获取有序集合在给定分值范围内的所有元素。</td>
+</tr>
+<tr>
+<td><code>ZREM</code></td>
+<td>如果给定成员存在于有序集合，那么移除这个成员。</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>更多命令请参考：<a target="_blank" rel="noopener" href="https://redis.io/commands#sorted_set">Redis ZSet 类型命令</a></p>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zadd zset-key 728 member1</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; zadd zset-key 982 member0</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; zadd zset-key 982 member0</span><br><span class="line">(integer) 0</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; zrange zset-key 0 -1 withscores</span><br><span class="line">1) &quot;member1&quot;</span><br><span class="line">2) &quot;728&quot;</span><br><span class="line">3) &quot;member0&quot;</span><br><span class="line">4) &quot;982&quot;</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; zrangebyscore zset-key 0 800 withscores</span><br><span class="line">1) &quot;member1&quot;</span><br><span class="line">2) &quot;728&quot;</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; zrem zset-key member1</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; zrem zset-key member1</span><br><span class="line">(integer) 0</span><br><span class="line">127.0.0.1:6379&gt; zrange zset-key 0 -1 withscores</span><br><span class="line">1) &quot;member0&quot;</span><br><span class="line">2) &quot;982&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="通用命令"><a href="#通用命令" class="headerlink" title="通用命令"></a>通用命令</h3><h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><p>Redis 的 <code>SORT</code> 命令可以对 <code>LIST</code>、<code>SET</code>、<code>ZSET</code> 进行排序。</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>SORT</code></td>
+<td>&#96;SORT source-key [BY pattern] [LIMIT offset count] [GET pattern [GET pattern …]] [ASC</td>
+</tr>
+</tbody></table>
+<p>示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379[15]&gt; RPUSH &#x27;sort-input&#x27; 23 15 110 7</span><br><span class="line">(integer) 4</span><br><span class="line">127.0.0.1:6379[15]&gt; SORT &#x27;sort-input&#x27;</span><br><span class="line">1) &quot;7&quot;</span><br><span class="line">2) &quot;15&quot;</span><br><span class="line">3) &quot;23&quot;</span><br><span class="line">4) &quot;110&quot;</span><br><span class="line">127.0.0.1:6379[15]&gt; SORT &#x27;sort-input&#x27; alpha</span><br><span class="line">1) &quot;110&quot;</span><br><span class="line">2) &quot;15&quot;</span><br><span class="line">3) &quot;23&quot;</span><br><span class="line">4) &quot;7&quot;</span><br><span class="line">127.0.0.1:6379[15]&gt; HSET &#x27;d-7&#x27; &#x27;field&#x27; 5</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379[15]&gt; HSET &#x27;d-15&#x27; &#x27;field&#x27; 1</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379[15]&gt; HSET &#x27;d-23&#x27; &#x27;field&#x27; 9</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379[15]&gt; HSET &#x27;d-110&#x27; &#x27;field&#x27; 3</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379[15]&gt; SORT &#x27;sort-input&#x27; by &#x27;d-*-&gt;field&#x27;</span><br><span class="line">1) &quot;15&quot;</span><br><span class="line">2) &quot;110&quot;</span><br><span class="line">3) &quot;7&quot;</span><br><span class="line">4) &quot;23&quot;</span><br><span class="line">127.0.0.1:6379[15]&gt; SORT &#x27;sort-input&#x27; by &#x27;d-*-&gt;field&#x27; get &#x27;d-*-&gt;field&#x27;</span><br><span class="line">1) &quot;1&quot;</span><br><span class="line">2) &quot;3&quot;</span><br><span class="line">3) &quot;5&quot;</span><br><span class="line">4) &quot;9&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="键的过期时间"><a href="#键的过期时间" class="headerlink" title="键的过期时间"></a>键的过期时间</h4><p>Redis 的 <code>EXPIRE</code> 命令可以指定一个键的过期时间，当达到过期时间后，Redis 会自动删除该键。</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>PERSIST</code></td>
+<td><code>PERSIST key-name</code>—移除键的过期时间</td>
+</tr>
+<tr>
+<td><code>TTL</code></td>
+<td><code>TTL key-name</code>—查看给定键距离过期还有多少秒</td>
+</tr>
+<tr>
+<td><code>EXPIRE</code></td>
+<td><code>EXPIRE key-name seconds</code>—让给定键在指定的秒数之后过期</td>
+</tr>
+<tr>
+<td><code>EXPIREAT</code></td>
+<td><code>EXPIREAT key-name timestamp</code>—将给定键的过期时间设置为给定的 UNIX 时间戳</td>
+</tr>
+<tr>
+<td><code>PTTL</code></td>
+<td><code>PTTL key-name</code>—查看给定键距离过期时间还有多少毫秒（这个命令在 Redis 2.6 或以上版本可用）</td>
+</tr>
+<tr>
+<td><code>PEXPIRE</code></td>
+<td><code>PEXPIRE key-name milliseconds</code>—让给定键在指定的毫秒数之后过期（这个命令在 Redis 2.6 或以上版本可用）</td>
+</tr>
+<tr>
+<td><code>PEXPIREAT</code></td>
+<td><code>PEXPIREAT key-name timestamp-milliseconds</code>—将一个毫秒级精度的 UNIX 时间戳设置为给定键的过期时间（这个命令在 Redis 2.6 或以上版本可用）</td>
+</tr>
+</tbody></table>
+<p>示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379[15]&gt; SET key value</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379[15]&gt; GET key</span><br><span class="line">&quot;value&quot;</span><br><span class="line">127.0.0.1:6379[15]&gt; EXPIRE key 2</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379[15]&gt; GET key</span><br><span class="line">(nil)</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、Redis-高级数据类型"><a href="#二、Redis-高级数据类型" class="headerlink" title="二、Redis 高级数据类型"></a>二、Redis 高级数据类型</h2><h3 id="BitMap"><a href="#BitMap" class="headerlink" title="BitMap"></a>BitMap</h3><p>BitMap 即位图。BitMap 不是一个真实的数据结构。而是 STRING 类型上的一组面向 bit 操作的集合。由于 STRING 是二进制安全的 blob，并且它们的最大长度是 512m，所以 BitMap 能最大设置 $$2^{32}$$ 个不同的 bit。</p>
+<p>Bitmaps 的最大优点就是存储信息时可以节省大量的空间。例如在一个系统中，不同的用户被一个增长的用户 ID 表示。40 亿（$$2^{32}$$ &#x3D; $$4<em>1024</em>1024*1024$$ ≈ 40 亿）用户只需要 512M 内存就能记住某种信息，例如用户是否登录过。</p>
+<h4 id="BitMap-命令"><a href="#BitMap-命令" class="headerlink" title="BitMap 命令"></a>BitMap 命令</h4><ul>
+<li><a target="_blank" rel="noopener" href="http://redisdoc.com/bitmap/setbit.html">SETBIT</a> - 对 <code>key</code> 所储存的字符串值，设置或清除指定偏移量上的位(bit)。</li>
+<li><a target="_blank" rel="noopener" href="http://redisdoc.com/bitmap/getbit.html">GETBIT</a> - 对 <code>key</code> 所储存的字符串值，获取指定偏移量上的位(bit)。</li>
+<li><a target="_blank" rel="noopener" href="http://redisdoc.com/bitmap/bitcount.html">BITCOUNT</a> - 计算给定字符串中，被设置为 <code>1</code> 的比特位的数量。</li>
+<li><a target="_blank" rel="noopener" href="http://redisdoc.com/bitmap/bitpos.html">BITPOS</a></li>
+<li><a target="_blank" rel="noopener" href="http://redisdoc.com/bitmap/bitop.html">BITOP</a></li>
+<li><a target="_blank" rel="noopener" href="http://redisdoc.com/bitmap/bitfield.html">BITFIELD</a></li>
+</ul>
+<h4 id="BitMap-示例"><a href="#BitMap-示例" class="headerlink" title="BitMap 示例"></a>BitMap 示例</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">对不存在的 key 或者不存在的 offset 进行 GETBIT， 返回 0</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">redis&gt; </span><span class="language-bash">EXISTS bit</span></span><br><span class="line">(integer) 0</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">redis&gt; </span><span class="language-bash">GETBIT bit 10086</span></span><br><span class="line">(integer) 0</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">对已存在的 offset 进行 GETBIT</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">redis&gt; </span><span class="language-bash">SETBIT bit 10086 1</span></span><br><span class="line">(integer) 0</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">redis&gt; </span><span class="language-bash">GETBIT bit 10086</span></span><br><span class="line">(integer) 1</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">redis&gt; </span><span class="language-bash">BITCOUNT bit</span></span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<h4 id="BitMap-应用"><a href="#BitMap-应用" class="headerlink" title="BitMap 应用"></a>BitMap 应用</h4><p>Bitmap 对于一些特定类型的计算非常有效。例如：使用 bitmap 实现用户上线次数统计。</p>
+<p>假设现在我们希望记录自己网站上的用户的上线频率，比如说，计算用户 A 上线了多少天，用户 B 上线了多少天，诸如此类，以此作为数据，从而决定让哪些用户参加 beta 测试等活动 —— 这个模式可以使用 <a target="_blank" rel="noopener" href="http://redisdoc.com/bitmap/setbit.html#setbit">SETBIT key offset value</a> 和 [BITCOUNT key <a target="_blank" rel="noopener" href="http://redisdoc.com/bitmap/bitcount.html#bitcount">start] [end]</a> 来实现。</p>
+<p>比如说，每当用户在某一天上线的时候，我们就使用 <a target="_blank" rel="noopener" href="http://redisdoc.com/bitmap/setbit.html#setbit">SETBIT key offset value</a> ，以用户名作为 <code>key</code>，将那天所代表的网站的上线日作为 <code>offset</code> 参数，并将这个 <code>offset</code> 上的为设置为 <code>1</code> 。</p>
+<blockquote>
+<p>更详细的实现可以参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u011957758/article/details/74783347">一看就懂系列之 详解 redis 的 bitmap 在亿级项目中的应用</a></p>
+<p><a target="_blank" rel="noopener" href="http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps/">Fast, easy, realtime metrics using Redis bitmaps</a></p>
+</blockquote>
+<h3 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog"></a>HyperLogLog</h3><p>HyperLogLog 是用于计算唯一事物的概率数据结构（从技术上讲，这被称为估计集合的基数）。如果统计唯一项，项目越多，需要的内存就越多。因为需要记住过去已经看过的项，从而避免多次统计这些项。</p>
+<h4 id="HyperLogLog-命令"><a href="#HyperLogLog-命令" class="headerlink" title="HyperLogLog 命令"></a>HyperLogLog 命令</h4><ul>
+<li><a target="_blank" rel="noopener" href="http://redisdoc.com/hyperloglog/pfadd.html">PFADD</a> - 将任意数量的元素添加到指定的 HyperLogLog 里面。</li>
+<li><a target="_blank" rel="noopener" href="http://redisdoc.com/hyperloglog/pfcount.html">PFCOUNT</a> - 返回 HyperLogLog 包含的唯一元素的近似数量。</li>
+<li><a target="_blank" rel="noopener" href="http://redisdoc.com/hyperloglog/pfmerge.html">PFMERGE</a> - 将多个 HyperLogLog 合并（merge）为一个 HyperLogLog ， 合并后的 HyperLogLog 的基数接近于所有输入 HyperLogLog 的可见集合（observed set）的并集。合并得出的 HyperLogLog 会被储存在 <code>destkey</code> 键里面， 如果该键并不存在， 那么命令在执行之前， 会先为该键创建一个空的 HyperLogLog 。</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">redis&gt; </span><span class="language-bash">PFADD  databases  <span class="string">&quot;Redis&quot;</span>  <span class="string">&quot;MongoDB&quot;</span>  <span class="string">&quot;MySQL&quot;</span></span></span><br><span class="line">(integer) 1</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">redis&gt; </span><span class="language-bash">PFCOUNT  databases</span></span><br><span class="line">(integer) 3</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">redis&gt; </span><span class="language-bash">PFADD  databases  <span class="string">&quot;Redis&quot;</span>    <span class="comment"># Redis 已经存在，不必对估计数量进行更新</span></span></span><br><span class="line">(integer) 0</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">redis&gt; </span><span class="language-bash">PFCOUNT  databases    <span class="comment"># 元素估计数量没有变化</span></span></span><br><span class="line">(integer) 3</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">redis&gt; </span><span class="language-bash">PFADD  databases  <span class="string">&quot;PostgreSQL&quot;</span>    <span class="comment"># 添加一个不存在的元素</span></span></span><br><span class="line">(integer) 1</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">redis&gt; </span><span class="language-bash">PFCOUNT  databases    <span class="comment"># 估计数量增一</span></span></span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+
+<h3 id="GEO"><a href="#GEO" class="headerlink" title="GEO"></a>GEO</h3><p>这个功能可以将用户给定的地理位置（经度和纬度）信息储存起来，并对这些信息进行操作。</p>
+<h4 id="GEO-命令"><a href="#GEO-命令" class="headerlink" title="GEO 命令"></a>GEO 命令</h4><ul>
+<li><a target="_blank" rel="noopener" href="http://redisdoc.com/geo/geoadd.html">GEOADD</a> - 将指定的地理空间位置（纬度、经度、名称）添加到指定的 key 中。</li>
+<li><a target="_blank" rel="noopener" href="http://redisdoc.com/geo/geopos.html">GEOPOS</a> - 从 key 里返回所有给定位置元素的位置（经度和纬度）。</li>
+<li><a target="_blank" rel="noopener" href="http://redisdoc.com/geo/geodist.html">GEODIST</a> - 返回两个给定位置之间的距离。</li>
+<li><a target="_blank" rel="noopener" href="http://redisdoc.com/geo/geohash.html">GEOHASH</a> - 回一个或多个位置元素的标准 Geohash 值，它可以在<a target="_blank" rel="noopener" href="http://geohash.org/%E4%BD%BF%E7%94%A8%E3%80%82">http://geohash.org/使用。</a></li>
+<li><a target="_blank" rel="noopener" href="http://redisdoc.com/geo/georadius.html">GEORADIUS</a></li>
+<li><a target="_blank" rel="noopener" href="http://redisdoc.com/geo/georadiusbymember.html">GEORADIUSBYMEMBER</a></li>
+</ul>
+<h2 id="三、Redis-数据类型应用"><a href="#三、Redis-数据类型应用" class="headerlink" title="三、Redis 数据类型应用"></a>三、Redis 数据类型应用</h2><h3 id="案例-最受欢迎文章"><a href="#案例-最受欢迎文章" class="headerlink" title="案例-最受欢迎文章"></a>案例-最受欢迎文章</h3><p>选出最受欢迎文章，需要支持对文章进行评分。</p>
+<h4 id="对文章进行投票"><a href="#对文章进行投票" class="headerlink" title="对文章进行投票"></a>对文章进行投票</h4><p>（1）使用 HASH 存储文章</p>
+<p>使用 <code>HASH</code> 类型存储文章信息。其中：key 是文章 ID；field 是文章的属性 key；value 是属性对应值。</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20200225143038.jpg" alt="img"></p>
+<p>操作：</p>
+<ul>
+<li>存储文章信息 - 使用 <code>HSET</code> 或 <code>HMGET</code> 命令</li>
+<li>查询文章信息 - 使用 <code>HGETALL</code> 命令</li>
+<li>添加投票 - 使用 <code>HINCRBY</code> 命令</li>
+</ul>
+<p>（2）使用 <code>ZSET</code> 针对不同维度集合排序</p>
+<p>使用 <code>ZSET</code> 类型分别存储按照时间排序和按照评分排序的文章 ID 集合。</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20200225145742.jpg" alt="img"></p>
+<p>操作：</p>
+<ul>
+<li>添加记录 - 使用 <code>ZADD</code> 命令</li>
+<li>添加分数 - 使用 <code>ZINCRBY</code> 命令</li>
+<li>取出多篇文章 - 使用 <code>ZREVRANGE</code> 命令</li>
+</ul>
+<p>（3）为了防止重复投票，使用 <code>SET</code> 类型记录每篇文章 ID 对应的投票集合。</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20200225150105.jpg" alt="img"></p>
+<p>操作：</p>
+<ul>
+<li>添加投票者 - 使用 <code>SADD</code> 命令</li>
+<li>设置有效期 - 使用 <code>EXPIRE</code> 命令</li>
+</ul>
+<p>（4）假设 user:115423 给 article:100408 投票，分别需要高更新评分排序集合以及投票集合。</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20200225150138.jpg" alt="img"></p>
+<p>当需要对一篇文章投票时，程序需要用 ZSCORE 命令检查记录文章发布时间的有序集合，判断文章的发布时间是否超过投票有效期（比如：一星期）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">articleVote</span><span class="params">(Jedis conn, String user, String article)</span> &#123;</span><br><span class="line">    <span class="comment">// 计算文章的投票截止时间。</span></span><br><span class="line">    <span class="type">long</span> <span class="variable">cutoff</span> <span class="operator">=</span> (System.currentTimeMillis() / <span class="number">1000</span>) - ONE_WEEK_IN_SECONDS;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 检查是否还可以对文章进行投票</span></span><br><span class="line">    <span class="comment">// （虽然使用散列也可以获取文章的发布时间，</span></span><br><span class="line">    <span class="comment">// 但有序集合返回的文章发布时间为浮点数，</span></span><br><span class="line">    <span class="comment">// 可以不进行转换直接使用）。</span></span><br><span class="line">    <span class="keyword">if</span> (conn.zscore(<span class="string">&quot;time:&quot;</span>, article) &lt; cutoff) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从article:id标识符（identifier）里面取出文章的ID。</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">articleId</span> <span class="operator">=</span> article.substring(article.indexOf(<span class="string">&#x27;:&#x27;</span>) + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果用户是第一次为这篇文章投票，那么增加这篇文章的投票数量和评分。</span></span><br><span class="line">    <span class="keyword">if</span> (conn.sadd(<span class="string">&quot;voted:&quot;</span> + articleId, user) == <span class="number">1</span>) &#123;</span><br><span class="line">        conn.zincrby(<span class="string">&quot;score:&quot;</span>, VOTE_SCORE, article);</span><br><span class="line">        conn.hincrBy(article, <span class="string">&quot;votes&quot;</span>, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="发布并获取文章"><a href="#发布并获取文章" class="headerlink" title="发布并获取文章"></a>发布并获取文章</h4><p>发布文章：</p>
+<ul>
+<li>添加文章 - 使用 <code>INCR</code> 命令计算新的文章 ID，填充文章信息，然后用 <code>HSET</code> 命令或 <code>HMSET</code> 命令写入到 <code>HASH</code> 结构中。</li>
+<li>将文章作者 ID 添加到投票名单 - 使用 <code>SADD</code> 命令添加到代表投票名单的 <code>SET</code> 结构中。</li>
+<li>设置投票有效期 - 使用 <code>EXPIRE</code> 命令设置投票有效期。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> String <span class="title function_">postArticle</span><span class="params">(Jedis conn, String user, String title, String link)</span> &#123;</span><br><span class="line">    <span class="comment">// 生成一个新的文章ID。</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">articleId</span> <span class="operator">=</span> String.valueOf(conn.incr(<span class="string">&quot;article:&quot;</span>));</span><br><span class="line"></span><br><span class="line">    <span class="type">String</span> <span class="variable">voted</span> <span class="operator">=</span> <span class="string">&quot;voted:&quot;</span> + articleId;</span><br><span class="line">    <span class="comment">// 将发布文章的用户添加到文章的已投票用户名单里面，</span></span><br><span class="line">    conn.sadd(voted, user);</span><br><span class="line">    <span class="comment">// 然后将这个名单的过期时间设置为一周（第3章将对过期时间作更详细的介绍）。</span></span><br><span class="line">    conn.expire(voted, ONE_WEEK_IN_SECONDS);</span><br><span class="line"></span><br><span class="line">    <span class="type">long</span> <span class="variable">now</span> <span class="operator">=</span> System.currentTimeMillis() / <span class="number">1000</span>;</span><br><span class="line">    <span class="type">String</span> <span class="variable">article</span> <span class="operator">=</span> <span class="string">&quot;article:&quot;</span> + articleId;</span><br><span class="line">    <span class="comment">// 将文章信息存储到一个散列里面。</span></span><br><span class="line">    HashMap&lt;String, String&gt; articleData = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, String&gt;();</span><br><span class="line">    articleData.put(<span class="string">&quot;title&quot;</span>, title);</span><br><span class="line">    articleData.put(<span class="string">&quot;link&quot;</span>, link);</span><br><span class="line">    articleData.put(<span class="string">&quot;user&quot;</span>, user);</span><br><span class="line">    articleData.put(<span class="string">&quot;now&quot;</span>, String.valueOf(now));</span><br><span class="line">    articleData.put(<span class="string">&quot;votes&quot;</span>, <span class="string">&quot;1&quot;</span>);</span><br><span class="line">    conn.hmset(article, articleData);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将文章添加到根据发布时间排序的有序集合和根据评分排序的有序集合里面。</span></span><br><span class="line">    conn.zadd(<span class="string">&quot;score:&quot;</span>, now + VOTE_SCORE, article);</span><br><span class="line">    conn.zadd(<span class="string">&quot;time:&quot;</span>, now, article);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> articleId;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>分页查询最受欢迎文章：</p>
+<p>使用 <code>ZINTERSTORE</code> 命令根据页码、每页记录数、排序号，根据评分值从大到小分页查出文章 ID 列表。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;Map&lt;String, String&gt;&gt; <span class="title function_">getArticles</span><span class="params">(Jedis conn, <span class="type">int</span> page, String order)</span> &#123;</span><br><span class="line">    <span class="comment">// 设置获取文章的起始索引和结束索引。</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">start</span> <span class="operator">=</span> (page - <span class="number">1</span>) * ARTICLES_PER_PAGE;</span><br><span class="line">    <span class="type">int</span> <span class="variable">end</span> <span class="operator">=</span> start + ARTICLES_PER_PAGE - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取多个文章ID。</span></span><br><span class="line">    Set&lt;String&gt; ids = conn.zrevrange(order, start, end);</span><br><span class="line">    List&lt;Map&lt;String, String&gt;&gt; articles = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="comment">// 根据文章ID获取文章的详细信息。</span></span><br><span class="line">    <span class="keyword">for</span> (String id : ids) &#123;</span><br><span class="line">        Map&lt;String, String&gt; articleData = conn.hgetAll(id);</span><br><span class="line">        articleData.put(<span class="string">&quot;id&quot;</span>, id);</span><br><span class="line">        articles.add(articleData);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> articles;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="对文章进行分组"><a href="#对文章进行分组" class="headerlink" title="对文章进行分组"></a>对文章进行分组</h4><p>如果文章需要分组，功能需要分为两块：</p>
+<ul>
+<li>记录文章属于哪个群组</li>
+<li>负责取出群组里的文章</li>
+</ul>
+<p>将文章添加、删除群组：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addRemoveGroups</span><span class="params">(Jedis conn, String articleId, String[] toAdd, String[] toRemove)</span> &#123;</span><br><span class="line">    <span class="comment">// 构建存储文章信息的键名。</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">article</span> <span class="operator">=</span> <span class="string">&quot;article:&quot;</span> + articleId;</span><br><span class="line">    <span class="comment">// 将文章添加到它所属的群组里面。</span></span><br><span class="line">    <span class="keyword">for</span> (String group : toAdd) &#123;</span><br><span class="line">        conn.sadd(<span class="string">&quot;group:&quot;</span> + group, article);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 从群组里面移除文章。</span></span><br><span class="line">    <span class="keyword">for</span> (String group : toRemove) &#123;</span><br><span class="line">        conn.srem(<span class="string">&quot;group:&quot;</span> + group, article);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>取出群组里的文章：</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/snap/20200225214210.jpg" alt="img"></p>
+<ul>
+<li>通过对存储群组文章的集合和存储文章评分的有序集合执行 <code>ZINTERSTORE</code> 命令，可以得到按照文章评分排序的群组文章。</li>
+<li>通过对存储群组文章的集合和存储文章发布时间的有序集合执行 <code>ZINTERSTORE</code> 命令，可以得到按照文章发布时间排序的群组文章。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;Map&lt;String, String&gt;&gt; <span class="title function_">getGroupArticles</span><span class="params">(Jedis conn, String group, <span class="type">int</span> page, String order)</span> &#123;</span><br><span class="line">    <span class="comment">// 为每个群组的每种排列顺序都创建一个键。</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> order + group;</span><br><span class="line">    <span class="comment">// 检查是否有已缓存的排序结果，如果没有的话就现在进行排序。</span></span><br><span class="line">    <span class="keyword">if</span> (!conn.exists(key)) &#123;</span><br><span class="line">        <span class="comment">// 根据评分或者发布时间，对群组文章进行排序。</span></span><br><span class="line">        <span class="type">ZParams</span> <span class="variable">params</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ZParams</span>().aggregate(ZParams.Aggregate.MAX);</span><br><span class="line">        conn.zinterstore(key, params, <span class="string">&quot;group:&quot;</span> + group, order);</span><br><span class="line">        <span class="comment">// 让Redis在60秒钟之后自动删除这个有序集合。</span></span><br><span class="line">        conn.expire(key, <span class="number">60</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 调用之前定义的getArticles函数来进行分页并获取文章数据。</span></span><br><span class="line">    <span class="keyword">return</span> getArticles(conn, page, key);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="案例-管理令牌"><a href="#案例-管理令牌" class="headerlink" title="案例-管理令牌"></a>案例-管理令牌</h3><p>网站一般会以 Cookie、Session、令牌这类信息存储用户身份信息。</p>
+<p>可以将 Cookie&#x2F;Session&#x2F;令牌 和用户的映射关系存储在 <code>HASH</code> 结构。</p>
+<p>下面以令牌来举例。</p>
+<h4 id="查询令牌"><a href="#查询令牌" class="headerlink" title="查询令牌"></a>查询令牌</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> String <span class="title function_">checkToken</span><span class="params">(Jedis conn, String token)</span> &#123;</span><br><span class="line">    <span class="comment">// 尝试获取并返回令牌对应的用户。</span></span><br><span class="line">    <span class="keyword">return</span> conn.hget(<span class="string">&quot;login:&quot;</span>, token);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="更新令牌"><a href="#更新令牌" class="headerlink" title="更新令牌"></a>更新令牌</h4><ul>
+<li>用户每次访问页面，可以记录下令牌和当前时间戳的映射关系，存入一个 <code>ZSET</code> 结构中，以便分析用户是否活跃，继而可以周期性清理最老的令牌，统计当前在线用户数等行为。</li>
+<li>用户如果正在浏览商品，可以记录到用户最近浏览过的商品有序集合中（集合可以限定数量，超过数量进行裁剪），存入到一个 <code>ZSET</code> 结构中，以便分析用户最近可能感兴趣的商品，以便推荐商品。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">updateToken</span><span class="params">(Jedis conn, String token, String user, String item)</span> &#123;</span><br><span class="line">    <span class="comment">// 获取当前时间戳。</span></span><br><span class="line">    <span class="type">long</span> <span class="variable">timestamp</span> <span class="operator">=</span> System.currentTimeMillis() / <span class="number">1000</span>;</span><br><span class="line">    <span class="comment">// 维持令牌与已登录用户之间的映射。</span></span><br><span class="line">    conn.hset(<span class="string">&quot;login:&quot;</span>, token, user);</span><br><span class="line">    <span class="comment">// 记录令牌最后一次出现的时间。</span></span><br><span class="line">    conn.zadd(<span class="string">&quot;recent:&quot;</span>, timestamp, token);</span><br><span class="line">    <span class="keyword">if</span> (item != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 记录用户浏览过的商品。</span></span><br><span class="line">        conn.zadd(<span class="string">&quot;viewed:&quot;</span> + token, timestamp, item);</span><br><span class="line">        <span class="comment">// 移除旧的记录，只保留用户最近浏览过的25个商品。</span></span><br><span class="line">        conn.zremrangeByRank(<span class="string">&quot;viewed:&quot;</span> + token, <span class="number">0</span>, -<span class="number">26</span>);</span><br><span class="line">        conn.zincrby(<span class="string">&quot;viewed:&quot;</span>, -<span class="number">1</span>, item);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="清理令牌"><a href="#清理令牌" class="headerlink" title="清理令牌"></a>清理令牌</h4><p>上一节提到，更新令牌时，将令牌和当前时间戳的映射关系，存入一个 <code>ZSET</code> 结构中。所以可以通过排序得知哪些令牌最老。如果没有清理操作，更新令牌占用的内存会不断膨胀，直到导致机器宕机。</p>
+<p>比如：最多允许存储 1000 万条令牌信息，周期性检查，一旦发现记录数超出 1000 万条，将 ZSET 从新到老排序，将超出 1000 万条的记录清除。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">CleanSessionsThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Jedis conn;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> limit;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="type">boolean</span> quit;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CleanSessionsThread</span><span class="params">(<span class="type">int</span> limit)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.conn = <span class="keyword">new</span> <span class="title class_">Jedis</span>(<span class="string">&quot;localhost&quot;</span>);</span><br><span class="line">        <span class="built_in">this</span>.conn.select(<span class="number">15</span>);</span><br><span class="line">        <span class="built_in">this</span>.limit = limit;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">quit</span><span class="params">()</span> &#123;</span><br><span class="line">        quit = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (!quit) &#123;</span><br><span class="line">            <span class="comment">// 找出目前已有令牌的数量。</span></span><br><span class="line">            <span class="type">long</span> <span class="variable">size</span> <span class="operator">=</span> conn.zcard(<span class="string">&quot;recent:&quot;</span>);</span><br><span class="line">            <span class="comment">// 令牌数量未超过限制，休眠并在之后重新检查。</span></span><br><span class="line">            <span class="keyword">if</span> (size &lt;= limit) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException ie) &#123;</span><br><span class="line">                    Thread.currentThread().interrupt();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 获取需要移除的令牌ID。</span></span><br><span class="line">            <span class="type">long</span> <span class="variable">endIndex</span> <span class="operator">=</span> Math.min(size - limit, <span class="number">100</span>);</span><br><span class="line">            Set&lt;String&gt; tokenSet = conn.zrange(<span class="string">&quot;recent:&quot;</span>, <span class="number">0</span>, endIndex - <span class="number">1</span>);</span><br><span class="line">            String[] tokens = tokenSet.toArray(<span class="keyword">new</span> <span class="title class_">String</span>[tokenSet.size()]);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 为那些将要被删除的令牌构建键名。</span></span><br><span class="line">            ArrayList&lt;String&gt; sessionKeys = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line">            <span class="keyword">for</span> (String token : tokens) &#123;</span><br><span class="line">                sessionKeys.add(<span class="string">&quot;viewed:&quot;</span> + token);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 移除最旧的那些令牌。</span></span><br><span class="line">            conn.del(sessionKeys.toArray(<span class="keyword">new</span> <span class="title class_">String</span>[sessionKeys.size()]));</span><br><span class="line">            conn.hdel(<span class="string">&quot;login:&quot;</span>, tokens);</span><br><span class="line">            conn.zrem(<span class="string">&quot;recent:&quot;</span>, tokens);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="案例-购物车"><a href="#案例-购物车" class="headerlink" title="案例-购物车"></a>案例-购物车</h3><p>可以使用 HASH 结构来实现购物车功能。</p>
+<p>每个用户的购物车，存储了商品 ID 和商品数量的映射。</p>
+<h4 id="在购物车中添加、删除商品"><a href="#在购物车中添加、删除商品" class="headerlink" title="在购物车中添加、删除商品"></a>在购物车中添加、删除商品</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addToCart</span><span class="params">(Jedis conn, String session, String item, <span class="type">int</span> count)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (count &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 从购物车里面移除指定的商品。</span></span><br><span class="line">        conn.hdel(<span class="string">&quot;cart:&quot;</span> + session, item);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 将指定的商品添加到购物车。</span></span><br><span class="line">        conn.hset(<span class="string">&quot;cart:&quot;</span> + session, item, String.valueOf(count));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="清空购物车"><a href="#清空购物车" class="headerlink" title="清空购物车"></a>清空购物车</h4><p>在 <a href="#%E6%B8%85%E7%90%86%E4%BB%A4%E7%89%8C">清理令牌</a> 的基础上，清空会话时，顺便将购物车缓存一并清理。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (!quit) &#123;</span><br><span class="line">     <span class="type">long</span> <span class="variable">size</span> <span class="operator">=</span> conn.zcard(<span class="string">&quot;recent:&quot;</span>);</span><br><span class="line">     <span class="keyword">if</span> (size &lt;= limit) &#123;</span><br><span class="line">         <span class="keyword">try</span> &#123;</span><br><span class="line">             sleep(<span class="number">1000</span>);</span><br><span class="line">         &#125; <span class="keyword">catch</span> (InterruptedException ie) &#123;</span><br><span class="line">             Thread.currentThread().interrupt();</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">continue</span>;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="type">long</span> <span class="variable">endIndex</span> <span class="operator">=</span> Math.min(size - limit, <span class="number">100</span>);</span><br><span class="line">     Set&lt;String&gt; sessionSet = conn.zrange(<span class="string">&quot;recent:&quot;</span>, <span class="number">0</span>, endIndex - <span class="number">1</span>);</span><br><span class="line">     String[] sessions = sessionSet.toArray(<span class="keyword">new</span> <span class="title class_">String</span>[sessionSet.size()]);</span><br><span class="line"></span><br><span class="line">     ArrayList&lt;String&gt; sessionKeys = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line">     <span class="keyword">for</span> (String sess : sessions) &#123;</span><br><span class="line">         sessionKeys.add(<span class="string">&quot;viewed:&quot;</span> + sess);</span><br><span class="line">         <span class="comment">// 新增加的这行代码用于删除旧会话对应用户的购物车。</span></span><br><span class="line">         sessionKeys.add(<span class="string">&quot;cart:&quot;</span> + sess);</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     conn.del(sessionKeys.toArray(<span class="keyword">new</span> <span class="title class_">String</span>[sessionKeys.size()]));</span><br><span class="line">     conn.hdel(<span class="string">&quot;login:&quot;</span>, sessions);</span><br><span class="line">     conn.zrem(<span class="string">&quot;recent:&quot;</span>, sessions);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="案例-页面缓存"><a href="#案例-页面缓存" class="headerlink" title="案例-页面缓存"></a>案例-页面缓存</h3><p>大部分网页内容并不会经常改变，但是访问时，后台需要动态计算，这可能耗时较多，此时可以使用 <code>STRING</code> 结构存储页面缓存，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> String <span class="title function_">cacheRequest</span><span class="params">(Jedis conn, String request, Callback callback)</span> &#123;</span><br><span class="line">    <span class="comment">// 对于不能被缓存的请求，直接调用回调函数。</span></span><br><span class="line">    <span class="keyword">if</span> (!canCache(conn, request)) &#123;</span><br><span class="line">        <span class="keyword">return</span> callback != <span class="literal">null</span> ? callback.call(request) : <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将请求转换成一个简单的字符串键，方便之后进行查找。</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">pageKey</span> <span class="operator">=</span> <span class="string">&quot;cache:&quot;</span> + hashRequest(request);</span><br><span class="line">    <span class="comment">// 尝试查找被缓存的页面。</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">content</span> <span class="operator">=</span> conn.get(pageKey);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (content == <span class="literal">null</span> &amp;&amp; callback != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果页面还没有被缓存，那么生成页面。</span></span><br><span class="line">        content = callback.call(request);</span><br><span class="line">        <span class="comment">// 将新生成的页面放到缓存里面。</span></span><br><span class="line">        conn.setex(pageKey, <span class="number">300</span>, content);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回页面。</span></span><br><span class="line">    <span class="keyword">return</span> content;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="案例-数据行缓存"><a href="#案例-数据行缓存" class="headerlink" title="案例-数据行缓存"></a>案例-数据行缓存</h3><p>电商网站可能会有促销、特卖、抽奖等活动，这些活动页面只需要从数据库中加载几行数据，如：用户信息、商品信息。</p>
+<p>可以使用 <code>STRING</code> 结构来缓存这些数据，使用 JSON 存储结构化的信息。</p>
+<p>此外，需要有两个 <code>ZSET</code> 结构来记录更新缓存的时机：</p>
+<ul>
+<li>第一个为调度有序集合；</li>
+<li>第二个为延时有序集合。</li>
+</ul>
+<p>记录缓存时机：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">scheduleRowCache</span><span class="params">(Jedis conn, String rowId, <span class="type">int</span> delay)</span> &#123;</span><br><span class="line">    <span class="comment">// 先设置数据行的延迟值。</span></span><br><span class="line">    conn.zadd(<span class="string">&quot;delay:&quot;</span>, delay, rowId);</span><br><span class="line">    <span class="comment">// 立即缓存数据行。</span></span><br><span class="line">    conn.zadd(<span class="string">&quot;schedule:&quot;</span>, System.currentTimeMillis() / <span class="number">1000</span>, rowId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>定时更新数据行缓存：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CacheRowsThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Jedis conn;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> quit;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CacheRowsThread</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.conn = <span class="keyword">new</span> <span class="title class_">Jedis</span>(<span class="string">&quot;localhost&quot;</span>);</span><br><span class="line">        <span class="built_in">this</span>.conn.select(<span class="number">15</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">quit</span><span class="params">()</span> &#123;</span><br><span class="line">        quit = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Gson</span> <span class="variable">gson</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Gson</span>();</span><br><span class="line">        <span class="keyword">while</span> (!quit) &#123;</span><br><span class="line">            <span class="comment">// 尝试获取下一个需要被缓存的数据行以及该行的调度时间戳，</span></span><br><span class="line">            <span class="comment">// 命令会返回一个包含零个或一个元组（tuple）的列表。</span></span><br><span class="line">            Set&lt;Tuple&gt; range = conn.zrangeWithScores(<span class="string">&quot;schedule:&quot;</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">            <span class="type">Tuple</span> <span class="variable">next</span> <span class="operator">=</span> range.size() &gt; <span class="number">0</span> ? range.iterator().next() : <span class="literal">null</span>;</span><br><span class="line">            <span class="type">long</span> <span class="variable">now</span> <span class="operator">=</span> System.currentTimeMillis() / <span class="number">1000</span>;</span><br><span class="line">            <span class="keyword">if</span> (next == <span class="literal">null</span> || next.getScore() &gt; now) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="comment">// 暂时没有行需要被缓存，休眠50毫秒后重试。</span></span><br><span class="line">                    sleep(<span class="number">50</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException ie) &#123;</span><br><span class="line">                    Thread.currentThread().interrupt();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="type">String</span> <span class="variable">rowId</span> <span class="operator">=</span> next.getElement();</span><br><span class="line">            <span class="comment">// 获取下一次调度前的延迟时间。</span></span><br><span class="line">            <span class="type">double</span> <span class="variable">delay</span> <span class="operator">=</span> conn.zscore(<span class="string">&quot;delay:&quot;</span>, rowId);</span><br><span class="line">            <span class="keyword">if</span> (delay &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">// 不必再缓存这个行，将它从缓存中移除。</span></span><br><span class="line">                conn.zrem(<span class="string">&quot;delay:&quot;</span>, rowId);</span><br><span class="line">                conn.zrem(<span class="string">&quot;schedule:&quot;</span>, rowId);</span><br><span class="line">                conn.del(<span class="string">&quot;inv:&quot;</span> + rowId);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 读取数据行。</span></span><br><span class="line">            <span class="type">Inventory</span> <span class="variable">row</span> <span class="operator">=</span> Inventory.get(rowId);</span><br><span class="line">            <span class="comment">// 更新调度时间并设置缓存值。</span></span><br><span class="line">            conn.zadd(<span class="string">&quot;schedule:&quot;</span>, now + delay, rowId);</span><br><span class="line">            conn.set(<span class="string">&quot;inv:&quot;</span> + rowId, gson.toJson(row));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="案例-网页分析"><a href="#案例-网页分析" class="headerlink" title="案例-网页分析"></a>案例-网页分析</h3><p>网站可以采集用户的访问、交互、购买行为，再分析用户习惯、喜好，从而判断市场行情和潜在商机等。</p>
+<p>那么，简单的，如何记录用户在一定时间内访问的商品页面呢？</p>
+<p>参考 <a href="#%E6%9B%B4%E6%96%B0%E4%BB%A4%E7%89%8C">更新令牌</a> 代码示例，记录用户访问不同商品的浏览次数，并排序。</p>
+<p>判断页面是否需要缓存，根据评分判断商品页面是否热门：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canCache</span><span class="params">(Jedis conn, String request)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="type">URL</span> <span class="variable">url</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">URL</span>(request);</span><br><span class="line">        HashMap&lt;String, String&gt; params = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span> (url.getQuery() != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (String param : url.getQuery().split(<span class="string">&quot;&amp;&quot;</span>)) &#123;</span><br><span class="line">                String[] pair = param.split(<span class="string">&quot;=&quot;</span>, <span class="number">2</span>);</span><br><span class="line">                params.put(pair[<span class="number">0</span>], pair.length == <span class="number">2</span> ? pair[<span class="number">1</span>] : <span class="literal">null</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 尝试从页面里面取出商品ID。</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">itemId</span> <span class="operator">=</span> extractItemId(params);</span><br><span class="line">        <span class="comment">// 检查这个页面能否被缓存以及这个页面是否为商品页面。</span></span><br><span class="line">        <span class="keyword">if</span> (itemId == <span class="literal">null</span> || isDynamic(params)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 取得商品的浏览次数排名。</span></span><br><span class="line">        <span class="type">Long</span> <span class="variable">rank</span> <span class="operator">=</span> conn.zrank(<span class="string">&quot;viewed:&quot;</span>, itemId);</span><br><span class="line">        <span class="comment">// 根据商品的浏览次数排名来判断是否需要缓存这个页面。</span></span><br><span class="line">        <span class="keyword">return</span> rank != <span class="literal">null</span> &amp;&amp; rank &lt; <span class="number">10000</span>;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (MalformedURLException mue) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="案例-记录日志"><a href="#案例-记录日志" class="headerlink" title="案例-记录日志"></a>案例-记录日志</h3><p>可用使用 <code>LIST</code> 结构存储日志数据。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">logRecent</span><span class="params">(Jedis conn, String name, String message, String severity)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">destination</span> <span class="operator">=</span> <span class="string">&quot;recent:&quot;</span> + name + <span class="string">&#x27;:&#x27;</span> + severity;</span><br><span class="line">    <span class="type">Pipeline</span> <span class="variable">pipe</span> <span class="operator">=</span> conn.pipelined();</span><br><span class="line">    pipe.lpush(destination, TIMESTAMP.format(<span class="keyword">new</span> <span class="title class_">Date</span>()) + <span class="string">&#x27; &#x27;</span> + message);</span><br><span class="line">    pipe.ltrim(destination, <span class="number">0</span>, <span class="number">99</span>);</span><br><span class="line">    pipe.sync();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="案例-统计数据"><a href="#案例-统计数据" class="headerlink" title="案例-统计数据"></a>案例-统计数据</h3><p>更新计数器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span>[] PRECISION = <span class="keyword">new</span> <span class="title class_">int</span>[] &#123; <span class="number">1</span>, <span class="number">5</span>, <span class="number">60</span>, <span class="number">300</span>, <span class="number">3600</span>, <span class="number">18000</span>, <span class="number">86400</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">updateCounter</span><span class="params">(Jedis conn, String name, <span class="type">int</span> count, <span class="type">long</span> now)</span> &#123;</span><br><span class="line">    <span class="type">Transaction</span> <span class="variable">trans</span> <span class="operator">=</span> conn.multi();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> prec : PRECISION) &#123;</span><br><span class="line">        <span class="type">long</span> <span class="variable">pnow</span> <span class="operator">=</span> (now / prec) * prec;</span><br><span class="line">        <span class="type">String</span> <span class="variable">hash</span> <span class="operator">=</span> String.valueOf(prec) + <span class="string">&#x27;:&#x27;</span> + name;</span><br><span class="line">        trans.zadd(<span class="string">&quot;known:&quot;</span>, <span class="number">0</span>, hash);</span><br><span class="line">        trans.hincrBy(<span class="string">&quot;count:&quot;</span> + hash, String.valueOf(pnow), count);</span><br><span class="line">    &#125;</span><br><span class="line">    trans.exec();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查看计数器数据：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;Pair&lt;Integer&gt;&gt; <span class="title function_">getCounter</span><span class="params">(</span></span><br><span class="line"><span class="params">    Jedis conn, String name, <span class="type">int</span> precision)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">hash</span> <span class="operator">=</span> String.valueOf(precision) + <span class="string">&#x27;:&#x27;</span> + name;</span><br><span class="line">    Map&lt;String, String&gt; data = conn.hgetAll(<span class="string">&quot;count:&quot;</span> + hash);</span><br><span class="line">    List&lt;Pair&lt;Integer&gt;&gt; results = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (Map.Entry&lt;String, String&gt; entry : data.entrySet()) &#123;</span><br><span class="line">        results.add(<span class="keyword">new</span> <span class="title class_">Pair</span>&lt;&gt;(</span><br><span class="line">            entry.getKey(),</span><br><span class="line">            Integer.parseInt(entry.getValue())));</span><br><span class="line">    &#125;</span><br><span class="line">    Collections.sort(results);</span><br><span class="line">    <span class="keyword">return</span> results;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="案例-查找-IP-所属地"><a href="#案例-查找-IP-所属地" class="headerlink" title="案例-查找 IP 所属地"></a>案例-查找 IP 所属地</h3><p>Redis 实现的 IP 所属地查找比关系型数据实现方式更快。</p>
+<h4 id="载入-IP-数据"><a href="#载入-IP-数据" class="headerlink" title="载入 IP 数据"></a>载入 IP 数据</h4><p>IP 地址转为整数值：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">ipToScore</span><span class="params">(String ipAddress)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">score</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (String v : ipAddress.split(<span class="string">&quot;\\.&quot;</span>)) &#123;</span><br><span class="line">        score = score * <span class="number">256</span> + Integer.parseInt(v, <span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> score;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>创建 IP 地址与城市 ID 之间的映射：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">importIpsToRedis</span><span class="params">(Jedis conn, File file)</span> &#123;</span><br><span class="line">    <span class="type">FileReader</span> <span class="variable">reader</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 载入 csv 文件数据</span></span><br><span class="line">        reader = <span class="keyword">new</span> <span class="title class_">FileReader</span>(file);</span><br><span class="line">        <span class="type">CSVFormat</span> <span class="variable">csvFormat</span> <span class="operator">=</span> CSVFormat.DEFAULT.withRecordSeparator(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        <span class="type">CSVParser</span> <span class="variable">csvParser</span> <span class="operator">=</span> csvFormat.parse(reader);</span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        List&lt;CSVRecord&gt; records = csvParser.getRecords();</span><br><span class="line">        <span class="keyword">for</span> (CSVRecord line : records) &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">startIp</span> <span class="operator">=</span> line.get(<span class="number">0</span>);</span><br><span class="line">            <span class="keyword">if</span> (startIp.toLowerCase().indexOf(<span class="string">&#x27;i&#x27;</span>) != -<span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 将 IP 地址转为整数值</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">score</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span> (startIp.indexOf(<span class="string">&#x27;.&#x27;</span>) != -<span class="number">1</span>) &#123;</span><br><span class="line">                score = ipToScore(startIp);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    score = Integer.parseInt(startIp, <span class="number">10</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (NumberFormatException nfe) &#123;</span><br><span class="line">                    <span class="comment">// 略过文件的第一行以及格式不正确的条目</span></span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 构建唯一的城市 ID</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">cityId</span> <span class="operator">=</span> line.get(<span class="number">2</span>) + <span class="string">&#x27;_&#x27;</span> + count;</span><br><span class="line">            <span class="comment">// 将城市 ID 及其对应的 IP 地址整数值添加到 ZSET</span></span><br><span class="line">            conn.zadd(<span class="string">&quot;ip2cityid:&quot;</span>, score, cityId);</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            reader.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="comment">// ignore</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>存储城市信息：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">importCitiesToRedis</span><span class="params">(Jedis conn, File file)</span> &#123;</span><br><span class="line">    <span class="type">Gson</span> <span class="variable">gson</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Gson</span>();</span><br><span class="line">    <span class="type">FileReader</span> <span class="variable">reader</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 加载 csv 信息</span></span><br><span class="line">        reader = <span class="keyword">new</span> <span class="title class_">FileReader</span>(file);</span><br><span class="line">        <span class="type">CSVFormat</span> <span class="variable">csvFormat</span> <span class="operator">=</span> CSVFormat.DEFAULT.withRecordSeparator(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        <span class="type">CSVParser</span> <span class="variable">parser</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CSVParser</span>(reader, csvFormat);</span><br><span class="line">        <span class="comment">// String[] line;</span></span><br><span class="line">        List&lt;CSVRecord&gt; records = parser.getRecords();</span><br><span class="line">        <span class="keyword">for</span> (CSVRecord record : records) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (record.size() &lt; <span class="number">4</span> || !Character.isDigit(record.get(<span class="number">0</span>).charAt(<span class="number">0</span>))) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 将城市地理信息转为 json 结构，存入 HASH 结构中</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">cityId</span> <span class="operator">=</span> record.get(<span class="number">0</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">country</span> <span class="operator">=</span> record.get(<span class="number">1</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">region</span> <span class="operator">=</span> record.get(<span class="number">2</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">city</span> <span class="operator">=</span> record.get(<span class="number">3</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">json</span> <span class="operator">=</span> gson.toJson(<span class="keyword">new</span> <span class="title class_">String</span>[] &#123; city, region, country &#125;);</span><br><span class="line">            conn.hset(<span class="string">&quot;cityid2city:&quot;</span>, cityId, json);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            reader.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="comment">// ignore</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="查找-IP-所属城市"><a href="#查找-IP-所属城市" class="headerlink" title="查找 IP 所属城市"></a>查找 IP 所属城市</h4><p>操作步骤：</p>
+<ol>
+<li>将要查找的 IP 地址转为整数值；</li>
+<li>查找所有分值小于等于要查找的 IP 地址的地址，取出其中最大分值的那个记录；</li>
+<li>用找到的记录所对应的城市 ID 去检索城市信息。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> String[] findCityByIp(Jedis conn, String ipAddress) &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">score</span> <span class="operator">=</span> ipToScore(ipAddress);</span><br><span class="line">    Set&lt;String&gt; results = conn.zrevrangeByScore(<span class="string">&quot;ip2cityid:&quot;</span>, score, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (results.size() == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">String</span> <span class="variable">cityId</span> <span class="operator">=</span> results.iterator().next();</span><br><span class="line">    cityId = cityId.substring(<span class="number">0</span>, cityId.indexOf(<span class="string">&#x27;_&#x27;</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Gson</span>().fromJson(conn.hget(<span class="string">&quot;cityid2city:&quot;</span>, cityId), String[].class);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="案例-服务的发现与配置"><a href="#案例-服务的发现与配置" class="headerlink" title="案例-服务的发现与配置"></a>案例-服务的发现与配置</h3><h3 id="案例-自动补全"><a href="#案例-自动补全" class="headerlink" title="案例-自动补全"></a>案例-自动补全</h3><p>需求：根据用户输入，自动补全信息，如：联系人、商品名等。</p>
+<ul>
+<li>典型场景一：社交网站后台记录用户最近联系过的 100 个好友，当用户查找好友时，根据输入的关键字自动补全姓名。</li>
+<li>典型场景二：电商网站后台记录用户最近浏览过的 10 件商品，当用户查找商品是，根据输入的关键字自动补全商品名称。</li>
+</ul>
+<p>数据模型：使用 Redis 的 LIST 类型存储最近联系人列表。</p>
+<p>构建自动补全列表通常有以下操作：</p>
+<ul>
+<li>如果指定联系人已经存在于最近联系人列表里，那么从列表里移除他。对应 <code>LREM</code> 命令。</li>
+<li>将指定联系人添加到最近联系人列表的最前面。对应 <code>LPUSH</code> 命令。</li>
+<li>添加操作完成后，如果联系人列表中的数量超过 100 个，进行裁剪操作。对应 <code>LTRIM</code> 命令。</li>
+</ul>
+<h3 id="案例-广告定向"><a href="#案例-广告定向" class="headerlink" title="案例-广告定向"></a>案例-广告定向</h3><h3 id="案例-职位搜索"><a href="#案例-职位搜索" class="headerlink" title="案例-职位搜索"></a>案例-职位搜索</h3><p>需求：在一个招聘网站上，求职者有自己的技能清单；用人公司的职位有必要的技能清单。用人公司需要查询满足自己职位要求的求职者；求职者需要查询自己可以投递简历的职位。</p>
+<p>关键数据模型：使用 <code>SET</code> 类型存储求职者的技能列表，使用 <code>SET</code> 类型存储职位的技能列表。</p>
+<p>关键操作：使用 <code>SDIFF</code> 命令对比两个 <code>SET</code> 的差异，返回 <code>empty</code> 表示匹配要求。</p>
+<p>redis cli 示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-----------------------------------------------------------</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Redis 职位搜索数据模型示例</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-----------------------------------------------------------</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">（1）职位技能表：使用 <span class="built_in">set</span> 存储</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">job:001 职位添加 4 种技能</span></span><br><span class="line">SADD job:001 skill:001</span><br><span class="line">SADD job:001 skill:002</span><br><span class="line">SADD job:001 skill:003</span><br><span class="line">SADD job:001 skill:004</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">job:002 职位添加 3 种技能</span></span><br><span class="line">SADD job:002 skill:001</span><br><span class="line">SADD job:002 skill:002</span><br><span class="line">SADD job:002 skill:003</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">job:003 职位添加 2 种技能</span></span><br><span class="line">SADD job:003 skill:001</span><br><span class="line">SADD job:003 skill:003</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看</span></span><br><span class="line">SMEMBERS job:001</span><br><span class="line">SMEMBERS job:002</span><br><span class="line">SMEMBERS job:003</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">（2）求职者技能表：使用 <span class="built_in">set</span> 存储</span></span><br><span class="line">SADD interviewee:001 skill:001</span><br><span class="line">SADD interviewee:001 skill:003</span><br><span class="line"></span><br><span class="line">SADD interviewee:002 skill:001</span><br><span class="line">SADD interviewee:002 skill:002</span><br><span class="line">SADD interviewee:002 skill:003</span><br><span class="line">SADD interviewee:002 skill:004</span><br><span class="line">SADD interviewee:002 skill:005</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看</span></span><br><span class="line">SMEMBERS interviewee:001</span><br><span class="line">SMEMBERS interviewee:002</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">（3）求职者遍历查找自己符合要求的职位（返回结果为 empty 表示要求的技能全部命中）</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">比较职位技能清单和求职者技能清单的差异</span></span><br><span class="line">SDIFF job:001 interviewee:001</span><br><span class="line">SDIFF job:002 interviewee:001</span><br><span class="line">SDIFF job:003 interviewee:001</span><br><span class="line"></span><br><span class="line">SDIFF job:001 interviewee:002</span><br><span class="line">SDIFF job:002 interviewee:002</span><br><span class="line">SDIFF job:003 interviewee:002</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">（4）用人公司根据遍历查找符合自己职位要求的求职者（返回结果为 empty 表示要求的技能全部命中）</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">比较职位技能清单和求职者技能清单的差异</span></span><br><span class="line">SDIFF interviewee:001 job:001</span><br><span class="line">SDIFF interviewee:002 job:001</span><br><span class="line"></span><br><span class="line">SDIFF interviewee:001 job:002</span><br><span class="line">SDIFF interviewee:002 job:002</span><br><span class="line"></span><br><span class="line">SDIFF interviewee:001 job:003</span><br><span class="line">SDIFF interviewee:002 job:003</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><strong>官网</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://redis.io/">Redis 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/antirez/redis">Redis github</a></li>
+<li><a target="_blank" rel="noopener" href="http://redis.cn/">Redis 官方文档中文版</a></li>
+</ul>
+</li>
+<li><strong>书籍</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://item.jd.com/11791607.html">《Redis 实战》</a></li>
+<li><a target="_blank" rel="noopener" href="https://item.jd.com/11486101.html">《Redis 设计与实现》</a></li>
+</ul>
+</li>
+<li><strong>教程</strong><ul>
+<li><a target="_blank" rel="noopener" href="http://redisdoc.com/">Redis 命令参考</a></li>
+</ul>
+</li>
+<li><strong>文章</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/u011957758/article/details/74783347">一看就懂系列之 详解 redis 的 bitmap 在亿级项目中的应用</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps/">Fast, easy, realtime metrics using Redis bitmaps</a></li>
+</ul>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">JaHero</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/pages/ed757c/">http://example.com/pages/ed757c/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">贾英雄-blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">数据类型</a><a class="post-meta__tags" href="/tags/KV%E6%95%B0%E6%8D%AE%E5%BA%93/">KV数据库</a><a class="post-meta__tags" href="/tags/Redis/">Redis</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/pages/451b73/" title="Redis 面试总结"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-13</div><div class="title">Redis 面试总结</div></div></a></div><div><a href="/pages/94e9d6/" title="Redis 应用指南"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-30</div><div class="title">Redis 应用指南</div></div></a></div><div><a href="/pages/4de901/" title="Redis 持久化"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-24</div><div class="title">Redis 持久化</div></div></a></div><div><a href="/pages/379cd8/" title="Redis 复制"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-24</div><div class="title">Redis 复制</div></div></a></div><div><a href="/pages/615afe/" title="Redis 哨兵"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-24</div><div class="title">Redis 哨兵</div></div></a></div><div><a href="/pages/77dfbe/" title="Redis 集群"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-24</div><div class="title">Redis 集群</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/ava.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JaHero</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BA%94%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">Redis 数据类型和应用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81Redis-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">一、Redis 基本数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#STRING"><span class="toc-number">1.1.1.</span> <span class="toc-text">STRING</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HASH"><span class="toc-number">1.1.2.</span> <span class="toc-text">HASH</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LIST"><span class="toc-number">1.1.3.</span> <span class="toc-text">LIST</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SET"><span class="toc-number">1.1.4.</span> <span class="toc-text">SET</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ZSET"><span class="toc-number">1.1.5.</span> <span class="toc-text">ZSET</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.1.6.</span> <span class="toc-text">通用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F"><span class="toc-number">1.1.6.1.</span> <span class="toc-text">排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%94%AE%E7%9A%84%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4"><span class="toc-number">1.1.6.2.</span> <span class="toc-text">键的过期时间</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Redis-%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.2.</span> <span class="toc-text">二、Redis 高级数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BitMap"><span class="toc-number">1.2.1.</span> <span class="toc-text">BitMap</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#BitMap-%E5%91%BD%E4%BB%A4"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">BitMap 命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BitMap-%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">BitMap 示例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BitMap-%E5%BA%94%E7%94%A8"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">BitMap 应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HyperLogLog"><span class="toc-number">1.2.2.</span> <span class="toc-text">HyperLogLog</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HyperLogLog-%E5%91%BD%E4%BB%A4"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">HyperLogLog 命令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GEO"><span class="toc-number">1.2.3.</span> <span class="toc-text">GEO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GEO-%E5%91%BD%E4%BB%A4"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">GEO 命令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81Redis-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%BA%94%E7%94%A8"><span class="toc-number">1.3.</span> <span class="toc-text">三、Redis 数据类型应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B-%E6%9C%80%E5%8F%97%E6%AC%A2%E8%BF%8E%E6%96%87%E7%AB%A0"><span class="toc-number">1.3.1.</span> <span class="toc-text">案例-最受欢迎文章</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%B9%E6%96%87%E7%AB%A0%E8%BF%9B%E8%A1%8C%E6%8A%95%E7%A5%A8"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">对文章进行投票</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E5%B9%B6%E8%8E%B7%E5%8F%96%E6%96%87%E7%AB%A0"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">发布并获取文章</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%B9%E6%96%87%E7%AB%A0%E8%BF%9B%E8%A1%8C%E5%88%86%E7%BB%84"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">对文章进行分组</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B-%E7%AE%A1%E7%90%86%E4%BB%A4%E7%89%8C"><span class="toc-number">1.3.2.</span> <span class="toc-text">案例-管理令牌</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E4%BB%A4%E7%89%8C"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">查询令牌</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E4%BB%A4%E7%89%8C"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">更新令牌</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B8%85%E7%90%86%E4%BB%A4%E7%89%8C"><span class="toc-number">1.3.2.3.</span> <span class="toc-text">清理令牌</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B-%E8%B4%AD%E7%89%A9%E8%BD%A6"><span class="toc-number">1.3.3.</span> <span class="toc-text">案例-购物车</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E8%B4%AD%E7%89%A9%E8%BD%A6%E4%B8%AD%E6%B7%BB%E5%8A%A0%E3%80%81%E5%88%A0%E9%99%A4%E5%95%86%E5%93%81"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">在购物车中添加、删除商品</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B8%85%E7%A9%BA%E8%B4%AD%E7%89%A9%E8%BD%A6"><span class="toc-number">1.3.3.2.</span> <span class="toc-text">清空购物车</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B-%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98"><span class="toc-number">1.3.4.</span> <span class="toc-text">案例-页面缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B-%E6%95%B0%E6%8D%AE%E8%A1%8C%E7%BC%93%E5%AD%98"><span class="toc-number">1.3.5.</span> <span class="toc-text">案例-数据行缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B-%E7%BD%91%E9%A1%B5%E5%88%86%E6%9E%90"><span class="toc-number">1.3.6.</span> <span class="toc-text">案例-网页分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B-%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97"><span class="toc-number">1.3.7.</span> <span class="toc-text">案例-记录日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B-%E7%BB%9F%E8%AE%A1%E6%95%B0%E6%8D%AE"><span class="toc-number">1.3.8.</span> <span class="toc-text">案例-统计数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B-%E6%9F%A5%E6%89%BE-IP-%E6%89%80%E5%B1%9E%E5%9C%B0"><span class="toc-number">1.3.9.</span> <span class="toc-text">案例-查找 IP 所属地</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%BD%E5%85%A5-IP-%E6%95%B0%E6%8D%AE"><span class="toc-number">1.3.9.1.</span> <span class="toc-text">载入 IP 数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE-IP-%E6%89%80%E5%B1%9E%E5%9F%8E%E5%B8%82"><span class="toc-number">1.3.9.2.</span> <span class="toc-text">查找 IP 所属城市</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B-%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%8F%91%E7%8E%B0%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="toc-number">1.3.10.</span> <span class="toc-text">案例-服务的发现与配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B-%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8"><span class="toc-number">1.3.11.</span> <span class="toc-text">案例-自动补全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B-%E5%B9%BF%E5%91%8A%E5%AE%9A%E5%90%91"><span class="toc-number">1.3.12.</span> <span class="toc-text">案例-广告定向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B-%E8%81%8C%E4%BD%8D%E6%90%9C%E7%B4%A2"><span class="toc-number">1.3.13.</span> <span class="toc-text">案例-职位搜索</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.4.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题">无题</a><time datetime="2022-12-31T04:24:34.153Z" title="发表于 2022-12-31 12:24:34">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/img/index/" title="gallery"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="gallery"/></a><div class="content"><a class="title" href="/2022/12/31/img/index/" title="gallery">gallery</a><time datetime="2022-12-30T18:20:45.000Z" title="发表于 2022-12-31 02:20:45">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/30/hello-world/" title="Hello World"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/12/30/hello-world/" title="Hello World">Hello World</a><time datetime="2022-12-30T09:13:14.141Z" title="发表于 2022-12-30 17:13:14">2022-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Aop注解"/></a><div class="content"><a class="title" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解">Aop注解</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flowable 工作流程引擎"/></a><div class="content"><a class="title" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎">Flowable 工作流程引擎</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By JaHero</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script src="https://fastly.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

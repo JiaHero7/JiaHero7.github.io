@@ -1,0 +1,470 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>版本管理中间件 Flyway | 贾英雄-blog</title><meta name="keywords" content="数据库,中间件,版本管理"><meta name="author" content="JaHero"><meta name="copyright" content="JaHero"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="版本管理中间件 Flyway Flyway 是一个数据迁移工具。  简介什么是 FlywayFlyway 是一个开源的数据库迁移工具。 为什么要使用数据迁移为了说明数据迁移的作用，我们来举一个示例： （1）假设，有一个叫做 Shiny 的项目，它的架构是一个叫做 Shiny Soft 的 App 连接叫做 Shiny DB 的数据库。 （2）对于大多数项目而言，最简单的持续集成场景如下所示：  这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="版本管理中间件 Flyway">
+<meta property="og:url" content="http://example.com/pages/e2648c/index.html">
+<meta property="og:site_name" content="贾英雄-blog">
+<meta property="og:description" content="版本管理中间件 Flyway Flyway 是一个数据迁移工具。  简介什么是 FlywayFlyway 是一个开源的数据库迁移工具。 为什么要使用数据迁移为了说明数据迁移的作用，我们来举一个示例： （1）假设，有一个叫做 Shiny 的项目，它的架构是一个叫做 Shiny Soft 的 App 连接叫做 Shiny DB 的数据库。 （2）对于大多数项目而言，最简单的持续集成场景如下所示：  这">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/post.jpg">
+<meta property="article:published_time" content="2019-08-22T01:02:39.000Z">
+<meta property="article:modified_time" content="2022-12-26T06:15:51.406Z">
+<meta property="article:author" content="JaHero">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="中间件">
+<meta property="article:tag" content="版本管理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/post.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/pages/e2648c/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"K46KXS6BKG","apiKey":"94dab3de87ce4cc2067ec6ef569e9df7","indexName":"JiaHero","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: JaHero","link":"链接: ","source":"来源: 贾英雄-blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '版本管理中间件 Flyway',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2022-12-26 14:15:51'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/ava.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">贾英雄-blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">版本管理中间件 Flyway</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-08-22T01:02:39.000Z" title="发表于 2019-08-22 09:02:39">2019-08-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:51.406Z" title="更新于 2022-12-26 14:15:51">2022-12-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E9%97%B4%E4%BB%B6/">数据库中间件</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="版本管理中间件 Flyway"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="版本管理中间件-Flyway"><a href="#版本管理中间件-Flyway" class="headerlink" title="版本管理中间件 Flyway"></a>版本管理中间件 Flyway</h1><blockquote>
+<p>Flyway 是一个数据迁移工具。</p>
+</blockquote>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="什么是-Flyway"><a href="#什么是-Flyway" class="headerlink" title="什么是 Flyway"></a>什么是 Flyway</h3><p><strong>Flyway 是一个开源的数据库迁移工具。</strong></p>
+<h3 id="为什么要使用数据迁移"><a href="#为什么要使用数据迁移" class="headerlink" title="为什么要使用数据迁移"></a>为什么要使用数据迁移</h3><p>为了说明数据迁移的作用，我们来举一个示例：</p>
+<p>（1）假设，有一个叫做 Shiny 的项目，它的架构是一个叫做 Shiny Soft 的 App 连接叫做 Shiny DB 的数据库。</p>
+<p>（2）对于大多数项目而言，最简单的持续集成场景如下所示：</p>
+<p><img src="https://flywaydb.org/assets/balsamiq/Environments.png" alt="img"></p>
+<p>这意味着，我们不仅仅要处理一份环境中的修改，由此会引入一些版本冲突问题：</p>
+<p>在代码侧（即应用软件）的版本问题比较容易解决：</p>
+<ul>
+<li>有方便的版本控制工具</li>
+<li>有可复用的构建和持续集成</li>
+<li>规范的发布和部署过程</li>
+</ul>
+<p>那么，数据库层面的版本问题如何解决呢？</p>
+<p>目前仍然没有方便的数据库版本工具。许多项目仍使用 sql 脚本来解决版本冲突，甚至是遇到冲突问题时才想起用 sql 语句去解决。</p>
+<p>由此，引发一些问题：</p>
+<ul>
+<li>机器上的数据库是什么状态？</li>
+<li>脚本到底生效没有？</li>
+<li>生产环境修复的问题是否也在测试环境修复了？</li>
+<li>如何建立一个新的数据库实例？</li>
+</ul>
+<p>数据迁移就是用来搞定这些混乱的问题：</p>
+<ul>
+<li>通过草稿重建一个数据库。</li>
+<li>在任何时候都可以清楚的了解数据库的状态。</li>
+<li>以一种明确的方式将数据库从当前版本迁移到一个新版本。</li>
+</ul>
+<h3 id="Flyway-如何工作？"><a href="#Flyway-如何工作？" class="headerlink" title="Flyway 如何工作？"></a>Flyway 如何工作？</h3><p>最简单的场景是指定 Flyway 迁移到一个空的数据库。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3101171-bb6e9f39e56ebbda.png" alt="img"></p>
+<p>Flyway 会尝试查找它的 schema 历史表，如果数据库是空的，Flyway 就不再查找，而是直接创建数据库。</p>
+<p>现再你就有了一个仅包含一张空表的数据库，默认情况下，这张表叫 <strong>flyway_schema_history</strong>。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3101171-410eb31c6313b389.png" alt="img"></p>
+<p>这张表将被用于追踪数据库的状态。</p>
+<p>然后，Flyway 将开始扫描文件系统或应用 classpath 中的 <strong>migrations</strong>。这些 <strong>migrations</strong> 可以是 sql 或 java。</p>
+<p>这些 <strong>migrations</strong> 将根据他们的版本号进行排序。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3101171-d36ee07ada4efbcd.png" alt="img"></p>
+<p>任意 migration 应用后，schema 历史表将更新。当元数据和初始状态替换后，可以称之为：迁移到新版本。</p>
+<p>Flyway 一旦扫描了文件系统或应用 classpath 下的 migrations，这些 migrations 会检查 schema 历史表。如果它们的版本号低于或等于当前的版本，将被忽略。保留下来的 migrations 是等待的 migrations，有效但没有应用。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3101171-99a88fea7a31a070.png" alt="img"></p>
+<p>migrations 将根据版本号排序并按序执行。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3101171-b444fef6e5c13b71.png" alt="img"></p>
+<h2 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h2><p>Flyway 有 4 种使用方式：</p>
+<ul>
+<li>命令行</li>
+<li>JAVA API</li>
+<li>Maven</li>
+<li>Gradle</li>
+</ul>
+<h3 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行</h3><p>适用于非 Java 用户，无需构建。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">flyway migrate -url=... -user=... -password=...</span></span><br></pre></td></tr></table></figure>
+
+<p>（1）<strong>下载解压</strong></p>
+<p>进入<a target="_blank" rel="noopener" href="https://flywaydb.org/download/">官方下载页面</a>，选择合适版本，下载并解压到本地。</p>
+<p>（2）<strong>配置 flyway</strong></p>
+<p>编辑 <code>/conf/flyway.conf</code>：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">flyway.url</span>=<span class="string">jdbc:h2:file:./foobardb</span></span><br><span class="line"><span class="attr">flyway.user</span>=<span class="string">SA</span></span><br><span class="line"><span class="attr">flyway.password</span>=<span class="string"></span></span><br></pre></td></tr></table></figure>
+
+<p>（3）<strong>创建第一个 migration</strong></p>
+<p>在 <code>/sql</code> 目录下创建 <code>V1__Create_person_table.sql</code> 文件，内容如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> PERSON (</span><br><span class="line">    ID <span class="type">int</span> <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">    NAME <span class="type">varchar</span>(<span class="number">100</span>) <span class="keyword">not</span> <span class="keyword">null</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>（4）<strong>迁移数据库</strong></p>
+<p>运行 Flyway 来迁移数据库：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flyway-5.1.4&gt; flyway migrate</span><br></pre></td></tr></table></figure>
+
+<p>运行正常的情况下，应该可以看到如下结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Database: jdbc:h2:file:./foobardb (H2 1.4)</span><br><span class="line">Successfully validated 1 migration (execution time 00:00.008s)</span><br><span class="line">Creating Schema History table: &quot;PUBLIC&quot;.&quot;flyway_schema_history&quot;</span><br><span class="line">Current version of schema &quot;PUBLIC&quot;: &lt;&lt; Empty Schema &gt;&gt;</span><br><span class="line">Migrating schema &quot;PUBLIC&quot; to version 1 - Create person table</span><br><span class="line">Successfully applied 1 migration to schema &quot;PUBLIC&quot; (execution time 00:00.033s)</span><br></pre></td></tr></table></figure>
+
+<p>（5）<strong>添加第二个 migration</strong></p>
+<p>在 <code>/sql</code> 目录下创建 <code>V2__Add_people.sql</code> 文件，内容如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> PERSON (ID, NAME) <span class="keyword">values</span> (<span class="number">1</span>, <span class="string">&#x27;Axel&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> PERSON (ID, NAME) <span class="keyword">values</span> (<span class="number">2</span>, <span class="string">&#x27;Mr. Foo&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> PERSON (ID, NAME) <span class="keyword">values</span> (<span class="number">3</span>, <span class="string">&#x27;Ms. Bar&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>运行 Flyway</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flyway-5.1.4&gt; flyway migrate</span><br></pre></td></tr></table></figure>
+
+<p>运行正常的情况下，应该可以看到如下结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Database: jdbc:h2:file:./foobardb (H2 1.4)</span><br><span class="line">Successfully validated 2 migrations (execution time 00:00.018s)</span><br><span class="line">Current version of schema &quot;PUBLIC&quot;: 1</span><br><span class="line">Migrating schema &quot;PUBLIC&quot; to version 2 - Add people</span><br><span class="line">Successfully applied 1 migration to schema &quot;PUBLIC&quot; (execution time 00:00.016s)</span><br></pre></td></tr></table></figure>
+
+<h3 id="JAVA-API"><a href="#JAVA-API" class="headerlink" title="JAVA API"></a>JAVA API</h3><p>（1）<strong>准备</strong></p>
+<ul>
+<li>Java8+</li>
+<li>Maven 3.x</li>
+</ul>
+<p>（2）<strong>添加依赖</strong></p>
+<p>在 <code>pom.xml</code> 中添加依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.flywaydb<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>flyway-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.h2database<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>h2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.170<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>（3）<strong>集成 Flyway</strong></p>
+<p>添加 <code>App.java</code> 文件，内容如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.flywaydb.core.Flyway;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">App</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// Create the Flyway instance</span></span><br><span class="line">        <span class="type">Flyway</span> <span class="variable">flyway</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Flyway</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Point it to the database</span></span><br><span class="line">        flyway.setDataSource(<span class="string">&quot;jdbc:h2:file:./target/foobar&quot;</span>, <span class="string">&quot;sa&quot;</span>, <span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Start the migration</span></span><br><span class="line">        flyway.migrate();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（4）<strong>创建第一个 migration</strong></p>
+<p>添加 <code>src/main/resources/db/migration/V1__Create_person_table.sql</code> 文件，内容如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> PERSON (</span><br><span class="line">    ID <span class="type">int</span> <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">    NAME <span class="type">varchar</span>(<span class="number">100</span>) <span class="keyword">not</span> <span class="keyword">null</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>（5）<strong>执行程序</strong></p>
+<p>执行 <code>App#main</code>：</p>
+<p>运行正常的情况下，应该可以看到如下结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">INFO: Creating schema history table: &quot;PUBLIC&quot;.&quot;flyway_schema_history&quot;</span><br><span class="line">INFO: Current version of schema &quot;PUBLIC&quot;: &lt;&lt; Empty Schema &gt;&gt;</span><br><span class="line">INFO: Migrating schema &quot;PUBLIC&quot; to version 1 - Create person table</span><br><span class="line">INFO: Successfully applied 1 migration to schema &quot;PUBLIC&quot; (execution time 00:00.062s).</span><br></pre></td></tr></table></figure>
+
+<p>（6）<strong>添加第二个 migration</strong></p>
+<p>添加 src&#x2F;main&#x2F;resources&#x2F;db&#x2F;migration&#x2F;V2__Add_people.sql 文件，内容如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> PERSON (ID, NAME) <span class="keyword">values</span> (<span class="number">1</span>, <span class="string">&#x27;Axel&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> PERSON (ID, NAME) <span class="keyword">values</span> (<span class="number">2</span>, <span class="string">&#x27;Mr. Foo&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> PERSON (ID, NAME) <span class="keyword">values</span> (<span class="number">3</span>, <span class="string">&#x27;Ms. Bar&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>运行正常的情况下，应该可以看到如下结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">INFO: Current version of schema &quot;PUBLIC&quot;: 1</span><br><span class="line">INFO: Migrating schema &quot;PUBLIC&quot; to version 2 - Add people</span><br><span class="line">INFO: Successfully applied 1 migration to schema &quot;PUBLIC&quot; (execution time 00:00.090s).</span><br></pre></td></tr></table></figure>
+
+<h3 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h3><p>与 Java API 方式大体相同，区别在 <strong>集成 Flyway</strong> 步骤：</p>
+<p>Maven 方式使用插件来集成 Flyway：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;...&quot;</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.flywaydb<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>flyway-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">url</span>&gt;</span>jdbc:h2:file:./target/foobar<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">user</span>&gt;</span>sa<span class="tag">&lt;/<span class="name">user</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.h2database<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>h2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4.191<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>因为用的是插件，所以执行方式不再是运行 Java 类，而是执行 maven 插件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">mvn flyway:migrate</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>:point_right: 参考：<a target="_blank" rel="noopener" href="https://github.com/dunwu/Database/tree/master/codes/middleware/flyway">示例源码</a></p>
+</blockquote>
+<h3 id="Gradle"><a href="#Gradle" class="headerlink" title="Gradle"></a>Gradle</h3><p>本人不用 Gradle，略。</p>
+<h2 id="入门篇"><a href="#入门篇" class="headerlink" title="入门篇"></a>入门篇</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><h4 id="Migrations"><a href="#Migrations" class="headerlink" title="Migrations"></a>Migrations</h4><p>在 Flyway 中，对于数据库的任何改变都称之为 <strong>Migrations</strong>。</p>
+<p>Migrations 可以分为 Versioned migrations 和 Repeatable migrations。</p>
+<p>Versioned migrations 有 2 种形式：regular 和 undo。</p>
+<p>Versioned migrations 和 Repeatable migrations 都可以使用 SQL 或 JAVA 来编写。</p>
+<h5 id="Versioned-migrations"><a href="#Versioned-migrations" class="headerlink" title="Versioned migrations"></a>Versioned migrations</h5><p>由一个版本号（version）、一段描述（description）、一个校验（checksum）组成。版本号必须是惟一的。Versioned migrations 只能按顺序执行一次。</p>
+<p>一般用于：</p>
+<ul>
+<li>增删改 tables&#x2F;indexes&#x2F;foreign keys&#x2F;enums&#x2F;UDTs。</li>
+<li>引用数据更新</li>
+<li>用户数据校正</li>
+</ul>
+<p>Regular 示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> car (</span><br><span class="line">    id <span class="type">INT</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">    license_plate <span class="type">VARCHAR</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    color <span class="type">VARCHAR</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> owner <span class="keyword">ADD</span> driver_license_id <span class="type">VARCHAR</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> brand (name) <span class="keyword">VALUES</span> (<span class="string">&#x27;DeLorean&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h5 id="Undo-migrations"><a href="#Undo-migrations" class="headerlink" title="Undo migrations"></a>Undo migrations</h5><blockquote>
+<p>注：仅专业版支持</p>
+</blockquote>
+<p>Undo Versioned Migrations 负责撤销 Regular Versioned migrations 的影响。</p>
+<p>Undo 示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> brand <span class="keyword">WHERE</span> name<span class="operator">=</span><span class="string">&#x27;DeLorean&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> owner <span class="keyword">DROP</span> driver_license_id;</span><br><span class="line"></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> car;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Repeatable-migrations"><a href="#Repeatable-migrations" class="headerlink" title="Repeatable migrations"></a>Repeatable migrations</h5><p>由一段描述（description）、一个校验（checksum）组成。Versioned migrations 每次执行后，校验（checksum）会更新。</p>
+<p>Repeatable migrations 用于管理可以通过一个文件来维护版本控制的数据库对象。</p>
+<p>一般用于：</p>
+<ul>
+<li>创建（重建）views&#x2F;procedures&#x2F;functions&#x2F;packages 等。</li>
+<li>大量引用数据重新插入</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">OR</span> REPLACE <span class="keyword">VIEW</span> blue_cars <span class="keyword">AS</span></span><br><span class="line">    <span class="keyword">SELECT</span> id, license_plate <span class="keyword">FROM</span> cars <span class="keyword">WHERE</span> color<span class="operator">=</span><span class="string">&#x27;blue&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<h5 id="基于-SQL-的-migrations"><a href="#基于-SQL-的-migrations" class="headerlink" title="基于 SQL 的 migrations"></a>基于 SQL 的 migrations</h5><p>migrations 最常用的编写形式就是 SQL。</p>
+<p>基于 SQL 的 migrations 一般用于：</p>
+<ul>
+<li>DDL 变更（针对 TABLES,VIEWS,TRIGGERS,SEQUENCES 等的 CREATE&#x2F;ALTER&#x2F;DROP 操作）</li>
+<li>简单的引用数据变更（引用数据表中的 CRUD）</li>
+<li>简单的大量数据变更（常规数据表中的 CRUD）</li>
+</ul>
+<p><strong>命名规则</strong></p>
+<p>为了被 Flyway 自动识别，SQL migrations 的文件命名必须遵循规定的模式：</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/cs/database/flyway/sql-migrations.png" alt="img"></p>
+<ul>
+<li><strong>Prefix</strong> - <code>V</code> 代表 versioned migrations (可配置), <code>U</code> 代表 undo migrations (可配置)、 <code>R</code> 代表 repeatable migrations (可配置)</li>
+<li><strong>Version</strong> - 版本号通过<code>.</code>(点)或<code>_</code>(下划线)分隔 (repeatable migrations 不需要)</li>
+<li><strong>Separator</strong> - <code>__</code> (两个下划线) (可配置)</li>
+<li><strong>Description</strong> - 下划线或空格分隔的单词</li>
+<li><strong>Suffix</strong> - <code>.sql</code> (可配置)</li>
+</ul>
+<h5 id="基于-JAVA-的-migrations"><a href="#基于-JAVA-的-migrations" class="headerlink" title="基于 JAVA 的 migrations"></a>基于 JAVA 的 migrations</h5><p>基于 JAVA 的 migrations 适用于使用 SQL 不容易表达的场景：</p>
+<ul>
+<li>BLOB 和 CLOB 变更</li>
+<li>大量数据的高级变更（重新计算、高级格式变更）</li>
+</ul>
+<p><strong>命名规则</strong></p>
+<p>为了被 Flyway 自动识别，JAVA migrations 的文件命名必须遵循规定的模式：</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/dev/cs/database/flyway/java-migrations.png" alt="img"></p>
+<ul>
+<li><strong>Prefix</strong> - <code>V</code> 代表 versioned migrations (可配置), <code>U</code> 代表 undo migrations (可配置)、 <code>R</code> 代表 repeatable migrations (可配置)</li>
+<li><strong>Version</strong> - 版本号通过<code>.</code>(点)或<code>_</code>(下划线)分隔 (repeatable migrations 不需要)</li>
+<li><strong>Separator</strong> - <code>__</code> (两个下划线) (可配置)</li>
+<li><strong>Description</strong> - 下划线或空格分隔的单词</li>
+</ul>
+<blockquote>
+<p>:point_right: 更多细节请参考：<a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/migrations">https://flywaydb.org/documentation/migrations</a></p>
+</blockquote>
+<h4 id="Callbacks"><a href="#Callbacks" class="headerlink" title="Callbacks"></a>Callbacks</h4><blockquote>
+<p>注：部分 events 仅专业版支持。</p>
+</blockquote>
+<p>尽管 Migrations 可能已经满足绝大部分场景的需要，但是某些情况下需要你一遍又一遍的执行相同的行为。这可能会重新编译存储过程，更新视图以及许多其他类型的开销。</p>
+<p>因为以上原因，Flyway 提供了 Callbacks，用于在 Migrations 生命周期中添加钩子。</p>
+<p>Callbacks 可以用 SQL 或 JAVA 来实现。</p>
+<h5 id="SQL-Callbacks"><a href="#SQL-Callbacks" class="headerlink" title="SQL Callbacks"></a>SQL Callbacks</h5><p>SQL Callbacks 的命名规则为：event 名 + SQL migration。</p>
+<p>如： <code>beforeMigrate.sql</code>, <code>beforeEachMigrate.sql</code>, <code>afterEachMigrate.sql</code> 等。</p>
+<p>SQL Callbacks 也可以包含描述（description）。这种情况下，SQL Callbacks 文件名 &#x3D; event 名 + 分隔符 + 描述 + 后缀。例：<code>beforeRepair__vacuum.sql</code></p>
+<p>当同一个 event 有多个 SQL callbacks，将按照它们描述（description）的顺序执行。</p>
+<blockquote>
+<p><strong>注：</strong> Flyway 也支持你配置的 <code>sqlMigrationSuffixes</code>。</p>
+</blockquote>
+<h5 id="JAVA-Callbacks"><a href="#JAVA-Callbacks" class="headerlink" title="JAVA Callbacks"></a>JAVA Callbacks</h5><blockquote>
+<p>当 SQL Callbacks 不够方便时，才应考虑 JAVA Callbacks。</p>
+</blockquote>
+<p>JAVA Callbacks 有 3 种形式：</p>
+<ol>
+<li><strong>基于 Java 的 Migrations</strong> - 实现 JdbcMigration、SpringJdbcMigration、MigrationInfoProvider、MigrationChecksumProvider、ConfigurationAware、FlywayConfiguration</li>
+<li><strong>基于 Java 的 Callbacks</strong> - 实现 org.flywaydb.core.api.callback 接口。</li>
+<li><strong>自定义 Migration resolvers 和 executors</strong> - 实现 MigrationResolver、MigrationExecutor、ConfigurationAware、FlywayConfiguration 接口。</li>
+</ol>
+<blockquote>
+<p>:point_right: 更多细节请参考：<a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/callbacks">https://flywaydb.org/documentation/callbacks</a></p>
+</blockquote>
+<h4 id="Error-Handlers"><a href="#Error-Handlers" class="headerlink" title="Error Handlers"></a>Error Handlers</h4><blockquote>
+<p>注：仅专业版支持。</p>
+</blockquote>
+<p>（略）</p>
+<h4 id="Dry-Runs"><a href="#Dry-Runs" class="headerlink" title="Dry Runs"></a>Dry Runs</h4><blockquote>
+<p>注：仅专业版支持。</p>
+</blockquote>
+<p>（略）</p>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><p>Flyway 的功能主要围绕着 7 个基本命令：<a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/command/migrate">Migrate</a>、<a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/command/clean">Clean</a>、<a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/command/info">Info</a>、<a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/command/validate">Validate</a>、<a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/command/undo">Undo</a>、<a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/command/baseline">Baseline</a> 和 <a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/command/repair">Repair</a>。</p>
+<p>注：各命令的使用方法细节请查阅官方文档。</p>
+<h3 id="支持的数据库"><a href="#支持的数据库" class="headerlink" title="支持的数据库"></a>支持的数据库</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/database/oracle">Oracle</a></li>
+<li><a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/database/sqlserver">SQL Server</a></li>
+<li><a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/database/db2">DB2</a></li>
+<li><a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/database/mysql">MySQL</a></li>
+<li><a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/database/mariadb">MariaDB</a></li>
+<li><a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/database/postgresql">PostgreSQL</a></li>
+<li><a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/database/redshift">Redshift</a></li>
+<li><a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/database/cockroachdb">CockroachDB</a></li>
+<li><a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/database/saphana">SAP HANA</a></li>
+<li><a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/database/sybasease">Sybase ASE</a></li>
+<li><a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/database/informix">Informix</a></li>
+<li><a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/database/h2">H2</a></li>
+<li><a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/database/hsqldb">HSQLDB</a></li>
+<li><a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/database/derby">Derby</a></li>
+<li><a target="_blank" rel="noopener" href="https://flywaydb.org/documentation/database/sqlite">SQLite</a></li>
+</ul>
+<h2 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h2><p>| <a target="_blank" rel="noopener" href="https://github.com/flyway/flyway">Github</a> | <a target="_blank" rel="noopener" href="https://flywaydb.org/">官方文档</a> |</p>
+<h2 id="door-传送门"><a href="#door-传送门" class="headerlink" title=":door: 传送门"></a>:door: 传送门</h2><p>| <a target="_blank" rel="noopener" href="https://dunwu.github.io/blog/">钝悟的博客</a> | <a target="_blank" rel="noopener" href="https://github.com/dunwu/db-tutorial">db-tutorial 首页</a> |</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">JaHero</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/pages/e2648c/">http://example.com/pages/e2648c/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">贾英雄-blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><a class="post-meta__tags" href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a><a class="post-meta__tags" href="/tags/%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/">版本管理</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/pages/addb05/" title="数据库中间件和代理"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-11</div><div class="title">数据库中间件和代理</div></div></a></div><div><a href="/pages/5ed2a2/" title="ShardingSphere 简介"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-08</div><div class="title">ShardingSphere 简介</div></div></a></div><div><a href="/pages/8448de/" title="ShardingSphere Jdbc"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-28</div><div class="title">ShardingSphere Jdbc</div></div></a></div><div><a href="/pages/012488/" title="数据库"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-22</div><div class="title">数据库</div></div></a></div><div><a href="/pages/0e1012/" title="Nosql技术选型"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-09</div><div class="title">Nosql技术选型</div></div></a></div><div><a href="/pages/d7cd88/" title="数据结构与数据库索引"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-27</div><div class="title">数据结构与数据库索引</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/ava.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JaHero</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E4%B8%AD%E9%97%B4%E4%BB%B6-Flyway"><span class="toc-number">1.</span> <span class="toc-text">版本管理中间件 Flyway</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Flyway"><span class="toc-number">1.1.1.</span> <span class="toc-text">什么是 Flyway</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB"><span class="toc-number">1.1.2.</span> <span class="toc-text">为什么要使用数据迁移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flyway-%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%EF%BC%9F"><span class="toc-number">1.1.3.</span> <span class="toc-text">Flyway 如何工作？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B"><span class="toc-number">1.2.</span> <span class="toc-text">快速上手</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C"><span class="toc-number">1.2.1.</span> <span class="toc-text">命令行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JAVA-API"><span class="toc-number">1.2.2.</span> <span class="toc-text">JAVA API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Maven"><span class="toc-number">1.2.3.</span> <span class="toc-text">Maven</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradle"><span class="toc-number">1.2.4.</span> <span class="toc-text">Gradle</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A5%E9%97%A8%E7%AF%87"><span class="toc-number">1.3.</span> <span class="toc-text">入门篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.3.1.</span> <span class="toc-text">概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Migrations"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">Migrations</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Versioned-migrations"><span class="toc-number">1.3.1.1.1.</span> <span class="toc-text">Versioned migrations</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Undo-migrations"><span class="toc-number">1.3.1.1.2.</span> <span class="toc-text">Undo migrations</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Repeatable-migrations"><span class="toc-number">1.3.1.1.3.</span> <span class="toc-text">Repeatable migrations</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E-SQL-%E7%9A%84-migrations"><span class="toc-number">1.3.1.1.4.</span> <span class="toc-text">基于 SQL 的 migrations</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E-JAVA-%E7%9A%84-migrations"><span class="toc-number">1.3.1.1.5.</span> <span class="toc-text">基于 JAVA 的 migrations</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Callbacks"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">Callbacks</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#SQL-Callbacks"><span class="toc-number">1.3.1.2.1.</span> <span class="toc-text">SQL Callbacks</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#JAVA-Callbacks"><span class="toc-number">1.3.1.2.2.</span> <span class="toc-text">JAVA Callbacks</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Error-Handlers"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">Error Handlers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Dry-Runs"><span class="toc-number">1.3.1.4.</span> <span class="toc-text">Dry Runs</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4"><span class="toc-number">1.3.2.</span> <span class="toc-text">命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.3.3.</span> <span class="toc-text">支持的数据库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%84%E6%96%99"><span class="toc-number">1.4.</span> <span class="toc-text">资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#door-%E4%BC%A0%E9%80%81%E9%97%A8"><span class="toc-number">1.5.</span> <span class="toc-text">:door: 传送门</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题">无题</a><time datetime="2022-12-31T04:24:34.153Z" title="发表于 2022-12-31 12:24:34">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/img/index/" title="gallery"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="gallery"/></a><div class="content"><a class="title" href="/2022/12/31/img/index/" title="gallery">gallery</a><time datetime="2022-12-30T18:20:45.000Z" title="发表于 2022-12-31 02:20:45">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/30/hello-world/" title="Hello World"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/12/30/hello-world/" title="Hello World">Hello World</a><time datetime="2022-12-30T09:13:14.141Z" title="发表于 2022-12-30 17:13:14">2022-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Aop注解"/></a><div class="content"><a class="title" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解">Aop注解</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flowable 工作流程引擎"/></a><div class="content"><a class="title" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎">Flowable 工作流程引擎</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By JaHero</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script src="https://fastly.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

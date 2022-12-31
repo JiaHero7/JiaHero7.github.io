@@ -1,0 +1,557 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Elasticsearch 索引 | 贾英雄-blog</title><meta name="keywords" content="数据库,索引,搜索引擎数据库,Elasticsearch"><meta name="author" content="JaHero"><meta name="copyright" content="JaHero"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Elasticsearch 索引索引管理操作Elasticsearch 索引管理主要包括如何进行索引的创建、索引的删除、副本的更新、索引读写权限、索引别名的配置等等内容。 索引删除ES 索引删除操作向 ES 集群的 http 接口发送指定索引的 delete http 请求即可，可以通过 curl 命令，具体如下： 1curl -X DELETE http:&#x2F;&#x2F;&amp;#123;es_host&amp;#125">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch 索引">
+<meta property="og:url" content="http://example.com/pages/293175/index.html">
+<meta property="og:site_name" content="贾英雄-blog">
+<meta property="og:description" content="Elasticsearch 索引索引管理操作Elasticsearch 索引管理主要包括如何进行索引的创建、索引的删除、副本的更新、索引读写权限、索引别名的配置等等内容。 索引删除ES 索引删除操作向 ES 集群的 http 接口发送指定索引的 delete http 请求即可，可以通过 curl 命令，具体如下： 1curl -X DELETE http:&#x2F;&#x2F;&amp;#123;es_host&amp;#125">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/post.jpg">
+<meta property="article:published_time" content="2022-02-22T13:01:01.000Z">
+<meta property="article:modified_time" content="2022-12-26T06:15:52.660Z">
+<meta property="article:author" content="JaHero">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="索引">
+<meta property="article:tag" content="搜索引擎数据库">
+<meta property="article:tag" content="Elasticsearch">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/post.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/pages/293175/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"K46KXS6BKG","apiKey":"94dab3de87ce4cc2067ec6ef569e9df7","indexName":"JiaHero","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: JaHero","link":"链接: ","source":"来源: 贾英雄-blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Elasticsearch 索引',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2022-12-26 14:15:52'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/ava.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">贾英雄-blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Elasticsearch 索引</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-02-22T13:01:01.000Z" title="发表于 2022-02-22 21:01:01">2022-02-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T06:15:52.660Z" title="更新于 2022-12-26 14:15:52">2022-12-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/">搜索引擎数据库</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/Elasticsearch/">Elasticsearch</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Elasticsearch 索引"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Elasticsearch-索引"><a href="#Elasticsearch-索引" class="headerlink" title="Elasticsearch 索引"></a>Elasticsearch 索引</h1><h2 id="索引管理操作"><a href="#索引管理操作" class="headerlink" title="索引管理操作"></a>索引管理操作</h2><p>Elasticsearch 索引管理主要包括如何进行索引的创建、索引的删除、副本的更新、索引读写权限、索引别名的配置等等内容。</p>
+<h3 id="索引删除"><a href="#索引删除" class="headerlink" title="索引删除"></a>索引删除</h3><p>ES 索引删除操作向 ES 集群的 http 接口发送指定索引的 delete http 请求即可，可以通过 curl 命令，具体如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X DELETE http://&#123;es_host&#125;:&#123;es_http_port&#125;/&#123;index&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果删除成功，它会返回如下信息，具体示例如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X DELETE http://10.10.10.66:9200/my_index?pretty</span><br></pre></td></tr></table></figure>
+
+<p>为了返回的信息便于读取，增加了 pretty 参数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;acknowledged&quot;</span> : <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="索引别名"><a href="#索引别名" class="headerlink" title="索引别名"></a>索引别名</h3><p>ES 的索引别名就是给一个索引或者多个索引起的另一个名字，典型的应用场景是针对索引使用的平滑切换。</p>
+<p>首先，创建索引 my_index，然后将别名 my_alias 指向它，示例如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PUT /my_index</span><br><span class="line">PUT /my_index/_alias/my_alias</span><br></pre></td></tr></table></figure>
+
+<p>也可以通过如下形式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST /_aliases</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;actions&quot;</span>: [</span><br><span class="line">    &#123; <span class="string">&quot;add&quot;</span>: &#123; <span class="string">&quot;index&quot;</span>: <span class="string">&quot;my_index&quot;</span>, <span class="string">&quot;alias&quot;</span>: <span class="string">&quot;my_alias&quot;</span> &#125;&#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>也可以在一次请求中增加别名和移除别名混合使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">POST /_aliases</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;actions&quot;</span>: [</span><br><span class="line">    &#123; <span class="string">&quot;remove&quot;</span>: &#123; <span class="string">&quot;index&quot;</span>: <span class="string">&quot;my_index&quot;</span>, <span class="string">&quot;alias&quot;</span>: <span class="string">&quot;my_alias&quot;</span> &#125;&#125;</span><br><span class="line">    &#123; <span class="string">&quot;add&quot;</span>: &#123; <span class="string">&quot;index&quot;</span>: <span class="string">&quot;my_index_v2&quot;</span>, <span class="string">&quot;alias&quot;</span>: <span class="string">&quot;my_alias&quot;</span> &#125;&#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>需要注意的是，如果别名与索引是一对一的，使用别名索引文档或者查询文档是可以的，但是如果别名和索引是一对多的，使用别名会发生错误，因为 ES 不知道把文档写入哪个索引中去或者从哪个索引中读取文档。</p>
+</blockquote>
+<p>ES 索引别名有个典型的应用场景是平滑切换，更多细节可以查看 <a target="_blank" rel="noopener" href="https://www.knowledgedict.com/tutorial/elasticsearch-index-smooth-shift.html">Elasticsearch（ES）索引零停机（无需重启）无缝平滑切换的方法</a>。</p>
+<h2 id="Settings-详解"><a href="#Settings-详解" class="headerlink" title="Settings 详解"></a>Settings 详解</h2><p>Elasticsearch 索引的配置项主要分为<strong>静态配置属性</strong>和<strong>动态配置属性</strong>，静态配置属性是索引创建后不能修改，而动态配置属性则可以随时修改。</p>
+<p>ES 索引设置的 api 为 **_<code>_settings</code>_**，完整的示例如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">PUT /my_index</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;settings&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;index&quot;</span>: &#123;</span><br><span class="line">      <span class="string">&quot;number_of_shards&quot;</span>: <span class="string">&quot;1&quot;</span>,</span><br><span class="line">      <span class="string">&quot;number_of_replicas&quot;</span>: <span class="string">&quot;1&quot;</span>,</span><br><span class="line">      <span class="string">&quot;refresh_interval&quot;</span>: <span class="string">&quot;60s&quot;</span>,</span><br><span class="line">      <span class="string">&quot;analysis&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;filter&quot;</span>: &#123;</span><br><span class="line">          <span class="string">&quot;tsconvert&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;type&quot;</span>: <span class="string">&quot;stconvert&quot;</span>,</span><br><span class="line">            <span class="string">&quot;convert_type&quot;</span>: <span class="string">&quot;t2s&quot;</span>,</span><br><span class="line">            <span class="string">&quot;delimiter&quot;</span>: <span class="string">&quot;,&quot;</span></span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="string">&quot;synonym&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;type&quot;</span>: <span class="string">&quot;synonym&quot;</span>,</span><br><span class="line">            <span class="string">&quot;synonyms_path&quot;</span>: <span class="string">&quot;analysis/synonyms.txt&quot;</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;analyzer&quot;</span>: &#123;</span><br><span class="line">          <span class="string">&quot;ik_max_word_synonym&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;filter&quot;</span>: [</span><br><span class="line">              <span class="string">&quot;synonym&quot;</span>,</span><br><span class="line">              <span class="string">&quot;tsconvert&quot;</span>,</span><br><span class="line">              <span class="string">&quot;standard&quot;</span>,</span><br><span class="line">              <span class="string">&quot;lowercase&quot;</span>,</span><br><span class="line">              <span class="string">&quot;stop&quot;</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">&quot;tokenizer&quot;</span>: <span class="string">&quot;ik_max_word&quot;</span></span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="string">&quot;ik_smart_synonym&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;filter&quot;</span>: [</span><br><span class="line">              <span class="string">&quot;synonym&quot;</span>,</span><br><span class="line">              <span class="string">&quot;standard&quot;</span>,</span><br><span class="line">              <span class="string">&quot;lowercase&quot;</span>,</span><br><span class="line">              <span class="string">&quot;stop&quot;</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">&quot;tokenizer&quot;</span>: <span class="string">&quot;ik_smart&quot;</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">			<span class="string">&quot;mapping&quot;</span>: &#123;</span><br><span class="line">				<span class="string">&quot;coerce&quot;</span>: <span class="string">&quot;false&quot;</span>,</span><br><span class="line">				<span class="string">&quot;ignore_malformed&quot;</span>: <span class="string">&quot;false&quot;</span></span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="string">&quot;indexing&quot;</span>: &#123;</span><br><span class="line">				<span class="string">&quot;slowlog&quot;</span>: &#123;</span><br><span class="line">					<span class="string">&quot;threshold&quot;</span>: &#123;</span><br><span class="line">						<span class="string">&quot;index&quot;</span>: &#123;</span><br><span class="line">							<span class="string">&quot;warn&quot;</span>: <span class="string">&quot;2s&quot;</span>,</span><br><span class="line">							<span class="string">&quot;info&quot;</span>: <span class="string">&quot;1s&quot;</span></span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="string">&quot;provided_name&quot;</span>: <span class="string">&quot;hospital_202101070533&quot;</span>,</span><br><span class="line">			<span class="string">&quot;query&quot;</span>: &#123;</span><br><span class="line">				<span class="string">&quot;default_field&quot;</span>: <span class="string">&quot;timestamp&quot;</span>,</span><br><span class="line">				<span class="string">&quot;parse&quot;</span>: &#123;</span><br><span class="line">					<span class="string">&quot;allow_unmapped_fields&quot;</span>: <span class="string">&quot;false&quot;</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="string">&quot;requests&quot;</span>: &#123;</span><br><span class="line">				<span class="string">&quot;cache&quot;</span>: &#123;</span><br><span class="line">					<span class="string">&quot;enable&quot;</span>: <span class="string">&quot;true&quot;</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="string">&quot;search&quot;</span>: &#123;</span><br><span class="line">				<span class="string">&quot;slowlog&quot;</span>: &#123;</span><br><span class="line">					<span class="string">&quot;threshold&quot;</span>: &#123;</span><br><span class="line">						<span class="string">&quot;fetch&quot;</span>: &#123;</span><br><span class="line">							<span class="string">&quot;warn&quot;</span>: <span class="string">&quot;1s&quot;</span>,</span><br><span class="line">							<span class="string">&quot;info&quot;</span>: <span class="string">&quot;200ms&quot;</span></span><br><span class="line">						&#125;,</span><br><span class="line">						<span class="string">&quot;query&quot;</span>: &#123;</span><br><span class="line">							<span class="string">&quot;warn&quot;</span>: <span class="string">&quot;1s&quot;</span>,</span><br><span class="line">							<span class="string">&quot;info&quot;</span>: <span class="string">&quot;500ms&quot;</span></span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="固定属性"><a href="#固定属性" class="headerlink" title="固定属性"></a>固定属性</h3><ul>
+<li>**_<code>index.creation_date</code>_**：顾名思义索引的创建时间戳。</li>
+<li>**_<code>index.uuid</code>_**：索引的 uuid 信息。</li>
+<li>**_<code>index.version.created</code>_**：索引的版本号。</li>
+</ul>
+<h3 id="索引静态配置"><a href="#索引静态配置" class="headerlink" title="索引静态配置"></a>索引静态配置</h3><ul>
+<li>**_<code>index.number_of_shards</code><em>**：索引的主分片数，默认值是 **</em><code>5</code><em>**。这个配置在索引创建后不能修改；在 es 层面，可以通过 **</em><code>es.index.max_number_of_shards</code><em>** 属性设置索引最大的分片数，默认为 **</em><code>1024</code>_**。</li>
+<li>**_<code>index.codec</code><em>**：数据存储的压缩算法，默认值为 **</em><code>LZ4</code><em>**，可选择值还有 **</em><code>best_compression</code>_**，它比 LZ4 可以获得更好的压缩比（即占据较小的磁盘空间，但存储性能比 LZ4 低）。</li>
+<li>**_<code>index.routing_partition_size</code>_**：路由分区数，如果设置了该参数，其路由算法为：<code>( hash(_routing) + hash(_id) % index.routing_parttion_size ) % number_of_shards</code>。如果该值不设置，则路由算法为 <code>hash(_routing) % number_of_shardings</code>，<code>_routing</code> 默认值为 <code>_id</code>。</li>
+</ul>
+<p>静态配置里，有重要的部分是配置分析器（config analyzers）。</p>
+<ul>
+<li><p><strong><code>index.analysis</code></strong></p>
+<p>：分析器最外层的配置项，内部主要分为 char_filter、tokenizer、filter 和 analyzer。</p>
+<ul>
+<li>**_<code>char_filter</code>_**：定义新的字符过滤器件。</li>
+<li>**_<code>tokenizer</code>_**：定义新的分词器。</li>
+<li>**_<code>filter</code>_**：定义新的 token filter，如同义词 filter。</li>
+<li>**_<code>analyzer</code>_**：配置新的分析器，一般是 char_filter、tokenizer 和一些 token filter 的组合。</li>
+</ul>
+</li>
+</ul>
+<h3 id="索引动态配置"><a href="#索引动态配置" class="headerlink" title="索引动态配置"></a>索引动态配置</h3><ul>
+<li>**_<code>index.number_of_replicas</code><em>**：索引主分片的副本数，默认值是 **</em><code>1</code>_**，该值必须大于等于 0，这个配置可以随时修改。</li>
+<li>**_<code>index.refresh_interval</code><em>**：执行新索引数据的刷新操作频率，该操作使对索引的最新更改对搜索可见，默认为 **</em><code>1s</code><em>**。也可以设置为 **</em><code>-1</code>_** 以禁用刷新。更详细信息参考 <a target="_blank" rel="noopener" href="https://www.knowledgedict.com/tutorial/elasticsearch-refresh_interval-settings.html">Elasticsearch 动态修改 refresh_interval 刷新间隔设置</a>。</li>
+</ul>
+<h2 id="Mapping-详解"><a href="#Mapping-详解" class="headerlink" title="Mapping 详解"></a>Mapping 详解</h2><p>在 Elasticsearch 中，**<code>Mapping</code>**（映射），用来定义一个文档以及其所包含的字段如何被存储和索引，可以在映射中事先定义字段的数据类型、字段的权重、分词器等属性，就如同在关系型数据库中创建数据表时会设置字段的类型。</p>
+<p>Mapping 会把 json 文档映射成 Lucene 所需要的扁平格式</p>
+<p>一个 Mapping 属于一个索引的 Type</p>
+<ul>
+<li>每个文档都属于一个 Type</li>
+<li>一个 Type 有一个 Mapping 定义</li>
+<li>7.0 开始，不需要在 Mapping 定义中指定 type 信息</li>
+</ul>
+<h3 id="映射分类"><a href="#映射分类" class="headerlink" title="映射分类"></a>映射分类</h3><p>在 Elasticsearch 中，映射可分为静态映射和动态映射。在关系型数据库中写入数据之前首先要建表，在建表语句中声明字段的属性，在 Elasticsearch 中，则不必如此，Elasticsearch 最重要的功能之一就是让你尽可能快地开始探索数据，文档写入 Elasticsearch 中，它会根据字段的类型自动识别，这种机制称为<strong>动态映射</strong>，而<strong>静态映射</strong>则是写入数据之前对字段的属性进行手工设置。</p>
+<h4 id="静态映射"><a href="#静态映射" class="headerlink" title="静态映射"></a>静态映射</h4><p><strong>静态映射</strong>是在创建索引时手工指定索引映射。静态映射和 SQL 中在建表语句中指定字段属性类似。相比动态映射，通过静态映射可以添加更详细、更精准的配置信息。</p>
+<p>如何定义一个 Mapping</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">PUT /books</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;mappings&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;type_one&quot;</span>: &#123; ... any mappings ... &#125;,</span><br><span class="line">        <span class="string">&quot;type_two&quot;</span>: &#123; ... any mappings ... &#125;,</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="动态映射"><a href="#动态映射" class="headerlink" title="动态映射"></a>动态映射</h4><p><strong>动态映射</strong>是一种偷懒的方式，可直接创建索引并写入文档，文档中字段的类型是 Elasticsearch <strong>自动识别</strong>的，不需要在创建索引的时候设置字段的类型。在实际项目中，如果遇到的业务在导入数据之前不确定有哪些字段，也不清楚字段的类型是什么，使用动态映射非常合适。当 Elasticsearch 在文档中碰到一个以前没见过的字段时，它会利用动态映射来决定该字段的类型，并自动把该字段添加到映射中，根据字段的取值自动推测字段类型的规则见下表：</p>
+<table>
+<thead>
+<tr>
+<th align="left">JSON 格式的数据</th>
+<th align="left">自动推测的字段类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">null</td>
+<td align="left">没有字段被添加</td>
+</tr>
+<tr>
+<td align="left">true or false</td>
+<td align="left">boolean 类型</td>
+</tr>
+<tr>
+<td align="left">浮点类型数字</td>
+<td align="left">float 类型</td>
+</tr>
+<tr>
+<td align="left">数字</td>
+<td align="left">long 类型</td>
+</tr>
+<tr>
+<td align="left">JSON 对象</td>
+<td align="left">object 类型</td>
+</tr>
+<tr>
+<td align="left">数组</td>
+<td align="left">由数组中第一个非空值决定</td>
+</tr>
+<tr>
+<td align="left">string</td>
+<td align="left">有可能是 date 类型（若开启日期检测）、double 或 long 类型、text 类型、keyword 类型</td>
+</tr>
+</tbody></table>
+<p>下面举一个例子认识动态 mapping，在 Elasticsearch 中创建一个新的索引并查看它的 mapping，命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PUT books</span><br><span class="line">GET books/_mapping</span><br></pre></td></tr></table></figure>
+
+<p>此时 books 索引的 mapping 是空的，返回结果如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;books&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;mappings&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>再往 books 索引中写入一条文档，命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PUT books/it/1</span><br><span class="line">&#123;</span><br><span class="line">	<span class="string">&quot;id&quot;</span>: 1,</span><br><span class="line">	<span class="string">&quot;publish_date&quot;</span>: <span class="string">&quot;2019-11-10&quot;</span>,</span><br><span class="line">	<span class="string">&quot;name&quot;</span>: <span class="string">&quot;master Elasticsearch&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>文档写入完成之后，再次查看 mapping，返回结果如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;books&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;mappings&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;properties&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;long&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;text&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;fields&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;keyword&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">              <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;keyword&quot;</span><span class="punctuation">,</span></span><br><span class="line">              <span class="attr">&quot;ignore_above&quot;</span><span class="punctuation">:</span> <span class="number">256</span></span><br><span class="line">            <span class="punctuation">&#125;</span></span><br><span class="line">          <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;publish_date&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;date&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用动态 mapping 要结合实际业务需求来综合考虑，如果将 Elasticsearch 当作主要的数据存储使用，并且希望出现未知字段时抛出异常来提醒你注意这一问题，那么开启动态 mapping 并不适用。在 mapping 中可以通过 <code>dynamic</code> 设置来控制是否自动新增字段，接受以下参数：</p>
+<ul>
+<li>**<code>true</code>**：默认值为 true，自动添加字段。</li>
+<li>**<code>false</code>**：忽略新的字段。</li>
+<li>**<code>strict</code>**：严格模式，发现新的字段抛出异常。</li>
+</ul>
+<h3 id="基础类型"><a href="#基础类型" class="headerlink" title="基础类型"></a>基础类型</h3><table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">关键字</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">字符串类型</td>
+<td align="left">string、text、keyword</td>
+</tr>
+<tr>
+<td align="left">数字类型</td>
+<td align="left">long、integer、short、byte、double、float、half_float、scaled_float</td>
+</tr>
+<tr>
+<td align="left">日期类型</td>
+<td align="left">date</td>
+</tr>
+<tr>
+<td align="left">布尔类型</td>
+<td align="left">boolean</td>
+</tr>
+<tr>
+<td align="left">二进制类型</td>
+<td align="left">binary</td>
+</tr>
+<tr>
+<td align="left">范围类型</td>
+<td align="left">range</td>
+</tr>
+</tbody></table>
+<h3 id="复杂类型"><a href="#复杂类型" class="headerlink" title="复杂类型"></a>复杂类型</h3><table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">关键字</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">数组类型</td>
+<td align="left">array</td>
+</tr>
+<tr>
+<td align="left">对象类型</td>
+<td align="left">object</td>
+</tr>
+<tr>
+<td align="left">嵌套类型</td>
+<td align="left">nested</td>
+</tr>
+</tbody></table>
+<h3 id="特殊类型"><a href="#特殊类型" class="headerlink" title="特殊类型"></a>特殊类型</h3><table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">关键字</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">地理类型</td>
+<td align="left">geo_point</td>
+</tr>
+<tr>
+<td align="left">地理图形类型</td>
+<td align="left">geo_shape</td>
+</tr>
+<tr>
+<td align="left">IP 类型</td>
+<td align="left">ip</td>
+</tr>
+<tr>
+<td align="left">范围类型</td>
+<td align="left">completion</td>
+</tr>
+<tr>
+<td align="left">令牌计数类型</td>
+<td align="left">token_count</td>
+</tr>
+<tr>
+<td align="left">附件类型</td>
+<td align="left">attachment</td>
+</tr>
+<tr>
+<td align="left">抽取类型</td>
+<td align="left">percolator</td>
+</tr>
+</tbody></table>
+<h3 id="Mapping-属性"><a href="#Mapping-属性" class="headerlink" title="Mapping 属性"></a>Mapping 属性</h3><p>Elasticsearch 的 mapping 中的字段属性非常多，具体如下表格：</p>
+<p>| 属性名 | 描述 |<br>| :- | :- | |<br>| <strong><em><code>type</code></em></strong> | 字段类型，常用的有 text、integer 等等。 |<br>| <strong><em><code>index</code></em></strong> | 当前字段是否被作为索引。可选值为 **_<code>true</code><em>**，默认为 true。 |<br>| **</em><code>store</code><em>** | 是否存储指定字段，可选值为 **</em><code>true</code><em>** | **</em><code>false</code><em>**，设置 true 意味着需要开辟单独的存储空间为这个字段做存储，而且这个存储是独立于 **</em><code>_source</code><em>** 的存储的。 |<br>| **</em><code>norms</code><em>** | 是否使用归一化因子，可选值为 **</em><code>true</code><em>** | **</em><code>false</code><em>**，不需要对某字段进行打分排序时，可禁用它，节省空间；_type</em> 为 <em>text</em> 时，默认为 <em>true_；而 <em>type</em> 为 <em>keyword</em> 时，默认为 <em>false_。 |<br>| **</em><code>index_options</code></em>** | 索引选项控制添加到倒排索引（Inverted Index）的信息，这些信息用于搜索（Search）和高亮显示：**_<code>docs</code><em><strong>：只索引文档编号(Doc Number)；</strong></em><code>freqs</code><em><strong>：索引文档编号和词频率（term frequency）；</strong></em><code>positions</code><em><strong>：索引文档编号，词频率和词位置（序号）；</strong></em><code>offsets</code><em><strong>：索引文档编号，词频率，词偏移量（开始和结束位置）和词位置（序号）。默认情况下，被分析的字符串（analyzed string）字段使用 <em>positions_，其他字段默认使用 <em>docs_。此外，需要注意的是 <em>index_option</em> 是 elasticsearch 特有的设置属性；临近搜索和短语查询时，_index_option</em> 必须设置为 <em>offsets_，同时高亮也可使用 postings highlighter。 |<br>| **</em><code>term_vector</code></em>** | 索引选项控制词向量相关信息：</strong></em><code>no</code><em><strong>：默认值，表示不存储词向量相关信息；</strong></em><code>yes</code><em><strong>：只存储词向量信息；</strong></em><code>with_positions</code><em><strong>：存储词项和词项位置；</strong></em><code>with_offsets</code><em><strong>：存储词项和字符偏移位置；</strong></em><code>with_positions_offsets</code><em>**：存储词项、词项位置、字符偏移位置。_term_vector</em> 是 lucene 层面的索引设置。 |<br>| <strong><em><code>similarity</code></em></strong> | 指定文档相似度算法（也可以叫评分模型）：**_<code>BM25</code><em>**：ES 5 之后的默认设置。 |<br>| **</em><code>copy_to</code><em>** | 复制到自定义 _all 字段，值是数组形式，即表明可以指定多个自定义的字段。 |<br>| **</em><code>analyzer</code><em>** | 指定索引和搜索时的分析器，如果同时指定 <em>search_analyzer</em> 则搜索时会优先使用 <em>search_analyzer_。 |<br>| **</em><code>search_analyzer</code></em>** | 指定搜索时的分析器，搜索时的优先级最高。 |<br>| <strong><em><code>null_value</code></em></strong> | 用于需要对 Null 值实现搜索的场景，只有 Keyword 类型支持此配置。 |</p>
+<h2 id="索引查询"><a href="#索引查询" class="headerlink" title="索引查询"></a>索引查询</h2><h3 id="多个-index、多个-type-查询"><a href="#多个-index、多个-type-查询" class="headerlink" title="多个 index、多个 type 查询"></a>多个 index、多个 type 查询</h3><p>Elasticsearch 的搜索 api 支持<strong>一个索引（index）的多个类型（type）查询</strong>以及<strong>多个索引（index）</strong>的查询。</p>
+<p>例如，我们可以搜索 twitter 索引下面所有匹配条件的所有类型中文档，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /twitter/_search?q=user:shay</span><br></pre></td></tr></table></figure>
+
+<p>我们也可以搜索一个索引下面指定多个 type 下匹配条件的文档，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /twitter/tweet,user/_search?q=user:banon</span><br></pre></td></tr></table></figure>
+
+<p>我们也可以搜索多个索引下匹配条件的文档，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /twitter,elasticsearch/_search?q=tag:wow</span><br></pre></td></tr></table></figure>
+
+<p>此外我们也可以搜索所有索引下匹配条件的文档，用_all 表示所有索引，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /_all/_search?q=tag:wow</span><br></pre></td></tr></table></figure>
+
+<p>甚至我们可以搜索所有索引及所有 type 下匹配条件的文档，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /_search?q=tag:wow</span><br></pre></td></tr></table></figure>
+
+<h3 id="URI-搜索"><a href="#URI-搜索" class="headerlink" title="URI 搜索"></a>URI 搜索</h3><p>Elasticsearch 支持用 uri 搜索，可用 get 请求里面拼接相关的参数，并用 curl 相关的命令就可以进行测试。</p>
+<p>如下有一个示例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET twitter/_search?q=user:kimchy</span><br></pre></td></tr></table></figure>
+
+<p>如下是上一个请求的相应实体：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;timed_out&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;took&quot;</span><span class="punctuation">:</span> <span class="number">62</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;_shards&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;total&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;successful&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;skipped&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;failed&quot;</span><span class="punctuation">:</span> <span class="number">0</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;hits&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;total&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;max_score&quot;</span><span class="punctuation">:</span> <span class="number">1.3862944</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hits&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;_index&quot;</span><span class="punctuation">:</span> <span class="string">&quot;twitter&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;_type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;_doc&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;_id&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;_score&quot;</span><span class="punctuation">:</span> <span class="number">1.3862944</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;_source&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;user&quot;</span><span class="punctuation">:</span> <span class="string">&quot;kimchy&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;date&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2009-11-15T14:12:12&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;message&quot;</span><span class="punctuation">:</span> <span class="string">&quot;trying out Elasticsearch&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;likes&quot;</span><span class="punctuation">:</span> <span class="number">0</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>URI 中允许的参数：</p>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">q</td>
+<td align="left">查询字符串，映射到 query_string 查询</td>
+</tr>
+<tr>
+<td align="left">df</td>
+<td align="left">在查询中未定义字段前缀时使用的默认字段</td>
+</tr>
+<tr>
+<td align="left">analyzer</td>
+<td align="left">查询字符串时指定的分词器</td>
+</tr>
+<tr>
+<td align="left">analyze_wildcard</td>
+<td align="left">是否允许通配符和前缀查询，默认设置为 false</td>
+</tr>
+<tr>
+<td align="left">batched_reduce_size</td>
+<td align="left">应在协调节点上一次减少的分片结果数。如果请求中潜在的分片数量很大，则应将此值用作保护机制，以减少每个搜索请求的内存开销</td>
+</tr>
+<tr>
+<td align="left">default_operator</td>
+<td align="left">默认使用的匹配运算符，可以是<em>AND</em>或者<em>OR</em>，默认是<em>OR</em></td>
+</tr>
+<tr>
+<td align="left">lenient</td>
+<td align="left">如果设置为 true，将会忽略由于格式化引起的问题（如向数据字段提供文本），默认为 false</td>
+</tr>
+<tr>
+<td align="left">explain</td>
+<td align="left">对于每个 hit，包含了具体如何计算得分的解释</td>
+</tr>
+<tr>
+<td align="left">_source</td>
+<td align="left">请求文档内容的参数，默认 true；设置 false 的话，不返回_source 字段，可以使用<strong>_source_include</strong>和<strong>_source_exclude</strong>参数分别指定返回字段和不返回的字段</td>
+</tr>
+<tr>
+<td align="left">stored_fields</td>
+<td align="left">指定每个匹配返回的文档中的存储字段，多个用逗号分隔。不指定任何值将导致没有字段返回</td>
+</tr>
+<tr>
+<td align="left">sort</td>
+<td align="left">排序方式，可以是<em>fieldName</em>、<em>fieldName:asc</em>或者<em>fieldName:desc</em>的形式。fieldName 可以是文档中的实际字段，也可以是诸如_score 字段，其表示基于分数的排序。此外可以指定多个 sort 参数（顺序很重要）</td>
+</tr>
+<tr>
+<td align="left">track_scores</td>
+<td align="left">当排序时，若设置 true，返回每个命中文档的分数</td>
+</tr>
+<tr>
+<td align="left">track_total_hits</td>
+<td align="left">是否返回匹配条件命中的总文档数，默认为 true</td>
+</tr>
+<tr>
+<td align="left">timeout</td>
+<td align="left">设置搜索的超时时间，默认无超时时间</td>
+</tr>
+<tr>
+<td align="left">terminate_after</td>
+<td align="left">在达到查询终止条件之前，指定每个分片收集的最大文档数。如果设置，则在响应中多了一个 terminated_early 的布尔字段，以指示查询执行是否实际上已终止。默认为 no terminate_after</td>
+</tr>
+<tr>
+<td align="left">from</td>
+<td align="left">从第几条（索引以 0 开始）结果开始返回，默认为 0</td>
+</tr>
+<tr>
+<td align="left">size</td>
+<td align="left">返回命中的文档数，默认为 10</td>
+</tr>
+<tr>
+<td align="left">search_type</td>
+<td align="left">搜索的方式，可以是<em>dfs_query_then_fetch</em>或<em>query_then_fetch</em>。默认为<em>query_then_fetch</em></td>
+</tr>
+<tr>
+<td align="left">allow_partial_search_results</td>
+<td align="left">是否可以返回部分结果。如设置为 false，表示如果请求产生部分结果，则设置为返回整体故障；默认为 true，表示允许请求在超时或部分失败的情况下获得部分结果</td>
+</tr>
+</tbody></table>
+<h3 id="查询流程"><a href="#查询流程" class="headerlink" title="查询流程"></a>查询流程</h3><p>在 Elasticsearch 中，查询是一个比较复杂的执行模式，因为我们不知道那些 document 会被匹配到，任何一个 shard 上都有可能，所以一个 search 请求必须查询一个索引或多个索引里面的所有 shard 才能完整的查询到我们想要的结果。</p>
+<p>找到所有匹配的结果是查询的第一步，来自多个 shard 上的数据集在分页返回到客户端之前会被合并到一个排序后的 list 列表，由于需要经过一步取 top N 的操作，所以 search 需要进过两个阶段才能完成，分别是 query 和 fetch。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.elastic.co/">Elasticsearch 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.knowledgedict.com/tutorial/elasticsearch-index-mapping.html">Elasticsearch 索引映射类型及 mapping 属性详解</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">JaHero</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/pages/293175/">http://example.com/pages/293175/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">贾英雄-blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><a class="post-meta__tags" href="/tags/%E7%B4%A2%E5%BC%95/">索引</a><a class="post-meta__tags" href="/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%95%B0%E6%8D%AE%E5%BA%93/">搜索引擎数据库</a><a class="post-meta__tags" href="/tags/Elasticsearch/">Elasticsearch</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/pages/d1bae4/" title="Elasticsearch 映射"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-16</div><div class="title">Elasticsearch 映射</div></div></a></div><div><a href="/pages/0cb563/" title="Elasticsearch 面试总结"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-16</div><div class="title">Elasticsearch 面试总结</div></div></a></div><div><a href="/pages/98c3a5/" title="Elasticsearch 快速入门"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-16</div><div class="title">Elasticsearch 快速入门</div></div></a></div><div><a href="/pages/0fb506/" title="Elasticsearch 简介"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-22</div><div class="title">Elasticsearch 简介</div></div></a></div><div><a href="/pages/83bd15/" title="Elasticsearch 查询"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-18</div><div class="title">Elasticsearch 查询</div></div></a></div><div><a href="/pages/e1b769/" title="Elasticsearch 高亮搜索及显示"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-22</div><div class="title">Elasticsearch 高亮搜索及显示</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/ava.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JaHero</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Elasticsearch-%E7%B4%A2%E5%BC%95"><span class="toc-number">1.</span> <span class="toc-text">Elasticsearch 索引</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E7%AE%A1%E7%90%86%E6%93%8D%E4%BD%9C"><span class="toc-number">1.1.</span> <span class="toc-text">索引管理操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E5%88%A0%E9%99%A4"><span class="toc-number">1.1.1.</span> <span class="toc-text">索引删除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E5%88%AB%E5%90%8D"><span class="toc-number">1.1.2.</span> <span class="toc-text">索引别名</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Settings-%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.2.</span> <span class="toc-text">Settings 详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BA%E5%AE%9A%E5%B1%9E%E6%80%A7"><span class="toc-number">1.2.1.</span> <span class="toc-text">固定属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E9%9D%99%E6%80%81%E9%85%8D%E7%BD%AE"><span class="toc-number">1.2.2.</span> <span class="toc-text">索引静态配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE"><span class="toc-number">1.2.3.</span> <span class="toc-text">索引动态配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mapping-%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.3.</span> <span class="toc-text">Mapping 详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%A0%E5%B0%84%E5%88%86%E7%B1%BB"><span class="toc-number">1.3.1.</span> <span class="toc-text">映射分类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E6%98%A0%E5%B0%84"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">静态映射</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E6%98%A0%E5%B0%84"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">动态映射</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.3.2.</span> <span class="toc-text">基础类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.3.3.</span> <span class="toc-text">复杂类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.3.4.</span> <span class="toc-text">特殊类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mapping-%E5%B1%9E%E6%80%A7"><span class="toc-number">1.3.5.</span> <span class="toc-text">Mapping 属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E6%9F%A5%E8%AF%A2"><span class="toc-number">1.4.</span> <span class="toc-text">索引查询</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E4%B8%AA-index%E3%80%81%E5%A4%9A%E4%B8%AA-type-%E6%9F%A5%E8%AF%A2"><span class="toc-number">1.4.1.</span> <span class="toc-text">多个 index、多个 type 查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#URI-%E6%90%9C%E7%B4%A2"><span class="toc-number">1.4.2.</span> <span class="toc-text">URI 搜索</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%B5%81%E7%A8%8B"><span class="toc-number">1.4.3.</span> <span class="toc-text">查询流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.5.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题">无题</a><time datetime="2022-12-31T04:24:34.153Z" title="发表于 2022-12-31 12:24:34">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/img/index/" title="gallery"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="gallery"/></a><div class="content"><a class="title" href="/2022/12/31/img/index/" title="gallery">gallery</a><time datetime="2022-12-30T18:20:45.000Z" title="发表于 2022-12-31 02:20:45">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/30/hello-world/" title="Hello World"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/12/30/hello-world/" title="Hello World">Hello World</a><time datetime="2022-12-30T09:13:14.141Z" title="发表于 2022-12-30 17:13:14">2022-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Aop注解"/></a><div class="content"><a class="title" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解">Aop注解</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flowable 工作流程引擎"/></a><div class="content"><a class="title" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎">Flowable 工作流程引擎</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By JaHero</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script src="https://fastly.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

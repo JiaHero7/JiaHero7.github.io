@@ -1,0 +1,421 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MSQL | 贾英雄-blog</title><meta name="keywords" content="MySQL"><meta name="author" content="JaHero"><meta name="copyright" content="JaHero"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Mysql存储引擎 学习 InnoDB是 MySQL 默认的事务型存储引擎，只有在需要它不支持的特性时，才考虑使用其它存储引擎。 实现了四个标准的隔离级别，默认级别是可重复读(REPEATABLE READ)。在可重复读隔离级别下，通过多版本并发控制(MVCC)+ 间隙锁(Next-Key Locking)防止幻影读。 主索引是聚簇索引，在索引中保存了数据，从而避免直接读取磁盘，因此对查询性能有很">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MSQL">
+<meta property="og:url" content="http://example.com/2022/12/26/Mysql/index.html">
+<meta property="og:site_name" content="贾英雄-blog">
+<meta property="og:description" content="Mysql存储引擎 学习 InnoDB是 MySQL 默认的事务型存储引擎，只有在需要它不支持的特性时，才考虑使用其它存储引擎。 实现了四个标准的隔离级别，默认级别是可重复读(REPEATABLE READ)。在可重复读隔离级别下，通过多版本并发控制(MVCC)+ 间隙锁(Next-Key Locking)防止幻影读。 主索引是聚簇索引，在索引中保存了数据，从而避免直接读取磁盘，因此对查询性能有很">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/post.jpg">
+<meta property="article:published_time" content="2022-12-26T04:40:09.000Z">
+<meta property="article:modified_time" content="2022-12-26T05:14:21.115Z">
+<meta property="article:author" content="JaHero">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/post.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/12/26/Mysql/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"K46KXS6BKG","apiKey":"94dab3de87ce4cc2067ec6ef569e9df7","indexName":"JiaHero","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: JaHero","link":"链接: ","source":"来源: 贾英雄-blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://fastly.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MSQL',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2022-12-26 13:14:21'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/ava.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/post.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">贾英雄-blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">MSQL</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-26T05:14:21.115Z" title="更新于 2022-12-26 13:14:21">2022-12-26</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MSQL"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Mysql"><a href="#Mysql" class="headerlink" title="Mysql"></a>Mysql</h1><p>存储引擎</p>
+<p>学习</p>
+<h2 id="InnoDB"><a href="#InnoDB" class="headerlink" title="InnoDB"></a>InnoDB</h2><p>是 MySQL 默认的事务型存储引擎，<strong>只有在需要它不支持的特性时，才考虑使用其它存储引擎</strong>。</p>
+<p>实现了四个标准的隔离级别，默认级别是可重复读(REPEATABLE READ)。在可重复读隔离级别下，通过多版本并发控制(MVCC)+ 间隙锁(Next-Key Locking)防止幻影读。</p>
+<p>主索引是聚簇索引，在索引中保存了数据，从而避免直接读取磁盘，因此对查询性能有很大的提升。</p>
+<p>内部做了很多优化，包括</p>
+<p>从磁盘读取数据时采用的可预测性读<a href="">read-ahead</a>、</p>
+<p>能够加快读操作并且自动创建的自适应哈希索引、</p>
+<p>能够加速插入操作的插入缓冲区等。</p>
+<p>支持真正的在线热备份。其它存储引擎不支持在线热备份，要获取一致性视图需要停止对所有表的写入，而在读写混合场景中，停止写入可能也意味着停止读取。</p>
+<h3 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h3><p>InnoDB存储引擎是<strong>多线程</strong>的模型，因此其后台有多个不同的线程，负责处理不同的任务：</p>
+<p>Master Thread 一个核心的后台线程，主要负责将缓冲池中的数据异步刷新到磁盘，保证 数据的一致性，包括脏页的刷新、合并插入缓冲、UNDO页的回收等。</p>
+<p>IO Thread InnoDB存储引擎大量使用了AIO(Async IO)来处理写IO请求，这样极大地提高了数据库的性能。IO Thread的工作主要是负责这些IO请求的回调处理。</p>
+<p>Purge（undo回收） Thread 事务被提交后，其所使用的undolog可能不再需要，因此需要Purge Thread来回收已经使用并分配的undo页。</p>
+<p>Page Cleaner（脏页回收） Thread Page Cleaner Thread是在InnoDB1.2.x版本中引入的。其作用是将之前版本中脏页的刷新操作都放入到单独的线程中来完成。目的是为了减轻原Master Thread的工作及对于用户查询线程的阻塞，进一步提高InnoDB存储引擎的性能。</p>
+<h3 id="InnoDB内存数据对象图："><a href="#InnoDB内存数据对象图：" class="headerlink" title="InnoDB内存数据对象图："></a>InnoDB内存数据对象图：</h3><p><img src="http://static.notedeep.com/Fu1uv_ksfKxDKEXNcf9IgwCmdGMi" alt="img"></p>
+<h3 id="innodb的缓存池是什么？"><a href="#innodb的缓存池是什么？" class="headerlink" title="innodb的缓存池是什么？"></a>innodb的缓存池是什么？</h3><p>InnoDB缓存池，本质上是内存中的一块区域，当数据被访问时，InnoDB会把表数据、索引数据缓存在 buffer pool 缓存池中。</p>
+<h4 id="innodb的缓存池有什么作用？"><a href="#innodb的缓存池有什么作用？" class="headerlink" title="innodb的缓存池有什么作用？"></a>innodb的缓存池有什么作用？</h4><p> buffer pool两个最主要的功能：一个是加速读，一个是加速写。</p>
+<p>加速读:</p>
+<p>当需要访问一个数据page的时候，如果这个page已经在缓存池中，那么就不再需要访问磁盘，直接从缓冲池中获取。</p>
+<p>加速写:</p>
+<p>当需要修改一个page的时候，先将这个page在缓冲池中进行修改，记下相关的redo log，这个页面的修改就算已经完成了。至于这个被修改的dirty page（脏页）什么时候真正刷新到磁盘，后面会详细讲到。</p>
+<h5 id="加速读实现原理"><a href="#加速读实现原理" class="headerlink" title="加速读实现原理"></a>加速读实现原理</h5><p><strong>为了提高大容量读取操作的效率，缓冲池被划分成可能包含多行数据的页。为了缓存管理的效率，缓冲池被实现为页的链表;</strong> 会使用LRU的延伸算法让很少使用的数据超时。</p>
+<p><img src="http://static.notedeep.com/FkJ0uSowR1JxON12SfOS_va2jl12" alt="img"></p>
+<p>InnoDB使用（LRU）算法的变体将pool作为list进行管理。当需要向pool中添加新block时，InnoDB将驱逐最近最少使用的block并将新block添加到list的中间。</p>
+<p>这种“中点插入策略”将list视为两个子list：</p>
+<p>在头部，最近访问过的“新”（或“年轻”）block的子列表。</p>
+<p>在尾部，最近访问的“旧”block的子列表。</p>
+<p>此算法把查询中大量访问的block放到新子列表中。 旧子列表包含较少使用的block，这些block是驱逐的候选人。</p>
+<p>此算法把查询中大量访问的block放到新子列表中。 旧子列表包含较少使用的block，这些block是驱逐的候选人。</p>
+<p>LRU算法默认情况下：3&#x2F;8的缓冲池专用于旧子列表。列表的中点是新子列表的尾部与旧子列表的头部相交的边界。当InnoDB将block读入缓冲池时，它最初将其插入中点（旧子列表的头部）。</p>
+<p>访问旧子列表中的block会使其“年轻”，将其移动到缓冲池的头部（新子列表的头部）。</p>
+<p>如果因为查询确实需要而读入block，则第一次访问立刻发生，并且该block变得年轻。</p>
+<p>如果由于预读而读入block，则第一次访问不会立即发生（并且可能根本不会发生）。</p>
+<p>在数据库运行过程中，没有被访问到的block，会向列表的尾部移动。</p>
+<p>新子列表中的block会慢慢变老，因为其他的blocks变新了。</p>
+<p>旧子列表中的block也会变老，因为不断有block从中点插入。</p>
+<p>最终，长时间未使用的block到达旧子列表的尾部并被逐出。</p>
+<h3 id="Change-Buffer更改缓冲区介绍以及实现原理"><a href="#Change-Buffer更改缓冲区介绍以及实现原理" class="headerlink" title="Change Buffer更改缓冲区介绍以及实现原理"></a>Change Buffer更改缓冲区介绍以及实现原理</h3><p>Change Buffer更改缓冲区是一种特殊的数据结构。</p>
+<p>有一些处于缓冲池外的二级索引页（比较冷的数据），当这些pages数据发生update&#x2F;insert&#x2F;delete时，Change Buffer更改缓冲区会把这些更改缓存下来。稍后在页面被其他读取操作加载到缓冲池中时合并。</p>
+<p><img src="http://static.notedeep.com/Fh46tIgWjSvk6gFVgk18emhdLVrO" alt="img"></p>
+<p>与聚簇索引不同，二级索引通常是非唯一的，插入到二级索引中是以相对随机的顺序进行的。同样，删除和更新可能会影响不相邻位的二级索引页。</p>
+<p> <strong>Change buffer的主要目的是将对二级索引的数据操作缓存下来，以此减少二级索引的随机IO，并达到操作合并的效果。</strong></p>
+<p>定期在系统空闲时刻，清除操作将更新后的索引页写入磁盘。与每个值立即写入磁盘相比，清除操作可以更有效地把一系列索引值写入磁盘块。</p>
+<p>当有许多二级索引和受影响的行需要更新时，Change Buffer的合并可能需要几个小时。在此期间，磁盘I&#x2F;O会增加，受磁盘限制的查询会减慢。提交事务后，Change Buffer合并也可能会继续发生。事实上，Change Buffer合并可能会在服务器重新启动后仍继续发生。</p>
+<p>在内存中，更改缓冲区占据了InnoDB buffer pool缓冲池的一部分。</p>
+<p>在磁盘上，更改缓冲区是system tablespace系统表空间的一部分，因此在数据库重新启动时，索引更改仍保存在缓存中。</p>
+<p>缓存在更改缓冲区中的数据类型由innodb_change_buffering配置控制。</p>
+<h3 id="自适应哈希索引介绍"><a href="#自适应哈希索引介绍" class="headerlink" title="自适应哈希索引介绍"></a>自适应哈希索引介绍</h3><p>InnoDB存储引擎会监控对表上各索引页的查询。并建立合适的哈希索引，加速数据页的访问。</p>
+<p>特点</p>
+<ul>
+<li>哈希索引，查询消耗 O(1)</li>
+<li>降低对二级索引树的频繁访问资源。</li>
+<li>自适应</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>hash自适应索引会占用innodb buffer pool；</li>
+<li>自适应hash索引只适合搜索等值的查询，如select * from table where index_col&#x3D;’xxx’，而对于其他查找类型，如范围查找，是不能使用的；</li>
+</ul>
+<p>自适应散列索引（AHI）使InnoDB在系统上执行更像内存数据库，该功能由innodb_adaptive_hash_index 配置启用。</p>
+<h4 id="自适应哈希索引实现原理"><a href="#自适应哈希索引实现原理" class="headerlink" title="自适应哈希索引实现原理"></a>自适应哈希索引实现原理</h4><p><img src="http://static.notedeep.com/FkI9PKs6EFaSiNaQRD86if7ux5Mo" alt="img"></p>
+<p>Innodb存储引擎会监控对表上二级索引的查找，如果发现某二级索引被频繁访问，innodb就会使用索引键的前缀建立一个哈希索引。将索引值转换为一种指针，便于直接访问，带来速度的提升。</p>
+<p>索引前缀</p>
+<p><img src="C:\Users\JT\AppData\Roaming\Typora\typora-user-images\image-20221010175135640.png" alt="image-20221010175135640"></p>
+<p>经常访问的二级索引数据会自动被生成到hash索引里面去(最近连续被访问三次的数据)，自适应哈希索引通过缓冲池的B+树构造而来，因此建立的速度很快。</p>
+<h3 id="redo-log缓冲区"><a href="#redo-log缓冲区" class="headerlink" title="redo log缓冲区"></a>redo log缓冲区</h3><p>redo log缓冲区是一块内存区域，保存将要写入redo log的数据。</p>
+<p>mysql 崩溃恢复是需要redo log的。</p>
+<p>redo log缓冲区大小由innodb_log_buffer_size配置选项定义。</p>
+<p>redo log缓冲区会定期把内存中的回滚日志刷到磁盘上。一个大的redo log缓冲区意味着允许大事务运行，而无需在事务提交之前将redo log写入磁盘。因此，如果您有更新，插入或删除多行的事务，则使用更大的redo log缓冲区可节省磁盘I&#x2F;O。</p>
+<h4 id="redo-log-缓冲区实现原理"><a href="#redo-log-缓冲区实现原理" class="headerlink" title="redo log 缓冲区实现原理"></a>redo log 缓冲区实现原理</h4><p>innodb_flush_log_at_trx_commit控制如何将redo log缓冲区的内容写入到日志文件。 innodb_flush_log_at_timeout控制redo log缓存写到redo log文件的频率。</p>
+<p>InnoDB 修改数据操作，实际上修改的是Buffer Pool中的数据。</p>
+<p>为了保障数据的安全稳定，不丢失数据。InnoDB并不是一个事务提交后就将 Buffer Pool 中被修改的数据同步到磁盘上，而是要先记录到redo log日志中，以防崩溃之后可以恢复。</p>
+<p>最后再从Buffer Pool 中把脏页连续写入磁盘。</p>
+<p>而是记录到redo log日志中也不是直接写磁盘，而是先写到redo log 缓冲区</p>
+<p><img src="http://static.notedeep.com/Fkv4ky7Y3obRxUVRBzS4N1kyq6If" alt="img"></p>
+<p>   控制 InnoDB 事务日志刷新方式参数：innodb_flush_log_at_trx_commit :</p>
+<p><img src="http://static.notedeep.com/FsBcGRzrp1HQhr8Vdt6DXaIao4lI" alt="img"></p>
+<ul>
+<li>innodb_flush_log_at_trx_commit  &#x3D; 0， InnoDB 中的 Log Thread 每隔 1秒将 log buffer 中的数据写入文件，同时还会通知文件系统进行与文件同步的 flush操作，保证数据确实已经写入磁盘。</li>
+<li>innodb_flush_log_at_trx_commit &#x3D; 1， InnoDB 默认设置。每次事务的结束都会出发 Log Thread 将 Log Buffer 中的数据写入文件、并通知文件系统同步文件。这个设置最安全，能够保证不论是 MySQL 崩溃、OS崩溃还是主机断电都不会丢失任何已经提交的数据。</li>
+<li>innodb_flush_log_at_trx_commit &#x3D; 2， 每次事务结束的时候将数据写入事务日志，仅仅是调用了文件系统的文件写入操作。而文件系统都是有缓存机制的，所以 Log Thread 的写入并不能保证内容已经写入到物理磁盘完成持久化的动作。文件系统什么时候会将缓存中的数据同步到物理磁盘、文件， Log Thread 就完全不知道，所以，当设置 2 的时候， MySQL 崩溃并不会造成数据的丢失，但是 OS 崩溃或主机断电后可能丢失的数据量就完全控制在文件上了。</li>
+</ul>
+<p>分析:</p>
+<p>设置1 最安全，由于 IO 同步操作多，所以，性能最低。</p>
+<p>设置 0 ，则每秒一次同步，性能相对高一下。</p>
+<p>如果设置 2 ，性能可能是三种最好的。但是也可能出现故障后丢失数据最多的一种。如果 OS 足够稳定，主键硬件设备足够好，且主机供电系统足够安全，可将设置为2 ，让系统整体性能尽可能高。【建议设置为 2】</p>
+<h2 id="MyISAM"><a href="#MyISAM" class="headerlink" title="MyISAM"></a>MyISAM</h2><p>设计简单，数据以紧密格式存储。对于只读数据，或者表比较小、可以容忍修复操作，则依然可以使用它。</p>
+<p>提供了大量的特性，包括压缩表、空间数据索引等。</p>
+<p><strong>不支持事务</strong>。</p>
+<p>不支持行级锁，只能对整张表加锁，读取时会对需要读到的所有表加共享锁，写入时则对表加排它锁。但在表有读取操作的同时，也可以往表中插入新的记录，这被称为并发插入(CONCURRENT INSERT)。</p>
+<p>可以手工或者自动执行检查和修复操作，但是和事务恢复以及崩溃恢复不同，可能导致一些数据丢失，而且修复操作是非常慢的。</p>
+<p>如果指定了 DELAY_KEY_WRITE 选项，在每次修改执行完成时，不会立即将修改的索引数据写入磁盘，而是会写到内存中的键缓冲区，只有在清理键缓冲区或者关闭表的时候才会将对应的索引块写入磁盘。这种方式可以极大的提升写入性能，但是在数据库或者主机崩溃时会造成索引损坏，需要执行修复操作。</p>
+<h2 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h2><p>事务: InnoDB 是事务型的，可以使用 Commit 和 Rollback 语句。</p>
+<p>并发: MyISAM 只支持表级锁，而 InnoDB 还支持行级锁。</p>
+<p>外键: InnoDB 支持外键。</p>
+<p>备份: InnoDB 支持在线热备份。</p>
+<p>崩溃恢复: MyISAM 崩溃后发生损坏的概率比 InnoDB 高很多，而且恢复的速度也更慢。</p>
+<p>其它特性: MyISAM 支持压缩表和空间数据索引。</p>
+<h2 id="索引下推"><a href="#索引下推" class="headerlink" title="索引下推"></a>索引下推</h2><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/iQnArUNIsZFzVCj90MZjyg">原文地址</a></p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>索引下推(Index Condition Pushdown，简称ICP)，默认开启</p>
+<p><img src="C:\Users\JT\AppData\Roaming\Typora\typora-user-images\image-20221020092643110.png" alt="image-20221020092643110"></p>
+<p>Server层负责SQL语法解析、生成执行计划等，并调用存储引擎层执行数据的存储和检索。</p>
+<p>ICP的下推原理就是将Server层负责的事情交给存储引擎层实现，减少回表次数。</p>
+<p>在没有使用ICP的情况下，MySQL的查询：</p>
+<ul>
+<li>存储引擎读取索引记录；</li>
+<li>根据索引中的主键值，定位并读取完整的行记录；</li>
+<li>存储引擎把记录交给<code>Server</code>层去检测该记录是否满足<code>WHERE</code>条件。</li>
+</ul>
+<p>使用ICP的情况下，查询过程：</p>
+<ul>
+<li>存储引擎读取索引记录（不是完整的行记录）；</li>
+<li>判断<code>WHERE</code>条件部分能否用索引中的列来做检查，条件不满足，则处理下一行索引记录；</li>
+<li>条件满足，使用索引中的主键去定位并读取完整的行记录（就是所谓的回表）；</li>
+<li>存储引擎把记录交给<code>Server</code>层，<code>Server</code>层检测该记录是否满足<code>WHERE</code>条件的<strong>其余部分</strong>。</li>
+</ul>
+<h3 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h3><p>1、在user表中创建联合索引（name, age）</p>
+<p><img src="C:\Users\JT\AppData\Roaming\Typora\typora-user-images\image-20221020093422105.png" alt="image-20221020093422105"></p>
+<p>2、select * from tuser where name like ‘张%’ and age&#x3D;10;</p>
+<h4 id="没有使用ICP的情况"><a href="#没有使用ICP的情况" class="headerlink" title="没有使用ICP的情况"></a>没有使用ICP的情况</h4><p>根据最左匹配原则，查找二级索引得到主键为1,4，然后到聚簇索引中第一次回表查询，查询主键为1,4的文档数据</p>
+<p>然后server在对以上数据进行age筛选，然后得到主键为1的主键，然后第二次回表查询，得到主键为1的数据</p>
+<h4 id="使用ICP的情况"><a href="#使用ICP的情况" class="headerlink" title="使用ICP的情况"></a>使用ICP的情况</h4><p>由于联合索引中包含name、age，存储引擎直接在联合索引中过滤，过滤后的数据再进行回表扫描</p>
+<h3 id="使用条件"><a href="#使用条件" class="headerlink" title="使用条件"></a>使用条件</h3><ul>
+<li><p>只能用于<code>range</code>、 <code>ref</code>、 <code>eq_ref</code>、<code>ref_or_null</code>访问方法；</p>
+</li>
+<li><p>只能用于<code>InnoDB</code>和 <code>MyISAM</code>存储引擎及其分区表；</p>
+</li>
+<li><p>对<code>InnoDB</code>存储引擎来说，索引下推只适用于二级索引（也叫辅助索引）</p>
+</li>
+<li><p>引用了子查询的条件不能下推；</p>
+</li>
+<li><p>引用了存储函数的条件不能下推，因为存储引擎无法调用存储函数。</p>
+</li>
+</ul>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p>explain.type (查看执行计划信息)</p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/71Mmm-qvkWlbIcn7iIEU7A">文章地址</a></p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>system</td>
+<td><strong>表只有一行</strong>，MyISAM引擎</td>
+</tr>
+<tr>
+<td>const</td>
+<td>常量连接，表最多<strong>只有一行匹配</strong>，通用用于主键或者唯一索引比较时</td>
+</tr>
+<tr>
+<td>eq_ref</td>
+<td>每次与之前的表合并行都只在该表读取一行，这是除了system，const之外最好的一种，特点是使用&#x3D;，而且索引的所有部分都参与<strong>join</strong>且索引是<strong>主键</strong>或<strong>非空唯一键</strong>的索引</td>
+</tr>
+<tr>
+<td>ref</td>
+<td>如果每次只匹配少数行，那就是比较好的一种，使用&#x3D;或&lt;&#x3D;&gt;，可以是左覆盖索引或非主键或非唯一键</td>
+</tr>
+<tr>
+<td>fulltext</td>
+<td>全文搜索</td>
+</tr>
+<tr>
+<td>ref_or_null</td>
+<td>与ref类似，但包括NULL</td>
+</tr>
+<tr>
+<td>index_merge</td>
+<td>表示出现了索引合并优化(包括交集，并集以及交集之间的并集)，但不包括跨表和全文索引。这个比较复杂，目前的理解是合并单表的范围索引扫描（如果成本估算比普通的range要更优的话）</td>
+</tr>
+<tr>
+<td>unique_subquery</td>
+<td>在in子查询中，就是value in (select…)把形如select unique_key_column的子查询替换。PS：所以不一定in子句中使用子查询就是低效的！</td>
+</tr>
+<tr>
+<td>index_subquery</td>
+<td>同上，但把形如”select non_unique_key_column“的子查询替换</td>
+</tr>
+<tr>
+<td>range</td>
+<td>常数值的范围</td>
+</tr>
+<tr>
+<td>index</td>
+<td>索引树扫描。a.当查询是索引覆盖的，即所有数据均可从索引树获取的时候（Extra中有Using Index）；b.以索引顺序从索引中查找数据行的全表扫描（无 Using Index）；c.如果Extra中Using Index与Using Where同时出现的话，则是利用索引查找键值的意思；d.如单独出现，则是用读索引来代替读行，但不用于查找</td>
+</tr>
+<tr>
+<td>all</td>
+<td>全表扫描(full table scan)</td>
+</tr>
+</tbody></table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">JaHero</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/12/26/Mysql/">http://example.com/2022/12/26/Mysql/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">贾英雄-blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/MySQL/">MySQL</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://fastly.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/12/26/read-ahead%20%E5%8F%AF%E9%A2%84%E6%B5%8B%E6%80%A7%E8%AF%BB/" title="read-ahead 可预测性读"><img class="cover" src="/img/post.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="title">read-ahead 可预测性读</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/ava.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JaHero</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">495</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">294</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">118</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JiaHero7/JiaHero7.github.io/" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Mysql"><span class="toc-number">1.</span> <span class="toc-text">Mysql</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#InnoDB"><span class="toc-number">1.1.</span> <span class="toc-text">InnoDB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-number">1.1.1.</span> <span class="toc-text">多线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#InnoDB%E5%86%85%E5%AD%98%E6%95%B0%E6%8D%AE%E5%AF%B9%E8%B1%A1%E5%9B%BE%EF%BC%9A"><span class="toc-number">1.1.2.</span> <span class="toc-text">InnoDB内存数据对象图：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#innodb%E7%9A%84%E7%BC%93%E5%AD%98%E6%B1%A0%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.1.3.</span> <span class="toc-text">innodb的缓存池是什么？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#innodb%E7%9A%84%E7%BC%93%E5%AD%98%E6%B1%A0%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8%EF%BC%9F"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">innodb的缓存池有什么作用？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A0%E9%80%9F%E8%AF%BB%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.3.1.1.</span> <span class="toc-text">加速读实现原理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Change-Buffer%E6%9B%B4%E6%94%B9%E7%BC%93%E5%86%B2%E5%8C%BA%E4%BB%8B%E7%BB%8D%E4%BB%A5%E5%8F%8A%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.4.</span> <span class="toc-text">Change Buffer更改缓冲区介绍以及实现原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E9%80%82%E5%BA%94%E5%93%88%E5%B8%8C%E7%B4%A2%E5%BC%95%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.1.5.</span> <span class="toc-text">自适应哈希索引介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E9%80%82%E5%BA%94%E5%93%88%E5%B8%8C%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.5.1.</span> <span class="toc-text">自适应哈希索引实现原理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#redo-log%E7%BC%93%E5%86%B2%E5%8C%BA"><span class="toc-number">1.1.6.</span> <span class="toc-text">redo log缓冲区</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#redo-log-%E7%BC%93%E5%86%B2%E5%8C%BA%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.6.1.</span> <span class="toc-text">redo log 缓冲区实现原理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MyISAM"><span class="toc-number">1.2.</span> <span class="toc-text">MyISAM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AF%94%E8%BE%83"><span class="toc-number">1.3.</span> <span class="toc-text">比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E4%B8%8B%E6%8E%A8"><span class="toc-number">1.4.</span> <span class="toc-text">索引下推</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">1.4.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E8%B7%B5"><span class="toc-number">1.4.2.</span> <span class="toc-text">实践</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B2%A1%E6%9C%89%E4%BD%BF%E7%94%A8ICP%E7%9A%84%E6%83%85%E5%86%B5"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">没有使用ICP的情况</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8ICP%E7%9A%84%E6%83%85%E5%86%B5"><span class="toc-number">1.4.2.2.</span> <span class="toc-text">使用ICP的情况</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.4.3.</span> <span class="toc-text">使用条件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A9%E5%B1%95"><span class="toc-number">1.5.</span> <span class="toc-text">扩展</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/12/31/image/%E7%AC%AC%E4%B8%80%E5%A4%A9%E7%AC%94%E8%AE%B0/" title="无题">无题</a><time datetime="2022-12-31T04:24:34.153Z" title="发表于 2022-12-31 12:24:34">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/img/index/" title="gallery"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="gallery"/></a><div class="content"><a class="title" href="/2022/12/31/img/index/" title="gallery">gallery</a><time datetime="2022-12-30T18:20:45.000Z" title="发表于 2022-12-31 02:20:45">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/30/hello-world/" title="Hello World"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/12/30/hello-world/" title="Hello World">Hello World</a><time datetime="2022-12-30T09:13:14.141Z" title="发表于 2022-12-30 17:13:14">2022-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Aop注解"/></a><div class="content"><a class="title" href="/2022/12/26/Aop%E6%B3%A8%E8%A7%A3/" title="Aop注解">Aop注解</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎"><img src="/img/post.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flowable 工作流程引擎"/></a><div class="content"><a class="title" href="/2022/12/26/Flowable%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E/" title="Flowable 工作流程引擎">Flowable 工作流程引擎</a><time datetime="2022-12-26T04:40:09.000Z" title="发表于 2022-12-26 12:40:09">2022-12-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/post.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By JaHero</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script src="https://fastly.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
